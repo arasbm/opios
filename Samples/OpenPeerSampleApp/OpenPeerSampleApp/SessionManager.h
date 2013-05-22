@@ -49,6 +49,7 @@
 - (Session*) createSessionForContacts:(NSArray*) contacts andConversationThread:(HOPConversationThread*) inConversationThread;
 - (Session*) createSessionInitiatedFromSession:(Session*) inSession forContactUserIds:(NSString*) userIds;
 - (Session*) createRemoteSessionForContacts:(NSArray*) participants;
+- (Session*) proceedWithExistingSessionForContact:(Contact*) contact newConversationThread:(HOPConversationThread*) inConversationThread;
 - (Session*) getSessionForContact:(Contact*) contact;
 - (Session*) getSessionForSessionId:(NSString*) sessionId;
 - (void) endSession:(Session*) session;

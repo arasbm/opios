@@ -357,6 +357,12 @@
     [self.sessionViewControllersDictionary removeObjectForKey:sessionId];
 }
 
+- (void) updateSessionViewControllerId:(NSString*) oldSessionId newSesionId:(NSString*) newSesionId
+{
+    ActiveSessionViewController* svc = [self.sessionViewControllersDictionary objectForKey:oldSessionId];
+    [self removeSessionViewControllerForSession:oldSessionId];
+    [self.sessionViewControllersDictionary setObject:svc forKey:newSesionId];
+}
 /**
  Prepare specific session vire controller for incoming call
  @param session Session with incomming call

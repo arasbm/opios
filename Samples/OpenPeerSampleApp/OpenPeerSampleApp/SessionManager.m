@@ -203,6 +203,23 @@
     return sessionThatWillInitiateRemoteSession;
 }
 
+- (Session*) proceedWithExistingSessionForContact:(Contact*) contact newConversationThread:(HOPConversationThread*) inConversationThread
+{
+    Session* ret = [self getSessionForContact:contact];
+    if (ret)
+    {
+        NSString* oldSessionId = [ret.conversationThread getThreadId];
+        NSString* newSessionId = [inConversationThread getThreadId];
+        
+        ret.conversationThread = inConversationThread;
+        
+        [self.sessionsDictionary removeObjectForKey:oldSessionId];
+        [self.sessionsDictionary setObject:ret forKey:newSessionId];
+        
+        [[[OpenPeer sharedOpenPeer] mainViewController] updateSessionViewControllerId:oldSessionId newSesionId:newSessionId];
+    }
+    return ret;
+}
 /**
  Get active session for contact.
  @param contacts Contact One of the participants.

@@ -61,7 +61,13 @@
                 }
             }
             
-            [[SessionManager sharedSessionManager] createSessionForContacts:contacts andConversationThread:conversationThread];
+            if ([contacts count] > 0)
+            {
+                if (![[SessionManager sharedSessionManager] proceedWithExistingSessionForContact:[contacts objectAtIndex:0] newConversationThread:conversationThread])
+                {
+                    [[SessionManager sharedSessionManager] createSessionForContacts:contacts andConversationThread:conversationThread];
+                }
+            }
         }
     });
 }
