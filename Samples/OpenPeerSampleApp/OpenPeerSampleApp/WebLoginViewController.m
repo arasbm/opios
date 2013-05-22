@@ -70,7 +70,6 @@
 
 - (void) openLoginUrl:(NSString*) url
 {
-    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Opening login page ..." inView:self.view.superview];
     [self.loginWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
 }
 
@@ -117,7 +116,7 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     //Login page is opened, so remove the activity indicator
-    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
+    //[[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
     
     NSString *requestString = [[[webView request] URL] absoluteString];
     if (!self.outerFrameInitialised && [requestString isEqualToString:outerFrameURL])

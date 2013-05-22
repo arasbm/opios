@@ -406,7 +406,7 @@
 
 - (void) startVideoRecording
 {
-    NSLog(@"Video recording stopped.");
+    NSLog(@"Video recording started.");
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"dd-MM-yyyy-HH-mm"];
     

@@ -148,7 +148,7 @@
 {
     if (webLoginViewController)
     {
-        [self removeAllSubViews];
+        //[self removeAllSubViews];
         [self.view addSubview:webLoginViewController.view];
     }
 }

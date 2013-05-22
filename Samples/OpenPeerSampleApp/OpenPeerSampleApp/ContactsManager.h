@@ -38,8 +38,8 @@
 
 @interface ContactsManager : NSObject<UIWebViewDelegate>
 
-@property (nonatomic, strong) NSMutableArray *contactArray;
-//@property (nonatomic, strong) NSMutableDictionary *contactsDictionaryByProvider; //This is dictionary of dictionaries. Each provider has its own dictionary with contacts whose keys are contact provider id
+@property (nonatomic, strong) NSArray *contactArray;
+@property (nonatomic, strong) NSMutableDictionary *contactsDictionaryByProvider; //This is dictionary of dictionaries. Each provider has its own dictionary with contacts whose keys are contact provider id
 @property (nonatomic, strong) NSMutableDictionary *contactsDictionaryByIndentityURI;
 @property (nonatomic, strong) NSMutableDictionary *contactsDictionary;
 @property (nonatomic, strong) UIWebView *linkedinContactsWebView;
@@ -48,10 +48,10 @@
 
 - (void) loadContacts;
 
-- (void)contactsLookupQuery:(NSArray *)contacts;
+- (void)contactsLookupQuery:(NSArray *)contacts forBaseIdentityURI:(NSString*) baseIdentityURI;
 - (void)peerFileLookupQuery:(NSArray *)contacts;
 
-- (Contact*) getContactForIdentities:(NSArray*) identities;
+- (Contact*) getContactForBaseIdentityURI:(NSString*) identityURI contactId:(NSString*) contactId;
 - (Contact*) getContactForID:(NSString*) uniqueID;
 
 - (void) checkAvailability;

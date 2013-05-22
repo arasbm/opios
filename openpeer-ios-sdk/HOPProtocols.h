@@ -105,13 +105,6 @@
 - (void) onConversationThreadPushMessage:(HOPConversationThread*) conversationThread messageID:(NSString*) messageID contact:(HOPContact*) contact;
 @end
 
-@class HOPProvisioningAccountIdentityLookupQuery;
-@protocol HOPProvisioningAccountIdentityLookupQueryDelegate <NSObject>
-@required
-- (void) onAccountIdentityLookupQueryComplete:(HOPProvisioningAccountIdentityLookupQuery*) query;
-//- (void) onAccountIdentityLookupQueryComplete:(NSArray*) listOfCoreContacts;
-@end
-
 @class HOPProvisioningAccountPeerFileLookupQuery;
 @protocol HOPProvisioningAccountPeerFileLookupQueryDelegate <NSObject>
 @required

@@ -46,7 +46,7 @@
 @property (nonatomic, strong) NSString *contactId;
 @property (nonatomic, assign) long lastProfileUpdateTimestamp;
 
-@property (strong) NSMutableArray* identities;
+@property (strong) NSMutableDictionary* dictionaryIdentities;
 @property (strong) NSMutableArray* listOfContactsInCallSession;
 
 - (id) initWithFullName:(NSString*) inFullName profession:(NSString*) inProfession avatarUrl:(NSString*) inAvatarUrl identityProvider:(NSString*) identityBaseURI identityContactId:(NSString*) identityContactId;

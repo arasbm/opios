@@ -37,5 +37,6 @@
 
 + (NSDate*) convertPosixTimeToDate:(boost::posix_time::ptime) time;
 + (NSString*) getBaseIdentityURIFromURI:(NSString*) identityURI;
++ (NSString*) getContactIdFromURI:(NSString*) identityURI;
 + (BOOL) isBaseIdentityURI:(NSString*) identityURI;
 @end

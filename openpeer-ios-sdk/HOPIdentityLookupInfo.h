@@ -49,6 +49,9 @@
 @property (nonatomic, strong) NSMutableArray* avatars;
 @property (nonatomic, weak) HOPContact* contact;
 
+@property (nonatomic, strong) NSString* baseIdentityURI;
+@property (nonatomic, strong) NSString* contactId;
+
 @property (nonatomic, strong) NSString* identityURI;
 @property (nonatomic, strong) NSString* userID;
 

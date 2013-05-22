@@ -44,16 +44,11 @@
         self.fullName = inFullName;
         self.profession = inProfession;
         self.avatarUrl = inAvatarUrl;
-        self.identities = [[NSMutableArray alloc] init];
+        self.dictionaryIdentities = [[NSMutableDictionary alloc] init];
         self.listOfContactsInCallSession = [[NSMutableArray alloc] init];
         
         if ([identityContactId length] > 0)
-        {
-            HOPIdentity* identity = [[HOPIdentity alloc] init];
-            identity.identityBaseURI = identityBaseURI;
-            identity.identityId = identityContactId;
-            [self.identities addObject:identity];
-        }
+            [self.dictionaryIdentities setObject:identityContactId forKey:identityBaseURI];
     }
     return self;
 }

@@ -57,15 +57,20 @@
         {
             if (inIdentityLookupInfo.mContact)
             {
+                //Get a stable id and retrieve or create a contact for the provided stable id.
                 NSString* stableUniqueId = [NSString stringWithCString:inIdentityLookupInfo.mContact->getStableUniqueID() encoding:NSUTF8StringEncoding];
                 if (stableUniqueId)
                     self.contact = [[OpenPeerStorageManager sharedStorageManager] getContactForId:stableUniqueId];
+                
                 if (!self.contact)
-                    self.contact = [[HOPContact alloc] initWithCoreContact:inIdentityLookupInfo.mContact];
+                    self.contact = [[HOPContact alloc] initWithCoreContact:inIdentityLookupInfo.mContact]; //It is weak property, becase contact is stored in the OpenPeerStorageManager
             }
     
             self.identityURI = [NSString stringWithCString:inIdentityLookupInfo.mIdentityURI encoding:NSUTF8StringEncoding];
             self.userID = [NSString stringWithCString:inIdentityLookupInfo.mUserID encoding:NSUTF8StringEncoding];
+            
+            self.baseIdentityURI = [OpenPeerUtility getBaseIdentityURIFromURI:self.identityURI];
+            self.contactId = [OpenPeerUtility getContactIdFromURI:self.identityURI];
             
             self.priority = inIdentityLookupInfo.mPriority;
             self.weight = inIdentityLookupInfo.mWeight;

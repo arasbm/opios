@@ -138,8 +138,8 @@
     [[OpenPeerUser sharedOpenPeerUser] deleteUserData];
     
     //Remove all contacts
-    [[[ContactsManager sharedContactsManager] contactArray] removeAllObjects];
-    //[[[ContactsManager sharedContactsManager] contactsDictionaryByProvider] removeAllObjects];
+    //[[[ContactsManager sharedContactsManager] contactArray] removeAllObjects];
+    [[[ContactsManager sharedContactsManager] contactsDictionaryByProvider] removeAllObjects];
     
     //Call to the SDK in order to shutdown Open Peer engine.
     [[HOPAccount sharedAccount] shutdown];
@@ -194,7 +194,10 @@
     [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
     
     if ([url length] > 0)
-        [self.webLoginViewController openLoginUrl:url];    
+    {
+        [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Opening login page ..." inView:[[[OpenPeer sharedOpenPeer] mainViewController] view]];
+        [self.webLoginViewController openLoginUrl:url];
+    }
 }
 
 - (void) onOuterFrameLoaded
