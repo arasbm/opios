@@ -155,10 +155,6 @@
     [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Getting identity login url ..." inView:[[[[OpenPeer sharedOpenPeer] mainViewController] loginViewController] view]];
     
     HOPIdentity* hopIdentity = [HOPIdentity loginWithDelegate:(id<HOPIdentityDelegate>)[[OpenPeer sharedOpenPeer] identityDelegate] redirectAfterLoginCompleteURL:afterLoginCompleteURL identityURIOridentityBaseURI:identityURI identityProviderDomain:identityProviderDomain];
-    //[((OpenPeerUser*)[OpenPeerUser sharedOpenPeerUser]).associatedIdentities setObject:hopIdentity forKey:identityURI];
-    
-    //if (hopIdentity)
-        //[[HOPAccount sharedAccount] loginWithAccountDelegate:(id<HOPAccountDelegate>)[[OpenPeer sharedOpenPeer] accountDelegate] conversationThreadDelegate:(id<HOPConversationThreadDelegate>) [[OpenPeer sharedOpenPeer] conversationThreadDelegate]  callDelegate:(id<HOPCallDelegate>) [[OpenPeer sharedOpenPeer] callDelegate]  peerContactServiceDomain:identityProviderDomain identity:hopIdentity];
 }
 
 
@@ -171,15 +167,6 @@
     [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Relogin ..." inView:[[[OpenPeer sharedOpenPeer] mainViewController] view]];
     
     [[HOPAccount sharedAccount] reloginWithAccountDelegate:(id<HOPAccountDelegate>) [[OpenPeer sharedOpenPeer] accountDelegate] conversationThreadDelegate:(id<HOPConversationThreadDelegate>)[[OpenPeer sharedOpenPeer] conversationThreadDelegate]  callDelegate:(id<HOPCallDelegate>)[[OpenPeer sharedOpenPeer] callDelegate] peerFilePrivate:[[OpenPeerUser sharedOpenPeerUser] privatePeerFile]  peerFilePrivateSecret:[[OpenPeerUser sharedOpenPeerUser] privatePeerFileSecret]];
-    /*
-    //Information about login identity.
-    HOPIdentityInfo* identityInfoLI = [[HOPIdentityInfo alloc] init];
-    identityInfoLI.type = HOPProvisioningAccountIdentityTypeLinkedInID;
-    HOPIdentityInfo* identityInfoFB = [[HOPIdentityInfo alloc] init];
-    identityInfoFB.type = HOPProvisioningAccountIdentityTypeFacebookID;
-    
-    //Call to the SDK in order to setup delegate for the OAuth relogin process, and to initiate OAuth relogin. This method call also requires that user will provide information which is saved after the last successful login process. This information is required in order to successfuly access existing account and fetch private peer password.
-    [[HOPProvisioningAccount sharedProvisioningAccount] reloginWithProvisioningAccountDelegate:(id<HOPProvisioningAccountDelegate>)[[OpenPeer sharedOpenPeer] provisioningAccountDelegate] provisioningURI:provisioningURI deviceToken:@"" userID:[[OpenPeerUser sharedOpenPeerUser] userId] accountSalt:[[OpenPeerUser sharedOpenPeerUser] accountSalt] passwordNonce:[[OpenPeerUser sharedOpenPeerUser] passwordNonce] password:[[OpenPeerUser sharedOpenPeerUser] peerFilePassword] privatePeerFile:[[OpenPeerUser sharedOpenPeerUser] privatePeerFile] lastProfileUpdatedTimestamp:[[OpenPeerUser sharedOpenPeerUser] lastProfileUpdateTimestamp]  previousIdentities:[NSArray arrayWithObjects: identityInfoFB, nil ]];*/
 }
 
 /**
@@ -200,18 +187,21 @@
     }
 }
 
+/**
+ Outer frame of login page is loaded, so it is time now to initiate a inner frame.
+ */
 - (void) onOuterFrameLoaded
 {
-//    NSString* innerFRame = @"http://example-unstable.hookflash.me/inner.html";
-//    NSString* innerFRame2 = [self.loginIdentity getIdentityLoginURL];
     NSString* jsMethod = [NSString stringWithFormat:@"initInnerFrame(\'%@\')",[self.loginIdentity getIdentityLoginURL]];
     [self.webLoginViewController passMessageToJS:jsMethod];;
 }
 
+/**
+ Passes JSON message received from core to JS in inner frame in login page.
+ @param message NSString JSON message to pass
+ */
 - (void) onMessageForJS: (NSString*) message
 {
-  //    NSString* innerFRame = @"http://example-unstable.hookflash.me/inner.html";
-  //    NSString* innerFRame2 = [self.loginIdentity getIdentityLoginURL];
   NSString* jsMethod = [NSString stringWithFormat:@"sendNotifyBundleToInnerFrame(\'%@\')", message];
   [self.webLoginViewController passMessageToJS:jsMethod];;
 }
@@ -220,6 +210,7 @@
 {
     [self.loginIdentity notifyLoginCompleteBrowserWindowRedirection];
 }
+
 - (void) makeLoginWebViewVisible:(BOOL) isVisible
 {
     self.webLoginViewController.view.hidden = !isVisible;
@@ -227,18 +218,14 @@
     {
         [[[OpenPeer sharedOpenPeer] mainViewController] showWebLoginView:self.webLoginViewController];
         [self.webLoginViewController.view setFrame:[[OpenPeer sharedOpenPeer] mainViewController].view.bounds];
-        //[[[OpenPeer sharedOpenPeer] mainViewController].view addSubview:self.webLoginViewController.view];
     }
 }
 
 - (void) onIdentityLoginFinished:(HOPIdentity*) identity
 {
-    //[[OpenPeerUser sharedOpenPeerUser] setIdentityURI:[self.loginIdentity getIdentityURI]];
     [[[OpenPeerUser sharedOpenPeerUser] dictionaryIdentities] setObject:[identity getIdentityURI] forKey:[identity identityBaseURI]];
     
     [[HOPAccount sharedAccount] loginWithAccountDelegate:(id<HOPAccountDelegate>) [[OpenPeer sharedOpenPeer] accountDelegate] conversationThreadDelegate:(id<HOPConversationThreadDelegate>)[[OpenPeer sharedOpenPeer] conversationThreadDelegate]  callDelegate:(id<HOPCallDelegate>)[[OpenPeer sharedOpenPeer] callDelegate] peerContactServiceDomain:peerContactServiceDomain identity:identity];
-    //[[OpenPeerUser sharedOpenPeerUser] setIdentityURI:[identity getIdentityURI]];
-    //[[[OpenPeerUser sharedOpenPeerUser] dictionaryIdentities] setObject:[identity getIdentityURI] forKey:[identity identityBaseURI]];
 }
 
 - (void) onIdentityassociationFinished:(HOPIdentity*) identity
@@ -251,106 +238,7 @@
 {
     [self.webLoginViewController passMessageToJS:message];
 }
-/**
- Handles web view event when OAuth procedure is completed within web view.
- @param url NSString Login URL.
- */
-/*
-- (void) onCredentialProviderResponseReceived:(NSString*) url
-{
-    XMLWriter *xmlWriter = [[XMLWriter alloc] init];
-    [xmlWriter writeStartElement:@"result"];
-    [xmlWriter writeAttribute:@"xmlns" value:@"http://www.hookflash.com/provisioning/1.0/message"];
-    [xmlWriter writeAttribute:@"method" value:@"oauth-login-webpage"];
-    [xmlWriter writeAttribute:@"id" value:@"abc"];
-    NSArray *array = [url componentsSeparatedByString:@"&"];
 
-    for (NSString* element in array)
-    {
-        NSArray *attributeValue = [element componentsSeparatedByString:@"="];
-        NSString *attribute = [attributeValue objectAtIndex:0];
-        NSString *value = [attributeValue objectAtIndex:1];
-
-        if ([attribute isEqualToString:@"properties"])
-        {
-            NSString *decodedValue = (NSString *) CFBridgingRelease(CFURLCreateStringByReplacingPercentEscapesUsingEncoding(NULL, (CFStringRef) [value stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding], CFSTR(""), kCFStringEncodingUTF8));
-            decodedValue = (NSString *) CFBridgingRelease(CFURLCreateStringByReplacingPercentEscapesUsingEncoding(NULL, (CFStringRef) [decodedValue stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding], CFSTR(""), kCFStringEncodingUTF8));
-            
-            NSString *decodedAccountProperties = [Utility decodeBase64:decodedValue];
-            //    result is in format: "stun=173.192.183.148&stun=173.192.183.147&stun=173.192.183.146$turn=173.192.183.146|toto|toto&turn=173.192.183.147|toto4|toto4&turn=173.192.183.148|toto|toto"
-            //networkURI=http://bootstrapper.hookflash.me&stun=173.192.183.147&stun=173.192.183.146&stun=173.192.183.148$turn=173.192.183.147|toto2|toto2&turn=173.192.183.148|toto4|toto4&turn=173.192.183.146|toto3|toto3
-            [xmlWriter writeStartElement:attribute];
-            NSArray *attributeArray = [decodedAccountProperties componentsSeparatedByString:@"&"];
-            NSArray *pair = [[attributeArray objectAtIndex:0] componentsSeparatedByString:@"="];
-            NSString *propertiesAttribute = [pair objectAtIndex:0];
-            NSString *propertiesValue = [pair objectAtIndex:1];
-            [xmlWriter writeStartElement:propertiesAttribute];
-            [xmlWriter writeCharacters:propertiesValue];
-            [xmlWriter writeEndElement];
-            
-            NSRange replaceRange = [decodedAccountProperties rangeOfString:@"&"];
-            NSString *decodedStunsAndTurns = [decodedAccountProperties substringFromIndex:replaceRange.location+1  ];
-            
-            
-            NSArray *stunsAndTurnsArray = [decodedStunsAndTurns componentsSeparatedByString:@"$"];
-            
-            NSArray *stuns = [[stunsAndTurnsArray objectAtIndex:0] componentsSeparatedByString:@"&"];
-            NSArray *turns = [[stunsAndTurnsArray objectAtIndex:1] componentsSeparatedByString:@"&"];
-            
-            [xmlWriter writeStartElement:@"turnServer"];
-            NSString *turnAddressString = @"";
-            for (NSString* turn in turns)
-            {
-                NSString *turnAddressValue = [[[[turn componentsSeparatedByString:@"="] objectAtIndex:1] componentsSeparatedByString:@"|"] objectAtIndex:0];
-                if (![turnAddressString isEqualToString:@""])
-                {
-                    turnAddressString = [turnAddressString stringByAppendingString:@","];
-                }
-                turnAddressString = [turnAddressString stringByAppendingString:turnAddressValue];
-            }
-            [xmlWriter writeCharacters:turnAddressString];
-            [xmlWriter writeEndElement];
-            NSString *turnUsername = [[[turns objectAtIndex:0] componentsSeparatedByString:@"|"] objectAtIndex:1];
-            NSString *turnPassword = [[[turns objectAtIndex:0] componentsSeparatedByString:@"|"] objectAtIndex:2];;
-            [xmlWriter writeStartElement:@"turnUsername"];
-            [xmlWriter writeCharacters:turnUsername];
-            [xmlWriter writeEndElement];
-            [xmlWriter writeStartElement:@"turnPassword"];
-            [xmlWriter writeCharacters:turnPassword];
-            [xmlWriter writeEndElement];
-            
-            [xmlWriter writeStartElement:@"stunServer"];
-            NSString *stunsString = @"";
-            for (NSString* stun in stuns)
-            {
-                NSString *stunValue = [[stun componentsSeparatedByString:@"="] objectAtIndex:1];
-                if (![stunsString isEqualToString:@""])
-                {
-                    stunsString = [stunsString stringByAppendingString:@","];
-                }
-                stunsString = [stunsString stringByAppendingString:stunValue];
-            }
-            [xmlWriter writeCharacters:stunsString];
-            [xmlWriter writeEndElement];
-            
-            [xmlWriter writeEndElement];
-        }
-        else
-        {
-            // add key-value
-            [xmlWriter writeStartElement:attribute];
-            [xmlWriter writeCharacters:value];
-            [xmlWriter writeEndElement];
-            
-            
-        }
-    }
-    [xmlWriter writeEndElement];
-
-    //SDK call to finalize OAuth login process. After returning from webview, XML is formed and information is sent to the SDK to complete login process.
-    [[HOPProvisioningAccount sharedProvisioningAccount] completeOAuthLoginProcess:[xmlWriter toString]];
-}
-*/
 /**
  Handles SDK event after login is successful.
  */

@@ -173,7 +173,7 @@ using namespace hookflash::core;
 }
 
 
-- (NSString*) savePeerFilePrivate
+- (NSString*) getPeerFilePrivate
 {
     NSString* xml = nil;
     if(accountPtr)
@@ -276,7 +276,7 @@ using namespace hookflash::core;
     [self getAccountPtr]->associateIdentities(identitiesToAssociate, identitiesToRemove);
 }
 
-+ (NSString*) toStringAccountState:(HOPAccountStates) state
++ (NSString*) stateToString:(HOPAccountStates) state
 {
     return [NSString stringWithUTF8String: IAccount::toString((IAccount::AccountStates) state)];
 }

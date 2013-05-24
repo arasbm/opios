@@ -43,29 +43,88 @@
 
 @end
 
+/**
+ Singleton class to represent the logged in openpeer user.
+ */
 @interface HOPAccount : NSObject
 
 + (HOPAccount*) sharedAccount;
 
-+ (NSString*) toStringAccountState:(HOPAccountStates) state;
+/**
+ Converts account state enum to string
+ @param state HOPAccountStates Account state enum
+ @returns String representation of account state
+ */
++ (NSString*) stateToString:(HOPAccountStates) state;
 
+/**
+ Login method for verified identity.
+ @param inAccountDelegate HOPAccountDelegate delegate
+ @param inConversationThreadDelegate HOPConversationThreadDelegate delegate
+ @param inCallDelegate HOPCallDelegate delegate
+ @param inPeerContactServiceDomain NSString peer contact service domain
+ @param inIdentity HOPIdentity identity for which user is being logged in. In case user wants to associate more identites, after successfull login should call associateIdentities and provide list of identities to assoicate.
+ @returns YES if IAccount object is created sucessfully
+ */
 - (BOOL) loginWithAccountDelegate:(id<HOPAccountDelegate>) inAccountDelegate conversationThreadDelegate:(id<HOPConversationThreadDelegate>) inConversationThreadDelegate callDelegate:(id<HOPCallDelegate>) inCallDelegate peerContactServiceDomain:(NSString*) inPeerContactServiceDomain identity:(HOPIdentity*) inIdentity;
 
+/**
+ Relogin method for exisitng user.
+ @param inAccountDelegate HOPAccountDelegate delegate
+ @param inConversationThreadDelegate HOPConversationThreadDelegate delegate
+ @param inCallDelegate HOPCallDelegate delegate
+ @param peerFilePrivate NSString private peer file
+ @param peerFilePrivateSecret NSData private peer file secret
+ @returns YES if IAccount object is created sucessfully
+ */
 - (BOOL) reloginWithAccountDelegate:(id<HOPAccountDelegate>) inAccountDelegate conversationThreadDelegate:(id<HOPConversationThreadDelegate>) inConversationThreadDelegate callDelegate:(id<HOPCallDelegate>) inCallDelegate peerFilePrivate:(NSString*) inPeerFilePrivate peerFilePrivateSecret:(NSData*) inPeerFilePrivateSecret;
 
+/**
+ Retrieves account state
+ @returns Account state enum
+ */
 - (HOPAccountState*) getState;
 
+/**
+ Retrieves logged in user id
+ @returns User id
+ */
 - (NSString*) getUserID;
 
+/**
+ Retrieves user location id.
+ @returns location id
+ */
 - (NSString*) getLocationID;
 
+/**
+ Shutdowns account object. Called on logout.
+ */
 - (void) shutdown;
 
-- (NSString*) savePeerFilePrivate;
+/**
+ Retrieves user private peer file.
+ @returns private peer file
+ */
+- (NSString*) getPeerFilePrivate;
+
+/**
+ Retrieves user's private peer file secret.
+ @returns private peer file secret
+ */
 - (NSData*) getPeerFilePrivateSecret;
 
+/**
+ Retrieves list of associated identites.
+ @returns list of associated identites
+ */
 - (NSArray*) getAssociatedIdentities;
 
+/**
+ Associates or removes identites provided in input lists.
+ @param inIdentitiesToAssociate NSArray List of identites to associate with logged in user
+ @param inIdentitiesToRemove NSArray List of identites to remove for logged in user
+ */
 - (void) associateIdentities:(NSArray*) inIdentitiesToAssociate identitiesToRemove:(NSArray*) inIdentitiesToRemove;
 
 @end

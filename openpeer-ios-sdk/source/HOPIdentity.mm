@@ -58,8 +58,11 @@
     
     IIdentityPtr identity = IIdentity::login(identityDelegatePtr, [redirectAfterLoginCompleteURL UTF8String], [identityURIOridentityBaseURI UTF8String], [identityProviderDomain UTF8String]);
     
-    ret = [[self alloc] initWithIdentityPtr:identity openPeerIdentityDelegate:identityDelegatePtr];
-    [[OpenPeerStorageManager sharedStorageManager] setIdentity:ret forId:identityURIOridentityBaseURI];
+    if (identity)
+    {
+        ret = [[self alloc] initWithIdentityPtr:identity openPeerIdentityDelegate:identityDelegatePtr];
+        [[OpenPeerStorageManager sharedStorageManager] setIdentity:ret forId:identityURIOridentityBaseURI];
+    }
     return ret;
 }
 
@@ -250,7 +253,7 @@
     }
 }
 
-+ toStringIdentityState:(HOPIdentityStates) state
++ stateToString:(HOPIdentityStates) state
 {
     return [NSString stringWithUTF8String: IIdentity::toString((IIdentity::IdentityStates) state)];
 }

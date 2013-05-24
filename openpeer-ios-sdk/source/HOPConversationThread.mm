@@ -46,48 +46,12 @@ using namespace hookflash::core;
 
 @implementation HOPConversationThread
 
-+ (NSString*) stringForMessageDeliveryState:(HOPConversationThreadMessageDeliveryStates) state
-{
-    return [NSString stringWithUTF8String: IConversationThread::toString((IConversationThread::MessageDeliveryStates) state)];
-}
-
-+ (NSString*) stringForContactState:(HOPConversationThreadContactStates) state
-{
-    return [NSString stringWithUTF8String: IConversationThread::toString((IConversationThread::ContactStates) state)];
-}
-
-+ (NSString*) debugStringForConversationThread:(HOPConversationThread*) conversationThread includeCommaPrefix:(BOOL) includeCommaPrefix
-{
-    return [NSString stringWithUTF8String: IConversationThread::toDebugString([conversationThread getConversationThreadPtr],includeCommaPrefix)];
-}
-
-//HOP_TODO: Check is this required
-+ (HOPConversationThread*) conversationThreadWithAccount:(HOPAccount*) account profileBundle:(NSString*) profileBundle
-{
-    HOPConversationThread* ret = nil;
-    
-    zsLib::XML::ElementPtr elementPtr;
-    
-    if ([profileBundle length] > 0)
-        elementPtr = IHelper::createFromString([profileBundle UTF8String]);
-    else
-        elementPtr = zsLib::XML::ElementPtr();
-    
-    IConversationThreadPtr tempConversationThreadPtr = IConversationThread::create([account getAccountPtr], elementPtr);
-    
-    if (tempConversationThreadPtr)
-    {
-        ret = [[self alloc] initWithConversationThread:tempConversationThreadPtr];
-    }
-    return ret;//[ret autorelease];
-}
-
-+ (NSArray*) getConversationThreadsForAccount:(HOPAccount*) account
++ (NSArray*) getConversationThreadsForAccount
 {
     return [[OpenPeerStorageManager sharedStorageManager] getConversationThreads];
 }
 
-+ (HOPConversationThread*) getConversationThreadForAccount:(HOPAccount*) account threadID:(NSString*) threadID
++ (HOPConversationThread*) getConversationThreadForID:(NSString*) threadID
 {
     HOPConversationThread* ret = nil;
     if (threadID)
@@ -99,15 +63,22 @@ using namespace hookflash::core;
 {
     return [NSString stringWithUTF8String: IConversationThread::toString((IConversationThread::MessageDeliveryStates) state)];
 }
++ (NSString*) stringForMessageDeliveryState:(HOPConversationThreadMessageDeliveryStates) state
+{
+    return [NSString stringWithUTF8String: IConversationThread::toString((IConversationThread::MessageDeliveryStates) state)];
+}
 
 + (NSString*) stateToString: (HOPConversationThreadContactStates) state
+{
+    return [NSString stringWithUTF8String: IConversationThread::toString((IConversationThread::ContactStates) state)];
+}
++ (NSString*) stringForContactState:(HOPConversationThreadContactStates) state
 {
     return [NSString stringWithUTF8String: IConversationThread::toString((IConversationThread::ContactStates) state)];
 }
 
 - (id)init
 {
-    //[self release];
     [NSException raise:NSInvalidArgumentException format:@"Don't use init for object creation. Use class method conversationThreadWithProfileBundle."];
     return nil;
 }
@@ -142,27 +113,6 @@ using namespace hookflash::core;
     }
     return ret;//[ret autorelease];
 }
-
-/*- (id) initWithProfileBundle:(NSString*) profileBundle
-{
-    self = [super init];
-    if (self)
-    {
-        zsLib::XML::ElementPtr elementPtr;
-        if ([profileBundle length] > 0)
-            elementPtr = IXML::createFromString([profileBundle UTF8String]);
-        else
-            elementPtr = zsLib::XML::ElementPtr();
-        
-        conversationThreadPtr = IConversationThread::create([[[HOPProvisioningAccount sharedProvisioningAccount] getOpenPeerAccount] getAccountPtr], elementPtr);
-        if (!conversationThreadPtr)
-        {
-            [self release];
-            return nil;
-        }
-    }
-    return self;
-}*/
 
 - (NSString*) getThreadId
 {
@@ -204,7 +154,6 @@ using namespace hookflash::core;
     if (conversationThreadPtr)
     {
         contactArray = [[NSMutableArray alloc] init];
-        //IConversationThread::ContactList contactList;
         ContactListPtr contactList = conversationThreadPtr->getContacts();
         
         for (ContactList::iterator contact = contactList->begin(); contact != contactList->end(); ++contact)
@@ -401,6 +350,11 @@ using namespace hookflash::core;
         [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer conversation thread pointer!"];
     }
     return ret;
+}
+
+- (NSString *)description
+{
+    return [NSString stringWithUTF8String: IConversationThread::toDebugString([self getConversationThreadPtr],NO)];
 }
 
 #pragma mark - Internal methods

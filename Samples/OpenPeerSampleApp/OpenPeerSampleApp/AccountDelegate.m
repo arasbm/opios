@@ -45,7 +45,7 @@
 //- (void)onAccountStateChanged:(HOPAccount *)account accountState:(HOPAccountStates)accountState
 - (void) account:(HOPAccount*) account stateChanged:(HOPAccountStates) accountState
 {
-    NSLog(@"HOPAccount state: %@", [HOPAccount toStringAccountState:accountState]);
+    NSLog(@"HOPAccount state: %@", [HOPAccount stateToString:accountState]);
     
     dispatch_async(dispatch_get_main_queue(), ^
     {

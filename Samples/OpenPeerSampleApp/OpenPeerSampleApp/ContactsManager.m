@@ -41,12 +41,10 @@
 #import "Constants.h"
 #import "Utility.h"
 #import "SBJsonParser.h"
-//#import <OpenpeerSDK/HOPProvisioningAccount.h>
 #import <OpenpeerSDK/HOPIdentityLookup.h>
 #import <OpenpeerSDK/HOPIdentityLookupInfo.h>
 #import <OpenpeerSDK/HOPIdentity.h>
 #import <OpenpeerSDK/HOPContact.h>
-//#import <OpenpeerSDK/HOPLookupProfileInfo.h>
 #import <OpenpeerSDK/HOPContactPeerFilePublicLookup.h>
 
 @interface ContactsManager ()
@@ -280,16 +278,6 @@
         [[OpenPeerUser sharedOpenPeerUser] setFullName:fullName];
         [[OpenPeerUser sharedOpenPeerUser] saveUserData];
     }
- 
- //Provider key for Facebook
- // NSNumber* providerKey = [NSNumber numberWithInt:HOPProvisioningAccountIdentityTypeFacebookID];
- //if (providerKey)
-     //[[OpenPeerUser sharedOpenPeerUser] setProviderKey:providerKey];
- 
- //User facebook id
- //NSString* cotnactProviderId = [result objectForKey:keyJSONContactId];
-    //if ([cotnactProviderId length] > 0)
-     //[[OpenPeerUser sharedOpenPeerUser] setContactProviderId:cotnactProviderId];
 }
 
 /**
@@ -527,14 +515,6 @@
 }
 
 
-#pragma mark - HOPProvisioningAccountPeerFileLookupQueryDelegate
-- (void) onAccountPeerFileLookupQueryComplete:(HOPProvisioningAccountPeerFileLookupQuery*) query
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoaded];
-    });
-}
-
 - (void) refreshListOfContacts
 {
     NSArray* listOfContacts = [[NSArray alloc] init];
@@ -543,7 +523,6 @@
     for (NSDictionary* dictionaryOfContacts in [self.contactsDictionaryByProvider allValues])
     {
         setOfContacts = [setOfContacts setByAddingObjectsFromArray:[dictionaryOfContacts allValues]];
-                         //listOfContacts = [listOfContacts arrayByAddingObjectsFromArray:[dictionaryOfContacts allValues]];
     }
     
     if ([setOfContacts count] > 0)

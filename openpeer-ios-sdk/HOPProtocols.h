@@ -39,9 +39,6 @@
 
 @optional
 - (void) onStackShutdown;
-
-//IClientDelegate method wrapper
-- (void) onMessagePutInGUIQueue;
 @end
 
 @protocol HOPLoggerDelegate <NSObject>
@@ -60,7 +57,7 @@
 - (void) onMediaEngineVideoCaptureRecordStopped;
 @end
 
-#pragma mark - Provisioning account for future use delegate
+
 @class HOPAccount;
 
 @protocol HOPAccountDelegate <NSObject>
@@ -74,28 +71,17 @@
 @class HOPCall;
 
 @protocol HOPCallDelegate <NSObject>
+
 @required
 - (void) onCallStateChanged:(HOPCall*) call callState:(HOPCallStates) callState;
-
-
 @end
 
 
-//@protocol HOPClientDelegate <NSObject>
-//@optional
-//- (void) onMessagePutInGUIQueue;
-//@end
-//
-//
-//@protocol HOPClientLogDelegate <NSObject>
-//@optional
-//- (void) onNewSubsystem:(unsigned short) subsystemUniqueID subsystemName:(NSString*) subsystemName;
-//- (void) onLog:(unsigned short) subsystemUniqueID subsystemName:(NSString*)subsystemName severity:(HOPClientLogSeverities) severity level:(HOPClientLogLevels) level message:(NSString*) message function:(NSString*) function filePath:(NSString*) filePath lineNumber:(unsigned long) lineNumber;
-//@end
-
 @class HOPConversationThread;
 @class HOPContact;
+
 @protocol HOPConversationThreadDelegate <NSObject>
+
 @required
 - (void) onConversationThreadNew:(HOPConversationThread*) conversationThread;
 - (void) onConversationThreadContactsChanged:(HOPConversationThread*) conversationThread;
@@ -105,41 +91,6 @@
 - (void) onConversationThreadPushMessage:(HOPConversationThread*) conversationThread messageID:(NSString*) messageID contact:(HOPContact*) contact;
 @end
 
-@class HOPProvisioningAccountPeerFileLookupQuery;
-@protocol HOPProvisioningAccountPeerFileLookupQueryDelegate <NSObject>
-@required
-- (void) onAccountPeerFileLookupQueryComplete:(HOPProvisioningAccountPeerFileLookupQuery*) query;
-
-@end
-
-@class HOPAccountPush;
-@protocol HOPAPNSDelegate <NSObject>
-@required
-- (void) onAccountPushComplete:(HOPAccountPush*) pushObject;
-
-@end
-
-@class HOPAccountOAuthIdentityAssociation;
-@protocol HOPProvisioningAccountOAuthIdentityAssociationDelegate <NSObject>
-
-- (void) onAccountOAuthIdentityAssociationProviderURLReady:(HOPAccountOAuthIdentityAssociation*) association;
-- (void) onAccountOAuthIdentityAssociationComplete:(HOPAccountOAuthIdentityAssociation*) association;
-
-@end
-
-@class HOPProvisioningAccount;
-
-@protocol HOPProvisioningAccountDelegate <NSObject>
-
-- (void) onProvisioningAccountStateChanged:(HOPProvisioningAccount*) account accountStates:(HOPProvisioningAccountStates) state;
-
-- (void) onProvisioningAccountError:(HOPProvisioningAccount*) account errorCodes:(HOPProvisioningAccountErrorCodes) error;
-
-- (void) onProvisioningAccountProfileChanged:(HOPProvisioningAccount*) account;
-
-- (void) onProvisioningAccountIdentityValidationResult:(HOPProvisioningAccount*) account identity:(id) identity result:(HOPProvisioningAccountIdentityValidationResultCode) result;
-
-@end
 
 @class HOPIdentity;
 

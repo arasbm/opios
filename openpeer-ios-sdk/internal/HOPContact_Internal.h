@@ -49,5 +49,4 @@ using namespace hookflash::core;
 
 - (id) initWithCoreContact:(IContactPtr) inContactPtr;
 - (IContactPtr) getContactPtr;
-//- (void) createCoreContactWithPeerFile:(NSString*) peerFile;
 @end

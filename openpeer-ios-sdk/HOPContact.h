@@ -38,13 +38,20 @@
 @interface HOPContact : NSObject
 
 /**
- Contact init method used for creating HOPContact object when contact data (stableUniqueId and peerFile) are stored locally
+ Contact initializer used when the contact's data (stableUniqueId and peerFile) are stored locally
  @param publicPeerFile NSString Public peer file of the contact that will be created (self or remote). This is passed if peer file is sored locally. Otherwise it is nil
- @param previousStableUniqueID user Id string stored locally (initialy is received for identity lookup). This argument is mandatory.
+ @param previousStableUniqueID user Id string stored locally (initialy is received on identity lookup). This argument is mandatory.
  @returns Ponter to the created contact object
  */
 - (id) initWithPeerFile:(NSString*) publicPeerFile previousStableUniqueID:(NSString*) previousStableUniqueID;
 
+/**
+ Contact initializer used when peer uri and find secrets are received
+ @param peerURI NSString Peer URI
+  @param findSecret NSString Find secret
+ @param previousStableUniqueID user Id string stored locally (initialy is received on identity lookup). This argument is mandatory.
+ @returns Ponter to the created contact object
+ */
 - (id) initFromPeerURI:(NSString*) peerURI findSecret:(NSString*) findSecret previousStableUniqueID:(NSString*) previousStableUniqueID;
 
 /**
@@ -77,18 +84,27 @@
  */
 - (NSString*) getStableUniqueID;
 
-
 /**
  Check contact object has public peer file
  @returns YES if it has
  */
 - (BOOL) hasPeerFilePublic;
 
-
+/**
+ Retrieves public peer file
+ @returns NSString public peer file
+ */
 - (NSString*) savePeerFilePublic;
 
-
+/**
+ Retrieves account object of logged user
+ @returns HOPAccount account object
+ */
 - (HOPAccount*) getAssociatedAccount;
 
+/**
+ Retrieves contact location id received from external method
+ @returns HOPAccount account object
+ */
 - (void) hintAboutLocation:(NSString*) contactsLocationID;
 @end

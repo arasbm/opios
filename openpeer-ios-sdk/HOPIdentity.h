@@ -34,34 +34,119 @@
 #import "HOPTypes.h"
 #import "HOPProtocols.h"
 
+/**
+ Wrapper for identity state data.
+ */
 @interface HOPIdentityState : NSObject
+
 @property (nonatomic, assign) HOPIdentityStates state;
 @property (nonatomic, assign) unsigned short lastErrorCode;
 @property (nonatomic, strong) NSString* lastErrorReason;
 @end
 
+
 @interface HOPIdentity : NSObject
 
-//@property (assign) HOPProvisioningAccountIdentityTypes identityType;
 @property (nonatomic, strong) NSString* identityBaseURI;
 @property (copy) NSString* identityId;
 
-+ toStringIdentityState:(HOPIdentityStates) state;
+/**
+ Converts identity state enum to string
+ @param state HOPIdentityStates Identity state enum
+ @returns String representation of identity state
+ */
++ stateToString:(HOPIdentityStates) state;
 
+/**
+ Creates identity object.
+ @param inIdentityDelegate HOPIdentityDelegate delegate
+ @param redirectAfterLoginCompleteURL NSString String that will be passed from JS after login is completed. (It can be any string)
+ @param identityURIOridentityBaseURI NSString Base URI of identity provider (e.g. identity://facebook.com/),  or contact specific identity URI (e.g. identity://facebook.com/contact_facebook_id)
+ @param identityProviderDomain NSString Identity provider domain
+ @returns HOPIdentity object if IIdentityPtr object is created sucessfully, otherwise nil
+ */
 + (id) loginWithDelegate:(id<HOPIdentityDelegate>) inIdentityDelegate redirectAfterLoginCompleteURL:(NSString*) redirectAfterLoginCompleteURL identityURIOridentityBaseURI:(NSString*) identityURIOridentityBaseURI identityProviderDomain:(NSString*) identityProviderDomain;
 
+/**
+ Retrieves identity state
+ @returns HOPIdentityState Identity state
+ */
 - (HOPIdentityState*) getState;
+
+/**
+ Retrieves whether identiy is attached or not.
+ @returns BOOL YES if attached, otherwise NO
+ */
 - (BOOL) isAttached;
+
+/**
+ Attaches identity with specified redirection URL and identity delegate
+ @param redirectAfterLoginCompleteURL NSString Redirection URL that will be received after login is completed
+ @param inIdentityDelegate HOPIdentityDelegate IIdentityDelegate delegate
+
+ */
 - (void) attachWithRedirectionURL:(NSString*) redirectAfterLoginCompleteURL identityDelegate:(id<HOPIdentityDelegate>) inIdentityDelegate;
+
+/**
+ Retrieves identity URI
+ @returns NSString identity URI
+ */
 - (NSString*) getIdentityURI;
+
+/**
+ Retrieves identity provider domain
+ @returns NSString identity provider domain
+ */
 - (NSString*) getIdentityProviderDomain;
+
+/**
+ Retrieves identity relogin access key
+ @returns NSString identity relogin access key
+ */
 - (NSString*) getIdentityReloginAccessKey;
+
+/**
+ Retrieves identity bundle
+ @returns NSString identity bundle
+ */
 - (NSString*) getSignedIdentityBundle;
+
+/**
+ Retrieves identity login URL
+ @returns NSString identity login URL
+ */
 - (NSString*) getIdentityLoginURL;
+
+/**
+ Retrieves date when login expires
+ @returns NSString date when login expired
+ */
 - (NSDate*) getLoginExpires;
+
+/**
+ Notifies core that web wiev is now visible.
+ */
 - (void) notifyBrowserWindowVisible;
+
+/**
+ Notifies core that redirection URL for completed login is received.
+ */
 - (void) notifyLoginCompleteBrowserWindowRedirection;
+
+/**
+ Retrieves JSON message from core that needs to be passed to inner browser frame.
+ @returns NSString JSON message
+ */
 - (NSString*) getNextMessageForInnerBrowerWindowFrame;
+
+/**
+ Passes JSON message from inner browser frame to core.
+ @param NSString JSON message
+ */
 - (void) handleMessageFromInnerBrowserWindowFrame:(NSString*) message;
+
+/**
+ Cancels identity login.
+ */
 - (void) cancel;
 @end

@@ -64,37 +64,6 @@
     
     IStack::singleton()->setup(openPeerStackDelegatePtr, openPeerMediaEngineDelegatePtr, [deviceID UTF8String], [userAgent UTF8String], [deviceOs UTF8String], [system UTF8String]);
 }
-/*
-- (BOOL) initStackDelegate:(id<HOPStackDelegate>) stackDelegate mediaEngineDelegate:(id<HOPMediaEngineDelegate>) mediaEngineDelegate conversationThreadDelegate:(id<HOPConversationThreadDelegate>) conversationThreadDelegate callDelegate:(id<HOPCallDelegate>) callDelegate userAgent:(NSString*) userAgent deviceOs:(NSString*) deviceOs platform:(NSString*) platform
-{
-    BOOL initiated = NO;
-    
-    //Check if delegates are nil
-    if (!stackDelegate || !mediaEngineDelegate || !conversationThreadDelegate || !callDelegate)
-        return initiated;
-    
-    //Check if other arguments are valid
-    if ( ([userAgent length] == 0 ) || ([deviceOs length] == 0 ) || ([platform length] == 0 ) )
-        return initiated;
-    
-    //Create delegates wrappers and init them with delegates created by user
-    BOOL delegatesCreated = [self createLocalDelegates:stackDelegate mediaEngineDelegate:mediaEngineDelegate conversationThreadDelegate:conversationThreadDelegate callDelegate:callDelegate];
-    
-    if (delegatesCreated)
-    {
-        //Create client
-        IClient::setup();
-        clientPtr = IClient::singleton();
-        
-        //Create stack
-        stackPtr = IStack::create(openPeerStackDelegatePtr,openPeerMediaEngineDelegatePtr,openPeerConversationThreadDelegatePtr,openPeerCallDelegatePtr, [@"ID" UTF8String], [userAgent UTF8String], [deviceOs UTF8String], [platform UTF8String]);
-        
-        if (stackPtr && clientPtr)
-            initiated = YES;
-    }
-    
-    return initiated;
-}*/
 
 - (void) shutdown
 {
@@ -102,12 +71,9 @@
     [self deleteLocalDelegates];
 }
 
-
 - (void) createLocalDelegates:(id<HOPStackDelegate>) stackDelegate mediaEngineDelegate:(id<HOPMediaEngineDelegate>) mediaEngineDelegate 
 {
     openPeerStackDelegatePtr = OpenPeerStackDelegate::create(stackDelegate);
-    //openPeerCallDelegatePtr = OpenPeerCallDelegate::create(callDelegate);
-    //openPeerConversationThreadDelegatePtr = OpenPeerConversationThreadDelegate::create(conversationThreadDelegate);
     openPeerMediaEngineDelegatePtr = OpenPeerMediaEngineDelegate::create(mediaEngineDelegate);
 }
 
@@ -115,101 +81,7 @@
 {
     openPeerStackDelegatePtr.reset();
     openPeerMediaEngineDelegatePtr.reset();
-    //openPeerConversationThreadDelegatePtr.reset();
-    //openPeerCallDelegatePtr.reset();
 }
-/*
-#pragma mark - IClient methods wrapper
-
-+ (void) setup
-{
-    IClient::setup();
-}
-
-- (void) processMessagePutInGUIQueue
-{
-    if(clientPtr)
-    {
-        clientPtr->processMessagePutInGUIQueue();
-    }
-    else
-    {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer client pointer!"];
-    }
-}
-
-- (void) finalizeShutdown
-{
-    if(clientPtr)
-    {
-        clientPtr->finalizeShutdown();
-    }
-    else
-    {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer client pointer!"];
-    }
-}
-
-+ (void) installStdOutLogger: (BOOL) colorizeOutput
-{
-    IClient::installStdOutLogger(colorizeOutput);
-}
-
-+ (void) installFileLogger: (NSString*) filename colorizeOutput: (BOOL) colorizeOutput
-{
-    IClient::installFileLogger([filename UTF8String], colorizeOutput);
-}
-
-+ (void) installTelnetLogger: (unsigned short) listenPort maxSecondsWaitForSocketToBeAvailable:(unsigned long) maxSecondsWaitForSocketToBeAvailable colorizeOutput: (BOOL) colorizeOutput
-{
-    IClient::installTelnetLogger(listenPort, maxSecondsWaitForSocketToBeAvailable, colorizeOutput);
-}
-
-+ (void) installOutgoingTelnetLogger: (NSString*) serverToConnect colorizeOutput: (BOOL) colorizeOutput stringToSendUponConnection: (NSString*) stringToSendUponConnection
-{
-    IClient::installOutgoingTelnetLogger([serverToConnect UTF8String], colorizeOutput);
-}
-
-+ (void) installWindowsDebuggerLogger
-{
-    IClient::installWindowsDebuggerLogger();
-}
-
-+ (void) installCustomLogger: (id<HOPStackDelegate>) delegate
-{
-    IClient::installCustomLogger();
-}
-
-+ (unsigned int) getGUISubsystemUniqueID
-{
-    return IClient::getGUISubsystemUniqueID();
-}
-
-+ (HOPClientLogLevels) getLogLevel: (unsigned int) subsystemUniqueID
-{
-    return (HOPClientLogLevels) IClient::getLogLevel(subsystemUniqueID);
-}
-
-+ (void) setLogLevel: (HOPClientLogLevels) level
-{
-    IClient::setLogLevel((IClient::Log::Level) level);
-}
-
-+ (void) setLogLevelByID: (unsigned long) subsystemUniqueID level: (HOPClientLogLevels) level
-{
-    IClient::setLogLevel((zsLib::PTRNUMBER)subsystemUniqueID, (IClient::Log::Level) level);
-}
-
-+ (void) setLogLevelbyName: (NSString*) subsystemName level: (HOPClientLogLevels) level
-{
-    IClient::setLogLevel([subsystemName UTF8String], (IClient::Log::Level) level);
-}
-
-+ (void) log: (unsigned int) subsystemUniqueID severity: (HOPClientLogSeverities) severity level: (HOPClientLogLevels) level message: (NSString*) message function: (NSString*) function filePath: (NSString*) filePath lineNumber: (unsigned long) lineNumber
-{
-    IClient::log((zsLib::PTRNUMBER) subsystemUniqueID, (IClient::Log::Severity) severity, (IClient::Log::Level) level, [message UTF8String], [function UTF8String], [filePath UTF8String], lineNumber);
-}
-*/
 
 #pragma mark - Internal methods
 - (IStackPtr) getStackPtr

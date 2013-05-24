@@ -105,7 +105,7 @@
     self.userId = [[HOPAccount sharedAccount] getUserID];
     self.stableUniqueId = [[HOPContact getForSelf] getStableUniqueID];
     self.peerURI = [[HOPContact getForSelf] getPeerURI];
-    self.privatePeerFile = [[HOPAccount sharedAccount] savePeerFilePrivate];
+    self.privatePeerFile = [[HOPAccount sharedAccount] getPeerFilePrivate];
     self.privatePeerFileSecret = [[HOPAccount sharedAccount] getPeerFilePrivateSecret];
     
     NSMutableData *data = [NSMutableData data];

@@ -42,7 +42,6 @@
 
 - (id)init
 {
-    //[self release];
     [NSException raise:NSInvalidArgumentException format:@"Don't use init for object creation. Use class method contactWithPeerFile."];
     return nil;
 }
@@ -82,7 +81,6 @@
         }
         else
         {
-            //[self release];
             self = nil;
         }
     }

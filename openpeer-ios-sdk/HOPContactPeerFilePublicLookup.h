@@ -42,14 +42,35 @@
 
 @interface HOPContactPeerFilePublicLookup : NSObject
 
+/**
+ Initializer for HOPContactPeerFilePublicLookup with passed HOPContactPeerFilePublicLookupDelegate delegate and list of contact
+ @param inDelegate HOPContactPeerFilePublicLookupDelegate delegate
+ @param inContactList NSString list of contacts
+ @returns HOPContactPeerFilePublicLookup object
+ */
 - (id) initWithDelegate:(id<HOPContactPeerFilePublicLookupDelegate>) inDelegate contactsList:(NSArray*) inContactList;
 
+/**
+ Retrieves whether peer file lookup is completed or not.
+ @returns BOOL YES if completed, otherwise NO
+ */
 - (BOOL) isComplete;
 
+/**
+ Retrieves peer file lookup result.
+ @returns HOPContactPeerFilePublicLookupResult Lookup result
+ */
 - (HOPContactPeerFilePublicLookupResult*) getLookupResult;
 
+/**
+ Cancels peer file lookup.
+ */
 - (void) cancel;
 
+/**
+ Retrieves whether peer file lookup is completed or not.
+ @returns BOOL YES if completed, otherwise NO
+ */
 - (NSArray*) getContacts;
 
 

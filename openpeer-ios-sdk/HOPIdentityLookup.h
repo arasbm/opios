@@ -42,14 +42,35 @@
 
 @interface HOPIdentityLookup : NSObject
 
+/**
+ Initializer for HOPIdentityLookup with passed HOPIdentityLookupDelegate delegate and list of identity URIs
+ @param inDelegate HOPIdentityLookupDelegate delegate
+ @param inIdentityURIList NSString list of identity URIs comma separated
+ @returns HOPIdentityLookup object
+ */
 - (id) initWithDelegate:(id<HOPIdentityLookupDelegate>) inDelegate identityURIList:(NSString*) inIdentityURIList;
 
+/**
+ Retrieves whether identiy lookup is completed or not.
+ @returns BOOL YES if completed, otherwise NO
+ */
 - (BOOL) isComplete;
 
+/**
+ Retrieves identity lookup result.
+ @returns HOPIdentityLookupResult Lookup result
+ */
 - (HOPIdentityLookupResult*) getLookupResult;
 
+/**
+ Cancels identity lookup.
+ */
 - (void) cancel;
 
+/**
+ Retrieves list of identity profiles received from lookup server
+ @returns List of identity profiles for contacts that are registered in OpenPeer system
+ */
 - (NSArray*) getIdentities;
 
 @end

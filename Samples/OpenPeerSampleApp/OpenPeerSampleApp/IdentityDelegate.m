@@ -39,7 +39,7 @@
 
 - (void)identity:(HOPIdentity *)identity stateChanged:(HOPIdentityStates)state
 {
-    NSLog(@"Identity Login state: %@",[HOPIdentity toStringIdentityState:state]);
+    NSLog(@"Identity Login state: %@",[HOPIdentity stateToString:state]);
     switch (state)
     {
         case HOPIdentityStatePending:
@@ -68,7 +68,6 @@
             break;
             
         case HOPIdentityStateReady:
-            //[((OpenPeerUser*)[OpenPeerUser sharedOpenPeerUser]).dictionaryIdentities setObject:[identity getIdentityURI] forKey:[identity identityBaseURI]];
             break;
             
         case HOPIdentityStateShutdown:
@@ -81,7 +80,6 @@
 
 - (void)onIdentityPendingMessageForInnerBrowserWindowFrame:(HOPIdentity *)identity
 {
-    //NSString* messageForJS = [identity getNextMessageForInnerBrowerWindowFrame];
     [[LoginManager sharedLoginManager] onMessageForJS:[identity getNextMessageForInnerBrowerWindowFrame]];
 }
 

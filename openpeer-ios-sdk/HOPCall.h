@@ -43,12 +43,9 @@
  @param toContact HOPContact Remote contact
  @param includeAudio BOOL YES if call should include audio
  @param includeVideo BOOL YES if call should include video
- @returns HOPCall object if conversation thread is created sucessfully, otherwise nil
+ @returns HOPCall object if ICallPtr object is created sucessfully, otherwise nil
  */
 + (id) placeCall:(HOPConversationThread*) conversationThread toContact:(HOPContact*) toContact includeAudio:(BOOL) includeAudio includeVideo:(BOOL) includeVideo;
-
-//- (id) initCall:(HOPConversationThread*) conversationThread toContact:(HOPContact*) toContact includeAudio:(BOOL) includeAudio includeVideo:(BOOL) includeVideo;
-
 
 
 /**

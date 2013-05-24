@@ -32,6 +32,9 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ Wrapper for media engine stats.
+ */
 @interface HOPMediaEngineRtpRtcpStatistics : NSObject
 
     @property (assign) unsigned short fractionLost;

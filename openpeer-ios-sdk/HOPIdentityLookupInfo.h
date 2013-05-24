@@ -44,6 +44,9 @@
 
 @end
 
+/**
+ Wrapper for identiy lookup info
+ */
 @interface HOPIdentityLookupInfo : NSObject
 
 @property (nonatomic, strong) NSMutableArray* avatars;

@@ -47,17 +47,18 @@
 
 @interface HOPConversationThread : NSObject
 
-+ (NSString*) stringForMessageDeliveryState:(HOPConversationThreadMessageDeliveryStates) state;
+/**
+ Retrieves list of all created conversation threads.
+ @returns NSArray List of HOPConversationThread objects
+ */
++ (NSArray*) getConversationThreadsForAccount;
 
-+ (NSString*) stringForContactState:(HOPConversationThreadContactStates) state;
-
-+ (NSString*) debugStringForConversationThread:(HOPConversationThread*) conversationThread includeCommaPrefix:(BOOL) includeCommaPrefix;
-
-+ (HOPConversationThread*) conversationThreadWithAccount:(HOPAccount*) account profileBundle:(NSString*) profileBundle;
-
-+ (NSArray*) getConversationThreadsForAccount:(HOPAccount*) account;
-
-+ (HOPConversationThread*) getConversationThreadForAccount:(HOPAccount*) account threadID:(NSString*) threadID;
+/**
+ Retrieves conversation thread object for specific thread id
+ @param threadID NSString Id of disered conversation thread.
+ @returns HOPConversationThread Conversation thread object
+ */
++ (HOPConversationThread*) getConversationThreadForID:(NSString*) threadID;
 
 
 /**
@@ -66,13 +67,15 @@
  @returns String representation of message delivery state
  */
 + (NSString*) deliveryStateToString: (HOPConversationThreadMessageDeliveryStates) state __attribute__((deprecated("use method stringForMessageDeliveryState instead")));
++ (NSString*) stringForMessageDeliveryState:(HOPConversationThreadMessageDeliveryStates) state;
 
 /**
  Retrieves string representation of the contact state.
  @param state HOPConversationThreadContactStates Contact state to convert to string
  @returns String representation of contact state
  */
-+ (NSString*) stateToString: (HOPConversationThreadContactStates) state;
++ (NSString*) stateToString: (HOPConversationThreadContactStates) state __attribute__((deprecated("use method stringForContactState instead")));
++ (NSString*) stringForContactState:(HOPConversationThreadContactStates) state;
 
 /**
  Creation of new conversation thread.
@@ -81,7 +84,6 @@
  @returns HOPConversationThread object if core conversation thread object is created
  */
 + (id) conversationThreadWithProfileBundle:(NSString*) profileBundle;
-//- (id) initWithProfileBundle:(NSString*) profileBundle;
 
 /**
  Retrieves conversation thread ID.
