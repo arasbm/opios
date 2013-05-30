@@ -51,96 +51,52 @@
     
     NSString* sessionId = [[call getConversationThread] getThreadId];
     dispatch_async(dispatch_get_main_queue(), ^{
-        Session* session = [[[SessionManager sharedSessionManager] sessionsDictionary] objectForKey:sessionId];
-        
+
         ActiveSessionViewController* sessionViewController = [[[[OpenPeer sharedOpenPeer] mainViewController] sessionViewControllersDictionary] objectForKey:sessionId];
+        
+        [sessionViewController updateCallState];
+        
         switch (callState)
         {
             case HOPCallStatePreparing:             //Receives both parties, caller and callee.
-                {
-                    if (![[call getCaller] isSelf])
-                    {
-                        [[[OpenPeer sharedOpenPeer] mainViewController] showSessionViewControllerForSession:session forIncomingCall:YES forIncomingMessage:NO];
-                        if (!sessionViewController)
-                            sessionViewController = [[[[OpenPeer sharedOpenPeer] mainViewController] sessionViewControllersDictionary] objectForKey:sessionId];
-                        //[sessionViewController prepareForIncomingCall];
-                    }
-                    //Remove recording button and stop recording if it is placed
-                    [sessionViewController stopVideoRecording:YES hideRecordButton:YES];
-                    [sessionViewController updateCallState];
-                }
+                [[SessionManager sharedSessionManager] onCallPreparing:call];
                 break;
                 
             case HOPCallStateIncoming:              //Receives just callee
-                [[SessionManager sharedSessionManager] handleIncomingCall:call forSession:session];
-                //[sessionViewController prepareForIncomingCall];
-                [sessionViewController updateCallState];
+                [[SessionManager sharedSessionManager] onCallIncoming:call];
                 break;
                 
             case HOPCallStatePlaced:                //Receives just calller
-                [sessionViewController updateCallState];
                 break;
                 
             case HOPCallStateEarly:                 //Currently is not in use
-                [sessionViewController updateCallState];
                 break;
                 
             case HOPCallStateRinging:               //Receives just callee side. Now should play ringing sound
-                [sessionViewController updateCallState];
                 break;
                 
             case HOPCallStateRingback:              //Receives just caller side
-                [sessionViewController updateCallState];
                 break;
                 
             case HOPCallStateOpen:                  //Receives both parties. Call is established
-                [sessionViewController updateCallState];
-                [sessionViewController prepareForCall:YES withVideo:[call hasVideo]];
-                //At that moment is it possible to do recording so show recording button
-                [sessionViewController stopVideoRecording:YES hideRecordButton:![call hasVideo]];
+                [[SessionManager sharedSessionManager] onCallOpened:call];
                 break;
                 
             case HOPCallStateActive:                //Currently not in use
-                [sessionViewController updateCallState];
                 break;
                 
             case HOPCallStateInactive:              //Currently not in use
-                [sessionViewController updateCallState];
                 break;
                 
             case HOPCallStateHold:                  //Receives both parties
-                [sessionViewController updateCallState];
                 break;
                 
             case HOPCallStateClosing:               //Receives both parties
-                 [[SessionManager sharedSessionManager] endCallForSession:session];
-                                                    //[call hangup:HOPCallClosedReasonUser];
+                 [[SessionManager sharedSessionManager] onCallClosing:call];
                 break;
                 
             case HOPCallStateClosed:                //Receives both parties
-                [sessionViewController updateCallState];
-                [sessionViewController prepareForCall:NO withVideo:NO];
-                //Enable video recording if face detection is on
-                [sessionViewController stopVideoRecording:YES hideRecordButton:![[OpenPeer sharedOpenPeer] isFaceDetectionModeOn]];
-                [[SessionManager sharedSessionManager] onCallEnded:session];
-                
-                [[SessionManager sharedSessionManager] setLastEndedCallSession: session];
-                if (![[call getCaller] isSelf])
-                {
-                    if ([call getClosedReason] == HOPCallClosedReasonNone || [call getClosedReason] == HOPCallClosedReasonRequestTerminated || [call getClosedReason] == HOPCallClosedReasonTemporarilyUnavailable)
-                    {
-                        [[MessageManager sharedMessageManager] sendSystemMessageToCallAgainForSession:session];
-                        session.isRedial = YES;
-                    }
-                    else
-                    {
-                        session.isRedial = NO;
-                    }
-                }
-                else
-                {
-                    session.isRedial = NO;
-                }
+                [[SessionManager sharedSessionManager] onCallEnded:call];
                 break;
                 
             case HOPCallStateNone:

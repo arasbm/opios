@@ -57,7 +57,6 @@
 
 - (void) removeAllSubViews;
 - (SessionTransitionStates) determineViewControllerTransitionStateForSession:(NSString*) sessionId forIncomingCall:(BOOL) incomingCall forIncomingMessage:(BOOL) incomingMessage;
-- (void) showNotificationForContactName:(NSString*) contactName;
 @end
 
 @implementation MainViewController
@@ -235,7 +234,7 @@
             [self.sessionViewControllersDictionary setObject:sessionViewContorller forKey:sessionId];
             [sessionViewContorller.chatViewController refreshViewWithData];
             
-            [self showNotificationForContactName:title];
+            [self showNotification:[NSString stringWithFormat:@"New message from %@",title]];
         }
             break;
             
@@ -247,7 +246,7 @@
             break;
             
         case EXISTING_SESSION_REFRESH_NOT_VISIBLE_CHAT:
-            [self showNotificationForContactName:title];
+            [self showNotification:[NSString stringWithFormat:@"New message from %@",title]];
         case EXISTING_SESSION_REFRESH_CHAT:
             sessionViewContorller = [self.sessionViewControllersDictionary objectForKey:sessionId];
             [sessionViewContorller.chatViewController refreshViewWithData];
@@ -263,8 +262,8 @@
             [self.contactsNavigationController pushViewController:sessionViewContorller.chatViewController animated:YES];
             break;
             
-        case ERROR_CALL_ALREADY_IN_PROGRESS:
-            
+        case INCOMING_CALL_WHILE_OTHER_INPROGRESS:
+            [self showNotification:[NSString stringWithFormat:@"%@ is trying to reach you.",title]];
             break;
             
         case EXISTING_SESSION:
@@ -283,7 +282,7 @@
         if (incomingCall)
         {
             if ([[SessionManager sharedSessionManager] isCallInProgress])
-                return ERROR_CALL_ALREADY_IN_PROGRESS; //Cannot have two active calls at once
+                return INCOMING_CALL_WHILE_OTHER_INPROGRESS; //Cannot have two active calls at once
             else
             {
                 if (self.contactsNavigationController.visibleViewController && self.contactsNavigationController.visibleViewController != self.contactsTableViewController)
@@ -454,10 +453,10 @@
     
 }
 
-- (void) showNotificationForContactName:(NSString*) contactName
+- (void) showNotification:(NSString*) message
 {
     UILabel* labelNotification = [[UILabel alloc] initWithFrame:CGRectMake(5.0, 20.0, self.view.frame.size.width - 10.0, 40.0)];
-    labelNotification.text = [NSString stringWithFormat:@"New message from %@",contactName];
+    labelNotification.text = message;//[NSString stringWithFormat:@"New message from %@",contactName];
     labelNotification.textAlignment = NSTextAlignmentCenter;
     labelNotification.textColor = [UIColor whiteColor];
     labelNotification.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.7];

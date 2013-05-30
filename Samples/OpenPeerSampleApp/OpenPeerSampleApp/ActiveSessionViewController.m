@@ -304,7 +304,9 @@
 
 - (void) updateCallState
 {
-    [self.statusLabel setText:[Utility getCallStateAsString:[self.session.currentCall getState]]];
+    NSString *stateStr = [Utility getCallStateAsString:[self.session.currentCall getState]];
+    if ([stateStr length] > 0)
+        [self.statusLabel setText:stateStr];
 }
 
 - (void)viewDidUnload {

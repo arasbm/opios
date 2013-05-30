@@ -499,7 +499,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0450;
-				ORGANIZATIONNAME = Sergej;
+				ORGANIZATIONNAME = Hookflash;
 			};
 			buildConfigurationList = 87272822166CBF9B0089CBB6 /* Build configuration list for PBXProject "OpenPeerSampleApp" */;
 			compatibilityVersion = "Xcode 3.2";

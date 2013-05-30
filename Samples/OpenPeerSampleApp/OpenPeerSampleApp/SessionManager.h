@@ -52,18 +52,21 @@
 - (Session*) proceedWithExistingSessionForContact:(Contact*) contact newConversationThread:(HOPConversationThread*) inConversationThread;
 - (Session*) getSessionForContact:(Contact*) contact;
 - (Session*) getSessionForSessionId:(NSString*) sessionId;
-- (void) endSession:(Session*) session;
+
 
 - (void) makeCallForSession:(Session*) inSession includeVideo:(BOOL) includeVideo isRedial:(BOOL) isRedial;
 - (void) answerCallForSession:(Session*) inSession;
 - (void) endCallForSession:(Session*) inSession;
 
-- (void) handleIncomingCall:(HOPCall*) call forSession:(Session*) inSession;
+- (void) onCallPreparing:(HOPCall*) call;
+- (void) onCallIncoming:(HOPCall*) call;
+- (void) onCallOpened:(HOPCall*) call;
+- (void) onCallClosing:(HOPCall*) call;
 
 - (void) onAvailabilityCheckReceivedForSession:(Session*) inSession;
 - (void) redialCallForSession:(Session*) inSession;
 
-- (void) onCallEnded:(Session*) inSession;
+- (void) onCallEnded:(HOPCall*) call;
 - (void) onFaceDetected;
 
 - (void) startVideoRecording;

@@ -58,7 +58,7 @@
 + stateToString:(HOPIdentityStates) state;
 
 /**
- Creates identity object.
+ Creates identity object and starts identity login. This method is called only on login procedure. During relogin procedure this method is not invoked.
  @param inIdentityDelegate HOPIdentityDelegate delegate
  @param redirectAfterLoginCompleteURL NSString String that will be passed from JS after login is completed. (It can be any string)
  @param identityURIOridentityBaseURI NSString Base URI of identity provider (e.g. identity://facebook.com/),  or contact specific identity URI (e.g. identity://facebook.com/contact_facebook_id)

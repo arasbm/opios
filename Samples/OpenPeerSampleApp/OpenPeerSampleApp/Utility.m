@@ -273,12 +273,12 @@ static const short _base64DecodingTable[256] = {
 
 + (NSString*) getCallStateAsString:(HOPCallStates) callState
 {
-    NSString *res;
+    NSString *res = nil;
     
     switch (callState)
     {
             case HOPCallStateNone:
-                res = NSLocalizedString(@"none", @"");
+            //res = NSLocalizedString(@"none", @"");
                 break;
             case HOPCallStatePreparing:
                 res = NSLocalizedString(@"preparing", @"");
