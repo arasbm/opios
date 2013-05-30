@@ -58,6 +58,7 @@ typedef  enum
     EXISTING_SESSION_REFRESH_CHAT,
     EXISTING_SESSION_REFRESH_NOT_VISIBLE_CHAT,
     EXISTIG_SESSION_SHOW_CHAT,
+    INCOMING_CALL_WHILE_OTHER_INPROGRESS,
     
     ERROR_CALL_ALREADY_IN_PROGRESS = 100
 }SessionTransitionStates;
@@ -83,4 +84,5 @@ typedef  enum
 - (void) updateSessionViewControllerId:(NSString*) oldSessionId newSesionId:(NSString*) newSesionId;
 
 - (void) showIncominCallForSession:(Session*) session;
+- (void) showNotification:(NSString*) message;
 @end

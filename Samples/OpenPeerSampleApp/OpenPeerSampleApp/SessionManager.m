@@ -53,7 +53,7 @@
 @property (nonatomic, assign) Session* sessionWithActiveCall;
 
 - (id) initSingleton;
-- (BOOL) setCallFlag:(BOOL) activeCall forSession:(Session*) inSession;
+- (BOOL) setActiveCallSession:(Session*) inSession callActive:(BOOL) callActive;
 
 @end
 
@@ -89,7 +89,7 @@
 
 
 /**
- Creates a session for selected contacts
+ Creates a session for the selected contacts
  @param contact Contact Contact for which session will be created.
 */
 - (Session*)createSessionForContact:(Contact *)contact
@@ -127,7 +127,7 @@
 }
 
 /**
- Creates a incoming session.
+ Creates an incoming session.
  @param contacts NSArray List of participants.
  @param inConversationThread HOPConversationThread Incoming conversation thread
 */
@@ -144,8 +144,8 @@
 }
 
 /**
- Creates a new session initiate from other session.
- @param inSession Session is initiate of new session.
+ Creates a new session initiate from other session (Remote session initialization).
+ @param inSession Session session that initiates creation
  @param userIds NSString list of userIds separated by comma which will take a part in new session. Currently group sessions are not supported, so userIds contains just one user id.
  */
 - (Session*) createSessionInitiatedFromSession:(Session*) inSession forContactUserIds:(NSString*) userIds
@@ -203,6 +203,11 @@
     return sessionThatWillInitiateRemoteSession;
 }
 
+/**
+ If exists it retrieves an old session for a contact for which new conversation thread is created. If the old session is found, old conversation thread object is replaced with a new one, session key in sessions dictionary is updated with a new conversation thread id.
+ @param contact Contact participant of new conversation thread
+ @param inConversationThread HOPConversationThread new conversation thread
+ */
 - (Session*) proceedWithExistingSessionForContact:(Contact*) contact newConversationThread:(HOPConversationThread*) inConversationThread
 {
     Session* ret = [self getSessionForContact:contact];
@@ -240,10 +245,6 @@
     return [self.sessionsDictionary objectForKey:sessionId];
 }
 
-- (void)endSession:(Session *)session
-{
-
-}
 
 /**
  Make call for session.
@@ -261,7 +262,7 @@
         //Place a audio or video call for chosen contact
         inSession.isRedial = isRedial;
         inSession.currentCall = [HOPCall placeCall:inSession.conversationThread toContact:contact includeAudio:YES includeVideo:includeVideo];
-        [self setCallFlag:YES forSession:inSession];
+        [self setActiveCallSession:inSession callActive:YES];
     }
     else
     {
@@ -281,7 +282,7 @@
 }
 
 /**
- End call
+ Ends current call for sesion.
  @param inSession Session session.
  */
 - (void) endCallForSession:(Session*) inSession
@@ -290,7 +291,29 @@
     //Hangup current active call
     [[inSession currentCall] hangup:HOPCallClosedReasonUser];
     //Set flag that there is no active call
-    [self setCallFlag:NO forSession:inSession];
+    [self setActiveCallSession:inSession callActive:NO];
+}
+
+/**
+ Handles preparing call state. At this state while clients negotiations are not completed, call  should not be yet presented to the user. In this sample, because of demonstration and easier state changes trcking, it is shown session ciew controller.  
+ @param call HOPCall Incomin call
+ */
+- (void) onCallPreparing:(HOPCall*) call
+{
+    NSString* sessionId = [[call getConversationThread] getThreadId];
+    Session* session = [[[SessionManager sharedSessionManager] sessionsDictionary] objectForKey:sessionId];
+    
+    ActiveSessionViewController* sessionViewController = [[[[OpenPeer sharedOpenPeer] mainViewController] sessionViewControllersDictionary] objectForKey:sessionId];
+    
+    //If it is an incomming call, get show session view controller
+    if (![[call getCaller] isSelf])
+    {
+        [[[OpenPeer sharedOpenPeer] mainViewController] showSessionViewControllerForSession:session forIncomingCall:YES forIncomingMessage:NO];
+        if (!sessionViewController)
+            sessionViewController = [[[[OpenPeer sharedOpenPeer] mainViewController] sessionViewControllersDictionary] objectForKey:sessionId];
+    }
+    //Stop recording if it is placed and remove recording button
+    [sessionViewController stopVideoRecording:YES hideRecordButton:YES];
 }
 
 /**
@@ -298,52 +321,82 @@
  @param call HOPCall Incomin call
  @param inSession Session session.
  */
-- (void) handleIncomingCall:(HOPCall*) call forSession:(Session*) inSession
+- (void) onCallIncoming:(HOPCall*) call
 {
     NSLog(@"Handle incoming call for sesison");
+    NSString* sessionId = [[call getConversationThread] getThreadId];
+    Session* session = [[[SessionManager sharedSessionManager] sessionsDictionary] objectForKey:sessionId];
     
     //Set current call
-    BOOL callFlagIsSet = [self setCallFlag:YES forSession:inSession];
+    BOOL callFlagIsSet = [self setActiveCallSession:session callActive:YES];
     
     //If callFlagIsSet is YES, show incoming call view, and move call to ringing state
     if (callFlagIsSet)
     {
-        inSession.currentCall = call;
+        session.currentCall = call;
         
-        if (!inSession.isRedial)
+        if (!session.isRedial)
         {
-            [[[OpenPeer sharedOpenPeer] mainViewController] showIncominCallForSession:inSession];
+            [[[OpenPeer sharedOpenPeer] mainViewController] showIncominCallForSession:session];
             
-            //TODO_S: Check is it necessary to ring, before answer
             [call ring];
         }
         else
-            //if (inSession.isRedial)
             [call answer];
     }
     else //If callFlagIsSet is NO, hangup incoming call. 
     {
-        [call hangup:HOPCallClosedReasonUser];
+        [call hangup:HOPCallClosedReasonBusy];
     }
 }
 
 /**
- Set session with active call.
- @param activeCall BOOL Flag if call is being active or it is ended
+ Handle case when call is esablished and active.
+ @param call HOPCall Incomin call
  @param inSession Session session.
  */
-- (BOOL) setCallFlag:(BOOL) activeCall forSession:(Session*) inSession
+- (void) onCallOpened:(HOPCall*) call
+{
+     ActiveSessionViewController* sessionViewController = [[[[OpenPeer sharedOpenPeer] mainViewController] sessionViewControllersDictionary] objectForKey:[[call getConversationThread] getThreadId]];
+    
+    [sessionViewController prepareForCall:YES withVideo:[call hasVideo]];
+    
+    //At this moment it is possible to do recording, so show the recording button
+    [sessionViewController stopVideoRecording:YES hideRecordButton:![call hasVideo]];
+}
+
+/**
+ Handle case when call is in closing state.
+ @param call HOPCall Ending call
+ */
+- (void) onCallClosing:(HOPCall*) call
+{
+    NSString* sessionId = [[call getConversationThread] getThreadId];
+    Session* session = [[[SessionManager sharedSessionManager] sessionsDictionary] objectForKey:sessionId];
+    
+    [[session currentCall] hangup:HOPCallClosedReasonNone];
+    //Set flag that there is no active call
+    [self setActiveCallSession:session callActive:NO];
+}
+
+/**
+ Sets active call session if there is no active call at the momment and returns YES, otherwise just returns NO.  Also if active call is being ended sets active call sesion to nil and returns YES, otherwise doesn't do anythning and returns NO.
+ @param activeCall BOOL Flag if call is being active or it is ended
+ @param inSession Session session with call.
+ @return YES if session with active call is set for active call, or when session is nilled for ending call. In all other cases it returns NO
+ */
+- (BOOL) setActiveCallSession:(Session*) inSession callActive:(BOOL) callActive
 {
     BOOL ret = NO;
     @synchronized(self)
     {
-        if (activeCall && self.sessionWithActiveCall == nil)
+        if (callActive && self.sessionWithActiveCall == nil)
         {
             //If there is no session with active call, set it
             self.sessionWithActiveCall = inSession;
             ret = YES;
         }
-        else if (!activeCall && self.sessionWithActiveCall)
+        else if (!callActive && self.sessionWithActiveCall == inSession)
         {
             //If there is session with active call, set it to nil, because call is ended
             self.sessionWithActiveCall = nil;
@@ -355,8 +408,7 @@
 
 
 /**
- Handle availability check request
- @param inSession HOPMessage Session with contact whose availability is being checked
+ Handle availability check request. If there is a session with active call, create a system message with list of call participants.  @param inSession HOPMessage Session with contact whose availability is being checked
  */
 - (void) onAvailabilityCheckReceivedForSession:(Session*) inSession
 {
@@ -389,28 +441,51 @@
  Handles ended call.
  @param inSession Session with call that is ended.
  */
-- (void) onCallEnded:(Session*) inSession
+- (void) onCallEnded:(HOPCall*) call
 {
-    [self setLastEndedCallSession: inSession];
-    //If it is callee side, check the reasons why call is ended, and if it is not ended properly, try to redial
-    if (![[inSession.currentCall getCaller] isSelf] && ((OpenPeer*)[OpenPeer sharedOpenPeer]).isRedialModeOn)
+    //Get call session
+    NSString* sessionId = [[call getConversationThread] getThreadId];
+    Session* session = [[[SessionManager sharedSessionManager] sessionsDictionary] objectForKey:sessionId];
+    
+    //Get view controller for call session
+    ActiveSessionViewController* sessionViewController = [[[[OpenPeer sharedOpenPeer] mainViewController] sessionViewControllersDictionary] objectForKey:[[session conversationThread] getThreadId]];
+    
+    if (sessionViewController)
     {
-        if ([inSession.currentCall getClosedReason] == HOPCallClosedReasonNone || [inSession.currentCall getClosedReason] == HOPCallClosedReasonRequestTerminated || [inSession.currentCall getClosedReason] == HOPCallClosedReasonTemporarilyUnavailable)
+        //Update view for case when call is not active
+        [sessionViewController prepareForCall:NO withVideo:NO];
+        
+        //Enable video recording if face detection is on
+        [sessionViewController stopVideoRecording:YES hideRecordButton:![[OpenPeer sharedOpenPeer] isFaceDetectionModeOn]];
+    }
+    
+    [self setLastEndedCallSession: session];
+    //If it is callee side, check the reasons why call is ended, and if it is not ended properly, try to redial
+    if (![[call getCaller] isSelf] && ((OpenPeer*)[OpenPeer sharedOpenPeer]).isRedialModeOn)
+    {
+        if ([call getClosedReason] == HOPCallClosedReasonNone || [call getClosedReason] == HOPCallClosedReasonRequestTerminated || [call getClosedReason] == HOPCallClosedReasonTemporarilyUnavailable)
         {
-            [[MessageManager sharedMessageManager] sendSystemMessageToCallAgainForSession:inSession];
-            inSession.isRedial = YES;
+            [[MessageManager sharedMessageManager] sendSystemMessageToCallAgainForSession:session];
+            session.isRedial = YES;
         }
         else
         {
-            inSession.isRedial = NO;
+            session.isRedial = NO;
         }
     }
     else
     {
-        inSession.isRedial = NO;
+        session.isRedial = NO;
+        //If call is droped because user is a busy at the moment, show notification to caller.
+        if ([session.currentCall getClosedReason] == HOPCallClosedReasonBusy)
+        {
+            NSString* contactName = [[[session participantsArray] objectAtIndex:0] fullName];
+            [[[OpenPeer sharedOpenPeer] mainViewController] showNotification:[NSString stringWithFormat:@"%@ is busy.",contactName]];
+         }
     }
     
-    inSession.currentCall = nil;
+    session.currentCall = nil;
+    [[SessionManager sharedSessionManager] setLastEndedCallSession: session];
 }
 
 /**
@@ -421,6 +496,9 @@
     
 }
 
+/**
+ Starts video recording.
+ */
 - (void) startVideoRecording
 {
     NSLog(@"Video recording started.");
@@ -432,6 +510,10 @@
     //For saving video file in application boundle, provide file path an set saveToLibrary to NO. In case just file name is provided and saveToLibrary is set to YES, video file will be saved in ios media library
     [[HOPMediaEngine sharedInstance] startRecordVideoCapture:filename saveToLibrary:YES];
 }
+
+/**
+ Stops video recording.
+ */
 - (void) stopVideoRecording
 {
     NSLog(@"Video recording stopped.");
@@ -439,6 +521,10 @@
     [[HOPMediaEngine sharedInstance] stopRecordVideoCapture];
 }
 
+/**
+  Returns info if there is active call.
+ @returns YES if call is in progress
+ */
 - (BOOL) isCallInProgress
 {
     return self.sessionWithActiveCall != nil;

@@ -75,7 +75,7 @@
 }
 
 /**
- Method used initialization of open peer stack. After initialization succeeds, login screen is showed.
+ Initializes the open peer stack. After initialization succeeds, login screen is displayed, or user relogin started.
  @param inMainViewController MainViewController Input main view controller.
  */
 - (void) prepareWithMainViewController:(MainViewController *)inMainViewController
@@ -111,7 +111,7 @@
 }
 
 /**
- Method used for setting log levels and starting logger.
+ Sets log levels and starts the logger.
  */
 - (void) startLogger
 {

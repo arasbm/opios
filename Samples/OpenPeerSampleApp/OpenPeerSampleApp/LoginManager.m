@@ -92,6 +92,9 @@
     return self;
 }
 
+/**
+ Custom getter for webLoginViewController
+ */
 - (WebLoginViewController *)webLoginViewController
 {
     if (!_webLoginViewController)
@@ -103,6 +106,7 @@
     
     return _webLoginViewController;
 }
+
 /**
  This method will show login window in case user data does not exists on device, or start relogin automatically if information are available.
  @return Singleton object of the Contacts Manager.
@@ -119,11 +123,6 @@
     {
         [self startRelogin];
     }
-}
-
-- (void) loginUsingDomain:(NSString*) identityProviderDomain
-{
-    
 }
 
 /**
@@ -149,14 +148,21 @@
     
 }
 
+/**
+ Starts user login for specific identity URI. Activity indicator is displayed and identity login started.
+ @param identityURI NSString identity uri (e.g. identity://facebook.com/)
+ */
 - (void) startLoginUsingIdentityURI:(NSString*) identityURI
 {
     NSLog(@"Identity login started");
     [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Getting identity login url ..." inView:[[[[OpenPeer sharedOpenPeer] mainViewController] loginViewController] view]];
     
+    //For identity login it is required to pass identity delegate, URL that will be requested upon successful login, identity URI and identity provider domain. This is 
     HOPIdentity* hopIdentity = [HOPIdentity loginWithDelegate:(id<HOPIdentityDelegate>)[[OpenPeer sharedOpenPeer] identityDelegate] redirectAfterLoginCompleteURL:afterLoginCompleteURL identityURIOridentityBaseURI:identityURI identityProviderDomain:identityProviderDomain];
+    
+    if (!hopIdentity)
+        NSLog(@"Identity login failed");
 }
-
 
 /**
  Initiates relogin procedure.
@@ -166,7 +172,11 @@
     NSLog(@"Relogin started");
     [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Relogin ..." inView:[[[OpenPeer sharedOpenPeer] mainViewController] view]];
     
-    [[HOPAccount sharedAccount] reloginWithAccountDelegate:(id<HOPAccountDelegate>) [[OpenPeer sharedOpenPeer] accountDelegate] conversationThreadDelegate:(id<HOPConversationThreadDelegate>)[[OpenPeer sharedOpenPeer] conversationThreadDelegate]  callDelegate:(id<HOPCallDelegate>)[[OpenPeer sharedOpenPeer] callDelegate] peerFilePrivate:[[OpenPeerUser sharedOpenPeerUser] privatePeerFile]  peerFilePrivateSecret:[[OpenPeerUser sharedOpenPeerUser] privatePeerFileSecret]];
+    //To start relogin procedure it is required to pass account, conversation thread and call delegates. Also, private peer file and secret, received on previous login procedure, are required.
+    BOOL reloginStarted = [[HOPAccount sharedAccount] reloginWithAccountDelegate:(id<HOPAccountDelegate>) [[OpenPeer sharedOpenPeer] accountDelegate] conversationThreadDelegate:(id<HOPConversationThreadDelegate>)[[OpenPeer sharedOpenPeer] conversationThreadDelegate]  callDelegate:(id<HOPCallDelegate>)[[OpenPeer sharedOpenPeer] callDelegate] peerFilePrivate:[[OpenPeerUser sharedOpenPeerUser] privatePeerFile]  peerFilePrivateSecret:[[OpenPeerUser sharedOpenPeerUser] privatePeerFileSecret]];
+    
+    if (!reloginStarted)
+        NSLog(@"Relogin failed");
 }
 
 /**
@@ -183,6 +193,7 @@
     if ([url length] > 0)
     {
         [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Opening login page ..." inView:[[[OpenPeer sharedOpenPeer] mainViewController] view]];
+        //Open identity login web page
         [self.webLoginViewController openLoginUrl:url];
     }
 }
@@ -206,11 +217,19 @@
   [self.webLoginViewController passMessageToJS:jsMethod];;
 }
 
+/**
+ Handles case when redirection url upon successful login is received.
+ */
 - (void) onLoginRedirectURLReceived
 {
+    //Notifies core that redirection URL for completed login is received.
     [self.loginIdentity notifyLoginCompleteBrowserWindowRedirection];
 }
 
+/**
+ Makes login web view visible or hidden, depending of input parameter.
+ @param isVisible BOOL YES to make web view visible, NO to hide it 
+ */
 - (void) makeLoginWebViewVisible:(BOOL) isVisible
 {
     self.webLoginViewController.view.hidden = !isVisible;
@@ -221,23 +240,28 @@
     }
 }
 
+/**
+ Handles successful identity login event. Adds identity in the list of associated identities and starts account login procedure
+ @param identity HOPIdentity identity used for login
+ */
 - (void) onIdentityLoginFinished:(HOPIdentity*) identity
 {
     [[[OpenPeerUser sharedOpenPeerUser] dictionaryIdentities] setObject:[identity getIdentityURI] forKey:[identity identityBaseURI]];
     
+    //To start account login procedure it is required to pass account, conversation thread and call delegates. Also, peer contact service domain and identity are required .
     [[HOPAccount sharedAccount] loginWithAccountDelegate:(id<HOPAccountDelegate>) [[OpenPeer sharedOpenPeer] accountDelegate] conversationThreadDelegate:(id<HOPConversationThreadDelegate>)[[OpenPeer sharedOpenPeer] conversationThreadDelegate]  callDelegate:(id<HOPCallDelegate>)[[OpenPeer sharedOpenPeer] callDelegate] peerContactServiceDomain:peerContactServiceDomain identity:identity];
 }
 
-- (void) onIdentityassociationFinished:(HOPIdentity*) identity
+/**
+ Handles successful identity association. It updates list of associated identities on server side.
+ @param identity HOPIdentity identity used for login
+ */
+- (void) onIdentityAssociationFinished:(HOPIdentity*) identity
 {
     NSArray* associatedIdentities = [NSArray arrayWithObject:identity];
     [[HOPAccount sharedAccount] associateIdentities:associatedIdentities identitiesToRemove:nil];
 }
 
-- (void) sendMessageToJS:(NSString*) message
-{
-    [self.webLoginViewController passMessageToJS:message];
-}
 
 /**
  Handles SDK event after login is successful.
@@ -279,11 +303,20 @@
     }
 }
 
+/**
+ It passes JSON message from web view to core. This method is invoked from JS.
+ @param message NSString JSON message
+ */
 - (void) notifyClient:(NSString*) message
 {
     [self.loginIdentity handleMessageFromInnerBrowserWindowFrame:message];
 }
 
+/**
+ Retrieves info if an identity with specified URI is associated or not.
+ @param inBaseIdentityURI NSString base identity URI
+ @return YES if associated, otherwise NO
+ */
 - (BOOL) isAssociatedIdentity:(NSString*) inBaseIdentityURI
 {
     BOOL ret = [[((OpenPeerUser*)[OpenPeerUser sharedOpenPeerUser]).dictionaryIdentities allKeys] containsObject:inBaseIdentityURI];

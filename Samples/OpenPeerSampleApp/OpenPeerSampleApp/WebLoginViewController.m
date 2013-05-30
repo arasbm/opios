@@ -65,7 +65,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void) openLoginUrl:(NSString*) url
@@ -75,7 +74,6 @@
 
 - (void) passMessageToJS:(NSString*) message
 {
-    //NSString* javaScript = [NSString stringWithFormat:@"JSMethod:%@",message];
     [self.loginWebView stringByEvaluatingJavaScriptFromString:message];
 }
 
@@ -84,6 +82,7 @@
     NSString *requestString = [[request URL] absoluteString];
     NSLog(@"Login process - web request: %@", requestString);
     
+    //Check if request contains JSON message for core
     if ([requestString hasPrefix:@"https://datapass.hookflash.me/?method="] || [requestString hasPrefix:@"http://datapass.hookflash.me/?method="])
     {
         NSString *function = [Utility getFunctionNameForRequest:requestString];
@@ -99,6 +98,7 @@
     }
     else
     {
+        //If request doesn't contain JSON message, check for afterLoginCompleteURL string. In case it contains that string, user is logged and app should handle that event.
         if ([requestString rangeOfString:afterLoginCompleteURL].length > 0)
         {
             [[LoginManager sharedLoginManager] onLoginRedirectURLReceived];
@@ -115,9 +115,6 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    //Login page is opened, so remove the activity indicator
-    //[[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
-    
     NSString *requestString = [[[webView request] URL] absoluteString];
     if (!self.outerFrameInitialised && [requestString isEqualToString:outerFrameURL])
     {
@@ -131,8 +128,4 @@
     NSLog(@"UIWebView _ERROR_ : %@",[error localizedDescription]);
 }
 
-- (void) clientNotify:(NSString*) message
-{
-
-}
 @end
