@@ -75,16 +75,6 @@
 		87FF9892170EDB7D0017C627 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87FF9891170EDB7D0017C627 /* CoreImage.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		E2A4C3301754CAF6004EFE7F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 872729CF166CDF530089CBB6 /* openpeer-ios-sdk.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8792E86816519CFF00DEAC58;
-			remoteInfo = OpenpeerSDK;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		870F337C168376450090A97F /* ActivityIndicatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityIndicatorViewController.h; sourceTree = "<group>"; };
 		870F337D168376450090A97F /* ActivityIndicatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityIndicatorViewController.m; sourceTree = "<group>"; };
@@ -110,7 +100,7 @@
 		87272854166CC2640089CBB6 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		87272857166CC45A0089CBB6 /* LoginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginManager.h; sourceTree = "<group>"; };
 		87272858166CC45B0089CBB6 /* LoginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginManager.m; sourceTree = "<group>"; };
-		872729CF166CDF530089CBB6 /* openpeer-ios-sdk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "openpeer-ios-sdk.xcodeproj"; path = "../../../../../../../../Repos_upgrade/opios/openpeer-ios-sdk.xcodeproj"; sourceTree = BUILT_PRODUCTS_DIR; };
+		872729CF166CDF530089CBB6 /* openpeer-ios-sdk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "openpeer-ios-sdk.xcodeproj"; path = "../../openpeer-ios-sdk.xcodeproj"; sourceTree = "<group>"; };
 		87368AE1167600F200166F35 /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
 		87368AE2167600F200166F35 /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
 		8740266D1670AA52008CC0F1 /* OpenPeerUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenPeerUser.h; sourceTree = "<group>"; };
@@ -464,14 +454,6 @@
 			path = 3rdParties/RaptureXML;
 			sourceTree = SOURCE_ROOT;
 		};
-		E2A4C32D1754CAF6004EFE7F /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				E2A4C3311754CAF6004EFE7F /* libOpenpeerSDK.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -512,28 +494,12 @@
 			mainGroup = 8727281D166CBF9B0089CBB6;
 			productRefGroup = 87272829166CBF9B0089CBB6 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = E2A4C32D1754CAF6004EFE7F /* Products */;
-					ProjectRef = 872729CF166CDF530089CBB6 /* openpeer-ios-sdk.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				87272827166CBF9B0089CBB6 /* OpenPeerSampleApp */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		E2A4C3311754CAF6004EFE7F /* libOpenpeerSDK.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libOpenpeerSDK.a;
-			remoteRef = E2A4C3301754CAF6004EFE7F /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		87272826166CBF9B0089CBB6 /* Resources */ = {
