@@ -32,6 +32,6 @@
 #import <Foundation/Foundation.h>
 #import <OpenpeerSDK/HOPProtocols.h>
 
-@interface ContactPeerFilePublicLookupDelegate : NSObject<HOPContactPeerFilePublicLookupDelegate>
+@interface ContactPeerFilePublicLookupDelegate : NSObject//<HOPContactPeerFilePublicLookupDelegate>
 
 @end

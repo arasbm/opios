@@ -167,12 +167,12 @@
     [_dictionaryIdentityLookups setObject:lookup forKey:[NSNumber numberWithInt:puid]];
 }
 
-- (HOPContactPeerFilePublicLookup*) getContactPeerFilePublicLookupForPUID:(PUID) puid
+/*- (HOPContactPeerFilePublicLookup*) getContactPeerFilePublicLookupForPUID:(PUID) puid
 {
     return [_dictionaryContactPeerFilePublicLookup objectForKey:[NSNumber numberWithInt:puid]];
 }
 - (void) setContactPeerFilePublicLookup:(HOPContactPeerFilePublicLookup*) lookup forPUID:(PUID) puid
 {
     [_dictionaryContactPeerFilePublicLookup setObject:lookup forKey:[NSNumber numberWithInt:puid]];
-}
+}*/
 @end

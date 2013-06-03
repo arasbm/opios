@@ -45,7 +45,6 @@
 @class HOPProvisioningAccount;
 @class HOPIdentity;
 @class HOPIdentityLookup;
-@class HOPContactPeerFilePublicLookup;
 
 using namespace zsLib;
 
@@ -85,6 +84,6 @@ using namespace zsLib;
 - (HOPIdentityLookup*) getIdentityLookupForPUID:(PUID) puid;
 - (void) setIdentityLookup:(HOPIdentityLookup*) lookup forPUID:(PUID) puid;
 
-- (HOPContactPeerFilePublicLookup*) getContactPeerFilePublicLookupForPUID:(PUID) puid;
-- (void) setContactPeerFilePublicLookup:(HOPContactPeerFilePublicLookup*) lookup forPUID:(PUID) puid;
+//- (HOPContactPeerFilePublicLookup*) getContactPeerFilePublicLookupForPUID:(PUID) puid;
+//- (void) setContactPeerFilePublicLookup:(HOPContactPeerFilePublicLookup*) lookup forPUID:(PUID) puid;
 @end

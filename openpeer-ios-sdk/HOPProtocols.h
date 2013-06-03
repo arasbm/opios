@@ -110,10 +110,3 @@
 - (void) onIdentityLookupCompleted:(HOPIdentityLookup*) lookup;
 
 @end
-
-@class HOPContactPeerFilePublicLookup;
-@protocol HOPContactPeerFilePublicLookupDelegate <NSObject>
-
-- (void) onContactPeerFilePublicLookupCompleted:(HOPContactPeerFilePublicLookup*) lookup;
-
-@end

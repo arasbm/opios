@@ -45,7 +45,6 @@
 #import <OpenpeerSDK/HOPIdentityLookupInfo.h>
 #import <OpenpeerSDK/HOPIdentity.h>
 #import <OpenpeerSDK/HOPContact.h>
-#import <OpenpeerSDK/HOPContactPeerFilePublicLookup.h>
 
 @interface ContactsManager ()
 {
@@ -358,7 +357,7 @@
     [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsPeerFilesLoadingStarted];
     
     //Ask for peer files for passed contacts
-    HOPContactPeerFilePublicLookup* lookup = [[HOPContactPeerFilePublicLookup alloc] initWithDelegate:[[OpenPeer sharedOpenPeer] contactPeerFilePublicLookupDelegate] contactsList:hopContacts];
+    //HOPContactPeerFilePublicLookup* lookup = [[HOPContactPeerFilePublicLookup alloc] initWithDelegate:[[OpenPeer sharedOpenPeer] contactPeerFilePublicLookupDelegate] contactsList:hopContacts];
     
      NSLog(@"%@ is searching peer files for the followin peer uris: %@ \n", [[OpenPeerUser sharedOpenPeerUser] fullName],peerURIs);
 }
@@ -495,7 +494,7 @@
     }
 }
 
-- (void) setContactsPeerFiles:(HOPContactPeerFilePublicLookup*) contactPeerFilePublicLookup
+/*- (void) setContactsPeerFiles:(HOPContactPeerFilePublicLookup*) contactPeerFilePublicLookup
 {
     if ([contactPeerFilePublicLookup isComplete])
     {
@@ -512,7 +511,7 @@
             [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoaded];
         }
     }
-}
+}*/
 
 
 - (void) refreshListOfContacts

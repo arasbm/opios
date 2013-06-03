@@ -30,16 +30,16 @@
  */
 
 #import "ContactPeerFilePublicLookupDelegate.h"
-#import <OpenpeerSDK/HOPContactPeerFilePublicLookup.h>
+
 #import "ContactsManager.h"
 
 @implementation ContactPeerFilePublicLookupDelegate
-
-- (void)onContactPeerFilePublicLookupCompleted:(HOPContactPeerFilePublicLookup *)lookup
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[ContactsManager sharedContactsManager] setContactsPeerFiles:lookup];
-    });
-}
+//
+//- (void)onContactPeerFilePublicLookupCompleted:(HOPContactPeerFilePublicLookup *)lookup
+//{
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        //[[ContactsManager sharedContactsManager] setContactsPeerFiles:lookup];
+//    });
+//}
 
 @end

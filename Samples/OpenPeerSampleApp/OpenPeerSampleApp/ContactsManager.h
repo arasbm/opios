@@ -34,7 +34,6 @@
 
 @class Contact;
 @class HOPIdentityLookup;
-@class HOPContactPeerFilePublicLookup;
 
 @interface ContactsManager : NSObject<UIWebViewDelegate>
 
@@ -58,5 +57,5 @@
 - (void) onCheckAvailabilityResponseReceivedForContact:(Contact*) contact withListOfUserIds:(NSString*) userIds;
 
 - (void) updateContactsWithDataFromLookup:(HOPIdentityLookup*) identityLookup;
-- (void) setContactsPeerFiles:(HOPContactPeerFilePublicLookup*) contactPeerFilePublicLookup;
+//- (void) setContactsPeerFiles:(HOPContactPeerFilePublicLookup*) contactPeerFilePublicLookup;
 @end
