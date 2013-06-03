@@ -114,6 +114,7 @@
 		E275A833175CB5760033B99E /* libwebrtc_video_coding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E275A80F175CB5760033B99E /* libwebrtc_video_coding.a */; };
 		E275A834175CB5760033B99E /* libwebrtc_vp8.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E275A810175CB5760033B99E /* libwebrtc_vp8.a */; };
 		E275A835175CB5760033B99E /* libyuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E275A811175CB5760033B99E /* libyuv.a */; };
+		E275A93B175CC8110033B99E /* libopus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E275A93A175CC8110033B99E /* libopus.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -336,6 +337,7 @@
 		E275A80F175CB5760033B99E /* libwebrtc_video_coding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libwebrtc_video_coding.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E275A810175CB5760033B99E /* libwebrtc_vp8.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libwebrtc_vp8.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E275A811175CB5760033B99E /* libyuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libyuv.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E275A93A175CC8110033B99E /* libopus.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopus.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-boctyipegqooanbtibdxokvllimj/Build/Products/Debug-iphoneos/libopus.a"; sourceTree = "<group>"; };
 		E2A4BE2017549024004EFE7F /* webrtc_ios.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = webrtc_ios.xcodeproj; path = "../../op/hookflash-libs/webRTC/webrtc_ios.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -344,6 +346,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E275A93B175CC8110033B99E /* libopus.a in Frameworks */,
 				E275A812175CB5760033B99E /* libaudio_conference_mixer.a in Frameworks */,
 				E275A813175CB5760033B99E /* libaudio_device.a in Frameworks */,
 				E275A814175CB5760033B99E /* libaudio_processing.a in Frameworks */,
@@ -450,6 +453,7 @@
 		8792E85D16519CFF00DEAC58 = {
 			isa = PBXGroup;
 			children = (
+				E275A93A175CC8110033B99E /* libopus.a */,
 				E2AF705717561D74001F85F1 /* WebRTC libs */,
 				874ADC38166DF0F30095FE33 /* libresolv.dylib */,
 				874ADC36166DF0E20095FE33 /* libz.dylib */,
@@ -994,8 +998,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../OP/hookflash-staging/iPhoneOS/lib\"",
 					"\"$(SRCROOT)/../op/hookflash-libs/webRTC/xcodebuild/Debug-iphoneos\"",
-					"\"$(SRCROOT)/../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos\"",
-					"\"$(SRCROOT)/../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-aabykbyeyrgvnediziejyyyeoylo/Build/Products/Debug-iphoneos\"",
 				);
 				MACH_O_TYPE = staticlib;
 				OTHER_CPLUSPLUSFLAGS = (
@@ -1051,8 +1053,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../OP/hookflash-staging/iPhoneOS/lib\"",
 					"\"$(SRCROOT)/../op/hookflash-libs/webRTC/xcodebuild/Debug-iphoneos\"",
-					"\"$(SRCROOT)/../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos\"",
-					"\"$(SRCROOT)/../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-aabykbyeyrgvnediziejyyyeoylo/Build/Products/Debug-iphoneos\"",
 				);
 				MACH_O_TYPE = staticlib;
 				OTHER_CPLUSPLUSFLAGS = (
