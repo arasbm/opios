@@ -75,6 +75,16 @@
 		87FF9892170EDB7D0017C627 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87FF9891170EDB7D0017C627 /* CoreImage.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		870E0B6F175C93BF00C93CC1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 872729CF166CDF530089CBB6 /* openpeer-ios-sdk.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8792E86816519CFF00DEAC58;
+			remoteInfo = OpenpeerSDK;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		870F337C168376450090A97F /* ActivityIndicatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityIndicatorViewController.h; sourceTree = "<group>"; };
 		870F337D168376450090A97F /* ActivityIndicatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityIndicatorViewController.m; sourceTree = "<group>"; };
@@ -276,6 +286,14 @@
 				8740266E1670AA52008CC0F1 /* OpenPeerUser.m */,
 			);
 			name = Main;
+			sourceTree = "<group>";
+		};
+		870E0B6C175C93BF00C93CC1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				870E0B70175C93BF00C93CC1 /* libOpenpeerSDK.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		8727281D166CBF9B0089CBB6 = {
@@ -494,12 +512,28 @@
 			mainGroup = 8727281D166CBF9B0089CBB6;
 			productRefGroup = 87272829166CBF9B0089CBB6 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 870E0B6C175C93BF00C93CC1 /* Products */;
+					ProjectRef = 872729CF166CDF530089CBB6 /* openpeer-ios-sdk.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				87272827166CBF9B0089CBB6 /* OpenPeerSampleApp */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		870E0B70175C93BF00C93CC1 /* libOpenpeerSDK.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libOpenpeerSDK.a;
+			remoteRef = 870E0B6F175C93BF00C93CC1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		87272826166CBF9B0089CBB6 /* Resources */ = {

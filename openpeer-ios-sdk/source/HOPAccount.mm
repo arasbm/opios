@@ -68,12 +68,14 @@ using namespace hookflash::core;
     return self;
 }
 
+
+
 //- (BOOL) loginWithAccountDelegate:(id<HOPAccountDelegate>) inAccountDelegate conversationThreadDelegate:(id<HOPConversationThreadDelegate>) inConversationThreadDelegate callDelegate:(id<HOPCallDelegate>) inCallDelegate peerContactServiceDomain:(NSString*) inPeerContactServiceDomain identity:(HOPIdentity*) inIdentity
-- (BOOL) loginWithAccountDelegate:(id<HOPAccountDelegate>) inAccountDelegate conversationThreadDelegate:(id<HOPConversationThreadDelegate>) inConversationThreadDelegate callDelegate:(id<HOPCallDelegate>) inCallDelegate lockboxOuterFrameURLUponReload:(NSString*) lockboxOuterFrameURLUponReload lockboxServiceDomain:(NSString*) lockboxServiceDomain lockboxGrantID:(NSString*) lockboxGrantID forceCreateNewLockboxAccount:(BOOL) forceCreateNewLockboxAccount
+- (BOOL) loginWithAccountDelegate:(id<HOPAccountDelegate>) inAccountDelegate conversationThreadDelegate:(id<HOPConversationThreadDelegate>) inConversationThreadDelegate callDelegate:(id<HOPCallDelegate>) inCallDelegate namespaceGrantOuterFrameURLUponReload:(NSString*) namespaceGrantOuterFrameURLUponReload namespaceGrantServiceDomain:(NSString*) namespaceGrantServiceDomain grantID:(NSString*) grantID grantSecret:(NSString*) grantSecret lockboxServiceDomain:(NSString*) lockboxServiceDomain forceCreateNewLockboxAccount:(BOOL) forceCreateNewLockboxAccount
 {
     BOOL passedWithoutErrors = NO;
     
-    if (!inAccountDelegate || !inConversationThreadDelegate || !inCallDelegate || [lockboxOuterFrameURLUponReload length] == 0 || [lockboxServiceDomain length] == 0 || [lockboxGrantID length] == 0 )
+    if (!inAccountDelegate || !inConversationThreadDelegate || !inCallDelegate || [namespaceGrantOuterFrameURLUponReload length] == 0 || [namespaceGrantServiceDomain length] == 0 || [grantID length] == 0 || [grantSecret length] == 0 || [lockboxServiceDomain length] == 0 )
         return passedWithoutErrors;
     
     if (accountPtr)
@@ -81,7 +83,7 @@ using namespace hookflash::core;
     
     [self setLocalDelegates:inAccountDelegate conversationThread:inConversationThreadDelegate callDelegate:inCallDelegate];
     
-    accountPtr = IAccount::login(openpeerAccountDelegatePtr, openpeerConversationDelegatePtr, openpeerCallDelegatePtr, [lockboxOuterFrameURLUponReload UTF8String], [lockboxServiceDomain UTF8String], [lockboxGrantID UTF8String],forceCreateNewLockboxAccount);
+    accountPtr = IAccount::login(openpeerAccountDelegatePtr, openpeerConversationDelegatePtr, openpeerCallDelegatePtr, [namespaceGrantOuterFrameURLUponReload UTF8String], [namespaceGrantServiceDomain UTF8String], [grantID UTF8String], [grantSecret UTF8String],[lockboxServiceDomain UTF8String], forceCreateNewLockboxAccount);
     
     if (accountPtr)
         passedWithoutErrors = YES;

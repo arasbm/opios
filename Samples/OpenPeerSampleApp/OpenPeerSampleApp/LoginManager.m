@@ -251,7 +251,9 @@
     
     //To start account login procedure it is required to pass account, conversation thread and call delegates. Also, peer contact service domain and identity are required .
     //[[HOPAccount sharedAccount] loginWithAccountDelegate:(id<HOPAccountDelegate>) [[OpenPeer sharedOpenPeer] accountDelegate] conversationThreadDelegate:(id<HOPConversationThreadDelegate>)[[OpenPeer sharedOpenPeer] conversationThreadDelegate]  callDelegate:(id<HOPCallDelegate>)[[OpenPeer sharedOpenPeer] callDelegate] peerContactServiceDomain:peerContactServiceDomain identity:identity];
-    [[HOPAccount sharedAccount] loginWithAccountDelegate:(id<HOPAccountDelegate>) [[OpenPeer sharedOpenPeer] accountDelegate] conversationThreadDelegate:(id<HOPConversationThreadDelegate>)[[OpenPeer sharedOpenPeer] conversationThreadDelegate]  callDelegate:(id<HOPCallDelegate>)[[OpenPeer sharedOpenPeer] callDelegate] lockboxOuterFrameURLUponReload:outerFrameURL lockboxServiceDomain:identityProviderDomain lockboxGrantID:<#(NSString *)#> forceCreateNewLockboxAccount:<#(BOOL)#>:peerContactServiceDomain identity:identity];
+    
+    //TODO: add grant service domain
+    [[HOPAccount sharedAccount] loginWithAccountDelegate:(id<HOPAccountDelegate>) [[OpenPeer sharedOpenPeer] accountDelegate] conversationThreadDelegate:(id<HOPConversationThreadDelegate>)[[OpenPeer sharedOpenPeer] conversationThreadDelegate]  callDelegate:(id<HOPCallDelegate>)[[OpenPeer sharedOpenPeer] callDelegate] namespaceGrantOuterFrameURLUponReload:@"Finished" namespaceGrantServiceDomain:identityProviderDomain grantID:@"" grantSecret:@"" lockboxServiceDomain:identityProviderDomain forceCreateNewLockboxAccount:YES];
 }
 
 /**

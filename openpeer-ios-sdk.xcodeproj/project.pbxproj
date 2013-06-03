@@ -37,7 +37,6 @@
 		87A5B1EA16EDE5F9007E825A /* HOPStack_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 87A5B1C116EDE5F9007E825A /* HOPStack_Internal.h */; };
 		87A5B1EB16EDE5F9007E825A /* OpenPeerAccountDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 87A5B1C216EDE5F9007E825A /* OpenPeerAccountDelegate.h */; };
 		87A5B1EC16EDE5F9007E825A /* OpenPeerIdentityLookupDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 87A5B1C316EDE5F9007E825A /* OpenPeerIdentityLookupDelegate.h */; };
-		87A5B1ED16EDE5F9007E825A /* OpenPeerContactPeerFilePublicLookupDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 87A5B1C416EDE5F9007E825A /* OpenPeerContactPeerFilePublicLookupDelegate.h */; };
 		87A5B1EF16EDE5F9007E825A /* OpenPeerCallDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 87A5B1C616EDE5F9007E825A /* OpenPeerCallDelegate.h */; };
 		87A5B1F016EDE5F9007E825A /* OpenPeerConversationThreadDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 87A5B1C716EDE5F9007E825A /* OpenPeerConversationThreadDelegate.h */; };
 		87A5B1F116EDE5F9007E825A /* OpenPeerIdentityDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 87A5B1C816EDE5F9007E825A /* OpenPeerIdentityDelegate.h */; };
@@ -48,7 +47,6 @@
 		87A5B1F816EDE5F9007E825A /* OpenPeerUtility.h in Headers */ = {isa = PBXBuildFile; fileRef = 87A5B1CF16EDE5F9007E825A /* OpenPeerUtility.h */; };
 		87A5B1F916EDE5F9007E825A /* OpenPeerAccountDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 87A5B1D116EDE5F9007E825A /* OpenPeerAccountDelegate.mm */; };
 		87A5B1FA16EDE5F9007E825A /* OpenPeerIdentityLookupDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 87A5B1D216EDE5F9007E825A /* OpenPeerIdentityLookupDelegate.mm */; };
-		87A5B1FB16EDE5F9007E825A /* OpenPeerContactPeerFilePublicLookupDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 87A5B1D316EDE5F9007E825A /* OpenPeerContactPeerFilePublicLookupDelegate.mm */; };
 		87A5B1FD16EDE5F9007E825A /* OpenPeerCallDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 87A5B1D516EDE5F9007E825A /* OpenPeerCallDelegate.mm */; };
 		87A5B1FE16EDE5F9007E825A /* OpenPeerConversationThreadDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 87A5B1D616EDE5F9007E825A /* OpenPeerConversationThreadDelegate.mm */; };
 		87A5B1FF16EDE5F9007E825A /* OpenPeerIdentityDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 87A5B1D716EDE5F9007E825A /* OpenPeerIdentityDelegate.mm */; };
@@ -57,7 +55,6 @@
 		87A5B20416EDE5F9007E825A /* OpenPeerStorageManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 87A5B1DC16EDE5F9007E825A /* OpenPeerStorageManager.mm */; };
 		87A5B20516EDE5F9007E825A /* OpenPeerUtility.mm in Sources */ = {isa = PBXBuildFile; fileRef = 87A5B1DD16EDE5F9007E825A /* OpenPeerUtility.mm */; };
 		87A5B20716EDE648007E825A /* HOPIdentityLookup.mm in Sources */ = {isa = PBXBuildFile; fileRef = 87A5B20616EDE648007E825A /* HOPIdentityLookup.mm */; };
-		87A5B20C16EE0B9F007E825A /* HOPContactPeerFilePublicLookup.mm in Sources */ = {isa = PBXBuildFile; fileRef = 87A5B20B16EE0B9F007E825A /* HOPContactPeerFilePublicLookup.mm */; };
 		87B013F01661557C00E8938B /* HOPStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 8792E9BE1651A43E00DEAC58 /* HOPStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87B013F21661557C00E8938B /* HOPContact.h in Headers */ = {isa = PBXBuildFile; fileRef = 8792E9CC1651B21F00DEAC58 /* HOPContact.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87B013F31661557C00E8938B /* HOPCall.h in Headers */ = {isa = PBXBuildFile; fileRef = 874F65731652628500E580F0 /* HOPCall.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -77,45 +74,6 @@
 		87F9074B16EF465300B0D22C /* libhfstack_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8786891416E609390090A3D9 /* libhfstack_ios.a */; };
 		87F9075B16EF465300B0D22C /* libudns_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8786892316E609740090A3D9 /* libudns_ios.a */; };
 		87F9076C16EF465300B0D22C /* libzsLib_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8786891E16E609660090A3D9 /* libzsLib_ios.a */; };
-		E2AF703017561086001F85F1 /* libaudio_coding_module.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF700917561085001F85F1 /* libaudio_coding_module.a */; };
-		E2AF703117561086001F85F1 /* libaudio_conference_mixer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF700A17561085001F85F1 /* libaudio_conference_mixer.a */; };
-		E2AF703217561086001F85F1 /* libaudio_device.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF700B17561085001F85F1 /* libaudio_device.a */; };
-		E2AF703317561086001F85F1 /* libaudio_processing.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF700C17561085001F85F1 /* libaudio_processing.a */; };
-		E2AF703417561086001F85F1 /* libbitrate_controller.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF700D17561085001F85F1 /* libbitrate_controller.a */; };
-		E2AF703517561086001F85F1 /* libCNG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF700E17561085001F85F1 /* libCNG.a */; };
-		E2AF703617561086001F85F1 /* libcommon_video.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF700F17561085001F85F1 /* libcommon_video.a */; };
-		E2AF703717561086001F85F1 /* libG711.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF701017561085001F85F1 /* libG711.a */; };
-		E2AF703817561086001F85F1 /* libG722.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF701117561085001F85F1 /* libG722.a */; };
-		E2AF703917561086001F85F1 /* libgtest_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF701217561085001F85F1 /* libgtest_ios.a */; };
-		E2AF703A17561086001F85F1 /* libiLBC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF701317561085001F85F1 /* libiLBC.a */; };
-		E2AF703B17561086001F85F1 /* libiSAC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF701417561085001F85F1 /* libiSAC.a */; };
-		E2AF703C17561086001F85F1 /* libiSACFix.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF701517561085001F85F1 /* libiSACFix.a */; };
-		E2AF703D17561086001F85F1 /* libmedia_file.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF701617561085001F85F1 /* libmedia_file.a */; };
-		E2AF703E17561086001F85F1 /* libNetEq.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF701717561085001F85F1 /* libNetEq.a */; };
-		E2AF703F17561086001F85F1 /* libNetEq4.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF701817561085001F85F1 /* libNetEq4.a */; };
-		E2AF704017561086001F85F1 /* libopus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF701917561085001F85F1 /* libopus.a */; };
-		E2AF704117561086001F85F1 /* libpaced_sender.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF701A17561085001F85F1 /* libpaced_sender.a */; };
-		E2AF704217561086001F85F1 /* libPCM16B.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF701B17561086001F85F1 /* libPCM16B.a */; };
-		E2AF704317561086001F85F1 /* libremote_bitrate_estimator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF701C17561086001F85F1 /* libremote_bitrate_estimator.a */; };
-		E2AF704417561086001F85F1 /* libresampler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF701D17561086001F85F1 /* libresampler.a */; };
-		E2AF704517561086001F85F1 /* librtp_rtcp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF701E17561086001F85F1 /* librtp_rtcp.a */; };
-		E2AF704617561086001F85F1 /* libsignal_processing.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF701F17561086001F85F1 /* libsignal_processing.a */; };
-		E2AF704717561086001F85F1 /* libsystem_wrappers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF702017561086001F85F1 /* libsystem_wrappers.a */; };
-		E2AF704817561086001F85F1 /* libturbojpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF702117561086001F85F1 /* libturbojpeg.a */; };
-		E2AF704917561086001F85F1 /* libvad.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF702217561086001F85F1 /* libvad.a */; };
-		E2AF704A17561086001F85F1 /* libvideo_capture_module.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF702317561086001F85F1 /* libvideo_capture_module.a */; };
-		E2AF704B17561086001F85F1 /* libvideo_coding_utility.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF702417561086001F85F1 /* libvideo_coding_utility.a */; };
-		E2AF704C17561086001F85F1 /* libvideo_engine_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF702517561086001F85F1 /* libvideo_engine_core.a */; };
-		E2AF704D17561086001F85F1 /* libvideo_processing.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF702617561086001F85F1 /* libvideo_processing.a */; };
-		E2AF704E17561086001F85F1 /* libvideo_render_module.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF702717561086001F85F1 /* libvideo_render_module.a */; };
-		E2AF704F17561086001F85F1 /* libvoice_engine_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF702817561086001F85F1 /* libvoice_engine_core.a */; };
-		E2AF705017561086001F85F1 /* libvpx_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF702917561086001F85F1 /* libvpx_ios.a */; };
-		E2AF705117561086001F85F1 /* libwebrtc_i420.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF702A17561086001F85F1 /* libwebrtc_i420.a */; };
-		E2AF705217561086001F85F1 /* libwebrtc_opus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF702B17561086001F85F1 /* libwebrtc_opus.a */; };
-		E2AF705317561086001F85F1 /* libwebrtc_utility.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF702C17561086001F85F1 /* libwebrtc_utility.a */; };
-		E2AF705417561086001F85F1 /* libwebrtc_video_coding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF702D17561086001F85F1 /* libwebrtc_video_coding.a */; };
-		E2AF705517561086001F85F1 /* libwebrtc_vp8.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF702E17561086001F85F1 /* libwebrtc_vp8.a */; };
-		E2AF705617561086001F85F1 /* libyuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2AF702F17561086001F85F1 /* libyuv.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -271,7 +229,6 @@
 		87A5B1C116EDE5F9007E825A /* HOPStack_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HOPStack_Internal.h; sourceTree = "<group>"; };
 		87A5B1C216EDE5F9007E825A /* OpenPeerAccountDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenPeerAccountDelegate.h; sourceTree = "<group>"; };
 		87A5B1C316EDE5F9007E825A /* OpenPeerIdentityLookupDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenPeerIdentityLookupDelegate.h; sourceTree = "<group>"; };
-		87A5B1C416EDE5F9007E825A /* OpenPeerContactPeerFilePublicLookupDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenPeerContactPeerFilePublicLookupDelegate.h; sourceTree = "<group>"; };
 		87A5B1C616EDE5F9007E825A /* OpenPeerCallDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenPeerCallDelegate.h; sourceTree = "<group>"; };
 		87A5B1C716EDE5F9007E825A /* OpenPeerConversationThreadDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenPeerConversationThreadDelegate.h; sourceTree = "<group>"; };
 		87A5B1C816EDE5F9007E825A /* OpenPeerIdentityDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenPeerIdentityDelegate.h; sourceTree = "<group>"; };
@@ -282,7 +239,6 @@
 		87A5B1CF16EDE5F9007E825A /* OpenPeerUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenPeerUtility.h; sourceTree = "<group>"; };
 		87A5B1D116EDE5F9007E825A /* OpenPeerAccountDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenPeerAccountDelegate.mm; sourceTree = "<group>"; };
 		87A5B1D216EDE5F9007E825A /* OpenPeerIdentityLookupDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenPeerIdentityLookupDelegate.mm; sourceTree = "<group>"; };
-		87A5B1D316EDE5F9007E825A /* OpenPeerContactPeerFilePublicLookupDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenPeerContactPeerFilePublicLookupDelegate.mm; sourceTree = "<group>"; };
 		87A5B1D516EDE5F9007E825A /* OpenPeerCallDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenPeerCallDelegate.mm; sourceTree = "<group>"; };
 		87A5B1D616EDE5F9007E825A /* OpenPeerConversationThreadDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenPeerConversationThreadDelegate.mm; sourceTree = "<group>"; };
 		87A5B1D716EDE5F9007E825A /* OpenPeerIdentityDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenPeerIdentityDelegate.mm; sourceTree = "<group>"; };
@@ -294,53 +250,12 @@
 		87A5B20816EDE656007E825A /* HOPIdentityLookup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HOPIdentityLookup.h; sourceTree = "<group>"; };
 		87A5B20916EDE9A4007E825A /* HOPIdentityLookup_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HOPIdentityLookup_Internal.h; sourceTree = "<group>"; };
 		87A5B20A16EE0B42007E825A /* HOPContactPeerFilePublicLookup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HOPContactPeerFilePublicLookup.h; sourceTree = "<group>"; };
-		87A5B20B16EE0B9F007E825A /* HOPContactPeerFilePublicLookup.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HOPContactPeerFilePublicLookup.mm; sourceTree = "<group>"; };
-		87A5B20D16EE0BDF007E825A /* HOPContactPeerFilePublicLookup_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HOPContactPeerFilePublicLookup_Internal.h; sourceTree = "<group>"; };
 		87DFA51D16E7576900C77326 /* HOPLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HOPLogger.h; sourceTree = "<group>"; };
 		87E3CCE8172A82BC00084D2F /* HOPIdentityLookupInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HOPIdentityLookupInfo.h; sourceTree = "<group>"; };
 		87E3CD1F172A859500084D2F /* HOPIdentityLookupInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HOPIdentityLookupInfo.mm; sourceTree = "<group>"; };
 		87E3CD23172A85FC00084D2F /* HOPIdentityLookupInfo_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HOPIdentityLookupInfo_Internal.h; sourceTree = "<group>"; };
 		87FA4CE0165F891A00F7D973 /* HOPIdentity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HOPIdentity.h; sourceTree = "<group>"; };
 		E2A4BE2017549024004EFE7F /* webrtc_ios.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = webrtc_ios.xcodeproj; path = "../../op/hookflash-libs/webRTC/webrtc_ios.xcodeproj"; sourceTree = "<group>"; };
-		E2AF700917561085001F85F1 /* libaudio_coding_module.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libaudio_coding_module.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libaudio_coding_module.a"; sourceTree = "<group>"; };
-		E2AF700A17561085001F85F1 /* libaudio_conference_mixer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libaudio_conference_mixer.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libaudio_conference_mixer.a"; sourceTree = "<group>"; };
-		E2AF700B17561085001F85F1 /* libaudio_device.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libaudio_device.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libaudio_device.a"; sourceTree = "<group>"; };
-		E2AF700C17561085001F85F1 /* libaudio_processing.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libaudio_processing.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libaudio_processing.a"; sourceTree = "<group>"; };
-		E2AF700D17561085001F85F1 /* libbitrate_controller.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbitrate_controller.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libbitrate_controller.a"; sourceTree = "<group>"; };
-		E2AF700E17561085001F85F1 /* libCNG.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCNG.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libCNG.a"; sourceTree = "<group>"; };
-		E2AF700F17561085001F85F1 /* libcommon_video.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcommon_video.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libcommon_video.a"; sourceTree = "<group>"; };
-		E2AF701017561085001F85F1 /* libG711.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libG711.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libG711.a"; sourceTree = "<group>"; };
-		E2AF701117561085001F85F1 /* libG722.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libG722.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libG722.a"; sourceTree = "<group>"; };
-		E2AF701217561085001F85F1 /* libgtest_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest_ios.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libgtest_ios.a"; sourceTree = "<group>"; };
-		E2AF701317561085001F85F1 /* libiLBC.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiLBC.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libiLBC.a"; sourceTree = "<group>"; };
-		E2AF701417561085001F85F1 /* libiSAC.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiSAC.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libiSAC.a"; sourceTree = "<group>"; };
-		E2AF701517561085001F85F1 /* libiSACFix.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiSACFix.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libiSACFix.a"; sourceTree = "<group>"; };
-		E2AF701617561085001F85F1 /* libmedia_file.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmedia_file.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libmedia_file.a"; sourceTree = "<group>"; };
-		E2AF701717561085001F85F1 /* libNetEq.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libNetEq.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libNetEq.a"; sourceTree = "<group>"; };
-		E2AF701817561085001F85F1 /* libNetEq4.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libNetEq4.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libNetEq4.a"; sourceTree = "<group>"; };
-		E2AF701917561085001F85F1 /* libopus.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopus.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libopus.a"; sourceTree = "<group>"; };
-		E2AF701A17561085001F85F1 /* libpaced_sender.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpaced_sender.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libpaced_sender.a"; sourceTree = "<group>"; };
-		E2AF701B17561086001F85F1 /* libPCM16B.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPCM16B.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libPCM16B.a"; sourceTree = "<group>"; };
-		E2AF701C17561086001F85F1 /* libremote_bitrate_estimator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libremote_bitrate_estimator.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libremote_bitrate_estimator.a"; sourceTree = "<group>"; };
-		E2AF701D17561086001F85F1 /* libresampler.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libresampler.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libresampler.a"; sourceTree = "<group>"; };
-		E2AF701E17561086001F85F1 /* librtp_rtcp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librtp_rtcp.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/librtp_rtcp.a"; sourceTree = "<group>"; };
-		E2AF701F17561086001F85F1 /* libsignal_processing.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsignal_processing.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libsignal_processing.a"; sourceTree = "<group>"; };
-		E2AF702017561086001F85F1 /* libsystem_wrappers.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsystem_wrappers.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libsystem_wrappers.a"; sourceTree = "<group>"; };
-		E2AF702117561086001F85F1 /* libturbojpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libturbojpeg.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libturbojpeg.a"; sourceTree = "<group>"; };
-		E2AF702217561086001F85F1 /* libvad.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvad.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libvad.a"; sourceTree = "<group>"; };
-		E2AF702317561086001F85F1 /* libvideo_capture_module.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvideo_capture_module.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libvideo_capture_module.a"; sourceTree = "<group>"; };
-		E2AF702417561086001F85F1 /* libvideo_coding_utility.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvideo_coding_utility.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libvideo_coding_utility.a"; sourceTree = "<group>"; };
-		E2AF702517561086001F85F1 /* libvideo_engine_core.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvideo_engine_core.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libvideo_engine_core.a"; sourceTree = "<group>"; };
-		E2AF702617561086001F85F1 /* libvideo_processing.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvideo_processing.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libvideo_processing.a"; sourceTree = "<group>"; };
-		E2AF702717561086001F85F1 /* libvideo_render_module.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvideo_render_module.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libvideo_render_module.a"; sourceTree = "<group>"; };
-		E2AF702817561086001F85F1 /* libvoice_engine_core.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvoice_engine_core.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libvoice_engine_core.a"; sourceTree = "<group>"; };
-		E2AF702917561086001F85F1 /* libvpx_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvpx_ios.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libvpx_ios.a"; sourceTree = "<group>"; };
-		E2AF702A17561086001F85F1 /* libwebrtc_i420.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwebrtc_i420.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libwebrtc_i420.a"; sourceTree = "<group>"; };
-		E2AF702B17561086001F85F1 /* libwebrtc_opus.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwebrtc_opus.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libwebrtc_opus.a"; sourceTree = "<group>"; };
-		E2AF702C17561086001F85F1 /* libwebrtc_utility.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwebrtc_utility.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libwebrtc_utility.a"; sourceTree = "<group>"; };
-		E2AF702D17561086001F85F1 /* libwebrtc_video_coding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwebrtc_video_coding.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libwebrtc_video_coding.a"; sourceTree = "<group>"; };
-		E2AF702E17561086001F85F1 /* libwebrtc_vp8.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwebrtc_vp8.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libwebrtc_vp8.a"; sourceTree = "<group>"; };
-		E2AF702F17561086001F85F1 /* libyuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libyuv.a; path = "../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos/libyuv.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -348,45 +263,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2AF703017561086001F85F1 /* libaudio_coding_module.a in Frameworks */,
-				E2AF703117561086001F85F1 /* libaudio_conference_mixer.a in Frameworks */,
-				E2AF703217561086001F85F1 /* libaudio_device.a in Frameworks */,
-				E2AF703317561086001F85F1 /* libaudio_processing.a in Frameworks */,
-				E2AF703417561086001F85F1 /* libbitrate_controller.a in Frameworks */,
-				E2AF703517561086001F85F1 /* libCNG.a in Frameworks */,
-				E2AF703617561086001F85F1 /* libcommon_video.a in Frameworks */,
-				E2AF703717561086001F85F1 /* libG711.a in Frameworks */,
-				E2AF703817561086001F85F1 /* libG722.a in Frameworks */,
-				E2AF703917561086001F85F1 /* libgtest_ios.a in Frameworks */,
-				E2AF703A17561086001F85F1 /* libiLBC.a in Frameworks */,
-				E2AF703B17561086001F85F1 /* libiSAC.a in Frameworks */,
-				E2AF703C17561086001F85F1 /* libiSACFix.a in Frameworks */,
-				E2AF703D17561086001F85F1 /* libmedia_file.a in Frameworks */,
-				E2AF703E17561086001F85F1 /* libNetEq.a in Frameworks */,
-				E2AF703F17561086001F85F1 /* libNetEq4.a in Frameworks */,
-				E2AF704017561086001F85F1 /* libopus.a in Frameworks */,
-				E2AF704117561086001F85F1 /* libpaced_sender.a in Frameworks */,
-				E2AF704217561086001F85F1 /* libPCM16B.a in Frameworks */,
-				E2AF704317561086001F85F1 /* libremote_bitrate_estimator.a in Frameworks */,
-				E2AF704417561086001F85F1 /* libresampler.a in Frameworks */,
-				E2AF704517561086001F85F1 /* librtp_rtcp.a in Frameworks */,
-				E2AF704617561086001F85F1 /* libsignal_processing.a in Frameworks */,
-				E2AF704717561086001F85F1 /* libsystem_wrappers.a in Frameworks */,
-				E2AF704817561086001F85F1 /* libturbojpeg.a in Frameworks */,
-				E2AF704917561086001F85F1 /* libvad.a in Frameworks */,
-				E2AF704A17561086001F85F1 /* libvideo_capture_module.a in Frameworks */,
-				E2AF704B17561086001F85F1 /* libvideo_coding_utility.a in Frameworks */,
-				E2AF704C17561086001F85F1 /* libvideo_engine_core.a in Frameworks */,
-				E2AF704D17561086001F85F1 /* libvideo_processing.a in Frameworks */,
-				E2AF704E17561086001F85F1 /* libvideo_render_module.a in Frameworks */,
-				E2AF704F17561086001F85F1 /* libvoice_engine_core.a in Frameworks */,
-				E2AF705017561086001F85F1 /* libvpx_ios.a in Frameworks */,
-				E2AF705117561086001F85F1 /* libwebrtc_i420.a in Frameworks */,
-				E2AF705217561086001F85F1 /* libwebrtc_opus.a in Frameworks */,
-				E2AF705317561086001F85F1 /* libwebrtc_utility.a in Frameworks */,
-				E2AF705417561086001F85F1 /* libwebrtc_video_coding.a in Frameworks */,
-				E2AF705517561086001F85F1 /* libwebrtc_vp8.a in Frameworks */,
-				E2AF705617561086001F85F1 /* libyuv.a in Frameworks */,
 				87F9074616EF465300B0D22C /* libcryptopp_ios.a in Frameworks */,
 				87F9074916EF465300B0D22C /* libhfcore_ios.a in Frameworks */,
 				87F9074A16EF465300B0D22C /* libhfservices_ios.a in Frameworks */,
@@ -550,7 +426,6 @@
 				87A5B19E16EDE5EB007E825A /* HOPStack.mm */,
 				87A5B19F16EDE5EB007E825A /* OpenPeerLoggerDelegate.mm */,
 				87A5B20616EDE648007E825A /* HOPIdentityLookup.mm */,
-				87A5B20B16EE0B9F007E825A /* HOPContactPeerFilePublicLookup.mm */,
 				87E3CD1F172A859500084D2F /* HOPIdentityLookupInfo.mm */,
 			);
 			path = source;
@@ -568,7 +443,6 @@
 				87A5B1C116EDE5F9007E825A /* HOPStack_Internal.h */,
 				87A5B1C216EDE5F9007E825A /* OpenPeerAccountDelegate.h */,
 				87A5B1C316EDE5F9007E825A /* OpenPeerIdentityLookupDelegate.h */,
-				87A5B1C416EDE5F9007E825A /* OpenPeerContactPeerFilePublicLookupDelegate.h */,
 				87A5B1C616EDE5F9007E825A /* OpenPeerCallDelegate.h */,
 				87A5B1C716EDE5F9007E825A /* OpenPeerConversationThreadDelegate.h */,
 				87A5B1C816EDE5F9007E825A /* OpenPeerIdentityDelegate.h */,
@@ -579,7 +453,6 @@
 				87A5B1CF16EDE5F9007E825A /* OpenPeerUtility.h */,
 				87A5B1D016EDE5F9007E825A /* source */,
 				87A5B20916EDE9A4007E825A /* HOPIdentityLookup_Internal.h */,
-				87A5B20D16EE0BDF007E825A /* HOPContactPeerFilePublicLookup_Internal.h */,
 				87E3CD23172A85FC00084D2F /* HOPIdentityLookupInfo_Internal.h */,
 			);
 			path = internal;
@@ -590,7 +463,6 @@
 			children = (
 				87A5B1D116EDE5F9007E825A /* OpenPeerAccountDelegate.mm */,
 				87A5B1D216EDE5F9007E825A /* OpenPeerIdentityLookupDelegate.mm */,
-				87A5B1D316EDE5F9007E825A /* OpenPeerContactPeerFilePublicLookupDelegate.mm */,
 				87A5B1D516EDE5F9007E825A /* OpenPeerCallDelegate.mm */,
 				87A5B1D616EDE5F9007E825A /* OpenPeerConversationThreadDelegate.mm */,
 				87A5B1D716EDE5F9007E825A /* OpenPeerIdentityDelegate.mm */,
@@ -612,45 +484,6 @@
 		E2AF705717561D74001F85F1 /* WebRTC libs */ = {
 			isa = PBXGroup;
 			children = (
-				E2AF700917561085001F85F1 /* libaudio_coding_module.a */,
-				E2AF700A17561085001F85F1 /* libaudio_conference_mixer.a */,
-				E2AF700B17561085001F85F1 /* libaudio_device.a */,
-				E2AF700C17561085001F85F1 /* libaudio_processing.a */,
-				E2AF700D17561085001F85F1 /* libbitrate_controller.a */,
-				E2AF700E17561085001F85F1 /* libCNG.a */,
-				E2AF700F17561085001F85F1 /* libcommon_video.a */,
-				E2AF701017561085001F85F1 /* libG711.a */,
-				E2AF701117561085001F85F1 /* libG722.a */,
-				E2AF701217561085001F85F1 /* libgtest_ios.a */,
-				E2AF701317561085001F85F1 /* libiLBC.a */,
-				E2AF701417561085001F85F1 /* libiSAC.a */,
-				E2AF701517561085001F85F1 /* libiSACFix.a */,
-				E2AF701617561085001F85F1 /* libmedia_file.a */,
-				E2AF701717561085001F85F1 /* libNetEq.a */,
-				E2AF701817561085001F85F1 /* libNetEq4.a */,
-				E2AF701917561085001F85F1 /* libopus.a */,
-				E2AF701A17561085001F85F1 /* libpaced_sender.a */,
-				E2AF701B17561086001F85F1 /* libPCM16B.a */,
-				E2AF701C17561086001F85F1 /* libremote_bitrate_estimator.a */,
-				E2AF701D17561086001F85F1 /* libresampler.a */,
-				E2AF701E17561086001F85F1 /* librtp_rtcp.a */,
-				E2AF701F17561086001F85F1 /* libsignal_processing.a */,
-				E2AF702017561086001F85F1 /* libsystem_wrappers.a */,
-				E2AF702117561086001F85F1 /* libturbojpeg.a */,
-				E2AF702217561086001F85F1 /* libvad.a */,
-				E2AF702317561086001F85F1 /* libvideo_capture_module.a */,
-				E2AF702417561086001F85F1 /* libvideo_coding_utility.a */,
-				E2AF702517561086001F85F1 /* libvideo_engine_core.a */,
-				E2AF702617561086001F85F1 /* libvideo_processing.a */,
-				E2AF702717561086001F85F1 /* libvideo_render_module.a */,
-				E2AF702817561086001F85F1 /* libvoice_engine_core.a */,
-				E2AF702917561086001F85F1 /* libvpx_ios.a */,
-				E2AF702A17561086001F85F1 /* libwebrtc_i420.a */,
-				E2AF702B17561086001F85F1 /* libwebrtc_opus.a */,
-				E2AF702C17561086001F85F1 /* libwebrtc_utility.a */,
-				E2AF702D17561086001F85F1 /* libwebrtc_video_coding.a */,
-				E2AF702E17561086001F85F1 /* libwebrtc_vp8.a */,
-				E2AF702F17561086001F85F1 /* libyuv.a */,
 			);
 			name = "WebRTC libs";
 			sourceTree = "<group>";
@@ -687,7 +520,6 @@
 				87A5B1EA16EDE5F9007E825A /* HOPStack_Internal.h in Headers */,
 				87A5B1EB16EDE5F9007E825A /* OpenPeerAccountDelegate.h in Headers */,
 				87A5B1EC16EDE5F9007E825A /* OpenPeerIdentityLookupDelegate.h in Headers */,
-				87A5B1ED16EDE5F9007E825A /* OpenPeerContactPeerFilePublicLookupDelegate.h in Headers */,
 				87A5B1EF16EDE5F9007E825A /* OpenPeerCallDelegate.h in Headers */,
 				87A5B1F016EDE5F9007E825A /* OpenPeerConversationThreadDelegate.h in Headers */,
 				87A5B1F116EDE5F9007E825A /* OpenPeerIdentityDelegate.h in Headers */,
@@ -863,7 +695,6 @@
 				87A5B1B316EDE5EB007E825A /* OpenPeerLoggerDelegate.mm in Sources */,
 				87A5B1F916EDE5F9007E825A /* OpenPeerAccountDelegate.mm in Sources */,
 				87A5B1FA16EDE5F9007E825A /* OpenPeerIdentityLookupDelegate.mm in Sources */,
-				87A5B1FB16EDE5F9007E825A /* OpenPeerContactPeerFilePublicLookupDelegate.mm in Sources */,
 				87A5B1FD16EDE5F9007E825A /* OpenPeerCallDelegate.mm in Sources */,
 				87A5B1FE16EDE5F9007E825A /* OpenPeerConversationThreadDelegate.mm in Sources */,
 				87A5B1FF16EDE5F9007E825A /* OpenPeerIdentityDelegate.mm in Sources */,
@@ -872,7 +703,6 @@
 				87A5B20416EDE5F9007E825A /* OpenPeerStorageManager.mm in Sources */,
 				87A5B20516EDE5F9007E825A /* OpenPeerUtility.mm in Sources */,
 				87A5B20716EDE648007E825A /* HOPIdentityLookup.mm in Sources */,
-				87A5B20C16EE0B9F007E825A /* HOPContactPeerFilePublicLookup.mm in Sources */,
 				87E3CD21172A859600084D2F /* HOPIdentityLookupInfo.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1003,6 +833,7 @@
 					"\"$(SRCROOT)/../OP/hookflash-staging/iPhoneOS/lib\"",
 					"\"$(SRCROOT)/../op/hookflash-libs/webRTC/xcodebuild/Debug-iphoneos\"",
 					"\"$(SRCROOT)/../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos\"",
+					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-epizwbpjfwtscacjoxgkahlgznbc/Build/Products/Debug-iphoneos\"",
 				);
 				MACH_O_TYPE = staticlib;
 				OTHER_CPLUSPLUSFLAGS = (
@@ -1059,6 +890,7 @@
 					"\"$(SRCROOT)/../OP/hookflash-staging/iPhoneOS/lib\"",
 					"\"$(SRCROOT)/../op/hookflash-libs/webRTC/xcodebuild/Debug-iphoneos\"",
 					"\"$(SRCROOT)/../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-eitaobsixgmwqtbpsklrutfupyea/Build/Products/Debug-iphoneos\"",
+					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-epizwbpjfwtscacjoxgkahlgznbc/Build/Products/Debug-iphoneos\"",
 				);
 				MACH_O_TYPE = staticlib;
 				OTHER_CPLUSPLUSFLAGS = (
