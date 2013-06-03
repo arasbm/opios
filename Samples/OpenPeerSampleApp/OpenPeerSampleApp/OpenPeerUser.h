@@ -34,7 +34,7 @@
 @interface OpenPeerUser : NSObject
 
 @property (nonatomic, strong) NSString* fullName;
-@property (nonatomic, strong) NSString* userId;
+//@property (nonatomic, strong) NSString* userId;
 @property (nonatomic, strong) NSString* stableUniqueId;
 @property (nonatomic, strong) NSString* identityURI;
 @property (nonatomic, strong) NSString* peerURI;

@@ -88,30 +88,6 @@
     return self;
 }
 
-- (id) initFromPeerURI:(NSString*) peerURI findSecret:(NSString*) findSecret previousStableUniqueID:(NSString*) previousStableUniqueID
-{
-    self = [super init];
-    
-    if (self)
-    {
-        if ([peerURI length] > 0 && [findSecret length] > 0)
-        {
-            
-            IContactPtr tempCoreContactPtr = IContact::createFromPeerURI([[HOPAccount sharedAccount] getAccountPtr], [peerURI UTF8String], [findSecret UTF8String], [previousStableUniqueID length] > 0 ? [previousStableUniqueID UTF8String] : NULL);
-            if (tempCoreContactPtr)
-            {
-                coreContactPtr = tempCoreContactPtr;
-                [[OpenPeerStorageManager sharedStorageManager] setContact:self forId:previousStableUniqueID];
-            }
-        }
-        else
-        {
-            self = nil;
-        }
-    }
-    
-    return self;
-}
 
 + (HOPContact*) getForSelf
 {

@@ -48,7 +48,7 @@
  @param inIdentityURIList NSString list of identity URIs comma separated
  @returns HOPIdentityLookup object
  */
-- (id) initWithDelegate:(id<HOPIdentityLookupDelegate>) inDelegate identityURIList:(NSString*) inIdentityURIList;
+- (id) initWithDelegate:(id<HOPIdentityLookupDelegate>) inDelegate identityURIList:(NSString*) inIdentityURIList identityServiceDomain:(NSString*) identityServiceDomain checkForUpdatesOnly:(BOOL) checkForUpdatesOnly;
 
 /**
  Retrieves whether identiy lookup is completed or not.

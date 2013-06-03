@@ -66,7 +66,8 @@
  @param inIdentity HOPIdentity identity for which user is being logged in. In case user wants to associate more identites, after successfull login should call associateIdentities and provide list of identities to assoicate.
  @returns YES if IAccount object is created sucessfully
  */
-- (BOOL) loginWithAccountDelegate:(id<HOPAccountDelegate>) inAccountDelegate conversationThreadDelegate:(id<HOPConversationThreadDelegate>) inConversationThreadDelegate callDelegate:(id<HOPCallDelegate>) inCallDelegate peerContactServiceDomain:(NSString*) inPeerContactServiceDomain identity:(HOPIdentity*) inIdentity;
+- (BOOL) loginWithAccountDelegate:(id<HOPAccountDelegate>) inAccountDelegate conversationThreadDelegate:(id<HOPConversationThreadDelegate>) inConversationThreadDelegate callDelegate:(id<HOPCallDelegate>) inCallDelegate lockboxOuterFrameURLUponReload:(NSString*) lockboxOuterFrameURLUponReload lockboxServiceDomain:(NSString*) lockboxServiceDomain lockboxGrantID:(NSString*) lockboxGrantID forceCreateNewLockboxAccount:(BOOL) forceCreateNewLockboxAccount;
+;
 
 /**
  Relogin method for exisitng user.
@@ -77,7 +78,7 @@
  @param peerFilePrivateSecret NSData private peer file secret
  @returns YES if IAccount object is created sucessfully
  */
-- (BOOL) reloginWithAccountDelegate:(id<HOPAccountDelegate>) inAccountDelegate conversationThreadDelegate:(id<HOPConversationThreadDelegate>) inConversationThreadDelegate callDelegate:(id<HOPCallDelegate>) inCallDelegate peerFilePrivate:(NSString*) inPeerFilePrivate peerFilePrivateSecret:(NSData*) inPeerFilePrivateSecret;
+- (BOOL) reloginWithAccountDelegate:(id<HOPAccountDelegate>) inAccountDelegate conversationThreadDelegate:(id<HOPConversationThreadDelegate>) inConversationThreadDelegate callDelegate:(id<HOPCallDelegate>) inCallDelegate lockboxOuterFrameURLUponReload:(NSString *)lockboxOuterFrameURLUponReload lockboxReloginInfo:(NSString *)lockboxReloginInfo;
 
 /**
  Retrieves account state
@@ -89,7 +90,7 @@
  Retrieves logged in user id
  @returns User id
  */
-- (NSString*) getUserID;
+//- (NSString*) getUserID;
 
 /**
  Retrieves user location id.

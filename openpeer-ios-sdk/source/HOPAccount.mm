@@ -68,11 +68,12 @@ using namespace hookflash::core;
     return self;
 }
 
-- (BOOL) loginWithAccountDelegate:(id<HOPAccountDelegate>) inAccountDelegate conversationThreadDelegate:(id<HOPConversationThreadDelegate>) inConversationThreadDelegate callDelegate:(id<HOPCallDelegate>) inCallDelegate peerContactServiceDomain:(NSString*) inPeerContactServiceDomain identity:(HOPIdentity*) inIdentity
+//- (BOOL) loginWithAccountDelegate:(id<HOPAccountDelegate>) inAccountDelegate conversationThreadDelegate:(id<HOPConversationThreadDelegate>) inConversationThreadDelegate callDelegate:(id<HOPCallDelegate>) inCallDelegate peerContactServiceDomain:(NSString*) inPeerContactServiceDomain identity:(HOPIdentity*) inIdentity
+- (BOOL) loginWithAccountDelegate:(id<HOPAccountDelegate>) inAccountDelegate conversationThreadDelegate:(id<HOPConversationThreadDelegate>) inConversationThreadDelegate callDelegate:(id<HOPCallDelegate>) inCallDelegate lockboxOuterFrameURLUponReload:(NSString*) lockboxOuterFrameURLUponReload lockboxServiceDomain:(NSString*) lockboxServiceDomain lockboxGrantID:(NSString*) lockboxGrantID forceCreateNewLockboxAccount:(BOOL) forceCreateNewLockboxAccount
 {
     BOOL passedWithoutErrors = NO;
     
-    if (!inAccountDelegate || !inConversationThreadDelegate || !inCallDelegate || [inPeerContactServiceDomain length] == 0 || !inIdentity)
+    if (!inAccountDelegate || !inConversationThreadDelegate || !inCallDelegate || [lockboxOuterFrameURLUponReload length] == 0 || [lockboxServiceDomain length] == 0 || [lockboxGrantID length] == 0 )
         return passedWithoutErrors;
     
     if (accountPtr)
@@ -80,7 +81,7 @@ using namespace hookflash::core;
     
     [self setLocalDelegates:inAccountDelegate conversationThread:inConversationThreadDelegate callDelegate:inCallDelegate];
     
-    accountPtr = IAccount::login(openpeerAccountDelegatePtr, openpeerConversationDelegatePtr, openpeerCallDelegatePtr, [inPeerContactServiceDomain UTF8String], [inIdentity getIdentityPtr]);
+    accountPtr = IAccount::login(openpeerAccountDelegatePtr, openpeerConversationDelegatePtr, openpeerCallDelegatePtr, [lockboxOuterFrameURLUponReload UTF8String], [lockboxServiceDomain UTF8String], [lockboxGrantID UTF8String],forceCreateNewLockboxAccount);
     
     if (accountPtr)
         passedWithoutErrors = YES;
@@ -89,17 +90,19 @@ using namespace hookflash::core;
 }
 
 
-- (BOOL)reloginWithAccountDelegate:(id<HOPAccountDelegate>)inAccountDelegate conversationThreadDelegate:(id<HOPConversationThreadDelegate>)inConversationThreadDelegate callDelegate:(id<HOPCallDelegate>)inCallDelegate peerFilePrivate:(NSString *)inPeerFilePrivate peerFilePrivateSecret:(NSData *)inPeerFilePrivateSecret
+- (BOOL)reloginWithAccountDelegate:(id<HOPAccountDelegate>)inAccountDelegate conversationThreadDelegate:(id<HOPConversationThreadDelegate>)inConversationThreadDelegate callDelegate:(id<HOPCallDelegate>)inCallDelegate lockboxOuterFrameURLUponReload:(NSString *)lockboxOuterFrameURLUponReload lockboxReloginInfo:(NSString *)lockboxReloginInfo
 {
     BOOL passedWithoutErrors = NO;
     
-    if (!inAccountDelegate || !inConversationThreadDelegate || !inCallDelegate || [inPeerFilePrivate length] == 0 || [inPeerFilePrivateSecret length] == 0)
+    if (!inAccountDelegate || !inConversationThreadDelegate || !inCallDelegate || [lockboxOuterFrameURLUponReload length] == 0 || [lockboxReloginInfo length] == 0)
         return passedWithoutErrors;
     
     [self setLocalDelegates:inAccountDelegate conversationThread:inConversationThreadDelegate callDelegate:inCallDelegate];
     
-    char* peerFilePrivateSecret = (char *)[inPeerFilePrivateSecret bytes];
-    accountPtr = IAccount::relogin(openpeerAccountDelegatePtr, openpeerConversationDelegatePtr, openpeerCallDelegatePtr, IHelper::createFromString([inPeerFilePrivate UTF8String]), peerFilePrivateSecret);
+    
+    
+    //TODO: For relogin create an xml with domain,    accountID, reloginInformation,keyIdentityHalf,keyLockboxHalf 
+    accountPtr = IAccount::relogin(openpeerAccountDelegatePtr, openpeerConversationDelegatePtr, openpeerCallDelegatePtr, [lockboxOuterFrameURLUponReload UTF8String],IHelper::createFromString([lockboxReloginInfo UTF8String]));
     
     if (accountPtr)
         passedWithoutErrors = YES;
@@ -128,20 +131,20 @@ using namespace hookflash::core;
     return ret;
 }
 
-- (NSString*) getUserID
-{
-    NSString* ret = nil;
-    
-    if(accountPtr)
-    {
-        ret = [NSString stringWithUTF8String: accountPtr->getUserID()];
-    }
-    else
-    {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid account object!"];
-    }
-    return ret;
-}
+//- (NSString*) getUserID
+//{
+//    NSString* ret = nil;
+//    
+//    if(accountPtr)
+//    {
+//        ret = [NSString stringWithUTF8String: accountPtr->getUserID()];
+//    }
+//    else
+//    {
+//        [NSException raise:NSInvalidArgumentException format:@"Invalid account object!"];
+//    }
+//    return ret;
+//}
 
 
 - (NSString*) getLocationID
@@ -245,7 +248,7 @@ using namespace hookflash::core;
     return array;
 }
 
-
+/*
 - (void) associateIdentities:(NSArray*) inIdentitiesToAssociate identitiesToRemove:(NSArray*) inIdentitiesToRemove
 {
     IdentityList identitiesToAssociate;
@@ -274,7 +277,7 @@ using namespace hookflash::core;
     }
     
     [self getAccountPtr]->associateIdentities(identitiesToAssociate, identitiesToRemove);
-}
+}*/
 
 + (NSString*) stateToString:(HOPAccountStates) state
 {

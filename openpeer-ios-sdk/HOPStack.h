@@ -48,12 +48,16 @@
  Initialise delegates objects required for communication between core and client.
  @param stackDelegate HOPStackDelegate delegate
  @param mediaEngineDelegate HOPMediaEngineDelegate delegate
+ @param appID NSString organization assigned ID for the application (e.g. "com.xyz123.app1")
+ @param appName NSString a branded human readable application name, e.g. "Hookflash"
+ @param appImageURL NSString an HTTPS downloadable branded image for the application
+ @param appURL NSString an HTTPS URL webpage / website that offers more information about application
+  @param userAgent e.g. "App Name/App version (iOS/iPad)"
  @param deviceID device identifier
- @param userAgent e.g. "App Name/App version (iOS/iPad)"
  @param deviceOs iOs version (e.g. "iOS 5.1.1")
  @param system System name (e.g. "iPhone 4S", "iPod Touch 4G")
  */
-- (void) setupWithStackDelegate:(id<HOPStackDelegate>) stackDelegate mediaEngineDelegate:(id<HOPMediaEngineDelegate>) mediaEngineDelegate deviceID:(NSString*) deviceID userAgent:(NSString*) userAgent deviceOs:(NSString*) deviceOs system:(NSString*) system;
+- (void) setupWithStackDelegate:(id<HOPStackDelegate>) stackDelegate mediaEngineDelegate:(id<HOPMediaEngineDelegate>) mediaEngineDelegate appID:(NSString*) appID appName:(NSString*) appName appImageURL:(NSString*) appImageURL appURL:(NSString*) appURL userAgent:(NSString*) userAgent deviceID:(NSString*) deviceID deviceOs:(NSString*) deviceOs system:(NSString*) system;
 
 /**
  Shutdown stack.

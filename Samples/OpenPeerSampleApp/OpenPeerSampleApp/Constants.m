@@ -31,7 +31,11 @@
 
 #import "Constants.h"
 
-//Provisioning URI
+NSString* const applicationId = @"com.hookflash.OpenPeerSampleApp";
+NSString* const applicationName = @"OpenPeerSampleApp";
+NSString* const applicationImageURL = @"http://hookflash.com/wp-content/themes/CleanSpace/images/logo.png";
+NSString* const applicationURL = "www.openpeer.org";
+
 NSString* const provisioningURI = @"provisioning-stable-dev.hookflash.me";//Not in use
 NSString* const outerFrameURL = @"https://app-light.hookflash.me/outer.html";
 NSString* const afterLoginCompleteURL = @"OpenpeerLoginFinished";

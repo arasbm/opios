@@ -48,7 +48,7 @@
  @param inContactList NSString list of contacts
  @returns HOPContactPeerFilePublicLookup object
  */
-- (id) initWithDelegate:(id<HOPContactPeerFilePublicLookupDelegate>) inDelegate contactsList:(NSArray*) inContactList;
+- (id) initWithDelegate:(id<HOPContactPeerFilePublicLookupDelegate>) inDelegate contactsList:(NSArray*) inContactList ;
 
 /**
  Retrieves whether peer file lookup is completed or not.

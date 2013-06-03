@@ -46,15 +46,6 @@
 - (id) initWithPeerFile:(NSString*) publicPeerFile previousStableUniqueID:(NSString*) previousStableUniqueID;
 
 /**
- Contact initializer used when peer uri and find secrets are received
- @param peerURI NSString Peer URI
-  @param findSecret NSString Find secret
- @param previousStableUniqueID user Id string stored locally (initialy is received on identity lookup). This argument is mandatory.
- @returns Ponter to the created contact object
- */
-- (id) initFromPeerURI:(NSString*) peerURI findSecret:(NSString*) findSecret previousStableUniqueID:(NSString*) previousStableUniqueID;
-
-/**
  Returns HOPContact object for logged in user
  @returns HOPContact object
  */

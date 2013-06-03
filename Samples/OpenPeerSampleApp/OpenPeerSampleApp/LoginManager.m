@@ -172,8 +172,9 @@
     NSLog(@"Relogin started");
     [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Relogin ..." inView:[[[OpenPeer sharedOpenPeer] mainViewController] view]];
     
+    //TODO: Create a lockboxReloginInfo
     //To start relogin procedure it is required to pass account, conversation thread and call delegates. Also, private peer file and secret, received on previous login procedure, are required.
-    BOOL reloginStarted = [[HOPAccount sharedAccount] reloginWithAccountDelegate:(id<HOPAccountDelegate>) [[OpenPeer sharedOpenPeer] accountDelegate] conversationThreadDelegate:(id<HOPConversationThreadDelegate>)[[OpenPeer sharedOpenPeer] conversationThreadDelegate]  callDelegate:(id<HOPCallDelegate>)[[OpenPeer sharedOpenPeer] callDelegate] peerFilePrivate:[[OpenPeerUser sharedOpenPeerUser] privatePeerFile]  peerFilePrivateSecret:[[OpenPeerUser sharedOpenPeerUser] privatePeerFileSecret]];
+    BOOL reloginStarted = [[HOPAccount sharedAccount] reloginWithAccountDelegate:(id<HOPAccountDelegate>) [[OpenPeer sharedOpenPeer] accountDelegate] conversationThreadDelegate:(id<HOPConversationThreadDelegate>)[[OpenPeer sharedOpenPeer] conversationThreadDelegate]  callDelegate:(id<HOPCallDelegate>)[[OpenPeer sharedOpenPeer] callDelegate] lockboxOuterFrameURLUponReload:afterLoginCompleteURL lockboxReloginInfo:@""];
     
     if (!reloginStarted)
         NSLog(@"Relogin failed");
@@ -203,7 +204,7 @@
  */
 - (void) onOuterFrameLoaded
 {
-    NSString* jsMethod = [NSString stringWithFormat:@"initInnerFrame(\'%@\')",[self.loginIdentity getIdentityLoginURL]];
+    NSString* jsMethod = [NSString stringWithFormat:@"initInnerFrame(\'%@\')",[self.loginIdentity getInnerBrowserWindowFrameURL]];
     [self.webLoginViewController passMessageToJS:jsMethod];;
 }
 
@@ -223,7 +224,7 @@
 - (void) onLoginRedirectURLReceived
 {
     //Notifies core that redirection URL for completed login is received.
-    [self.loginIdentity notifyLoginCompleteBrowserWindowRedirection];
+    [self.loginIdentity notifyBrowserWindowClosed];
 }
 
 /**
@@ -249,7 +250,8 @@
     [[[OpenPeerUser sharedOpenPeerUser] dictionaryIdentities] setObject:[identity getIdentityURI] forKey:[identity identityBaseURI]];
     
     //To start account login procedure it is required to pass account, conversation thread and call delegates. Also, peer contact service domain and identity are required .
-    [[HOPAccount sharedAccount] loginWithAccountDelegate:(id<HOPAccountDelegate>) [[OpenPeer sharedOpenPeer] accountDelegate] conversationThreadDelegate:(id<HOPConversationThreadDelegate>)[[OpenPeer sharedOpenPeer] conversationThreadDelegate]  callDelegate:(id<HOPCallDelegate>)[[OpenPeer sharedOpenPeer] callDelegate] peerContactServiceDomain:peerContactServiceDomain identity:identity];
+    //[[HOPAccount sharedAccount] loginWithAccountDelegate:(id<HOPAccountDelegate>) [[OpenPeer sharedOpenPeer] accountDelegate] conversationThreadDelegate:(id<HOPConversationThreadDelegate>)[[OpenPeer sharedOpenPeer] conversationThreadDelegate]  callDelegate:(id<HOPCallDelegate>)[[OpenPeer sharedOpenPeer] callDelegate] peerContactServiceDomain:peerContactServiceDomain identity:identity];
+    [[HOPAccount sharedAccount] loginWithAccountDelegate:(id<HOPAccountDelegate>) [[OpenPeer sharedOpenPeer] accountDelegate] conversationThreadDelegate:(id<HOPConversationThreadDelegate>)[[OpenPeer sharedOpenPeer] conversationThreadDelegate]  callDelegate:(id<HOPCallDelegate>)[[OpenPeer sharedOpenPeer] callDelegate] lockboxOuterFrameURLUponReload:outerFrameURL lockboxServiceDomain:identityProviderDomain lockboxGrantID:<#(NSString *)#> forceCreateNewLockboxAccount:<#(BOOL)#>:peerContactServiceDomain identity:identity];
 }
 
 /**

@@ -255,7 +255,7 @@
     
     if ([identities length] > 0)
     {
-        HOPIdentityLookup* lookup = [[HOPIdentityLookup alloc] initWithDelegate:(id<HOPIdentityLookupDelegate>)[[OpenPeer sharedOpenPeer] identityLookupDelegate] identityURIList:identities];
+        HOPIdentityLookup* lookup = [[HOPIdentityLookup alloc] initWithDelegate:(id<HOPIdentityLookupDelegate>)[[OpenPeer sharedOpenPeer] identityLookupDelegate] identityURIList:identities identityServiceDomain:identityProviderDomain checkForUpdatesOnly:YES];
         if (!lookup)
             NSLog(@"Lookup request is not sent properly");
     }

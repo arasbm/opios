@@ -77,7 +77,7 @@
  Retrieves whether identiy is attached or not.
  @returns BOOL YES if attached, otherwise NO
  */
-- (BOOL) isAttached;
+- (BOOL) isDelegateAttached;
 
 /**
  Attaches identity with specified redirection URL and identity delegate
@@ -85,7 +85,7 @@
  @param inIdentityDelegate HOPIdentityDelegate IIdentityDelegate delegate
 
  */
-- (void) attachWithRedirectionURL:(NSString*) redirectAfterLoginCompleteURL identityDelegate:(id<HOPIdentityDelegate>) inIdentityDelegate;
+- (void) attachDelegate:(id<HOPIdentityDelegate>) inIdentityDelegate redirectionURL:(NSString*) redirectionURL;
 
 /**
  Retrieves identity URI
@@ -103,7 +103,7 @@
  Retrieves identity relogin access key
  @returns NSString identity relogin access key
  */
-- (NSString*) getIdentityReloginAccessKey;
+//- (NSString*) getIdentityReloginAccessKey;
 
 /**
  Retrieves identity bundle
@@ -112,10 +112,10 @@
 - (NSString*) getSignedIdentityBundle;
 
 /**
- Retrieves identity login URL
- @returns NSString identity login URL
+ Retrieves identity inner browser frame URL
+ @returns NSString inner browser frame URL
  */
-- (NSString*) getIdentityLoginURL;
+- (NSString*) getInnerBrowserWindowFrameURL;
 
 /**
  Retrieves date when login expires
@@ -129,9 +129,9 @@
 - (void) notifyBrowserWindowVisible;
 
 /**
- Notifies core that redirection URL for completed login is received.
+ Notifies core that redirection URL for completed login is received, and that web view can be closed.
  */
-- (void) notifyLoginCompleteBrowserWindowRedirection;
+- (void) notifyBrowserWindowClosed;
 
 /**
  Retrieves JSON message from core that needs to be passed to inner browser frame.

@@ -34,6 +34,7 @@
 #import <hookflash/core/IIdentity.h>
 #import <hookflash/core/IHelper.h>
 
+#import "HOPAccount_Internal.h"
 #import "OpenPeerStorageManager.h"
 #import "OpenPeerIdentityDelegate.h"
 #import "OpenPeerUtility.h"
@@ -56,7 +57,7 @@
     
     boost::shared_ptr<OpenPeerIdentityDelegate> identityDelegatePtr = OpenPeerIdentityDelegate::create(inIdentityDelegate);
     
-    IIdentityPtr identity = IIdentity::login(identityDelegatePtr, [redirectAfterLoginCompleteURL UTF8String], [identityURIOridentityBaseURI UTF8String], [identityProviderDomain UTF8String]);
+    IIdentityPtr identity = IIdentity::login([[HOPAccount sharedAccount]getAccountPtr],identityDelegatePtr, [redirectAfterLoginCompleteURL UTF8String], [identityURIOridentityBaseURI UTF8String], [identityProviderDomain UTF8String]);
     
     if (identity)
     {
@@ -77,13 +78,13 @@
     ret.lastErrorReason = [NSString stringWithCString:lastErrorReason encoding:NSUTF8StringEncoding];
     return ret;
 }
-- (BOOL) isAttached
+- (BOOL) isDelegateAttached
 {
     BOOL ret = NO;
     
     if(identityPtr)
     {
-        ret = identityPtr->isAttached();
+        ret = identityPtr->isDelegateAttached();
     }
     else
     {
@@ -92,12 +93,12 @@
     return ret;
 }
 
-- (void) attachWithRedirectionURL:(NSString*) redirectAfterLoginCompleteURL identityDelegate:(id<HOPIdentityDelegate>) inIdentityDelegate
+- (void) attachDelegate:(id<HOPIdentityDelegate>) inIdentityDelegate redirectionURL:(NSString*) redirectionURL
 {
     if(identityPtr)
     {
         boost::shared_ptr<OpenPeerIdentityDelegate> identityDelegatePtr = OpenPeerIdentityDelegate::create(inIdentityDelegate);
-        identityPtr->attach([redirectAfterLoginCompleteURL UTF8String],identityDelegatePtr);
+        identityPtr->attachDelegate(identityDelegatePtr,[redirectionURL UTF8String]);
     }
     else
     {
@@ -133,7 +134,7 @@
     }
     return ret;
 }
-- (NSString*) getIdentityReloginAccessKey
+/*- (NSString*) getIdentityReloginAccessKey
 {
     NSString* ret = nil;
     
@@ -146,7 +147,8 @@
         [NSException raise:NSInvalidArgumentException format:@"Invalid core identity object!"];
     }
     return ret;
-}
+}*/
+
 - (NSString*) getSignedIdentityBundle
 {
     NSString* ret = nil;
@@ -161,13 +163,13 @@
     }
     return ret;
 }
-- (NSString*) getIdentityLoginURL
+- (NSString*) getInnerBrowserWindowFrameURL
 {
     NSString* ret = nil;
     
     if(identityPtr)
     {
-        ret = [NSString stringWithCString:identityPtr->getIdentityLoginURL() encoding:NSUTF8StringEncoding];
+        ret = [NSString stringWithCString:identityPtr->getInnerBrowserWindowFrameURL() encoding:NSUTF8StringEncoding];
     }
     else
     {
@@ -204,11 +206,11 @@
     }
 }
 
-- (void) notifyLoginCompleteBrowserWindowRedirection
+- (void) notifyBrowserWindowClosed
 {
     if(identityPtr)
     {
-        identityPtr->notifyLoginCompleteBrowserWindowRedirection();
+        identityPtr->notifyBrowserWindowClosed();
     }
     else
     {

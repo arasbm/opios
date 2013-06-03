@@ -67,7 +67,7 @@
             }
     
             self.identityURI = [NSString stringWithCString:inIdentityLookupInfo.mIdentityURI encoding:NSUTF8StringEncoding];
-            self.userID = [NSString stringWithCString:inIdentityLookupInfo.mUserID encoding:NSUTF8StringEncoding];
+            //self.userID = [NSString stringWithCString:inIdentityLookupInfo.mUserID encoding:NSUTF8StringEncoding];
             
             self.baseIdentityURI = [OpenPeerUtility getBaseIdentityURIFromURI:self.identityURI];
             self.contactId = [OpenPeerUtility getContactIdFromURI:self.identityURI];

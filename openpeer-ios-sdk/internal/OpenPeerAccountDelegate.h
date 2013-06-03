@@ -59,4 +59,6 @@ public:
     virtual void onAccountStateChanged(IAccountPtr account,AccountStates state);
     
     virtual void onAccountAssociatedIdentitiesChanged(IAccountPtr account);
+    
+    virtual void onAccountPendingMessageForInnerBrowserWindowFrame(IAccountPtr account);
 };

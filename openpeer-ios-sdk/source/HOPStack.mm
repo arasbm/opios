@@ -50,7 +50,7 @@
     return _sharedObject;
 }
 
-- (void) setupWithStackDelegate:(id<HOPStackDelegate>) stackDelegate mediaEngineDelegate:(id<HOPMediaEngineDelegate>) mediaEngineDelegate deviceID:(NSString*) deviceID userAgent:(NSString*) userAgent deviceOs:(NSString*) deviceOs system:(NSString*) system
+- (void) setupWithStackDelegate:(id<HOPStackDelegate>) stackDelegate mediaEngineDelegate:(id<HOPMediaEngineDelegate>) mediaEngineDelegate appOpenpeerID:(NSString*) appID appName:(NSString*) appName appImageURL:(NSString*) appImageURL appURL:(NSString*) appURL userAgent:(NSString*) userAgent deviceID:(NSString*) deviceID deviceOs:(NSString*) deviceOs system:(NSString*) system
 {
     //Check if delegates are nil
     if (!stackDelegate || !mediaEngineDelegate)
@@ -62,7 +62,7 @@
     
     [self createLocalDelegates:stackDelegate mediaEngineDelegate:mediaEngineDelegate];
     
-    IStack::singleton()->setup(openPeerStackDelegatePtr, openPeerMediaEngineDelegatePtr, [deviceID UTF8String], [userAgent UTF8String], [deviceOs UTF8String], [system UTF8String]);
+    IStack::singleton()->setup(openPeerStackDelegatePtr, openPeerMediaEngineDelegatePtr, [appID UTF8String], [appName UTF8String], [appImageURL UTF8String], [appURL UTF8String], [userAgent UTF8String], [deviceID UTF8String], [deviceOs UTF8String], [system UTF8String]);
 }
 
 - (void) shutdown

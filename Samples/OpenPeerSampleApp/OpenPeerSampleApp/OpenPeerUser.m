@@ -79,7 +79,7 @@
         {
             NSKeyedUnarchiver *aDecoder = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
             
-            self.userId = [aDecoder decodeObjectForKey:archiveUserId];
+            //self.userId = [aDecoder decodeObjectForKey:archiveUserId];
             self.stableUniqueId = [aDecoder decodeObjectForKey:archiveStableUniqueId];
             self.identityURI = [aDecoder decodeObjectForKey:archiveIdentityURI];
             self.peerURI = [aDecoder decodeObjectForKey:archivePeerURI];
@@ -102,7 +102,7 @@
  */
 - (void) saveUserData
 {
-    self.userId = [[HOPAccount sharedAccount] getUserID];
+    //self.userId = [[HOPAccount sharedAccount] getUserID];
     self.stableUniqueId = [[HOPContact getForSelf] getStableUniqueID];
     self.peerURI = [[HOPContact getForSelf] getPeerURI];
     self.privatePeerFile = [[HOPAccount sharedAccount] getPeerFilePrivate];
@@ -128,7 +128,7 @@
  */
 - (void) deleteUserData
 {
-    self.userId = nil;
+    //self.userId = nil;
     self.privatePeerFile = nil;
     self.privatePeerFileSecret = nil;
     
@@ -155,9 +155,9 @@
 //    [xmlWriter writeCharacters:self.contactId];
 //    [xmlWriter writeEndElement];
     
-    [xmlWriter writeStartElement:profileXmlTagUserID];
-    [xmlWriter writeCharacters:self.userId];
-    [xmlWriter writeEndElement];
+//    [xmlWriter writeStartElement:profileXmlTagUserID];
+//    [xmlWriter writeCharacters:self.userId];
+//    [xmlWriter writeEndElement];
     
     [xmlWriter writeStartElement:profileXmlTagIdentities];
 

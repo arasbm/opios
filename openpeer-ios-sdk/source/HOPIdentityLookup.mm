@@ -43,7 +43,7 @@
 
 @implementation HOPIdentityLookup
 
-- (id) initWithDelegate:(id<HOPIdentityLookupDelegate>) inDelegate identityURIList:(NSString*) inIdentityURIList
+- (id) initWithDelegate:(id<HOPIdentityLookupDelegate>) inDelegate identityURIList:(NSString*) inIdentityURIList identityServiceDomain:(NSString*) identityServiceDomain checkForUpdatesOnly:(BOOL) checkForUpdatesOnly
 {
     self = [super init];
     if (self)
@@ -52,7 +52,7 @@
         [self setLocalDelegates:inDelegate];
         if ([inIdentityURIList length] > 0)
             [self convertString:inIdentityURIList toIdentityURIList:identityURIList];
-        identityLookupPtr = IIdentityLookup::create([[HOPAccount sharedAccount] getAccountPtr], openPeerIdentityLookupDelegatePtr, identityURIList);
+        identityLookupPtr = IIdentityLookup::create([[HOPAccount sharedAccount] getAccountPtr], openPeerIdentityLookupDelegatePtr, identityURIList, [identityServiceDomain UTF8String],checkForUpdatesOnly);
         if (identityLookupPtr)
             [[OpenPeerStorageManager sharedStorageManager] setIdentityLookup:self forPUID:identityLookupPtr->getID()];
     }
