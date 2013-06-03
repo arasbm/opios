@@ -42,6 +42,7 @@
 + (id) sharedLoginManager;
 
 - (void) startLoginUsingIdentityURI:(NSString*) identityURI;
+- (void) startAccount;
 - (void) login;
 - (void) logout;
 

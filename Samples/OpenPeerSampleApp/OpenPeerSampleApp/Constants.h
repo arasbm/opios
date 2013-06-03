@@ -44,6 +44,9 @@ extern NSString* const peerContactServiceDomain;
 extern NSString* const contactsLoadingtServiceDomain;
 extern NSString* const identityFacebookBaseURI;
 extern NSString* const identityLinkedInBaseURI;
+extern NSString* const grantOuterFrameURLUponReload;
+extern NSString* const grantServiceDomain;
+extern NSString* const lockBoxServiceDomain;
 
 extern NSString* const facebookContactsLoadingPage;
 

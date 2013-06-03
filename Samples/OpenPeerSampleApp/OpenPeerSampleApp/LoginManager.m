@@ -148,6 +148,10 @@
     
 }
 
+- (void) startAccount
+{
+    [[HOPAccount sharedAccount] loginWithAccountDelegate:(id<HOPAccountDelegate>)[[OpenPeer sharedOpenPeer] accountDelegate] conversationThreadDelegate:(id<HOPConversationThreadDelegate>) [[OpenPeer sharedOpenPeer] conversationThreadDelegate]  callDelegate:(id<HOPCallDelegate>) [[OpenPeer sharedOpenPeer] callDelegate]  namespaceGrantOuterFrameURLUponReload:grantOuterFrameURLUponReload namespaceGrantServiceDomain:grantServiceDomain grantID:@"Id" grantSecret:@"secret" lockboxServiceDomain:lockBoxServiceDomain forceCreateNewLockboxAccount:YES];
+}
 /**
  Starts user login for specific identity URI. Activity indicator is displayed and identity login started.
  @param identityURI NSString identity uri (e.g. identity://facebook.com/)
