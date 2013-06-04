@@ -150,7 +150,7 @@
 
 - (void) startAccount
 {
-    [[HOPAccount sharedAccount] loginWithAccountDelegate:(id<HOPAccountDelegate>)[[OpenPeer sharedOpenPeer] accountDelegate] conversationThreadDelegate:(id<HOPConversationThreadDelegate>) [[OpenPeer sharedOpenPeer] conversationThreadDelegate]  callDelegate:(id<HOPCallDelegate>) [[OpenPeer sharedOpenPeer] callDelegate]  namespaceGrantOuterFrameURLUponReload:grantOuterFrameURLUponReload namespaceGrantServiceDomain:grantServiceDomain grantID:@"Id" grantSecret:@"secret" lockboxServiceDomain:lockBoxServiceDomain forceCreateNewLockboxAccount:YES];
+    [[HOPAccount sharedAccount] loginWithAccountDelegate:(id<HOPAccountDelegate>)[[OpenPeer sharedOpenPeer] accountDelegate] conversationThreadDelegate:(id<HOPConversationThreadDelegate>) [[OpenPeer sharedOpenPeer] conversationThreadDelegate]  callDelegate:(id<HOPCallDelegate>) [[OpenPeer sharedOpenPeer] callDelegate]  namespaceGrantOuterFrameURLUponReload:grantOuterFrameURLUponReload grantID:@"Id" lockboxServiceDomain:lockBoxServiceDomain forceCreateNewLockboxAccount:YES];
 }
 /**
  Starts user login for specific identity URI. Activity indicator is displayed and identity login started.
@@ -252,12 +252,6 @@
 - (void) onIdentityLoginFinished:(HOPIdentity*) identity
 {
     [[[OpenPeerUser sharedOpenPeerUser] dictionaryIdentities] setObject:[identity getIdentityURI] forKey:[identity identityBaseURI]];
-    
-    //To start account login procedure it is required to pass account, conversation thread and call delegates. Also, peer contact service domain and identity are required .
-    //[[HOPAccount sharedAccount] loginWithAccountDelegate:(id<HOPAccountDelegate>) [[OpenPeer sharedOpenPeer] accountDelegate] conversationThreadDelegate:(id<HOPConversationThreadDelegate>)[[OpenPeer sharedOpenPeer] conversationThreadDelegate]  callDelegate:(id<HOPCallDelegate>)[[OpenPeer sharedOpenPeer] callDelegate] peerContactServiceDomain:peerContactServiceDomain identity:identity];
-    
-    //TODO: add grant service domain
-    [[HOPAccount sharedAccount] loginWithAccountDelegate:(id<HOPAccountDelegate>) [[OpenPeer sharedOpenPeer] accountDelegate] conversationThreadDelegate:(id<HOPConversationThreadDelegate>)[[OpenPeer sharedOpenPeer] conversationThreadDelegate]  callDelegate:(id<HOPCallDelegate>)[[OpenPeer sharedOpenPeer] callDelegate] namespaceGrantOuterFrameURLUponReload:@"Finished" namespaceGrantServiceDomain:identityProviderDomain grantID:@"" grantSecret:@"" lockboxServiceDomain:identityProviderDomain forceCreateNewLockboxAccount:YES];
 }
 
 /**

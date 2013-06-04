@@ -46,25 +46,25 @@
             
             break;
         
-        case HOPIdentityStateWaitingAttachment:
+        case HOPIdentityStatePendingAssociation:
             
             break;
             
-        case HOPIdentityStateWaitingToLoadBrowserWindow:
+        case HOPIdentityStateWaitingAttachmentOfDelegate:
+            
+            break;
+            
+        case HOPIdentityStateWaitingForBrowserWindowToBeLoaded:
             [[LoginManager sharedLoginManager] onLoginUrlReceived:outerFrameURL forIdentity:identity];
             break;
             
-        case HOPIdentityStateWaitingToMakeBrowserWindowVisible:
+        case HOPIdentityStateWaitingForBrowserWindowToBeMadeVisible:
             [[LoginManager sharedLoginManager] makeLoginWebViewVisible:YES];
             [identity notifyBrowserWindowVisible];
             break;
             
-        case HOPIdentityStateWaitingLoginCompleteBrowserRedirection:
-            
-            break;
-            
-        case HOPIdentityStateWaitingAssociation:
-            [[LoginManager sharedLoginManager] onIdentityLoginFinished:identity];
+        case HOPIdentityStateWaitingForBrowserWindowToClose:
+            //detach web view
             break;
             
         case HOPIdentityStateReady:

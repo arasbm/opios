@@ -51,7 +51,22 @@
     {
         switch (accountState)
         {
-            case HOPAccountStatePending:
+            case HOPAccountStatePending://
+                break;
+                
+            case HOPAccountPendingPeerFilesGeneration:
+                break;
+                
+            case HOPAccountWaitingForAssociationToIdentity: //after creation
+                break;
+                
+            case HOPAccountWaitingForBrowserWindowToBeLoaded:
+                break;
+                
+            case HOPAccountWaitingForBrowserWindowToBeMadeVisible:
+                break;
+                
+            case HOPAccountWaitingForBrowserWindowToClose:
                 break;
                 
             case HOPAccountStateReady:
@@ -74,6 +89,7 @@
 - (void)onAccountAssociatedIdentitiesChanged:(HOPAccount *)account
 {
     dispatch_async(dispatch_get_main_queue(), ^{
+        //get identites, attach delegate
     });
 }
 

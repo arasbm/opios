@@ -57,6 +57,7 @@
  */
 + (NSString*) stateToString:(HOPAccountStates) state;
 
+//TODO: update comment
 /**
  Login method for verified identity.
  @param inAccountDelegate HOPAccountDelegate delegate
@@ -66,7 +67,7 @@
  @param inIdentity HOPIdentity identity for which user is being logged in. In case user wants to associate more identites, after successfull login should call associateIdentities and provide list of identities to assoicate.
  @returns YES if IAccount object is created sucessfully
  */
-- (BOOL) loginWithAccountDelegate:(id<HOPAccountDelegate>) inAccountDelegate conversationThreadDelegate:(id<HOPConversationThreadDelegate>) inConversationThreadDelegate callDelegate:(id<HOPCallDelegate>) inCallDelegate namespaceGrantOuterFrameURLUponReload:(NSString*) namespaceGrantOuterFrameURLUponReload namespaceGrantServiceDomain:(NSString*) namespaceGrantServiceDomain grantID:(NSString*) grantID grantSecret:(NSString*) grantSecret lockboxServiceDomain:(NSString*) lockboxServiceDomain forceCreateNewLockboxAccount:(BOOL) forceCreateNewLockboxAccount;
+- (BOOL) loginWithAccountDelegate:(id<HOPAccountDelegate>) inAccountDelegate conversationThreadDelegate:(id<HOPConversationThreadDelegate>) inConversationThreadDelegate callDelegate:(id<HOPCallDelegate>) inCallDelegate namespaceGrantOuterFrameURLUponReload:(NSString*) namespaceGrantOuterFrameURLUponReload  grantID:(NSString*) grantID lockboxServiceDomain:(NSString*) lockboxServiceDomain forceCreateNewLockboxAccount:(BOOL) forceCreateNewLockboxAccount;
 ;
 
 /**

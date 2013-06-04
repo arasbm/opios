@@ -90,24 +90,29 @@ typedef enum
 typedef enum 
 {
     HOPAccountStatePending,
+    HOPAccountPendingPeerFilesGeneration,
+    HOPAccountWaitingForAssociationToIdentity,
+    HOPAccountWaitingForBrowserWindowToBeLoaded,
+    HOPAccountWaitingForBrowserWindowToBeMadeVisible,
+    HOPAccountWaitingForBrowserWindowToClose,
     HOPAccountStateReady,
     HOPAccountStateShuttingDown,
     HOPAccountStateShutdown,
 } HOPAccountStates;
 
-
 #pragma mark - HOPIdentity enums
-typedef enum 
+typedef enum
 {
     HOPIdentityStatePending,
-    HOPIdentityStateWaitingAttachment,
-    HOPIdentityStateWaitingToLoadBrowserWindow,
-    HOPIdentityStateWaitingToMakeBrowserWindowVisible,
-    HOPIdentityStateWaitingLoginCompleteBrowserRedirection,
-    HOPIdentityStateWaitingAssociation,
+    HOPIdentityStatePendingAssociation,
+    HOPIdentityStateWaitingAttachmentOfDelegate,
+    HOPIdentityStateWaitingForBrowserWindowToBeLoaded,
+    HOPIdentityStateWaitingForBrowserWindowToBeMadeVisible,
+    HOPIdentityStateWaitingForBrowserWindowToClose,
     HOPIdentityStateReady,
     HOPIdentityStateShutdown
 } HOPIdentityStates;
+
 
 #pragma mark - HOPClientLog enums
 typedef enum
