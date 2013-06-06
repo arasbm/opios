@@ -119,15 +119,15 @@
 - (void) startLogger
 {
     //For each system you can choose log level from HOPClientLogLevelNone (turned off) to HOPClientLogLevelTrace (most detail).
-    [HOPLogger setLogLevel:HOPLoggerLevelBasic];
+    [HOPLogger setLogLevel:HOPLoggerLevelTrace];
     [HOPLogger setLogLevelbyName:@"hookflash_gui" level:HOPLoggerLevelBasic];
     [HOPLogger setLogLevelbyName:@"hookflash" level:HOPLoggerLevelBasic];
-    [HOPLogger setLogLevelbyName:@"hookflash_services" level:HOPLoggerLevelBasic];
+    [HOPLogger setLogLevelbyName:@"hookflash_services" level:HOPLoggerLevelTrace];
     [HOPLogger setLogLevelbyName:@"zsLib" level:HOPLoggerLevelBasic];
-    [HOPLogger setLogLevelbyName:@"hookflash_services_http" level:HOPLoggerLevelBasic];
-    [HOPLogger setLogLevelbyName:@"hookflash_core" level:HOPLoggerLevelBasic];
-    [HOPLogger setLogLevelbyName:@"hookflash_stack_message" level:HOPLoggerLevelBasic];
-    [HOPLogger setLogLevelbyName:@"hookflash_stack" level:HOPLoggerLevelBasic];
+    [HOPLogger setLogLevelbyName:@"hookflash_services_http" level:HOPLoggerLevelTrace];
+    [HOPLogger setLogLevelbyName:@"hookflash_core" level:HOPLoggerLevelTrace];
+    [HOPLogger setLogLevelbyName:@"hookflash_stack_message" level:HOPLoggerLevelTrace];
+    [HOPLogger setLogLevelbyName:@"hookflash_stack" level:HOPLoggerLevelTrace];
     [HOPLogger setLogLevelbyName:@"hookflash_webrtc" level:HOPLoggerLevelBasic];
     //Srart logger without colorized output
     [HOPLogger installStdOutLogger:NO];

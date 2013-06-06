@@ -32,6 +32,9 @@
 #import <Foundation/Foundation.h>
 #import "OpenpeerSDK/HOPProtocols.h"
 
+@class WebLoginViewController;
+
 @interface AccountDelegate : NSObject<HOPAccountDelegate>
 
+@property (nonatomic, strong) WebLoginViewController* webLoginViewController;
 @end

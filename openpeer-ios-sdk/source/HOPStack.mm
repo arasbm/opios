@@ -50,7 +50,7 @@
     return _sharedObject;
 }
 
-- (void) setupWithStackDelegate:(id<HOPStackDelegate>) stackDelegate mediaEngineDelegate:(id<HOPMediaEngineDelegate>) mediaEngineDelegate appOpenpeerID:(NSString*) appID appName:(NSString*) appName appImageURL:(NSString*) appImageURL appURL:(NSString*) appURL userAgent:(NSString*) userAgent deviceID:(NSString*) deviceID deviceOs:(NSString*) deviceOs system:(NSString*) system
+- (void) setupWithStackDelegate:(id<HOPStackDelegate>) stackDelegate mediaEngineDelegate:(id<HOPMediaEngineDelegate>) mediaEngineDelegate appID:(NSString*) appID appName:(NSString*) appName appImageURL:(NSString*) appImageURL appURL:(NSString*) appURL userAgent:(NSString*) userAgent deviceID:(NSString*) deviceID deviceOs:(NSString*) deviceOs system:(NSString*) system
 {
     //Check if delegates are nil
     if (!stackDelegate || !mediaEngineDelegate)

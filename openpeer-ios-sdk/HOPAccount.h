@@ -63,20 +63,22 @@
  @param inAccountDelegate HOPAccountDelegate delegate
  @param inConversationThreadDelegate HOPConversationThreadDelegate delegate
  @param inCallDelegate HOPCallDelegate delegate
- @param inPeerContactServiceDomain NSString peer contact service domain
- @param inIdentity HOPIdentity identity for which user is being logged in. In case user wants to associate more identites, after successfull login should call associateIdentities and provide list of identities to assoicate.
+ @param namespaceGrantOuterFrameURLUponReload NSString
+ @param grantID NSString
+ @param lockboxServiceDomain NSString lockbox service domain
+ @param forceCreateNewLockboxAccount BOOL flag that it telling core to create a new user if old user data is corrupted
  @returns YES if IAccount object is created sucessfully
  */
 - (BOOL) loginWithAccountDelegate:(id<HOPAccountDelegate>) inAccountDelegate conversationThreadDelegate:(id<HOPConversationThreadDelegate>) inConversationThreadDelegate callDelegate:(id<HOPCallDelegate>) inCallDelegate namespaceGrantOuterFrameURLUponReload:(NSString*) namespaceGrantOuterFrameURLUponReload  grantID:(NSString*) grantID lockboxServiceDomain:(NSString*) lockboxServiceDomain forceCreateNewLockboxAccount:(BOOL) forceCreateNewLockboxAccount;
-;
+
 
 /**
  Relogin method for exisitng user.
  @param inAccountDelegate HOPAccountDelegate delegate
  @param inConversationThreadDelegate HOPConversationThreadDelegate delegate
  @param inCallDelegate HOPCallDelegate delegate
- @param peerFilePrivate NSString private peer file
- @param peerFilePrivateSecret NSData private peer file secret
+ @param lockboxOuterFrameURLUponReload NSString private peer file
+ @param lockboxReloginInfo NSString login information retrieved from the local storage and packed in xml form
  @returns YES if IAccount object is created sucessfully
  */
 - (BOOL) reloginWithAccountDelegate:(id<HOPAccountDelegate>) inAccountDelegate conversationThreadDelegate:(id<HOPConversationThreadDelegate>) inConversationThreadDelegate callDelegate:(id<HOPCallDelegate>) inCallDelegate lockboxOuterFrameURLUponReload:(NSString *)lockboxOuterFrameURLUponReload lockboxReloginInfo:(NSString *)lockboxReloginInfo;
@@ -106,7 +108,7 @@
 
 /**
  Retrieves user private peer file.
- @returns private peer file
+ @returns NSString private peer file
  */
 - (NSString*) getPeerFilePrivate;
 
@@ -123,10 +125,37 @@
 - (NSArray*) getAssociatedIdentities;
 
 /**
- Associates or removes identites provided in input lists.
- @param inIdentitiesToAssociate NSArray List of identites to associate with logged in user
- @param inIdentitiesToRemove NSArray List of identites to remove for logged in user
+ Removes associated identities.
+ @params identities NSArray list of HOPIdentities objects
  */
-- (void) associateIdentities:(NSArray*) inIdentitiesToAssociate identitiesToRemove:(NSArray*) inIdentitiesToRemove;
+- (void) removeIdentities:(NSArray*) identities;
+
+/**
+ Retrieves inner browser frame URL that needs to be loaded during account login process.
+ @returns NSString inner browser frame URL
+ */
+- (NSString*) getInnerBrowserWindowFrameURL;
+
+/**
+ Notifies core that web wiev is now visible.
+ */
+- (void) notifyBrowserWindowVisible;
+
+/**
+ Notifies core that that web view is closed.
+ */
+- (void) notifyBrowserWindowClosed;
+
+/**
+ Retrieves JSON message from core that needs to be passed to inner browser frame.
+ @returns NSString JSON message
+ */
+- (NSString*) getNextMessageForInnerBrowerWindowFrame;
+
+/**
+ Passes JSON message from inner browser frame to core.
+ @param NSString JSON message
+ */
+- (void) handleMessageFromInnerBrowserWindowFrame:(NSString*) message;
 
 @end

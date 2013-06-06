@@ -45,7 +45,7 @@ NSString* const contactsLoadingtServiceDomain = @"example-light.hookflash.me";
 NSString* const identityFacebookBaseURI = @"identity://facebook.com/";
 NSString* const identityLinkedInBaseURI = @"identity://linkedin.com/";
 NSString* const grantOuterFrameURLUponReload = @"grantFinished";
-NSString* const grantServiceDomain = @"hcs-javascript.hookflash.me";
+//NSString* const grantServiceDomain = @"hcs-javascript.hookflash.me";
 NSString* const lockBoxServiceDomain =  @"hcs-javascript.hookflash.me";
 
 NSString* const facebookContactsLoadingPage = @"fbconnections.html";

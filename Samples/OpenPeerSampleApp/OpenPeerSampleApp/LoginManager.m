@@ -150,7 +150,7 @@
 
 - (void) startAccount
 {
-    [[HOPAccount sharedAccount] loginWithAccountDelegate:(id<HOPAccountDelegate>)[[OpenPeer sharedOpenPeer] accountDelegate] conversationThreadDelegate:(id<HOPConversationThreadDelegate>) [[OpenPeer sharedOpenPeer] conversationThreadDelegate]  callDelegate:(id<HOPCallDelegate>) [[OpenPeer sharedOpenPeer] callDelegate]  namespaceGrantOuterFrameURLUponReload:grantOuterFrameURLUponReload grantID:@"Id" lockboxServiceDomain:lockBoxServiceDomain forceCreateNewLockboxAccount:YES];
+    [[HOPAccount sharedAccount] loginWithAccountDelegate:(id<HOPAccountDelegate>)[[OpenPeer sharedOpenPeer] accountDelegate] conversationThreadDelegate:(id<HOPConversationThreadDelegate>) [[OpenPeer sharedOpenPeer] conversationThreadDelegate]  callDelegate:(id<HOPCallDelegate>) [[OpenPeer sharedOpenPeer] callDelegate]  namespaceGrantOuterFrameURLUponReload:grantOuterFrameURLUponReload grantID:@"Id" lockboxServiceDomain:identityProviderDomain forceCreateNewLockboxAccount:YES];
 }
 /**
  Starts user login for specific identity URI. Activity indicator is displayed and identity login started.
@@ -161,6 +161,7 @@
     NSLog(@"Identity login started");
     [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Getting identity login url ..." inView:[[[[OpenPeer sharedOpenPeer] mainViewController] loginViewController] view]];
     
+    [self startAccount];
     //For identity login it is required to pass identity delegate, URL that will be requested upon successful login, identity URI and identity provider domain. This is 
     HOPIdentity* hopIdentity = [HOPIdentity loginWithDelegate:(id<HOPIdentityDelegate>)[[OpenPeer sharedOpenPeer] identityDelegate] redirectAfterLoginCompleteURL:afterLoginCompleteURL identityURIOridentityBaseURI:identityURI identityProviderDomain:identityProviderDomain];
     
@@ -260,8 +261,7 @@
  */
 - (void) onIdentityAssociationFinished:(HOPIdentity*) identity
 {
-    NSArray* associatedIdentities = [NSArray arrayWithObject:identity];
-    [[HOPAccount sharedAccount] associateIdentities:associatedIdentities identitiesToRemove:nil];
+    
 }
 
 

@@ -58,6 +58,11 @@ using namespace hookflash::core;
     return _sharedObject;
 }
 
++ (NSString*) stateToString:(HOPAccountStates) state
+{
+    return [NSString stringWithUTF8String: IAccount::toString((IAccount::AccountStates) state)];
+}
+
 - (id)init
 {
     self = [super init];
@@ -69,8 +74,6 @@ using namespace hookflash::core;
 }
 
 
-
-//- (BOOL) loginWithAccountDelegate:(id<HOPAccountDelegate>) inAccountDelegate conversationThreadDelegate:(id<HOPConversationThreadDelegate>) inConversationThreadDelegate callDelegate:(id<HOPCallDelegate>) inCallDelegate peerContactServiceDomain:(NSString*) inPeerContactServiceDomain identity:(HOPIdentity*) inIdentity
 - (BOOL) loginWithAccountDelegate:(id<HOPAccountDelegate>) inAccountDelegate conversationThreadDelegate:(id<HOPConversationThreadDelegate>) inConversationThreadDelegate callDelegate:(id<HOPCallDelegate>) inCallDelegate namespaceGrantOuterFrameURLUponReload:(NSString*) namespaceGrantOuterFrameURLUponReload  grantID:(NSString*) grantID lockboxServiceDomain:(NSString*) lockboxServiceDomain forceCreateNewLockboxAccount:(BOOL) forceCreateNewLockboxAccount
 {
     BOOL passedWithoutErrors = NO;
@@ -250,40 +253,94 @@ using namespace hookflash::core;
     return array;
 }
 
-/*
-- (void) associateIdentities:(NSArray*) inIdentitiesToAssociate identitiesToRemove:(NSArray*) inIdentitiesToRemove
+- (void) removeIdentities:(NSArray*) identities
 {
-    IdentityList identitiesToAssociate;
-    IdentityList identitiesToRemove;
-    
-    if ([inIdentitiesToAssociate count] > 0)
+    if(accountPtr)
     {
-        for (HOPIdentity* identity in inIdentitiesToAssociate)
+        IdentityList identitiesToRemove;
+        
+        if ([identities count] > 0)
         {
-            if ([identity getIdentityPtr])
+            for (HOPIdentity* identity in identities)
             {
-                identitiesToAssociate.push_back([identity getIdentityPtr]);
+                if ([identity getIdentityPtr])
+                {
+                    identitiesToRemove.push_back([identity getIdentityPtr]);
+                }
             }
+            accountPtr->removeIdentities(identitiesToRemove);
         }
     }
-    
-    if ([inIdentitiesToRemove count] > 0)
+    else
     {
-        for (HOPIdentity* identity in inIdentitiesToRemove)
-        {
-            if ([identity getIdentityPtr])
-            {
-                identitiesToRemove.push_back([identity getIdentityPtr]);
-            }
-        }
+        [NSException raise:NSInvalidArgumentException format:@"Invalid account object!"];
     }
-    
-    [self getAccountPtr]->associateIdentities(identitiesToAssociate, identitiesToRemove);
-}*/
+}
 
-+ (NSString*) stateToString:(HOPAccountStates) state
+- (NSString*) getInnerBrowserWindowFrameURL
 {
-    return [NSString stringWithUTF8String: IAccount::toString((IAccount::AccountStates) state)];
+    NSString* ret = nil;
+    
+    if(accountPtr)
+    {
+        ret = [NSString stringWithUTF8String:accountPtr->getInnerBrowserWindowFrameURL()];
+    }
+    else
+    {
+        [NSException raise:NSInvalidArgumentException format:@"Invalid account object!"];
+    }
+    return ret;
+}
+
+- (void) notifyBrowserWindowVisible
+{
+    if(accountPtr)
+    {
+        accountPtr->notifyBrowserWindowVisible();
+    }
+    else
+    {
+        [NSException raise:NSInvalidArgumentException format:@"Invalid account object!"];
+    }
+}
+
+- (void) notifyBrowserWindowClosed
+{
+    if(accountPtr)
+    {
+        accountPtr->notifyBrowserWindowClosed();
+    }
+    else
+    {
+        [NSException raise:NSInvalidArgumentException format:@"Invalid account object!"];
+    }
+}
+
+- (NSString*) getNextMessageForInnerBrowerWindowFrame
+{
+    NSString* ret = nil;
+    
+    if(accountPtr)
+    {
+        ret = [NSString stringWithCString:IHelper::convertToString( accountPtr->getNextMessageForInnerBrowerWindowFrame()) encoding:NSUTF8StringEncoding];
+    }
+    else
+    {
+        [NSException raise:NSInvalidArgumentException format:@"Invalid account object!"];
+    }
+    return ret;
+}
+
+- (void) handleMessageFromInnerBrowserWindowFrame:(NSString*) message
+{
+    if(accountPtr)
+    {
+        accountPtr->handleMessageFromInnerBrowserWindowFrame(IHelper::createFromString([message UTF8String]));
+    }
+    else
+    {
+        [NSException raise:NSInvalidArgumentException format:@"Invalid account object!"];
+    }
 }
 
 - (NSString *)description

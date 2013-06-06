@@ -35,14 +35,26 @@
 #import "LoginManager.h"
 #import "OpenPeer.h"
 #import "MainViewController.h"
+#import "WebLoginViewController.h"
 
 @implementation AccountDelegate
 
-//Provisioning account delegate implementation.
+/**
+ Custom getter for webLoginViewController
+ */
+- (WebLoginViewController *)webLoginViewController
+{
+    if (!_webLoginViewController)
+    {
+        _webLoginViewController = [[WebLoginViewController alloc] init];
+        if (_webLoginViewController)
+            _webLoginViewController.view.hidden = YES;
+    }
+    
+    return _webLoginViewController;
+}
 
 //This method handles account state changes from SDK.
-
-//- (void)onAccountStateChanged:(HOPAccount *)account accountState:(HOPAccountStates)accountState
 - (void) account:(HOPAccount*) account stateChanged:(HOPAccountStates) accountState
 {
     NSLog(@"HOPAccount state: %@", [HOPAccount stateToString:accountState]);
@@ -61,9 +73,16 @@
                 break;
                 
             case HOPAccountWaitingForBrowserWindowToBeLoaded:
+                [self.webLoginViewController openLoginUrl:[account getInnerBrowserWindowFrameURL]];
                 break;
                 
             case HOPAccountWaitingForBrowserWindowToBeMadeVisible:
+                self.webLoginViewController.view.hidden = NO;
+                if (!self.webLoginViewController.view.superview)
+                {
+                    [[[OpenPeer sharedOpenPeer] mainViewController] showWebLoginView:self.webLoginViewController];
+                    [self.webLoginViewController.view setFrame:[[OpenPeer sharedOpenPeer] mainViewController].view.bounds];
+                }
                 break;
                 
             case HOPAccountWaitingForBrowserWindowToClose:

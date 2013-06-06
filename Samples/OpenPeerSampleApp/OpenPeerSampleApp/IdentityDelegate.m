@@ -34,6 +34,9 @@
 #import "LoginManager.h"
 #import "Constants.h"
 #import "OpenPeerUser.h"
+#import "OpenPeer.h"
+#import "MainViewController.h"
+#import "ActivityIndicatorViewController.h"
 
 @implementation IdentityDelegate
 
@@ -71,7 +74,8 @@
             break;
             
         case HOPIdentityStateShutdown:
-            
+            [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
+            [[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
             break;
         default:
             break;
