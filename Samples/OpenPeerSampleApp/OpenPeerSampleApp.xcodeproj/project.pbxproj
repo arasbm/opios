@@ -76,6 +76,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		87931ADC17666A2000D2E35A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 872729CF166CDF530089CBB6 /* openpeer-ios-sdk.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8792E86716519CFF00DEAC58;
+			remoteInfo = OpenpeerSDK;
+		};
 		E2788B11175A731400912644 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 872729CF166CDF530089CBB6 /* openpeer-ios-sdk.xcodeproj */;
@@ -486,6 +493,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				87931ADD17666A2000D2E35A /* PBXTargetDependency */,
 			);
 			name = OpenPeerSampleApp;
 			productName = OpenPeerSampleApp;
@@ -606,6 +614,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		87931ADD17666A2000D2E35A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = OpenpeerSDK;
+			targetProxy = 87931ADC17666A2000D2E35A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		87272835166CBF9B0089CBB6 /* InfoPlist.strings */ = {
