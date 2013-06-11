@@ -38,53 +38,112 @@
 #import "MainViewController.h"
 #import "ActivityIndicatorViewController.h"
 
+@interface IdentityDelegate()
+
+@property (nonatomic,strong) NSMutableDictionary* loginWebViewsDictionary;
+- (WebLoginViewController*) getLoginWebViewForIdentity:(HOPIdentity*) identity;
+- (void) removeLoginWebViewForIdentity:(HOPIdentity*) identity;
+@end
+
 @implementation IdentityDelegate
+
+- (id)init
+{
+    self = [super init];
+    if (self)
+    {
+        self.loginWebViewsDictionary = [[NSMutableDictionary alloc] init];
+    }
+    return self;
+}
+
+- (WebLoginViewController*) getLoginWebViewForIdentity:(HOPIdentity*) identity
+{
+    WebLoginViewController* ret = nil;
+    
+    ret = [self.loginWebViewsDictionary objectForKey:[identity getBaseIdentityURI]];
+    if (!ret)
+    {
+        ret= [[WebLoginViewController alloc] initWithCoreObject:identity];
+        ret.view.hidden = YES;
+        [self.loginWebViewsDictionary setObject:ret forKey:[identity getBaseIdentityURI]];
+    }
+    return ret;
+}
+
+- (void) removeLoginWebViewForIdentity:(HOPIdentity*) identity
+{
+    [self.loginWebViewsDictionary removeObjectForKey:[identity getBaseIdentityURI]];
+}
 
 - (void)identity:(HOPIdentity *)identity stateChanged:(HOPIdentityStates)state
 {
     NSLog(@"Identity Login state: %@",[HOPIdentity stateToString:state]);
-    switch (state)
+    
+    dispatch_async(dispatch_get_main_queue(), ^
     {
-        case HOPIdentityStatePending:
-            
-            break;
+        WebLoginViewController* webLoginViewController = [self getLoginWebViewForIdentity:identity];
         
-        case HOPIdentityStatePendingAssociation:
+        switch (state)
+        {
+            case HOPIdentityStatePending:
+                
+                break;
             
-            break;
-            
-        case HOPIdentityStateWaitingAttachmentOfDelegate:
-            
-            break;
-            
-        case HOPIdentityStateWaitingForBrowserWindowToBeLoaded:
-            [[LoginManager sharedLoginManager] onLoginUrlReceived:outerFrameURL forIdentity:identity];
-            break;
-            
-        case HOPIdentityStateWaitingForBrowserWindowToBeMadeVisible:
-            [[LoginManager sharedLoginManager] makeLoginWebViewVisible:YES];
-            [identity notifyBrowserWindowVisible];
-            break;
-            
-        case HOPIdentityStateWaitingForBrowserWindowToClose:
-            //detach web view
-            break;
-            
-        case HOPIdentityStateReady:
-            break;
-            
-        case HOPIdentityStateShutdown:
-            [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
-            [[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
-            break;
-        default:
-            break;
-    }
+            case HOPIdentityStatePendingAssociation:
+                
+                break;
+                
+            case HOPIdentityStateWaitingAttachmentOfDelegate:
+                
+                break;
+                
+            case HOPIdentityStateWaitingForBrowserWindowToBeLoaded:
+                //[[LoginManager sharedLoginManager] onLoginUrlReceived:outerFrameURL forIdentity:identity];
+                //Login url is received. Remove activity indicator
+                [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
+                [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Opening login page ..." inView:[[[OpenPeer sharedOpenPeer] mainViewController] view]];
+
+                //Open identity login web page
+                [webLoginViewController openLoginUrl:outerFrameURL];
+                break;
+                
+            case HOPIdentityStateWaitingForBrowserWindowToBeMadeVisible:
+                //[[LoginManager sharedLoginManager] makeLoginWebViewVisible:YES];
+                webLoginViewController.view.hidden = NO;
+                if (!webLoginViewController.view.superview)
+                {
+                    [[[OpenPeer sharedOpenPeer] mainViewController] showWebLoginView:webLoginViewController];
+                    [webLoginViewController.view setFrame:[[OpenPeer sharedOpenPeer] mainViewController].view.bounds];
+                }
+                [identity notifyBrowserWindowVisible];
+                break;
+                
+            case HOPIdentityStateWaitingForBrowserWindowToClose:
+                //detach web view
+                [webLoginViewController.view removeFromSuperview];
+                [self removeLoginWebViewForIdentity:identity];
+                break;
+                
+            case HOPIdentityStateReady:
+                break;
+                
+            case HOPIdentityStateShutdown:
+                [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
+                [[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
+                break;
+            default:
+                break;
+        }
+    });
 }
 
 - (void)onIdentityPendingMessageForInnerBrowserWindowFrame:(HOPIdentity *)identity
 {
-    [[LoginManager sharedLoginManager] onMessageForJS:[identity getNextMessageForInnerBrowerWindowFrame]];
+    //[[LoginManager sharedLoginManager] onMessageForJS:[identity getNextMessageForInnerBrowerWindowFrame]];
+    WebLoginViewController* webLoginViewController = [self getLoginWebViewForIdentity:identity];
+    NSString* jsMethod = [NSString stringWithFormat:@"sendNotifyBundleToInnerFrame(\'%@\')", [identity getNextMessageForInnerBrowerWindowFrame]];
+    [webLoginViewController passMessageToJS:jsMethod];
 }
 
 @end

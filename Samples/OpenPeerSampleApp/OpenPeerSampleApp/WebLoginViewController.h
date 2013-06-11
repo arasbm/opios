@@ -32,10 +32,12 @@
 #import <UIKit/UIKit.h>
 
 @interface WebLoginViewController : UIViewController
+
 @property (nonatomic, weak) IBOutlet UIWebView *loginWebView;
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, weak) IBOutlet UILabel *activityLabel;
 
+- (id) initWithCoreObject:(id) inCoreObject;
 
 - (void) openLoginUrl:(NSString*) url;
 - (void) passMessageToJS:(NSString*) message;

@@ -37,6 +37,10 @@
 #import "MainViewController.h"
 #import "WebLoginViewController.h"
 
+@interface AccountDelegate()
+@property (nonatomic, strong) WebLoginViewController* webLoginViewController;
+@end
+
 @implementation AccountDelegate
 
 /**
@@ -46,7 +50,7 @@
 {
     if (!_webLoginViewController)
     {
-        _webLoginViewController = [[WebLoginViewController alloc] init];
+        _webLoginViewController = [[WebLoginViewController alloc] initWithCoreObject:[HOPAccount sharedAccount]];
         if (_webLoginViewController)
             _webLoginViewController.view.hidden = YES;
     }
@@ -86,6 +90,7 @@
                 break;
                 
             case HOPAccountWaitingForBrowserWindowToClose:
+                [self.webLoginViewController.view removeFromSuperview];
                 break;
                 
             case HOPAccountStateReady:

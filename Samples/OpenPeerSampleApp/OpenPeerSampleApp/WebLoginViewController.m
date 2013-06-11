@@ -35,10 +35,13 @@
 #import "ActivityIndicatorViewController.h"
 #import "Constants.h"
 #import "Utility.h"
+#import <OpenpeerSDK/HOPIdentity.h>
+#import <OpenpeerSDK/HOPAccount.h>
 
-@interface WebLoginViewController ()
+@interface WebLoginViewController()
 
 @property (nonatomic) BOOL outerFrameInitialised;
+@property (nonatomic, weak) id coreObject;
 @end
 
 @implementation WebLoginViewController
@@ -54,9 +57,20 @@
 
 - (id)init
 {
-    self = [self initWithNibName:@"WebLoginViewController" bundle:nil];
+    self = [self initWithCoreObject:nil];
     return self;
 }
+
+- (id) initWithCoreObject:(id) inCoreObject
+{
+    self = [self initWithNibName:@"WebLoginViewController" bundle:nil];
+    if (self)
+    {
+        self.coreObject = inCoreObject;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -92,8 +106,10 @@
             
         NSString *functionNameSelector = [NSString stringWithFormat:@"%@:", function];
         //Execute JSON parsing in function read from requestString.
-        if ([[LoginManager sharedLoginManager] respondsToSelector:NSSelectorFromString(functionNameSelector)])
-            [[LoginManager sharedLoginManager] performSelector:NSSelectorFromString(functionNameSelector) withObject:params];
+//        if ([[LoginManager sharedLoginManager] respondsToSelector:NSSelectorFromString(functionNameSelector)])
+//            [[LoginManager sharedLoginManager] performSelector:NSSelectorFromString(functionNameSelector) withObject:params];
+        if ([self respondsToSelector:NSSelectorFromString(functionNameSelector)])
+            [self performSelector:NSSelectorFromString(functionNameSelector) withObject:params];
         return NO;
     }
     //NOT IN USE
@@ -114,13 +130,15 @@
 
 }
 
+
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     NSString *requestString = [[[webView request] URL] absoluteString];
     if (!self.outerFrameInitialised && [requestString isEqualToString:outerFrameURL])
     {
         self.outerFrameInitialised = YES;
-        [[LoginManager sharedLoginManager] onOuterFrameLoaded];
+        //[[LoginManager sharedLoginManager] onOuterFrameLoaded];
+        [self onOuterFrameLoaded];
     }
 }
 
@@ -129,4 +147,33 @@
     NSLog(@"UIWebView _ERROR_ : %@",[error localizedDescription]);
 }
 
+
+- (void)notifyClient:(NSString *)message
+{
+    if ([self.coreObject isKindOfClass:[HOPIdentity class]])
+    {
+        [(HOPIdentity*)self.coreObject handleMessageFromInnerBrowserWindowFrame:message];
+    }
+    else if ([self.coreObject isKindOfClass:[HOPAccount class]])
+    {
+        [(HOPAccount*)self.coreObject handleMessageFromInnerBrowserWindowFrame:message];
+    }
+}
+
+- (void)onOuterFrameLoaded
+{
+    NSString* jsMethod = nil;
+    
+    if ([self.coreObject isKindOfClass:[HOPIdentity class]])
+    {
+        jsMethod = [NSString stringWithFormat:@"initInnerFrame(\'%@\')",[(HOPIdentity*)self.coreObject getInnerBrowserWindowFrameURL]];
+    }
+    else if ([self.coreObject isKindOfClass:[HOPAccount class]])
+    {
+        jsMethod = [NSString stringWithFormat:@"initInnerFrame(\'%@\')",[(HOPAccount*)self.coreObject getInnerBrowserWindowFrameURL]];
+    }
+    
+    if (jsMethod)
+        [self passMessageToJS:jsMethod];
+}
 @end

@@ -46,9 +46,9 @@
 - (void) login;
 - (void) logout;
 
-- (void) onLoginUrlReceived:(NSString*) url forIdentity:(HOPIdentity*) identity;
-- (void) onOuterFrameLoaded;
-- (void) onMessageForJS:(NSString*) message;
+//- (void) onLoginUrlReceived:(NSString*) url forIdentity:(HOPIdentity*) identity;
+//- (void) onOuterFrameLoaded;
+//- (void) onMessageForJS:(NSString*) message;
 - (void) onLoginRedirectURLReceived;
 
 - (void) makeLoginWebViewVisible:(BOOL) isVisible;

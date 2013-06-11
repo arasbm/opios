@@ -120,6 +120,24 @@
     }
     return ret;
 }
+
+- (NSString*) getBaseIdentityURI
+{
+    NSString* ret = nil;
+    
+    if(identityPtr)
+    {
+        NSString* uri = [NSString stringWithCString:identityPtr->getIdentityURI() encoding:NSUTF8StringEncoding];
+        if (uri)
+            ret = [OpenPeerUtility getBaseIdentityURIFromURI:uri];
+    }
+    else
+    {
+        [NSException raise:NSInvalidArgumentException format:@"Invalid core identity object!"];
+    }
+    return ret;
+}
+
 - (NSString*) getIdentityProviderDomain
 {
     NSString* ret = nil;

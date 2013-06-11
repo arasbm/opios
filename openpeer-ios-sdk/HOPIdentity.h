@@ -94,6 +94,12 @@
 - (NSString*) getIdentityURI;
 
 /**
+ Retrieves base identity URI
+ @returns NSString base identity URI
+ */
+- (NSString*) getBaseIdentityURI;
+
+/**
  Retrieves identity provider domain
  @returns NSString identity provider domain
  */
