@@ -29,62 +29,9 @@
  
  */
 
-#import "LoginViewController.h"
-#import "MainViewController.h"
-#import "LoginManager.h"
-#import "Constants.h"
+#import <Foundation/Foundation.h>
+#import "OpenpeerSDK/HOPProtocols.h"
 
-@interface LoginViewController ()
-@property (weak, nonatomic) IBOutlet UIButton *buttonLinkedIn;
-@property (weak, nonatomic) IBOutlet UIButton *buttonFacebook;
+@interface CacheDelegate : NSObject<HOPCacheDelegate>
 
-@end
-
-@implementation LoginViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)actionLoginWithFacebook:(id)sender
-{
-    [[LoginManager sharedLoginManager] startLoginUsingIdentityURI:identityFederateBaseURI];
-}
-
-- (IBAction)actionLoginWithLinkedIn:(id)sender
-{
-    [[LoginManager sharedLoginManager] startLoginUsingIdentityURI:identityLinkedInBaseURI];
-}
-
-
-- (void)viewDidUnload {
-    [self setButtonLinkedIn:nil];
-    [self setButtonFacebook:nil];
-    [super viewDidUnload];
-}
-
-- (void) prepareForLogin
-{
-    self.buttonLinkedIn.hidden = [[LoginManager sharedLoginManager] isAssociatedIdentity:identityLinkedInBaseURI];
-    self.buttonLinkedIn.enabled = !self.buttonLinkedIn.hidden;
-    self.buttonFacebook.hidden = [[LoginManager sharedLoginManager] isAssociatedIdentity:identityFacebookBaseURI];
-    self.buttonFacebook.enabled = !self.buttonFacebook.hidden;
-}
 @end

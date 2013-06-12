@@ -110,3 +110,13 @@
 - (void) onIdentityLookupCompleted:(HOPIdentityLookup*) lookup;
 
 @end
+
+@class HOPCache;
+
+@protocol HOPCacheDelegate <NSObject>
+
+- (NSString*) fetchCookieWithPath:(NSString*) cookieNamePath;
+- (void) storeCookie:(NSString*) cookie cookieNamePath:(NSString*) cookieNamePath expireTime:(NSDate*) expireTime;
+- (void) clearCookieWithPath:(NSString*) cookieNamePath;
+
+@end

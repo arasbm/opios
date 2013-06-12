@@ -38,10 +38,10 @@ NSString* const applicationURL = @"www.openpeer.org";
 
 NSString* const provisioningURI = @"provisioning-stable-dev.hookflash.me";//Not in use
 NSString* const outerFrameURL = @"https://app-javascript.hookflash.me/outer.html";
-NSString* const afterLoginCompleteURL = @"OpenpeerLoginFinished";
 NSString* const identityProviderDomain = @"idprovider-javascript.hookflash.me";
 NSString* const peerContactServiceDomain = @"unstable.hookflash.me";
 NSString* const contactsLoadingtServiceDomain = @"example-light.hookflash.me";
+NSString* const identityFederateBaseURI = @"identity://idprovider-javascript.hookflash.me/";
 NSString* const identityFacebookBaseURI = @"identity://facebook.com/";
 NSString* const identityLinkedInBaseURI = @"identity://linkedin.com/";
 NSString* const grantOuterFrameURLUponReload = @"grantFinished";

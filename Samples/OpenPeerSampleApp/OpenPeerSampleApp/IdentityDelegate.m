@@ -140,10 +140,13 @@
 
 - (void)onIdentityPendingMessageForInnerBrowserWindowFrame:(HOPIdentity *)identity
 {
-    //[[LoginManager sharedLoginManager] onMessageForJS:[identity getNextMessageForInnerBrowerWindowFrame]];
-    WebLoginViewController* webLoginViewController = [self getLoginWebViewForIdentity:identity];
-    NSString* jsMethod = [NSString stringWithFormat:@"sendNotifyBundleToInnerFrame(\'%@\')", [identity getNextMessageForInnerBrowerWindowFrame]];
-    [webLoginViewController passMessageToJS:jsMethod];
+    NSLog(@"onIdentityPendingMessageForInnerBrowserWindowFrame");
+    dispatch_async(dispatch_get_main_queue(), ^
+    {
+        WebLoginViewController* webLoginViewController = [self getLoginWebViewForIdentity:identity];
+        NSString* jsMethod = [NSString stringWithFormat:@"sendNotifyBundleToInnerFrame(\'%@\')", [identity getNextMessageForInnerBrowerWindowFrame]];
+        [webLoginViewController passMessageToJS:jsMethod];
+    });
 }
 
 @end

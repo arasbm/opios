@@ -161,9 +161,11 @@
     NSLog(@"Identity login started");
     [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Getting identity login url ..." inView:[[[[OpenPeer sharedOpenPeer] mainViewController] loginViewController] view]];
     
+    NSString* redirectAfterLoginCompleteURL = [NSString stringWithFormat:@"%@?reload=true",outerFrameURL];
+
     [self startAccount];
     //For identity login it is required to pass identity delegate, URL that will be requested upon successful login, identity URI and identity provider domain. This is 
-    HOPIdentity* hopIdentity = [HOPIdentity loginWithDelegate:(id<HOPIdentityDelegate>)[[OpenPeer sharedOpenPeer] identityDelegate] redirectAfterLoginCompleteURL:afterLoginCompleteURL identityURIOridentityBaseURI:identityURI identityProviderDomain:identityProviderDomain];
+    HOPIdentity* hopIdentity = [HOPIdentity loginWithDelegate:(id<HOPIdentityDelegate>)[[OpenPeer sharedOpenPeer] identityDelegate] redirectAfterLoginCompleteURL:redirectAfterLoginCompleteURL identityURIOridentityBaseURI:identityURI identityProviderDomain:identityProviderDomain];
     
     if (!hopIdentity)
         NSLog(@"Identity login failed");
@@ -179,7 +181,7 @@
     
     //TODO: Create a lockboxReloginInfo
     //To start relogin procedure it is required to pass account, conversation thread and call delegates. Also, private peer file and secret, received on previous login procedure, are required.
-    BOOL reloginStarted = [[HOPAccount sharedAccount] reloginWithAccountDelegate:(id<HOPAccountDelegate>) [[OpenPeer sharedOpenPeer] accountDelegate] conversationThreadDelegate:(id<HOPConversationThreadDelegate>)[[OpenPeer sharedOpenPeer] conversationThreadDelegate]  callDelegate:(id<HOPCallDelegate>)[[OpenPeer sharedOpenPeer] callDelegate] lockboxOuterFrameURLUponReload:afterLoginCompleteURL lockboxReloginInfo:@""];
+    BOOL reloginStarted = [[HOPAccount sharedAccount] reloginWithAccountDelegate:(id<HOPAccountDelegate>) [[OpenPeer sharedOpenPeer] accountDelegate] conversationThreadDelegate:(id<HOPConversationThreadDelegate>)[[OpenPeer sharedOpenPeer] conversationThreadDelegate]  callDelegate:(id<HOPCallDelegate>)[[OpenPeer sharedOpenPeer] callDelegate] lockboxOuterFrameURLUponReload:outerFrameURL lockboxReloginInfo:@""];
     
     if (!reloginStarted)
         NSLog(@"Relogin failed");

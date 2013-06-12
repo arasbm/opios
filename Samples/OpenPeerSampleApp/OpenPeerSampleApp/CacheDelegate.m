@@ -29,62 +29,47 @@
  
  */
 
-#import "LoginViewController.h"
-#import "MainViewController.h"
-#import "LoginManager.h"
-#import "Constants.h"
+#import "CacheDelegate.h"
 
-@interface LoginViewController ()
-@property (weak, nonatomic) IBOutlet UIButton *buttonLinkedIn;
-@property (weak, nonatomic) IBOutlet UIButton *buttonFacebook;
 
-@end
+@implementation CacheDelegate
 
-@implementation LoginViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (NSString*) fetchCookieWithPath:(NSString*) cookieNamePath
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+    NSString* ret = nil;
+    
+    //TODO: What to do when cookie has expired
+    NSData* data = [[NSUserDefaults standardUserDefaults] objectForKey:cookieNamePath];
+    if (data)
+    {
+        NSKeyedUnarchiver *aDecoder = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+        if (aDecoder)
+        {
+            NSDate* expireDate = [aDecoder decodeObjectForKey:@"expireDate"];
+            if ([expireDate compare:[NSDate date]] == NSOrderedDescending)
+                ret = [aDecoder decodeObjectForKey:@"value"];
+        }
     }
-    return self;
+    
+    return ret;
 }
 
-
-- (void)viewDidLoad
+- (void) storeCookie:(NSString*) cookie cookieNamePath:(NSString*) cookieNamePath expireTime:(NSDate*) expireTime
 {
-    [super viewDidLoad];
+    NSMutableData *data = [NSMutableData data];
+    
+    NSKeyedArchiver *aCoder = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+    
+    [aCoder encodeObject:cookie forKey:@"value"];
+    [aCoder encodeObject:expireTime forKey:@"expireDate"];
+    [aCoder finishEncoding];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:data forKey:cookieNamePath];
 }
 
-- (void)didReceiveMemoryWarning
+- (void) clearCookieWithPath:(NSString*) cookieNamePath
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:cookieNamePath];
 }
 
-- (IBAction)actionLoginWithFacebook:(id)sender
-{
-    [[LoginManager sharedLoginManager] startLoginUsingIdentityURI:identityFederateBaseURI];
-}
-
-- (IBAction)actionLoginWithLinkedIn:(id)sender
-{
-    [[LoginManager sharedLoginManager] startLoginUsingIdentityURI:identityLinkedInBaseURI];
-}
-
-
-- (void)viewDidUnload {
-    [self setButtonLinkedIn:nil];
-    [self setButtonFacebook:nil];
-    [super viewDidUnload];
-}
-
-- (void) prepareForLogin
-{
-    self.buttonLinkedIn.hidden = [[LoginManager sharedLoginManager] isAssociatedIdentity:identityLinkedInBaseURI];
-    self.buttonLinkedIn.enabled = !self.buttonLinkedIn.hidden;
-    self.buttonFacebook.hidden = [[LoginManager sharedLoginManager] isAssociatedIdentity:identityFacebookBaseURI];
-    self.buttonFacebook.enabled = !self.buttonFacebook.hidden;
-}
 @end

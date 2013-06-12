@@ -65,6 +65,7 @@
 		87B013FF1661557C00E8938B /* HOPMediaEngineRtpRtcpStatistics.h in Headers */ = {isa = PBXBuildFile; fileRef = 87343FE9165E4B0C0070E6E0 /* HOPMediaEngineRtpRtcpStatistics.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87B014001661557C00E8938B /* HOPIdentity.h in Headers */ = {isa = PBXBuildFile; fileRef = 87FA4CE0165F891A00F7D973 /* HOPIdentity.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87D66B6016EFC3660017EF98 /* HOPLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 87DFA51D16E7576900C77326 /* HOPLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87D91AA71767509700E46B66 /* OpenPeerCacheDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 87D91AA51767509700E46B66 /* OpenPeerCacheDelegate.mm */; };
 		87E3CD21172A859600084D2F /* HOPIdentityLookupInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 87E3CD1F172A859500084D2F /* HOPIdentityLookupInfo.mm */; };
 		87E3CD24172A89E300084D2F /* HOPIdentityLookupInfo_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 87E3CD23172A85FC00084D2F /* HOPIdentityLookupInfo_Internal.h */; };
 		87E3CD25172A89E300084D2F /* HOPIdentityLookupInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 87E3CCE8172A82BC00084D2F /* HOPIdentityLookupInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -289,6 +290,8 @@
 		87A5B20616EDE648007E825A /* HOPIdentityLookup.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HOPIdentityLookup.mm; sourceTree = "<group>"; };
 		87A5B20816EDE656007E825A /* HOPIdentityLookup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HOPIdentityLookup.h; sourceTree = "<group>"; };
 		87A5B20916EDE9A4007E825A /* HOPIdentityLookup_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HOPIdentityLookup_Internal.h; sourceTree = "<group>"; };
+		87D91A7617673E6A00E46B66 /* OpenPeerCacheDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenPeerCacheDelegate.h; sourceTree = "<group>"; };
+		87D91AA51767509700E46B66 /* OpenPeerCacheDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenPeerCacheDelegate.mm; sourceTree = "<group>"; };
 		87DFA51D16E7576900C77326 /* HOPLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HOPLogger.h; sourceTree = "<group>"; };
 		87E3CCE8172A82BC00084D2F /* HOPIdentityLookupInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HOPIdentityLookupInfo.h; sourceTree = "<group>"; };
 		87E3CD1F172A859500084D2F /* HOPIdentityLookupInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HOPIdentityLookupInfo.mm; sourceTree = "<group>"; };
@@ -570,6 +573,7 @@
 				87A5B1D016EDE5F9007E825A /* source */,
 				87A5B20916EDE9A4007E825A /* HOPIdentityLookup_Internal.h */,
 				87E3CD23172A85FC00084D2F /* HOPIdentityLookupInfo_Internal.h */,
+				87D91A7617673E6A00E46B66 /* OpenPeerCacheDelegate.h */,
 			);
 			path = internal;
 			sourceTree = "<group>";
@@ -586,6 +590,7 @@
 				87A5B1DB16EDE5F9007E825A /* OpenPeerStackDelegate.mm */,
 				87A5B1DC16EDE5F9007E825A /* OpenPeerStorageManager.mm */,
 				87A5B1DD16EDE5F9007E825A /* OpenPeerUtility.mm */,
+				87D91AA51767509700E46B66 /* OpenPeerCacheDelegate.mm */,
 			);
 			path = source;
 			sourceTree = "<group>";
@@ -858,6 +863,7 @@
 				87A5B20716EDE648007E825A /* HOPIdentityLookup.mm in Sources */,
 				87E3CD21172A859600084D2F /* HOPIdentityLookupInfo.mm in Sources */,
 				872DA9E6175CEC9C000CCA76 /* HOPCache.mm in Sources */,
+				87D91AA71767509700E46B66 /* OpenPeerCacheDelegate.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
