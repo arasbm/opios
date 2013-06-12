@@ -327,10 +327,14 @@
         if (contact.hopContact)
             [hopContacts addObject:contact.hopContact];
     }
-    [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsPeerFilesLoadingStarted];
     
-    //Ask for peer files for passed contacts
-    [[HOPProvisioningAccount sharedProvisioningAccount] peerFileLookup:self contacts:hopContacts];
+    if ([hopContacts count] > 0)
+    {
+        [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsPeerFilesLoadingStarted];
+        
+        //Ask for peer files for passed contacts
+        [[HOPProvisioningAccount sharedProvisioningAccount] peerFileLookup:self contacts:hopContacts];
+    }
 }
 
 /**
