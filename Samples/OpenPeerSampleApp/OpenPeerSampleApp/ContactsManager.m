@@ -35,6 +35,7 @@
 
 #import "MainViewController.h"
 #import "ContactsTableViewController.h"
+#import "ActivityIndicatorViewController.h"
 #import "OpenPeer.h"
 #import "OpenPeerUser.h"
 #import "Contact.h"
@@ -406,18 +407,31 @@
 - (void) onAccountIdentityLookupQueryComplete:(HOPProvisioningAccountIdentityLookupQuery*) query
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        if([query isComplete] && [query didSucceed])
+        if([query isComplete])
         {
-            for(HOPContact* hopContact in [query getContacts])
+            if ([query didSucceed])
             {
-                Contact* contact = [self getContactForIdentities:[hopContact getIdentities]];
-                contact.hopContact = hopContact;
-                [self.contactsDictionaryByUserId setObject:contact forKey:[hopContact getUserID]];
+                for(HOPContact* hopContact in [query getContacts])
+                {
+                    Contact* contact = [self getContactForIdentities:[hopContact getIdentities]];
+                    contact.hopContact = hopContact;
+                    [self.contactsDictionaryByUserId setObject:contact forKey:[hopContact getUserID]];
+                }
+                
+                [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoaded];
+                
+                [self peerFileLookupQuery:self.contactArray];
             }
-            
-            [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoaded];
-            
-            [self peerFileLookupQuery:self.contactArray];
+            else
+            {
+                [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
+                UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Server lookup error!"
+                                                                    message:@"Please, try again later."
+                                                                   delegate:self
+                                                          cancelButtonTitle:@"Ok"
+                                                          otherButtonTitles:nil];
+                [alertView show];
+            }
         }
     });
 }
