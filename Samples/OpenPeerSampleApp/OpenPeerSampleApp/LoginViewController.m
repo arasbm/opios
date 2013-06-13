@@ -65,7 +65,7 @@
 
 - (IBAction)actionLoginWithFacebook:(id)sender
 {
-    [[LoginManager sharedLoginManager] startLoginUsingIdentityURI:identityFederateBaseURI];
+    [[LoginManager sharedLoginManager] startLoginUsingIdentityURI:identityFacebookBaseURI];
 }
 
 - (IBAction)actionLoginWithLinkedIn:(id)sender

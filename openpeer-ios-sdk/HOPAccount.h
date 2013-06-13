@@ -90,10 +90,10 @@
 - (HOPAccountState*) getState;
 
 /**
- Retrieves logged in user id
- @returns User id
+ Retrieves relogin info for logged user. Relogin info contains": lockboxDomain, accountID, grandID, keyIdentityHalf, keyLockboxHalf.
+ @returns NSString relogin info in packed in JSON format.
  */
-//- (NSString*) getUserID;
+- (NSString*) getReloginInformation;
 
 /**
  Retrieves user location id.

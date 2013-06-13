@@ -33,6 +33,7 @@
 #import <Foundation/Foundation.h>
 
 #import "OpenPeerUser.h"
+#import "Utility.h"
 //SDK
 #import <OpenpeerSDK/HOPAccount.h>
 #import <OpenpeerSDK/HOPContact.h>
@@ -79,7 +80,7 @@
         {
             NSKeyedUnarchiver *aDecoder = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
             
-            //self.userId = [aDecoder decodeObjectForKey:archiveUserId];
+            self.deviceId = [aDecoder decodeObjectForKey:archiveDeviceId];
             self.stableUniqueId = [aDecoder decodeObjectForKey:archiveStableUniqueId];
             self.identityURI = [aDecoder decodeObjectForKey:archiveIdentityURI];
             self.peerURI = [aDecoder decodeObjectForKey:archivePeerURI];
@@ -87,9 +88,13 @@
             self.privatePeerFileSecret = [aDecoder decodeObjectForKey:archivePrivatePeerFileSecret];
             self.fullName = [aDecoder decodeObjectForKey:archivePeerFilePassword];
             self.dictionaryIdentities = [aDecoder decodeObjectForKey:archiveAssociatedIdentities];
+            self.reloginInfo = [aDecoder decodeObjectForKey:archiveReloginInfo];
             
             [aDecoder finishDecoding];
         }
+        
+        if ([self.deviceId length] == 0)
+            self.deviceId = [Utility getGUIDstring];
         
         if (!self.dictionaryIdentities)
             self.dictionaryIdentities = [[NSMutableDictionary alloc] init];
@@ -107,9 +112,11 @@
     self.peerURI = [[HOPContact getForSelf] getPeerURI];
     self.privatePeerFile = [[HOPAccount sharedAccount] getPeerFilePrivate];
     self.privatePeerFileSecret = [[HOPAccount sharedAccount] getPeerFilePrivateSecret];
+    self.reloginInfo = [[HOPAccount sharedAccount] getReloginInformation];
     
     NSMutableData *data = [NSMutableData data];
     NSKeyedArchiver *aCoder = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+    [aCoder encodeObject:self.deviceId forKey:archiveDeviceId];
     [aCoder encodeObject:self.stableUniqueId forKey:archiveStableUniqueId];
     [aCoder encodeObject:self.identityURI forKey:archiveIdentityURI];
     [aCoder encodeObject:self.peerURI forKey:archivePeerURI];
@@ -117,6 +124,7 @@
     [aCoder encodeObject:self.privatePeerFile forKey:archivePrivatePeerFile];
     [aCoder encodeObject:self.privatePeerFileSecret forKey:archivePrivatePeerFileSecret];
     [aCoder encodeObject:self.dictionaryIdentities forKey:archiveAssociatedIdentities];
+    [aCoder encodeObject:self.reloginInfo forKey:archiveReloginInfo];
     
     [aCoder finishEncoding];
     

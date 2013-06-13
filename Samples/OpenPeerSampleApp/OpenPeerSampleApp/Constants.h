@@ -53,7 +53,7 @@ extern NSString* const facebookContactsLoadingPage;
 extern NSString * const keyOpenPeerUser;
 
 //User defaults keys
-extern NSString * const archiveUserId;
+extern NSString * const archiveDeviceId;
 extern NSString * const archiveStableUniqueId;
 extern NSString * const archiveIdentityURI;
 extern NSString * const archivePeerURI;
@@ -66,6 +66,7 @@ extern NSString * const archivePrivatePeerFileSecret;
 extern NSString * const archivePeerFilePassword;
 extern NSString * const archiveAssociatedIdentities;
 extern NSString * const archiveLastProfileUpdateTimestamp;
+extern NSString * const archiveReloginInfo;
 
 //Contact Profile xml tags
 extern NSString* const profileXmlTagProfile;

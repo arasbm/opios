@@ -54,7 +54,7 @@ NSString * const keyOpenPeerUser = @"keyOpenPeerUser";
 
 //User defaults keys
 
-NSString * const archiveUserId = @"archiveUserId";
+NSString * const archiveDeviceId = @"archiveDeviceId";
 NSString * const archiveStableUniqueId = @"archiveStableUniqueId";
 NSString * const archiveIdentityURI = @"archiveIdentityURI";
 NSString * const archivePeerURI = @"archivePeerURI";
@@ -67,6 +67,7 @@ NSString * const archivePrivatePeerFileSecret = @"archivePrivatePeerFileSecret";
 NSString * const archivePeerFilePassword = @"archivePeerFilePassword";
 NSString * const archiveAssociatedIdentities = @"archiveAssociatedIdentities";
 NSString * const archiveLastProfileUpdateTimestamp = @"archiveLastProfileUpdateTimestamp";
+NSString * const archiveReloginInfo = @"archiveReloginInfo";
 
 //Contact Profile xml tags
 NSString* const profileXmlTagProfile = @"profile";

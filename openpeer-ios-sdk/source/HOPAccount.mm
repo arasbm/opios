@@ -104,9 +104,6 @@ using namespace hookflash::core;
     
     [self setLocalDelegates:inAccountDelegate conversationThread:inConversationThreadDelegate callDelegate:inCallDelegate];
     
-    
-    
-    //TODO: For relogin create an xml with domain,    accountID, reloginInformation,keyIdentityHalf,keyLockboxHalf 
     accountPtr = IAccount::relogin(openpeerAccountDelegatePtr, openpeerConversationDelegatePtr, openpeerCallDelegatePtr, [lockboxOuterFrameURLUponReload UTF8String],IHelper::createFromString([lockboxReloginInfo UTF8String]));
     
     if (accountPtr)
@@ -151,6 +148,25 @@ using namespace hookflash::core;
 //    return ret;
 //}
 
+- (NSString*) getReloginInformation
+{
+    NSString* ret = nil;
+    
+    if(accountPtr)
+    {
+        if (accountPtr->getReloginInformation())
+        {
+            String reloginInfo = IHelper::convertToString(accountPtr->getReloginInformation());
+            if (reloginInfo.length() > 0)
+                ret = [NSString stringWithUTF8String: reloginInfo];
+        }
+    }
+    else
+    {
+        [NSException raise:NSInvalidArgumentException format:@"Invalid account object!"];
+    }
+    return ret;
+}
 
 - (NSString*) getLocationID
 {
