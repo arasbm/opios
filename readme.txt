@@ -1,4 +1,3 @@
-
 Thank you for downloading Hookflash's Open Peer iOS SDK.
 
 This release is a preliminary 1.0 release of the SDK and Hookflash will be publishing updates to the SDK in time, including various sample applications. For this release, no sample is yet provided.
@@ -19,13 +18,13 @@ How to build:
 
 1) Build boost, from your terminal:
 
-pushd libs/op/libs/boost/projects/gnu-make/
+pushd opios/libs/op/libs/boost/projects/gnu-make/
 ./build all
 popd 
 
 2) Build curl, from your terminal:
 
-pushd libs/op/libs/curl/
+pushd opios/libs/op/libs/curl/
 ./build_ios.sh
 popd
 
