@@ -31,13 +31,13 @@
 
 #import <Foundation/Foundation.h>
 
-#include <hookflash/core/types.h>
-#include <hookflash/core/ICache.h>
+#include <openpeer/core/types.h>
+#include <openpeer/core/ICache.h>
 
 #import "HOPProtocols.h"
 
-using namespace hookflash;
-using namespace hookflash::core;
+using namespace openpeer;
+using namespace openpeer::core;
 
 @class HOPCache;
 

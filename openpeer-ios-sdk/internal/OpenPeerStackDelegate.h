@@ -31,17 +31,16 @@
 
 
 #import <Foundation/Foundation.h>
-#include <hookflash/core/types.h>
-#include <hookflash/core/IStack.h>
-//#include <hookflash/core/IClient.h>
+#include <openpeer/core/types.h>
+#include <openpeer/core/IStack.h>
+//#include <openpeer/core/IClient.h>
 #import "HOPProtocols.h"
 
-using namespace hookflash;
-using namespace hookflash::core;
+using namespace openpeer;
+using namespace openpeer::core;
 
 /**
  Wrapper Class that creates stack object used in core.
- @author Sergej Jovanovic sergej@hookflash.com
  */
 class OpenPeerStackDelegate : public IStackDelegate
 {

@@ -30,13 +30,13 @@
  */
 
 
-#import <hookflash/core/types.h>
+#import <openpeer/core/types.h>
 #import "HOPIdentityLookup.h"
 #import "HOPProtocols.h"
 #import "OpenPeerIdentityLookupDelegate.h"
 
-using namespace hookflash;
-using namespace hookflash::core;
+using namespace openpeer;
+using namespace openpeer::core;
 
 @interface HOPIdentityLookup ()
 {

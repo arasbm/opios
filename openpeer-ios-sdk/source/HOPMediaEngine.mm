@@ -32,9 +32,9 @@
 
 #import "HOPMediaEngine_Internal.h"
 #import "HOPMediaEngine.h"
-#import <hookflash/core/IMediaEngine.h>
+#import <openpeer/core/IMediaEngine.h>
 
-using namespace hookflash::core;
+using namespace openpeer::core;
 
 @interface HOPMediaEngine()
 

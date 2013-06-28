@@ -30,10 +30,10 @@
  */
 
 #import "HOPCache.h"
-#import <hookflash/core/ICache.h>
+#import <openpeer/core/ICache.h>
 
-using namespace hookflash;
-using namespace hookflash::core;
+using namespace openpeer;
+using namespace openpeer::core;
 
 @implementation HOPCache
 

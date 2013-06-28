@@ -30,10 +30,10 @@
  */
 
 #import "HOPLogger.h"
-#import <hookflash/core/ILogger.h>
+#import <openpeer/core/ILogger.h>
 
-using namespace hookflash;
-using namespace hookflash::core;
+using namespace openpeer;
+using namespace openpeer::core;
 
 @implementation HOPLogger
 

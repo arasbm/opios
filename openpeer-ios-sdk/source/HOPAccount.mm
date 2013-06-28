@@ -34,13 +34,13 @@
 
 #import "OpenPeerStorageManager.h"
 
-#import <hookflash/core/IAccount.h>
-#import <hookflash/core/IContact.h>
-#import <hookflash/core/IIdentity.h>
-#import <hookflash/core/IHelper.h>
+#import <openpeer/core/IAccount.h>
+#import <openpeer/core/IContact.h>
+#import <openpeer/core/IIdentity.h>
+#import <openpeer/core/IHelper.h>
 
-using namespace hookflash;
-using namespace hookflash::core;
+using namespace openpeer;
+using namespace openpeer::core;
 
 @implementation HOPAccountState
 

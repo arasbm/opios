@@ -32,13 +32,13 @@
 
 #import <Foundation/Foundation.h>
 
-#include <hookflash/core/types.h>
-#include <hookflash/core/ILogger.h>
+#include <openpeer/core/types.h>
+#include <openpeer/core/ILogger.h>
 
 #import "HOPProtocols.h"
 
-using namespace hookflash;
-using namespace hookflash::core;
+using namespace openpeer;
+using namespace openpeer::core;
 
 /**
  Wrapper Class that creates delegate object used in core.

@@ -120,15 +120,15 @@
 {
     //For each system you can choose log level from HOPClientLogLevelNone (turned off) to HOPClientLogLevelTrace (most detail).
     [HOPLogger setLogLevel:HOPLoggerLevelTrace];
-    [HOPLogger setLogLevelbyName:@"hookflash_gui" level:HOPLoggerLevelBasic];
-    [HOPLogger setLogLevelbyName:@"hookflash" level:HOPLoggerLevelBasic];
-    [HOPLogger setLogLevelbyName:@"hookflash_services" level:HOPLoggerLevelTrace];
+    [HOPLogger setLogLevelbyName:@"openpeer_gui" level:HOPLoggerLevelBasic];
+    [HOPLogger setLogLevelbyName:@"openpeer" level:HOPLoggerLevelBasic];
+    [HOPLogger setLogLevelbyName:@"openpeer_services" level:HOPLoggerLevelTrace];
+    [HOPLogger setLogLevelbyName:@"openpeer_services_http" level:HOPLoggerLevelTrace];
+    [HOPLogger setLogLevelbyName:@"openpeer_core" level:HOPLoggerLevelTrace];
+    [HOPLogger setLogLevelbyName:@"openpeer_stack_message" level:HOPLoggerLevelTrace];
+    [HOPLogger setLogLevelbyName:@"openpeer_stack" level:HOPLoggerLevelTrace];
+    [HOPLogger setLogLevelbyName:@"openpeer_webrtc" level:HOPLoggerLevelBasic];
     [HOPLogger setLogLevelbyName:@"zsLib" level:HOPLoggerLevelBasic];
-    [HOPLogger setLogLevelbyName:@"hookflash_services_http" level:HOPLoggerLevelTrace];
-    [HOPLogger setLogLevelbyName:@"hookflash_core" level:HOPLoggerLevelTrace];
-    [HOPLogger setLogLevelbyName:@"hookflash_stack_message" level:HOPLoggerLevelTrace];
-    [HOPLogger setLogLevelbyName:@"hookflash_stack" level:HOPLoggerLevelTrace];
-    [HOPLogger setLogLevelbyName:@"hookflash_webrtc" level:HOPLoggerLevelBasic];
     //Srart logger without colorized output
     [HOPLogger installStdOutLogger:NO];
     [HOPLogger installTelnetLogger:59999 maxSecondsWaitForSocketToBeAvailable:60 colorizeOutput:YES];

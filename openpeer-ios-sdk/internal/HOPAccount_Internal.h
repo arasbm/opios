@@ -30,15 +30,15 @@
  */
 
 
-#import <hookflash/core/types.h>
+#import <openpeer/core/types.h>
 #import "HOPAccount.h"
 
 #import "OpenPeerAccountDelegate.h"
 #import "OpenPeerConversationThreadDelegate.h"
 #import "OpenPeerCallDelegate.h"
 
-using namespace hookflash;
-using namespace hookflash::core;
+using namespace openpeer;
+using namespace openpeer::core;
 
 @class HOPIdentity;
 

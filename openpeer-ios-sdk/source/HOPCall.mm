@@ -30,9 +30,9 @@
  */
 
 
-#import <hookflash/core/ICall.h>
-#import <hookflash/core/IConversationThread.h>
-#import <hookflash/core/IContact.h>
+#import <openpeer/core/ICall.h>
+#import <openpeer/core/IConversationThread.h>
+#import <openpeer/core/IContact.h>
 
 #import "HOPCall_Internal.h"
 #import "OpenPeerUtility.h"
@@ -43,8 +43,8 @@
 #import "HOPCall.h"
 #import "HOPContact.h"
 
-using namespace hookflash;
-using namespace hookflash::core;
+using namespace openpeer;
+using namespace openpeer::core;
 
 @implementation HOPCall
 

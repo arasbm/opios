@@ -31,10 +31,10 @@
 
 
 #import "HOPCall.h"
-#import <hookflash/core/types.h>
+#import <openpeer/core/types.h>
 
-using namespace hookflash;
-using namespace hookflash::core;
+using namespace openpeer;
+using namespace openpeer::core;
 
 @interface HOPCall ()
 {

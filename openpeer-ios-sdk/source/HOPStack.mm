@@ -30,7 +30,7 @@
  */
 
 
-#import <hookflash/core/IStack.h>
+#import <openpeer/core/IStack.h>
 
 #import "HOPStack_Internal.h"
 #import "OpenPeerStorageManager.h"

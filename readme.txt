@@ -3,43 +3,41 @@ Thank you for downloading Hookflash's Open Peer iOS SDK.
 
 This release is a preliminary 1.0 release of the SDK and Hookflash will be publishing updates to the SDK in time, including various sample applications. For this release, no sample is yet provided.
 
-From your terminal, please clone the "OP" git repository:
-git clone git@github.com:openpeer/OP.git
+From your terminal, please clone the "opios" git repository:
+git clone --recursive git@github.com:openpeer/opios.git -b 20130408-javascript
 
-This repository will yield the C++ open peer core, stack, media and libraries needed to support the underlying SDK.
-
-Next, from your terminal, please clone the "OPiOS" git repository:
-git clone git@github.com:openpeer/OPiOS.git
-
-This repository contains the iOS SDK objective-C source code wrapper to the C++ SDK. This allows you to build objective-C applications without learning the C++ code.
+This repository will yield the iOS Object-C SDK, sample application and dependency librarys like the C++ open peer core, stack, media and libraries needed to support the underlying SDK.
 
 Directory structure:
-OPiOS/                            - contains the project files for building the Open Peer iOS SDK framework
-OPiOS/openpeer-ios-sdk/           - contains the Open Peer iOS SDK header files
-OPiOS/openpeer-ios-sdk/source/    - contains the implementation of the iOS SDK header files
-OPiOS/openpeer-ios-sdk/internal/  - contains the wrapper interface that implements the Objective-C to C++ interaction
+opios/                            - contains the project files for building the Open Peer iOS SDK framework
+opios/openpeer-ios-sdk/           - contains the Open Peer iOS SDK header files
+opios/openpeer-ios-sdk/source/    - contains the implementation of the iOS SDK header files
+opios/openpeer-ios-sdk/internal/  - contains the wrapper interface that implements the Objective-C to C++ interaction
+opios/Samples/                    - contains the Open Peer iOS Samples application(s)
 
 How to build:
 
-1) Build curl, from your terminal:
+1) Build boost, from your terminal:
 
-cd OP/hookflash-libs/curl/projects/gnu-make/
+pushd libs/op/libs/boost/projects/gnu-make/
 ./build all
+popd 
 
-2) Build boost, from your terminal:
+2) Build curl, from your terminal:
 
-cd OP/hookflash-libs/boost/projects/gnu-make/
-./build all
+pushd libs/op/libs/curl/
+./build_ios.sh
+popd
 
 3) From X-code, load:
 
-OPiOS/openpeer-ios-sdk (project/workspace)
+opios/openpeer-ios-sdk (project/workspace)
 
 4) Select OpenpeerSDK > iOS Device schema and then build
 
 
 The framework will be built inside:
-OPiOS/build/Debug-iphoneos/OpenpeerSDK.framework
+opios/build/Debug-iphoneos/OpenpeerSDK.framework
 
 Required frameworks:
 CoreAudio

@@ -30,7 +30,7 @@
  */
 
 
-#import <hookflash/core/types.h>
+#import <openpeer/core/types.h>
 
 #import "HOPStack.h"
 #import "OpenPeerCallDelegate.h"

@@ -31,7 +31,7 @@
 
 
 #import <Foundation/Foundation.h>
-#import <hookflash/core/types.h>
+#import <openpeer/core/types.h>
 #import <zsLib/types.h>
 
 //#import "OpenPeerCallDelegate.h"

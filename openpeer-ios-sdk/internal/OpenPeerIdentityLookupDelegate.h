@@ -31,12 +31,12 @@
 
 
 #import <UIKit/UIKit.h>
-#include <hookflash/core/types.h>
-#include <hookflash/core/IIdentityLookup.h>
+#include <openpeer/core/types.h>
+#include <openpeer/core/IIdentityLookup.h>
 #import "HOPProtocols.h"
 
-using namespace hookflash;
-using namespace hookflash::core;
+using namespace openpeer;
+using namespace openpeer::core;
 
 class OpenPeerIdentityLookupDelegate : public IIdentityLookupDelegate
 {

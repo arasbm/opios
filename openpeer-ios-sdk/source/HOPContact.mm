@@ -32,9 +32,9 @@
 
 #import "HOPContact.h"
 #import "HOPAccount_Internal.h"
-#import <hookflash/core/IContact.h>
-#import <hookflash/core/IAccount.h>
-#import <hookflash/core/IHelper.h>
+#import <openpeer/core/IContact.h>
+#import <openpeer/core/IAccount.h>
+#import <openpeer/core/IHelper.h>
 #import "HOPContact_Internal.h"
 #import "OpenPeerStorageManager.h"
 

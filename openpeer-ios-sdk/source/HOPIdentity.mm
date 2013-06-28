@@ -31,8 +31,8 @@
 
 
 #import "HOPIdentity_Internal.h"
-#import <hookflash/core/IIdentity.h>
-#import <hookflash/core/IHelper.h>
+#import <openpeer/core/IIdentity.h>
+#import <openpeer/core/IHelper.h>
 
 #import "HOPAccount_Internal.h"
 #import "OpenPeerStorageManager.h"

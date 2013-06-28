@@ -31,11 +31,11 @@
 
 
 #import "HOPIdentity.h"
-#import <hookflash/core/types.h>
+#import <openpeer/core/types.h>
 #import "OpenPeerIdentityDelegate.h"
 
-using namespace hookflash;
-using namespace hookflash::core;
+using namespace openpeer;
+using namespace openpeer::core;
 
 @interface HOPIdentity ()
 {

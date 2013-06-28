@@ -33,7 +33,7 @@
 
 #import "HOPIdentityLookup_Internal.h"
 #import "HOPIdentityLookupInfo_Internal.h"
-#import <hookflash/core/IIdentityLookup.h>
+#import <openpeer/core/IIdentityLookup.h>
 #import "OpenPeerStorageManager.h"
 #import "HOPAccount_Internal.h"
 

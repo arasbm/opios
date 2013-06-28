@@ -33,7 +33,7 @@
 #include "OpenPeerUtility.h"
 #include "OpenPeerStorageManager.h"
 #include "HOPContact_Internal.h"
-#import <hookflash/core/IContact.h>
+#import <openpeer/core/IContact.h>
 
 @implementation HOPIdentityLookupInfo
 
