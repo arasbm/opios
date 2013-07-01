@@ -38,6 +38,7 @@ extern NSString* const applicationImageURL;
 extern NSString* const applicationURL;
 extern NSString* const provisioningURI;
 extern NSString* const outerFrameURL;
+extern NSString* const namespaceGrantServiceURL;
 extern NSString* const identityProviderDomain;
 extern NSString* const peerContactServiceDomain;
 extern NSString* const contactsLoadingtServiceDomain;

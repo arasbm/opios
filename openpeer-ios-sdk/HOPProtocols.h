@@ -65,6 +65,7 @@
 @required
 - (void) account:(HOPAccount*) account stateChanged:(HOPAccountStates) accountState;
 - (void) onAccountAssociatedIdentitiesChanged:(HOPAccount*) account;
+- (void) onAccountPendingMessageForInnerBrowserWindowFrame:(HOPAccount*) account;
 @end
 
 

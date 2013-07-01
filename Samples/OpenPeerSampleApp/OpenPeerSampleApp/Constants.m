@@ -48,6 +48,8 @@ NSString* const grantOuterFrameURLUponReload = @"grantFinished";
 //NSString* const grantServiceDomain = @"hcs-javascript.hookflash.me";
 NSString* const lockBoxServiceDomain =  @"hcs-javascript.hookflash.me";
 
+NSString* const namespaceGrantServiceURL = @"https://app-javascript.hookflash.me/outernamespacegrant.html";
+
 NSString* const facebookContactsLoadingPage = @"fbconnections.html";
 
 NSString * const keyOpenPeerUser = @"keyOpenPeerUser";

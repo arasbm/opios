@@ -34,6 +34,7 @@
 #import "OpenpeerSDK/HOPAccount.h"
 #import "LoginManager.h"
 #import "OpenPeer.h"
+#import "Constants.h"
 #import "MainViewController.h"
 #import "WebLoginViewController.h"
 
@@ -77,7 +78,8 @@
                 break;
                 
             case HOPAccountWaitingForBrowserWindowToBeLoaded:
-                [self.webLoginViewController openLoginUrl:[account getInnerBrowserWindowFrameURL]];
+                //[self.webLoginViewController openLoginUrl:[account getInnerBrowserWindowFrameURL]];
+                [self.webLoginViewController openLoginUrl:namespaceGrantServiceURL];
                 break;
                 
             case HOPAccountWaitingForBrowserWindowToBeMadeVisible:
@@ -87,6 +89,7 @@
                     [[[OpenPeer sharedOpenPeer] mainViewController] showWebLoginView:self.webLoginViewController];
                     [self.webLoginViewController.view setFrame:[[OpenPeer sharedOpenPeer] mainViewController].view.bounds];
                 }
+                [account notifyBrowserWindowVisible];
                 break;
                 
             case HOPAccountWaitingForBrowserWindowToClose:
@@ -116,5 +119,22 @@
         //get identites, attach delegate
     });
 }
+
+- (void)onAccountPendingMessageForInnerBrowserWindowFrame:(HOPAccount*) account
+{
+  NSLog(@"onAccountPendingMessageForInnerBrowserWindowFrame");
+  
+  dispatch_async(dispatch_get_main_queue(), ^
+                 {
+                   WebLoginViewController* webLoginViewController = [self webLoginViewController];
+                   if (webLoginViewController)
+                   {
+                     NSString* jsMethod = [NSString stringWithFormat:@"sendBundleToJS(\'%@\')", [account getNextMessageForInnerBrowerWindowFrame]];
+                     NSLog(@"\n\nSent to inner frame: %@\n\n",jsMethod);
+                     [webLoginViewController passMessageToJS:jsMethod];
+                   }
+                 });
+}
+
 
 @end

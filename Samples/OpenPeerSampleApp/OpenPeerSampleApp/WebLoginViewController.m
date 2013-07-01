@@ -140,6 +140,12 @@
         //[[LoginManager sharedLoginManager] onOuterFrameLoaded];
         [self onOuterFrameLoaded];
     }
+    else if (!self.outerFrameInitialised && [requestString isEqualToString:namespaceGrantServiceURL])
+    {
+      self.outerFrameInitialised = YES;
+      //[[LoginManager sharedLoginManager] onOuterFrameLoaded];
+      [self onOuterFrameLoaded];
+    }
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error

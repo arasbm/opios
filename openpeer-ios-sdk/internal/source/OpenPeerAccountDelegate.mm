@@ -56,5 +56,5 @@ void OpenPeerAccountDelegate::onAccountAssociatedIdentitiesChanged(IAccountPtr a
 //TODO: add this delegate 
 void OpenPeerAccountDelegate::onAccountPendingMessageForInnerBrowserWindowFrame(IAccountPtr account)
 {
-    //[accountDelegate onAccountPendingMessageForInnerBrowserWindowFrame:[HOPAccount sharedAccount]];
+    [accountDelegate onAccountPendingMessageForInnerBrowserWindowFrame:[HOPAccount sharedAccount]];
 }
