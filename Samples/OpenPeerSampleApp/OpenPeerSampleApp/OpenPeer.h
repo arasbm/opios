@@ -39,7 +39,6 @@
 @class MainViewController;
 @class IdentityDelegate;
 @class IdentityLookupDelegate;
-@class ContactPeerFilePublicLookupDelegate;
 
 @interface OpenPeer : NSObject
 
@@ -51,7 +50,6 @@
 @property (nonatomic,strong) MainViewController *mainViewController;
 @property (nonatomic,strong) IdentityDelegate *identityDelegate;
 @property (nonatomic,strong) IdentityLookupDelegate *identityLookupDelegate;
-@property (nonatomic,strong) ContactPeerFilePublicLookupDelegate *contactPeerFilePublicLookupDelegate;
 
 @property (nonatomic) BOOL isRemoteSessionActivationModeOn;
 @property (nonatomic) BOOL isFaceDetectionModeOn;

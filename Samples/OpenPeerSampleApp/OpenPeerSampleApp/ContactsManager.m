@@ -357,7 +357,6 @@
     [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsPeerFilesLoadingStarted];
     
     //Ask for peer files for passed contacts
-    //HOPContactPeerFilePublicLookup* lookup = [[HOPContactPeerFilePublicLookup alloc] initWithDelegate:[[OpenPeer sharedOpenPeer] contactPeerFilePublicLookupDelegate] contactsList:hopContacts];
     
      NSLog(@"%@ is searching peer files for the followin peer uris: %@ \n", [[OpenPeerUser sharedOpenPeerUser] fullName],peerURIs);
 }

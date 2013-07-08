@@ -62,6 +62,10 @@ using namespace openpeer::core;
 {
     return [NSString stringWithUTF8String: IAccount::toString((IAccount::AccountStates) state)];
 }
++ (NSString*) stringForAccountState:(HOPAccountStates) state
+{
+    return [NSString stringWithUTF8String: IAccount::toString((IAccount::AccountStates) state)];
+}
 
 - (id)init
 {

@@ -55,7 +55,8 @@
  @param state HOPAccountStates Account state enum
  @returns String representation of account state
  */
-+ (NSString*) stateToString:(HOPAccountStates) state;
++ (NSString*) stateToString:(HOPAccountStates) state __attribute__((deprecated("use method stringForAccountState instead")));
++ (NSString*) stringForAccountState:(HOPAccountStates) state;
 
 //TODO: update comment
 /**

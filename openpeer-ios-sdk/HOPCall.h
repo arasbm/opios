@@ -53,15 +53,17 @@
  @param state HOPCallStates Call state enum
  @returns String representation of call state
  */
-+ (NSString*) stateToString: (HOPCallStates) state;
++ (NSString*) stateToString: (HOPCallStates) state __attribute__((deprecated("use method stringForCallState instead")));
++ (NSString*) stringForCallState:(HOPCallStates) state;
+
 
 /**
  Converts call closed reason enum to string
  @param reason HOPCallClosedReasons Call closed reason enum
  @returns String representation of call closed reason enum
  */
-+ (NSString*) reasonToString: (HOPCallClosedReasons) reason;
-
++ (NSString*) reasonToString: (HOPCallClosedReasons) reason __attribute__((deprecated("use method stringForClosingReason instead")));
++ (NSString*) stringForClosingReason:(HOPCallClosedReasons) reason;
 /**
  Retrieves call ID
  @returns String representation of call ID

@@ -86,8 +86,16 @@ using namespace openpeer::core;
 {
     return [NSString stringWithUTF8String: ICall::toString((ICall::CallStates) state)];
 }
++ (NSString*) stringForCallState:(HOPCallStates) state
+{
+    return [NSString stringWithUTF8String: ICall::toString((ICall::CallStates) state)];
+}
 
 + (NSString*) reasonToString: (HOPCallClosedReasons) reason
+{
+    return [NSString stringWithUTF8String: ICall::toString((ICall::CallClosedReasons) reason)];
+}
++ (NSString*) stringForClosingReason:(HOPCallClosedReasons) reason
 {
     return [NSString stringWithUTF8String: ICall::toString((ICall::CallClosedReasons) reason)];
 }

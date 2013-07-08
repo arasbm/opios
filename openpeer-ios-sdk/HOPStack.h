@@ -52,7 +52,7 @@
  @param appName NSString a branded human readable application name, e.g. "Hookflash"
  @param appImageURL NSString an HTTPS downloadable branded image for the application
  @param appURL NSString an HTTPS URL webpage / website that offers more information about application
-  @param userAgent e.g. "App Name/App version (iOS/iPad)"
+ @param userAgent e.g. "App Name/App version (iOS/iPad)"
  @param deviceID device identifier
  @param deviceOs iOs version (e.g. "iOS 5.1.1")
  @param system System name (e.g. "iPhone 4S", "iPod Touch 4G")

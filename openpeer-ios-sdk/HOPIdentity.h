@@ -55,7 +55,8 @@
  @param state HOPIdentityStates Identity state enum
  @returns String representation of identity state
  */
-+ stateToString:(HOPIdentityStates) state;
++ stateToString:(HOPIdentityStates) state __attribute__((deprecated("use method stringForIdentityState instead")));
++ (NSString*) stringForIdentityState:(HOPIdentityStates) state;
 
 /**
  Creates identity object and starts identity login. This method is called only on login procedure. During relogin procedure this method is not invoked.

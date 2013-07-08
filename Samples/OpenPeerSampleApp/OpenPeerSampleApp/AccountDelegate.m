@@ -62,13 +62,13 @@
 //This method handles account state changes from SDK.
 - (void) account:(HOPAccount*) account stateChanged:(HOPAccountStates) accountState
 {
-    NSLog(@"HOPAccount state: %@", [HOPAccount stateToString:accountState]);
+    NSLog(@"Account login state: %@", [HOPAccount stringForAccountState:accountState]);
     
     dispatch_async(dispatch_get_main_queue(), ^
     {
         switch (accountState)
         {
-            case HOPAccountStatePending://
+            case HOPAccountStatePending:
                 break;
                 
             case HOPAccountPendingPeerFilesGeneration:
@@ -78,7 +78,6 @@
                 break;
                 
             case HOPAccountWaitingForBrowserWindowToBeLoaded:
-                //[self.webLoginViewController openLoginUrl:[account getInnerBrowserWindowFrameURL]];
                 [self.webLoginViewController openLoginUrl:namespaceGrantServiceURL];
                 break;
                 
@@ -122,18 +121,18 @@
 
 - (void)onAccountPendingMessageForInnerBrowserWindowFrame:(HOPAccount*) account
 {
-  NSLog(@"onAccountPendingMessageForInnerBrowserWindowFrame");
+    NSLog(@"onAccountPendingMessageForInnerBrowserWindowFrame");
   
-  dispatch_async(dispatch_get_main_queue(), ^
-                 {
-                   WebLoginViewController* webLoginViewController = [self webLoginViewController];
-                   if (webLoginViewController)
-                   {
-                     NSString* jsMethod = [NSString stringWithFormat:@"sendBundleToJS(\'%@\')", [account getNextMessageForInnerBrowerWindowFrame]];
-                     NSLog(@"\n\nSent to inner frame: %@\n\n",jsMethod);
-                     [webLoginViewController passMessageToJS:jsMethod];
-                   }
-                 });
+    dispatch_async(dispatch_get_main_queue(), ^
+    {
+        WebLoginViewController* webLoginViewController = [self webLoginViewController];
+            if (webLoginViewController)
+            {
+                NSString* jsMethod = [NSString stringWithFormat:@"sendBundleToJS(\'%@\')", [account getNextMessageForInnerBrowerWindowFrame]];
+                NSLog(@"\n\nSent to inner frame: %@\n\n",jsMethod);
+                [webLoginViewController passMessageToJS:jsMethod];
+            }
+    });
 }
 
 

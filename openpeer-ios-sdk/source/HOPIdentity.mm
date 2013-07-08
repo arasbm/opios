@@ -277,6 +277,10 @@
 {
     return [NSString stringWithUTF8String: IIdentity::toString((IIdentity::IdentityStates) state)];
 }
++ (NSString*) stringForIdentityState:(HOPIdentityStates) state
+{
+    return [NSString stringWithUTF8String: IIdentity::toString((IIdentity::IdentityStates) state)];
+}
 
 - (NSString *)description
 {

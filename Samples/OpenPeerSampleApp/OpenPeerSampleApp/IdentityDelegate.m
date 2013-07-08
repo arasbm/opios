@@ -57,6 +57,11 @@
     return self;
 }
 
+/**
+ Retrieves web login view for specific identity. If web login view doesn't exist it will be created.
+ @param identity HOPIdentity Login user identity.
+ @returns WebLoginViewController web login view
+ */
 - (WebLoginViewController*) getLoginWebViewForIdentity:(HOPIdentity*) identity
 {
     WebLoginViewController* ret = nil;
@@ -78,7 +83,7 @@
 
 - (void)identity:(HOPIdentity *)identity stateChanged:(HOPIdentityStates)state
 {
-    NSLog(@"Identity Login state: %@",[HOPIdentity stateToString:state]);
+    NSLog(@"Identity login state: %@",[HOPIdentity stringForIdentityState:state]);
     
     dispatch_async(dispatch_get_main_queue(), ^
     {
@@ -99,7 +104,6 @@
                 break;
                 
             case HOPIdentityStateWaitingForBrowserWindowToBeLoaded:
-                //[[LoginManager sharedLoginManager] onLoginUrlReceived:outerFrameURL forIdentity:identity];
                 //Login url is received. Remove activity indicator
                 [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
                 [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Opening login page ..." inView:[[[OpenPeer sharedOpenPeer] mainViewController] view]];
@@ -109,7 +113,6 @@
                 break;
                 
             case HOPIdentityStateWaitingForBrowserWindowToBeMadeVisible:
-                //[[LoginManager sharedLoginManager] makeLoginWebViewVisible:YES];
                 webLoginViewController.view.hidden = NO;
                 if (!webLoginViewController.view.superview)
                 {
@@ -120,7 +123,7 @@
                 break;
                 
             case HOPIdentityStateWaitingForBrowserWindowToClose:
-                //detach web view
+                //Detach the web view
                 [webLoginViewController.view removeFromSuperview];
                 [self removeLoginWebViewForIdentity:identity];
                 break;
@@ -144,11 +147,13 @@
     
     dispatch_async(dispatch_get_main_queue(), ^
     {
+        //Get login web view for specified identity
         WebLoginViewController* webLoginViewController = [self getLoginWebViewForIdentity:identity];
         if (webLoginViewController)
         {
             NSString* jsMethod = [NSString stringWithFormat:@"sendBundleToJS(\'%@\')", [identity getNextMessageForInnerBrowerWindowFrame]];
             NSLog(@"\n\nSent to inner frame: %@\n\n",jsMethod);
+            //Pass JSON message to java script
             [webLoginViewController passMessageToJS:jsMethod];
         }
     });
