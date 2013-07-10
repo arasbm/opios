@@ -73,6 +73,10 @@
     [[LoginManager sharedLoginManager] startLoginUsingIdentityURI:identityLinkedInBaseURI];
 }
 
+- (IBAction)actionLoginFederated:(id)sender
+{
+    [[LoginManager sharedLoginManager] startLoginUsingIdentityURI:identityFederateBaseURI];
+}
 
 - (void)viewDidUnload {
     [self setButtonLinkedIn:nil];

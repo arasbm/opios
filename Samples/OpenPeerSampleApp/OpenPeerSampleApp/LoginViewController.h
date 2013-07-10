@@ -35,6 +35,7 @@
 
 - (IBAction)actionLoginWithFacebook:(id)sender;
 - (IBAction)actionLoginWithLinkedIn:(id)sender;
+- (IBAction)actionLoginFederated:(id)sender;
 
 - (void) prepareForLogin;
 

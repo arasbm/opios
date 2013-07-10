@@ -53,8 +53,11 @@
     {
         coreContactPtr = inContactPtr;
         NSString* stableUniqueId = [NSString stringWithCString:coreContactPtr->getStableUniqueID() encoding:NSUTF8StringEncoding];
+        //If there is no stable id, then there is no valid openpeer contact, so stop creation of HOPContact
         if ([stableUniqueId length] > 0)
             [[OpenPeerStorageManager sharedStorageManager] setContact:self forId:stableUniqueId];
+        else
+            return nil;
         
     }
     return self;
