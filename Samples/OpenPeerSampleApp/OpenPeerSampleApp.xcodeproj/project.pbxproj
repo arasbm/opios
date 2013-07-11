@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0012C552177D11DB0017FF5E /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0012C551177D11DB0017FF5E /* libz.dylib */; };
+		0024393C178F55BF00B79368 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0024393B178F55BF00B79368 /* Security.framework */; };
 		870F337F168376450090A97F /* ActivityIndicatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 870F337D168376450090A97F /* ActivityIndicatorViewController.m */; };
 		870F3380168376450090A97F /* ActivityIndicatorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 870F337E168376450090A97F /* ActivityIndicatorViewController.xib */; };
 		8727282D166CBF9B0089CBB6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8727282C166CBF9B0089CBB6 /* UIKit.framework */; };
@@ -95,6 +96,7 @@
 
 /* Begin PBXFileReference section */
 		0012C551177D11DB0017FF5E /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		0024393B178F55BF00B79368 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		870F337C168376450090A97F /* ActivityIndicatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityIndicatorViewController.h; sourceTree = "<group>"; };
 		870F337D168376450090A97F /* ActivityIndicatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityIndicatorViewController.m; sourceTree = "<group>"; };
 		870F337E168376450090A97F /* ActivityIndicatorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityIndicatorViewController.xib; sourceTree = "<group>"; };
@@ -218,20 +220,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				0012C552177D11DB0017FF5E /* libz.dylib in Frameworks */,
-				87FF9892170EDB7D0017C627 /* CoreImage.framework in Frameworks */,
-				87FF9890170EDB6D0017C627 /* MobileCoreServices.framework in Frameworks */,
-				87FF988E170EDB5D0017C627 /* AssetsLibrary.framework in Frameworks */,
 				87FF9862170EDAF10017C627 /* libxml2.dylib in Frameworks */,
-				87EE5FF8166E9625002C5FA3 /* AVFoundation.framework in Frameworks */,
+				87EE5FE9166E917B002C5FA3 /* libresolv.dylib in Frameworks */,
+				87FF988E170EDB5D0017C627 /* AssetsLibrary.framework in Frameworks */,
 				87EE5FF7166E961F002C5FA3 /* AudioToolbox.framework in Frameworks */,
+				87EE5FF8166E9625002C5FA3 /* AVFoundation.framework in Frameworks */,
 				87EE5FF4166E9615002C5FA3 /* CoreAudio.framework in Frameworks */,
+				87272831166CBF9B0089CBB6 /* CoreGraphics.framework in Frameworks */,
+				87FF9892170EDB7D0017C627 /* CoreImage.framework in Frameworks */,
 				87EE5FF5166E9615002C5FA3 /* CoreMedia.framework in Frameworks */,
 				87EE5FF6166E9615002C5FA3 /* CoreVideo.framework in Frameworks */,
-				87EE5FE9166E917B002C5FA3 /* libresolv.dylib in Frameworks */,
-				8727282D166CBF9B0089CBB6 /* UIKit.framework in Frameworks */,
 				8727282F166CBF9B0089CBB6 /* Foundation.framework in Frameworks */,
-				87272831166CBF9B0089CBB6 /* CoreGraphics.framework in Frameworks */,
+				87FF9890170EDB6D0017C627 /* MobileCoreServices.framework in Frameworks */,
 				87570E46172ED183006E1C2F /* OpenpeerSDK.framework in Frameworks */,
+				0024393C178F55BF00B79368 /* Security.framework in Frameworks */,
+				8727282D166CBF9B0089CBB6 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,17 +331,18 @@
 			isa = PBXGroup;
 			children = (
 				0012C551177D11DB0017FF5E /* libz.dylib */,
-				87FF9891170EDB7D0017C627 /* CoreImage.framework */,
-				87FF988F170EDB6C0017C627 /* MobileCoreServices.framework */,
-				87FF988D170EDB5C0017C627 /* AssetsLibrary.framework */,
 				87FF9861170EDAF00017C627 /* libxml2.dylib */,
 				87EE5FE8166E917B002C5FA3 /* libresolv.dylib */,
 				874ADDCA166E2B7B0095FE33 /* libboost_date_time.a */,
 				874ADDCB166E2B7B0095FE33 /* libboost_regex.a */,
 				874ADDCC166E2B7B0095FE33 /* libboost_thread.a */,
 				874ADDCD166E2B7C0095FE33 /* libcurl.a */,
-				874ADDBC166E14440095FE33 /* CoreMedia.framework */,
+				87FF9891170EDB7D0017C627 /* CoreImage.framework */,
+				87FF988F170EDB6C0017C627 /* MobileCoreServices.framework */,
+				87FF988D170EDB5C0017C627 /* AssetsLibrary.framework */,
 				874ADDBA166E14000095FE33 /* AudioToolbox.framework */,
+				874ADDBC166E14440095FE33 /* CoreMedia.framework */,
+				0024393B178F55BF00B79368 /* Security.framework */,
 				874ADDB8166E13970095FE33 /* AVFoundation.framework */,
 				874ADDB6166E13910095FE33 /* CoreVideo.framework */,
 				874ADDB4166E138A0095FE33 /* CoreAudio.framework */,

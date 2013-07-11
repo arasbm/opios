@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0024393A178F52D300B79368 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00243939178F52D300B79368 /* Security.framework */; };
 		00EB8DC3177D15BD00FFD40F /* libcryptopp_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0012C535177D10C80017FF5E /* libcryptopp_ios.a */; };
 		00EB8DC4177D15BD00FFD40F /* libhfservices_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0012C530177D10A80017FF5E /* libhfservices_ios.a */; };
 		00EB8DC6177D15BD00FFD40F /* libudns_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0012C53A177D10F70017FF5E /* libudns_ios.a */; };
@@ -222,6 +223,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		00243939178F52D300B79368 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		872725C1166636F50089CBB6 /* HOPMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HOPMessage.h; sourceTree = "<group>"; };
 		872DA9E5175CEC9C000CCA76 /* HOPCache.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HOPCache.mm; sourceTree = "<group>"; };
 		872DA9E7175CECB1000CCA76 /* HOPCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HOPCache.h; sourceTree = "<group>"; };
@@ -387,12 +389,13 @@
 				00EB8DC4177D15BD00FFD40F /* libhfservices_ios.a in Frameworks */,
 				00EB8DC6177D15BD00FFD40F /* libudns_ios.a in Frameworks */,
 				00EB8DC7177D15BD00FFD40F /* libzsLib_ios.a in Frameworks */,
-				87343EDC165A50D60070E6E0 /* UIKit.framework in Frameworks */,
 				8792E9C51651A8DA00DEAC58 /* libboost_date_time.a in Frameworks */,
 				8792E9C61651A8DA00DEAC58 /* libboost_regex.a in Frameworks */,
 				8792E9C71651A8DA00DEAC58 /* libboost_thread.a in Frameworks */,
 				8792E9C81651A8DA00DEAC58 /* libcurl.a in Frameworks */,
 				8792E86C16519CFF00DEAC58 /* Foundation.framework in Frameworks */,
+				0024393A178F52D300B79368 /* Security.framework in Frameworks */,
+				87343EDC165A50D60070E6E0 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -490,8 +493,9 @@
 			children = (
 				874ADC38166DF0F30095FE33 /* libresolv.dylib */,
 				874ADC36166DF0E20095FE33 /* libz.dylib */,
-				87343EDB165A50D60070E6E0 /* UIKit.framework */,
 				8792E86B16519CFF00DEAC58 /* Foundation.framework */,
+				00243939178F52D300B79368 /* Security.framework */,
+				87343EDB165A50D60070E6E0 /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
