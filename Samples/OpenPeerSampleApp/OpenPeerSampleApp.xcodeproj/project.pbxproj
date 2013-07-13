@@ -315,7 +315,6 @@
 		8727281D166CBF9B0089CBB6 = {
 			isa = PBXGroup;
 			children = (
-				87448B0417905FFC00E374EE /* QuartzCore.framework */,
 				872729CF166CDF530089CBB6 /* openpeer-ios-sdk.xcodeproj */,
 				87272832166CBF9B0089CBB6 /* OpenPeerSampleApp */,
 				8727282B166CBF9B0089CBB6 /* Frameworks */,
@@ -341,6 +340,7 @@
 				874ADDCB166E2B7B0095FE33 /* libboost_regex.a */,
 				874ADDCC166E2B7B0095FE33 /* libboost_thread.a */,
 				874ADDCD166E2B7C0095FE33 /* libcurl.a */,
+				87448B0417905FFC00E374EE /* QuartzCore.framework */,
 				87FF9891170EDB7D0017C627 /* CoreImage.framework */,
 				87FF988F170EDB6C0017C627 /* MobileCoreServices.framework */,
 				87FF988D170EDB5C0017C627 /* AssetsLibrary.framework */,
