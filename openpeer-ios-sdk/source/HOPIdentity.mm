@@ -167,20 +167,6 @@
     return ret;
 }*/
 
-- (NSString*) getSignedIdentityBundle
-{
-    NSString* ret = nil;
-    
-    if(identityPtr)
-    {
-        ret = [NSString stringWithCString:IHelper::convertToString( identityPtr->getSignedIdentityBundle()) encoding:NSUTF8StringEncoding];
-    }
-    else
-    {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid core identity object!"];
-    }
-    return ret;
-}
 - (NSString*) getInnerBrowserWindowFrameURL
 {
     NSString* ret = nil;

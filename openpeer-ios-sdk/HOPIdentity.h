@@ -113,12 +113,6 @@
 //- (NSString*) getIdentityReloginAccessKey;
 
 /**
- Retrieves identity bundle
- @returns NSString identity bundle
- */
-- (NSString*) getSignedIdentityBundle;
-
-/**
  Retrieves identity inner browser frame URL
  @returns NSString inner browser frame URL
  */
