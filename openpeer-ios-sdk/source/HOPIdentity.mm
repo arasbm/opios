@@ -240,7 +240,7 @@
 {
     if(identityPtr)
     {
-        identityPtr->handleMessageFromInnerBrowserWindowFrame(IHelper::createFromString([message UTF8String]));
+        identityPtr->handleMessageFromInnerBrowserWindowFrame(IHelper::createElement([message UTF8String]));
     }
     else
     {
