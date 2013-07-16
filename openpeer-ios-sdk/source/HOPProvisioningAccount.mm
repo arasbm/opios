@@ -278,16 +278,16 @@
     return [ret autorelease];
 }
 */
-- (BOOL) firstTimeLogin: (HOPStack*) stack provisioningAccountDelegate: (id<HOPProvisioningAccountDelegate>) provisioningAccountDelegate openpeerAccountDelegate: (id<HOPAccountDelegate>) openpeerAccountDelegate provisioningURI: (NSString*) provisioningURI deviceToken: (NSString*) deviceToken name: (NSString*) name knownIdentities: (NSArray*) knownIdentities
+- (BOOL) firstTimeLoginWithProvisioningAccountDelegate:(id<HOPProvisioningAccountDelegate>) provisioningAccountDelegate provisioningURI: (NSString*) provisioningURI deviceToken: (NSString*) deviceToken name: (NSString*) name knownIdentities: (NSArray*) knownIdentities
 {
     BOOL passedWithoutErrors = NO;
     
     @synchronized(self)
     {
-        if (!stack || !provisioningAccountDelegate || !openpeerAccountDelegate)
+        if (!provisioningAccountDelegate)
             return passedWithoutErrors;
         
-        if ( ([provisioningURI length] == 0 ) || ([deviceToken length] == 0 ) || ([name length] == 0 ) || ([knownIdentities count] == 0) )
+        if ( ([provisioningURI length] == 0 ) || !deviceToken || ([name length] == 0 ) || ([knownIdentities count] == 0) )
             return passedWithoutErrors;
         
         if (provisioningAccountPtr)
@@ -315,7 +315,7 @@
                 identities.push_back(info);
             }
             
-            provisioningAccountPtr = provisioning::IAccount::firstTimeLogin([stack getStackPtr], openpeerProvisioningAccountDelegatePtr, openpeerProvisioningAccountDelegatePtr, [provisioningURI UTF8String], [deviceToken UTF8String], [name UTF8String], identities);
+            provisioningAccountPtr = provisioning::IAccount::firstTimeLogin([[HOPStack sharedStack] getStackPtr], openpeerProvisioningAccountDelegatePtr, openpeerProvisioningAccountDelegatePtr, [provisioningURI UTF8String], [deviceToken UTF8String], [name UTF8String], identities);
             
             if (provisioningAccountPtr)
                 passedWithoutErrors = YES;
