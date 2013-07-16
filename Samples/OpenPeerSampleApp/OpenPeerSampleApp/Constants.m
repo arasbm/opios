@@ -45,7 +45,7 @@ NSString * const archivePasswordNonce = @"archivePasswordNonce";
 NSString * const archivePrivatePeerFile = @"archivePrivatePeerFile";
 NSString * const archivePeerFilePassword = @"archivePeerFilePassword";
 NSString * const archiveLastProfileUpdateTimestamp = @"archiveLastProfileUpdateTimestamp";
-
+NSString * const archiveLegacyLogin = @"archiveLegacyLogin";
 //Contact Profile xml tags
 NSString* const profileXmlTagProfile = @"profile";
 NSString* const profileXmlTagName = @"name";

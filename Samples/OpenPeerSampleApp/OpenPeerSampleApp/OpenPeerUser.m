@@ -85,6 +85,7 @@
             self.privatePeerFile = [aDecoder decodeObjectForKey:archivePrivatePeerFile];
             self.peerFilePassword = [aDecoder decodeObjectForKey:archivePeerFilePassword];
             self.lastProfileUpdateTimestamp = [aDecoder decodeDoubleForKey:archiveLastProfileUpdateTimestamp];
+            self.legacyLogin = [aDecoder decodeBoolForKey:archiveLegacyLogin];
             
             [aDecoder finishDecoding];
         }
@@ -114,7 +115,7 @@
     [aCoder encodeObject:self.privatePeerFile forKey:archivePrivatePeerFile];
     [aCoder encodeObject:self.peerFilePassword forKey:archivePeerFilePassword];
     [aCoder encodeDouble:self.lastProfileUpdateTimestamp forKey:archiveLastProfileUpdateTimestamp];
-    
+    [aCoder encodeBool:self.legacyLogin forKey:archiveLegacyLogin];
     [aCoder finishEncoding];
     
     [[NSUserDefaults standardUserDefaults] setObject:data forKey:keyOpenPeerUser];

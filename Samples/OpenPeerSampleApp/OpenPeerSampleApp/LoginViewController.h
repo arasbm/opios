@@ -34,6 +34,6 @@
 @interface LoginViewController : UIViewController
 
 - (IBAction)actionLoginWithFacebook:(id)sender;
-- (IBAction)actionLoginWithLinkedIn:(id)sender;
+- (IBAction)actionLoginWithEmail:(id)sender;
 
 @end

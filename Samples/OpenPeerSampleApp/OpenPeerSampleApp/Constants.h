@@ -44,7 +44,7 @@ extern NSString * const archivePasswordNonce;
 extern NSString * const archivePrivatePeerFile;
 extern NSString * const archivePeerFilePassword;
 extern NSString * const archiveLastProfileUpdateTimestamp;
-
+extern NSString * const archiveLegacyLogin;
 //Contact Profile xml tags
 extern NSString* const profileXmlTagProfile;
 extern NSString* const profileXmlTagName;

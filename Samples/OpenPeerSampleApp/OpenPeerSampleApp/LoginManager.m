@@ -54,7 +54,6 @@
 @interface LoginManager ()
 
 - (id) initSingleton;
-
 @end
 
 
@@ -83,6 +82,7 @@
     self = [super init];
     if (self)
     {
+       
     }
     return self;
 }
@@ -125,6 +125,37 @@
     //Return to the login page.
     [[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
     
+}
+
+- (void) startLegacyLoginWithName:(NSString*) name phoneNumber:(NSString*) phoneNumber email:(NSString*) email
+{
+    NSLog(@"Login started");
+    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Login ..." inView:[[[[OpenPeer sharedOpenPeer] mainViewController] loginViewController] view]];
+    
+    if ([name length] > 0)
+    {
+        NSMutableArray* identities = [[NSMutableArray alloc] init];
+        
+        if ([phoneNumber length] > 0)
+        {
+            HOPIdentityInfo* phoneIdentity = [[HOPIdentityInfo alloc] init];
+            phoneIdentity.type = HOPProvisioningAccountIdentityTypePhoneNumber;
+            phoneIdentity.uniqueId = phoneNumber;
+            [identities addObject:phoneIdentity];
+        }
+        
+        if ([email length] > 0)
+        {
+            HOPIdentityInfo* emailIdentity = [[HOPIdentityInfo alloc] init];
+            emailIdentity.type = HOPProvisioningAccountIdentityTypeEmail;
+            emailIdentity.uniqueId = email;
+            [identities addObject:emailIdentity];
+        }
+
+        [[HOPProvisioningAccount sharedProvisioningAccount]  firstTimeLoginWithProvisioningAccountDelegate: (id<HOPProvisioningAccountDelegate>)[[OpenPeer sharedOpenPeer] provisioningAccountDelegate] provisioningURI: provisioningURI deviceToken: @"" name: name knownIdentities: identities];
+        
+        [[OpenPeerUser sharedOpenPeerUser] setLegacyLogin: YES];
+    }
 }
 
 /**
