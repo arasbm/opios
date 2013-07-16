@@ -37,6 +37,7 @@
 + (id) sharedLoginManager;
 
 - (void) startLoginWithSocialProvider:(HOPProvisioningAccountIdentityTypes) socialProvider;
+- (void) startLegacyLoginWithName:(NSString*) name phoneNumber:(NSString*) phoneNumber email:(NSString*) email;
 - (void) login;
 - (void) logout;
 

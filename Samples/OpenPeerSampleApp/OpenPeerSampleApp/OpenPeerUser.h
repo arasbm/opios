@@ -42,6 +42,7 @@
 @property (nonatomic, strong) NSString *privatePeerFile;
 @property (nonatomic, strong) NSNumber *providerKey;
 @property (nonatomic, strong) NSString *contactProviderId;
+@property (nonatomic, assign) BOOL legacyLogin;
 @property (nonatomic) NSTimeInterval lastProfileUpdateTimestamp;
 
 + (id) sharedOpenPeerUser;

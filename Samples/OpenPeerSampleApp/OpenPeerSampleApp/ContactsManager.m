@@ -91,8 +91,8 @@
         keyJSONContactPictureURL  = @"pictureUrl";
         keyJSONContactFullName    = @"fullName";
         
-        self.linkedinContactsWebView = [[UIWebView alloc] init];
-        self.linkedinContactsWebView.delegate = self;
+        self.socialContactsWebView = [[UIWebView alloc] init];
+        self.socialContactsWebView.delegate = self;
         
         self.contactArray = [[NSMutableArray alloc] init];
         self.contactsDictionaryByProvider = [[NSMutableDictionary alloc] init];
@@ -108,18 +108,24 @@
 {
     [[[OpenPeer sharedOpenPeer] mainViewController] showContactsTable];
     
-    [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoadingStarted];
-    
-    //NSString* urlAddress = [NSString stringWithFormat:@"http://%@/%@", @"provisioning-stable-dev.hookflash.me", @"/api_web_res/liconnections.html"];
-    NSString* urlAddress = [NSString stringWithFormat:@"http://%@/%@", @"provisioning-stable-dev.hookflash.me", @"/api_web_res/fbconnections.html"];
-    
-    NSURL *url = [NSURL URLWithString:urlAddress];
-    
-    //URL Requst Object
-    NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-    
-    //Load the request in the UIWebView.
-    [self.linkedinContactsWebView loadRequest:requestObj];
+    if (![[OpenPeerUser sharedOpenPeerUser] legacyLogin])
+    {
+        [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoadingStarted];
+        
+        NSString* urlAddress = [NSString stringWithFormat:@"http://%@/%@", @"provisioning-stable-dev.hookflash.me", @"/api_web_res/fbconnections.html"];
+        
+        NSURL *url = [NSURL URLWithString:urlAddress];
+        
+        //URL Requst Object
+        NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+        
+        //Load the request in the UIWebView.
+        [self.socialContactsWebView loadRequest:requestObj];
+    }
+    else
+    {
+        //If it is legasy login, then load local contacts
+    }
 }
 
 /**
@@ -179,7 +185,7 @@
         jsMethodName = [NSString stringWithFormat:@"getNewConnections(%@)", [lastUpdateTimestamp stringValue]];
     }
     
-    [self.linkedinContactsWebView performSelectorOnMainThread:@selector(stringByEvaluatingJavaScriptFromString:) withObject:jsMethodName waitUntilDone:NO];
+    [self.socialContactsWebView performSelectorOnMainThread:@selector(stringByEvaluatingJavaScriptFromString:) withObject:jsMethodName waitUntilDone:NO];
 }
 
 /**

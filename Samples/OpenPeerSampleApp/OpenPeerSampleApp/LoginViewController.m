@@ -32,9 +32,11 @@
 #import "LoginViewController.h"
 #import "MainViewController.h"
 #import "LoginManager.h"
+#import "EmailLoginViewController.h"
 
 @interface LoginViewController ()
 
+@property (nonatomic, strong) EmailLoginViewController* emailLoginViewController;
 @end
 
 @implementation LoginViewController
@@ -66,9 +68,13 @@
     [[LoginManager sharedLoginManager] startLoginWithSocialProvider:HOPProvisioningAccountIdentityTypeFacebookID];
 }
 
-- (IBAction)actionLoginWithLinkedIn:(id)sender
+- (IBAction)actionLoginWithEmail:(id)sender
 {
-    [[LoginManager sharedLoginManager] startLoginWithSocialProvider:HOPProvisioningAccountIdentityTypeLinkedInID];
+    self.emailLoginViewController = [[EmailLoginViewController alloc] initWithNibName:@"EmailLoginViewController" bundle:nil];
+    
+    [self.emailLoginViewController.view setFrame:self.view.bounds];
+    [self.view addSubview:self.emailLoginViewController.view];
+    
 }
 
 

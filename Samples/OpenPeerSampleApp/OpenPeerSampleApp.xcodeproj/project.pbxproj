@@ -51,6 +51,8 @@
 		874FF90116806D0F00B0A7A0 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 874FF90016806D0F00B0A7A0 /* Constants.m */; };
 		875CD7E2167A14810037396B /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 875CD7E1167A14810037396B /* SessionManager.m */; };
 		875CD7E5167A14960037396B /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = 875CD7E4167A14960037396B /* Session.m */; };
+		876446B81795339D00F32CD7 /* EmailLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 876446B61795339D00F32CD7 /* EmailLoginViewController.m */; };
+		876446B91795339D00F32CD7 /* EmailLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 876446B71795339D00F32CD7 /* EmailLoginViewController.xib */; };
 		87EB0F46174250ED00DCA681 /* OpenpeerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87EB0F45174250ED00DCA681 /* OpenpeerSDK.framework */; };
 		87EE5FE9166E917B002C5FA3 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 87EE5FE8166E917B002C5FA3 /* libresolv.dylib */; };
 		87EE5FF4166E9615002C5FA3 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 874ADDB4166E138A0095FE33 /* CoreAudio.framework */; };
@@ -74,6 +76,13 @@
 			containerPortal = 872729CF166CDF530089CBB6 /* openpeer-ios-sdk.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 8792E86816519CFF00DEAC58;
+			remoteInfo = OpenpeerSDK;
+		};
+		87F540581791F865000634E9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 872729CF166CDF530089CBB6 /* openpeer-ios-sdk.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8792E86716519CFF00DEAC58;
 			remoteInfo = OpenpeerSDK;
 		};
 /* End PBXContainerItemProxy section */
@@ -167,6 +176,9 @@
 		875CD7E1167A14810037396B /* SessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionManager.m; sourceTree = "<group>"; };
 		875CD7E3167A14960037396B /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
 		875CD7E4167A14960037396B /* Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Session.m; sourceTree = "<group>"; };
+		876446B51795339D00F32CD7 /* EmailLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailLoginViewController.h; sourceTree = "<group>"; };
+		876446B61795339D00F32CD7 /* EmailLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailLoginViewController.m; sourceTree = "<group>"; };
+		876446B71795339D00F32CD7 /* EmailLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmailLoginViewController.xib; sourceTree = "<group>"; };
 		87EB0F45174250ED00DCA681 /* OpenpeerSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenpeerSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		87EE5FE8166E917B002C5FA3 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		87EE5FF9166F5A7E002C5FA3 /* WebLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebLoginViewController.h; sourceTree = "<group>"; };
@@ -236,6 +248,9 @@
 				87EE5FF9166F5A7E002C5FA3 /* WebLoginViewController.h */,
 				87EE5FFA166F5A7F002C5FA3 /* WebLoginViewController.m */,
 				87EE606F166F667B002C5FA3 /* WebLoginViewController.xib */,
+				876446B51795339D00F32CD7 /* EmailLoginViewController.h */,
+				876446B61795339D00F32CD7 /* EmailLoginViewController.m */,
+				876446B71795339D00F32CD7 /* EmailLoginViewController.xib */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -453,6 +468,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				87F540591791F865000634E9 /* PBXTargetDependency */,
 			);
 			name = OpenPeerSampleApp;
 			productName = OpenPeerSampleApp;
@@ -517,6 +533,7 @@
 				87F24B6A1670048000A5389F /* ContactsTableViewController.xib in Resources */,
 				87421DA4168274BB00699479 /* ActiveSessionViewController.xib in Resources */,
 				870F3380168376450090A97F /* ActivityIndicatorViewController.xib in Resources */,
+				876446B91795339D00F32CD7 /* EmailLoginViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,10 +579,19 @@
 				8732605816F0CB470099C0D3 /* SBJsonWriter.m in Sources */,
 				8732605916F0CB470099C0D3 /* RXMLElement.m in Sources */,
 				8732605C16F0CB590099C0D3 /* MessageManager.m in Sources */,
+				876446B81795339D00F32CD7 /* EmailLoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		87F540591791F865000634E9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = OpenpeerSDK;
+			targetProxy = 87F540581791F865000634E9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		87272835166CBF9B0089CBB6 /* InfoPlist.strings */ = {
@@ -634,10 +660,7 @@
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SRCROOT)/3rdParties/JMCAndHockey/HockeySDK-iOS\"",
-					"\"$(SRCROOT)/../../../../../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-dmaxzkxuzyjortetuqgjjvvxiypy/Build/Products/Debug-iphoneos\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_ENABLE_CPP_RTTI = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -671,10 +694,7 @@
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SRCROOT)/3rdParties/JMCAndHockey/HockeySDK-iOS\"",
-					"\"$(SRCROOT)/../../../../../../Library/Developer/Xcode/DerivedData/OpenPeerSampleApp-dmaxzkxuzyjortetuqgjjvvxiypy/Build/Products/Debug-iphoneos\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_ENABLE_CPP_RTTI = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
