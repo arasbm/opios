@@ -383,7 +383,7 @@
  @param userId NSString unique contact id.
  @return Contact with specified user id.
  */
-- (Contact*) getContactForID:(NSString*) uniqueID
+- (Contact*) getContactForPeerURI:(NSString*) uniqueID
 {
     Contact* contact = [self.contactsDictionary objectForKey:uniqueID];
     return contact;
@@ -398,7 +398,7 @@
 {
     for (Contact* contact in self.contactArray)
     {
-        if ([contact.hopContact hasPeerFilePublic])
+        if (contact.hopContact)
         {
             Session* session = [[SessionManager sharedSessionManager] createSessionForContact:contact];
             [[MessageManager sharedMessageManager] sendSystemMessageToCheckAvailabilityForSession:session];
@@ -435,8 +435,9 @@
 -(void)updateContactsWithDataFromLookup:(HOPIdentityLookup *)identityLookup
 {
     BOOL refreshContacts = NO;
+    NSError* error;
     NSMutableArray* contacts = [[NSMutableArray alloc] init];
-    if ([identityLookup isComplete])
+    if ([identityLookup isComplete:&error])
     {
         HOPIdentityLookupResult* result = [identityLookup getLookupResult];
         if ([result wasSuccessful])
@@ -449,11 +450,11 @@
                     Contact* contact = nil;
                     if (identityInfo.contact)
                     {
-                        contact = [[ContactsManager sharedContactsManager] getContactForID:[identityInfo.contact getStableUniqueID]];
+                        contact = [[ContactsManager sharedContactsManager] getContactForID:[identityInfo.contact getPeerURI]];
                         if (!contact)
                         {
                             contact = [[ContactsManager sharedContactsManager] getContactForBaseIdentityURI:identityInfo.baseIdentityURI contactId:identityInfo.contactId];
-                            [self.contactsDictionary setObject:contact forKey:[identityInfo.contact getStableUniqueID]];
+                            [self.contactsDictionary setObject:contact forKey:[identityInfo.contact getPeerURI]];
                         }
                         else
                         {
@@ -477,7 +478,7 @@
                         }
                     }
                     if (contact)
-                        NSLog(@"\n -------------------- \nContact name: %@ \nIdentity URI: %@, \nPeer URI: %@, \nStable Id: %@ \n --------------------", [contact fullName],identityInfo.identityURI,[contact.hopContact getPeerURI], [contact.hopContact getStableUniqueID]);
+                        NSLog(@"\n -------------------- \nContact name: %@ \nIdentity URI: %@, \nPeer URI: %@\n --------------------", [contact fullName],identityInfo.identityURI,[contact.hopContact getPeerURI]);
                 }
             }
         }

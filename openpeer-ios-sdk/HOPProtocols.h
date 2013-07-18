@@ -101,6 +101,7 @@
 
 - (void) onIdentityPendingMessageForInnerBrowserWindowFrame:(HOPIdentity*) identity;
 
+- (void) onIdentityRolodexContactsDownloaded:(HOPIdentity*) identity;
 @end
 #endif
 

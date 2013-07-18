@@ -62,6 +62,12 @@ void OpenPeerIdentityDelegate::onIdentityPendingMessageForInnerBrowserWindowFram
     [identityDelegate onIdentityPendingMessageForInnerBrowserWindowFrame:hopIdentity];
 }
 
+void OpenPeerIdentityDelegate::onIdentityRolodexContactsDownloaded(IIdentityPtr identity)
+{
+    HOPIdentity* hopIdentity = this->getHOPIdentity(identity);//[[OpenPeerStorageManager sharedStorageManager] getIdentityForId:identityId];
+    
+    [identityDelegate onIdentityRolodexContactsDownloaded:hopIdentity];
+}
 HOPIdentity* OpenPeerIdentityDelegate::getHOPIdentity(IIdentityPtr identity)
 {
     NSString* identityURI = [NSString stringWithCString:identity->getIdentityURI() encoding:NSUTF8StringEncoding];

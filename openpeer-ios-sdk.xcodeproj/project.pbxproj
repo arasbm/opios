@@ -71,6 +71,18 @@
 		87B013F91661557C00E8938B /* HOPTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 872E40771653CFE2006ECA60 /* HOPTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87B013FF1661557C00E8938B /* HOPMediaEngineRtpRtcpStatistics.h in Headers */ = {isa = PBXBuildFile; fileRef = 87343FE9165E4B0C0070E6E0 /* HOPMediaEngineRtpRtcpStatistics.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87B014001661557C00E8938B /* HOPIdentity.h in Headers */ = {isa = PBXBuildFile; fileRef = 87FA4CE0165F891A00F7D973 /* HOPIdentity.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87B864AF17968E000027F8B1 /* OpenPeerModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 87B864AD17968E000027F8B1 /* OpenPeerModel.xcdatamodeld */; };
+		87B864B71796BB0B0027F8B1 /* HOPAvatar.h in Headers */ = {isa = PBXBuildFile; fileRef = 87B864B51796BB0B0027F8B1 /* HOPAvatar.h */; };
+		87B864B81796BB0B0027F8B1 /* HOPAvatar.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B864B61796BB0B0027F8B1 /* HOPAvatar.m */; };
+		87B864BB1796BB2C0027F8B1 /* HOPRolodexContact.h in Headers */ = {isa = PBXBuildFile; fileRef = 87B864B91796BB2C0027F8B1 /* HOPRolodexContact.h */; };
+		87B864BC1796BB2C0027F8B1 /* HOPRolodexContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B864BA1796BB2C0027F8B1 /* HOPRolodexContact.m */; };
+		87B864BF1796BB2C0027F8B1 /* HOPIdentityContact.h in Headers */ = {isa = PBXBuildFile; fileRef = 87B864BD1796BB2C0027F8B1 /* HOPIdentityContact.h */; };
+		87B864C01796BB2C0027F8B1 /* HOPIdentityContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B864BE1796BB2C0027F8B1 /* HOPIdentityContact.m */; };
+		87B864C31796BB2C0027F8B1 /* PublicPeerFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 87B864C11796BB2C0027F8B1 /* PublicPeerFile.h */; };
+		87B864C41796BB2C0027F8B1 /* PublicPeerFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B864C21796BB2C0027F8B1 /* PublicPeerFile.m */; };
+		87B864CB1796BBB20027F8B1 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87B864CA1796BBB20027F8B1 /* CoreFoundation.framework */; };
+		87B864D11796BBB20027F8B1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 87B864CF1796BBB20027F8B1 /* InfoPlist.strings */; };
+		87B864D61796BBC10027F8B1 /* OpenPeerModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 87B864AD17968E000027F8B1 /* OpenPeerModel.xcdatamodeld */; };
 		87D66B6016EFC3660017EF98 /* HOPLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 87DFA51D16E7576900C77326 /* HOPLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87D91AA71767509700E46B66 /* OpenPeerCacheDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 87D91AA51767509700E46B66 /* OpenPeerCacheDelegate.mm */; };
 		87E3CD21172A859600084D2F /* HOPIdentityLookupInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 87E3CD1F172A859500084D2F /* HOPIdentityLookupInfo.mm */; };
@@ -205,6 +217,13 @@
 			remoteGlobalIDString = 0063B94816CA91F000E6DB4D;
 			remoteInfo = hfstack_ios;
 		};
+		87B864D71796BC1A0027F8B1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8792E85F16519CFF00DEAC58 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 87B864C81796BBB10027F8B1;
+			remoteInfo = OpenPeerModels;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -289,6 +308,20 @@
 		87A5B20616EDE648007E825A /* HOPIdentityLookup.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HOPIdentityLookup.mm; sourceTree = "<group>"; };
 		87A5B20816EDE656007E825A /* HOPIdentityLookup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HOPIdentityLookup.h; sourceTree = "<group>"; };
 		87A5B20916EDE9A4007E825A /* HOPIdentityLookup_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HOPIdentityLookup_Internal.h; sourceTree = "<group>"; };
+		87B864AE17968E000027F8B1 /* OpenPeerModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OpenPeerModel.xcdatamodel; sourceTree = "<group>"; };
+		87B864B51796BB0B0027F8B1 /* HOPAvatar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HOPAvatar.h; sourceTree = "<group>"; };
+		87B864B61796BB0B0027F8B1 /* HOPAvatar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HOPAvatar.m; sourceTree = "<group>"; };
+		87B864B91796BB2C0027F8B1 /* HOPRolodexContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HOPRolodexContact.h; sourceTree = "<group>"; };
+		87B864BA1796BB2C0027F8B1 /* HOPRolodexContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HOPRolodexContact.m; sourceTree = "<group>"; };
+		87B864BD1796BB2C0027F8B1 /* HOPIdentityContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HOPIdentityContact.h; sourceTree = "<group>"; };
+		87B864BE1796BB2C0027F8B1 /* HOPIdentityContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HOPIdentityContact.m; sourceTree = "<group>"; };
+		87B864C11796BB2C0027F8B1 /* PublicPeerFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicPeerFile.h; sourceTree = "<group>"; };
+		87B864C21796BB2C0027F8B1 /* PublicPeerFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicPeerFile.m; sourceTree = "<group>"; };
+		87B864C91796BBB10027F8B1 /* OpenPeerModels.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenPeerModels.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		87B864CA1796BBB20027F8B1 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		87B864CE1796BBB20027F8B1 /* OpenPeerModels-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OpenPeerModels-Info.plist"; sourceTree = "<group>"; };
+		87B864D01796BBB20027F8B1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		87B864D21796BBB20027F8B1 /* OpenPeerModels-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OpenPeerModels-Prefix.pch"; sourceTree = "<group>"; };
 		87D91A7617673E6A00E46B66 /* OpenPeerCacheDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenPeerCacheDelegate.h; sourceTree = "<group>"; };
 		87D91AA51767509700E46B66 /* OpenPeerCacheDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenPeerCacheDelegate.mm; sourceTree = "<group>"; };
 		87DFA51D16E7576900C77326 /* HOPLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HOPLogger.h; sourceTree = "<group>"; };
@@ -404,6 +437,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		87B864C61796BBB10027F8B1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87B864CB1796BBB20027F8B1 /* CoreFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -473,6 +514,7 @@
 				8792E86D16519CFF00DEAC58 /* openpeer-ios-sdk */,
 				E2AF705717561D74001F85F1 /* WebRTC libs */,
 				0012C521177D10110017FF5E /* Libraries */,
+				87B864CC1796BBB20027F8B1 /* OpenPeerModels */,
 				8792E86A16519CFF00DEAC58 /* Frameworks */,
 				8792E86916519CFF00DEAC58 /* Products */,
 			);
@@ -482,6 +524,7 @@
 			isa = PBXGroup;
 			children = (
 				8792E86816519CFF00DEAC58 /* libOpenpeerSDK.a */,
+				87B864C91796BBB10027F8B1 /* OpenPeerModels.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -494,6 +537,7 @@
 				8792E86B16519CFF00DEAC58 /* Foundation.framework */,
 				00243939178F52D300B79368 /* Security.framework */,
 				87343EDB165A50D60070E6E0 /* UIKit.framework */,
+				87B864CA1796BBB20027F8B1 /* CoreFoundation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -519,6 +563,15 @@
 				87A5B20816EDE656007E825A /* HOPIdentityLookup.h */,
 				87E3CCE8172A82BC00084D2F /* HOPIdentityLookupInfo.h */,
 				872DA9E7175CECB1000CCA76 /* HOPCache.h */,
+				87B864AD17968E000027F8B1 /* OpenPeerModel.xcdatamodeld */,
+				87B864C11796BB2C0027F8B1 /* PublicPeerFile.h */,
+				87B864C21796BB2C0027F8B1 /* PublicPeerFile.m */,
+				87B864BD1796BB2C0027F8B1 /* HOPIdentityContact.h */,
+				87B864BE1796BB2C0027F8B1 /* HOPIdentityContact.m */,
+				87B864B91796BB2C0027F8B1 /* HOPRolodexContact.h */,
+				87B864BA1796BB2C0027F8B1 /* HOPRolodexContact.m */,
+				87B864B51796BB0B0027F8B1 /* HOPAvatar.h */,
+				87B864B61796BB0B0027F8B1 /* HOPAvatar.m */,
 			);
 			path = "openpeer-ios-sdk";
 			sourceTree = "<group>";
@@ -610,6 +663,24 @@
 				87D91AA51767509700E46B66 /* OpenPeerCacheDelegate.mm */,
 			);
 			path = source;
+			sourceTree = "<group>";
+		};
+		87B864CC1796BBB20027F8B1 /* OpenPeerModels */ = {
+			isa = PBXGroup;
+			children = (
+				87B864CD1796BBB20027F8B1 /* Supporting Files */,
+			);
+			path = OpenPeerModels;
+			sourceTree = "<group>";
+		};
+		87B864CD1796BBB20027F8B1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				87B864CE1796BBB20027F8B1 /* OpenPeerModels-Info.plist */,
+				87B864CF1796BBB20027F8B1 /* InfoPlist.strings */,
+				87B864D21796BBB20027F8B1 /* OpenPeerModels-Prefix.pch */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		E210481817830EA40038A071 /* Products */ = {
@@ -707,6 +778,10 @@
 				87A5B1F616EDE5F9007E825A /* OpenPeerStackDelegate.h in Headers */,
 				87A5B1F716EDE5F9007E825A /* OpenPeerStorageManager.h in Headers */,
 				87A5B1F816EDE5F9007E825A /* OpenPeerUtility.h in Headers */,
+				87B864B71796BB0B0027F8B1 /* HOPAvatar.h in Headers */,
+				87B864BB1796BB2C0027F8B1 /* HOPRolodexContact.h in Headers */,
+				87B864BF1796BB2C0027F8B1 /* HOPIdentityContact.h in Headers */,
+				87B864C31796BB2C0027F8B1 /* PublicPeerFile.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -726,6 +801,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				87B864D81796BC1A0027F8B1 /* PBXTargetDependency */,
 				00EB8DD2177D1C2400FFD40F /* PBXTargetDependency */,
 				00EB8DD4177D1C2400FFD40F /* PBXTargetDependency */,
 				00EB8DB8177D158100FFD40F /* PBXTargetDependency */,
@@ -737,6 +813,23 @@
 			productName = "openpeer-ios-sdk";
 			productReference = 8792E86816519CFF00DEAC58 /* libOpenpeerSDK.a */;
 			productType = "com.apple.product-type.library.static";
+		};
+		87B864C81796BBB10027F8B1 /* OpenPeerModels */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 87B864D31796BBB20027F8B1 /* Build configuration list for PBXNativeTarget "OpenPeerModels" */;
+			buildPhases = (
+				87B864C51796BBB10027F8B1 /* Sources */,
+				87B864C61796BBB10027F8B1 /* Frameworks */,
+				87B864C71796BBB10027F8B1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OpenPeerModels;
+			productName = OpenPeerModels;
+			productReference = 87B864C91796BBB10027F8B1 /* OpenPeerModels.bundle */;
+			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
 
@@ -790,6 +883,7 @@
 			projectRoot = "";
 			targets = (
 				8792E86716519CFF00DEAC58 /* OpenpeerSDK */,
+				87B864C81796BBB10027F8B1 /* OpenPeerModels */,
 			);
 		};
 /* End PBXProject section */
@@ -839,6 +933,17 @@
 		};
 /* End PBXReferenceProxy section */
 
+/* Begin PBXResourcesBuildPhase section */
+		87B864C71796BBB10027F8B1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87B864D11796BBB20027F8B1 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXShellScriptBuildPhase section */
 		87B013E41661327800E8938B /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -884,6 +989,19 @@
 				87E3CD21172A859600084D2F /* HOPIdentityLookupInfo.mm in Sources */,
 				872DA9E6175CEC9C000CCA76 /* HOPCache.mm in Sources */,
 				87D91AA71767509700E46B66 /* OpenPeerCacheDelegate.mm in Sources */,
+				87B864AF17968E000027F8B1 /* OpenPeerModel.xcdatamodeld in Sources */,
+				87B864B81796BB0B0027F8B1 /* HOPAvatar.m in Sources */,
+				87B864BC1796BB2C0027F8B1 /* HOPRolodexContact.m in Sources */,
+				87B864C01796BB2C0027F8B1 /* HOPIdentityContact.m in Sources */,
+				87B864C41796BB2C0027F8B1 /* PublicPeerFile.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87B864C51796BBB10027F8B1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87B864D61796BBC10027F8B1 /* OpenPeerModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -920,7 +1038,23 @@
 			name = hfstack_ios;
 			targetProxy = 00EB8DD3177D1C2400FFD40F /* PBXContainerItemProxy */;
 		};
+		87B864D81796BC1A0027F8B1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 87B864C81796BBB10027F8B1 /* OpenPeerModels */;
+			targetProxy = 87B864D71796BC1A0027F8B1 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		87B864CF1796BBB20027F8B1 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				87B864D01796BBB20027F8B1 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		8792E87416519CFF00DEAC58 /* Debug */ = {
@@ -1079,6 +1213,51 @@
 			};
 			name = Release;
 		};
+		87B864D41796BBB20027F8B1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OpenPeerModels/OpenPeerModels-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				INFOPLIST_FILE = "OpenPeerModels/OpenPeerModels-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		87B864D51796BBB20027F8B1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OpenPeerModels/OpenPeerModels-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				INFOPLIST_FILE = "OpenPeerModels/OpenPeerModels-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1100,7 +1279,28 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		87B864D31796BBB20027F8B1 /* Build configuration list for PBXNativeTarget "OpenPeerModels" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				87B864D41796BBB20027F8B1 /* Debug */,
+				87B864D51796BBB20027F8B1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		87B864AD17968E000027F8B1 /* OpenPeerModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				87B864AE17968E000027F8B1 /* OpenPeerModel.xcdatamodel */,
+			);
+			currentVersion = 87B864AE17968E000027F8B1 /* OpenPeerModel.xcdatamodel */;
+			path = OpenPeerModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 8792E85F16519CFF00DEAC58 /* Project object */;
 }

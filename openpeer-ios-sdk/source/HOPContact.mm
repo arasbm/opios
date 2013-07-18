@@ -52,10 +52,10 @@
     if (self)
     {
         coreContactPtr = inContactPtr;
-        NSString* stableUniqueId = [NSString stringWithCString:coreContactPtr->getStableUniqueID() encoding:NSUTF8StringEncoding];
+        NSString* peerURI = [NSString stringWithCString:coreContactPtr->getPeerURI() encoding:NSUTF8StringEncoding];
         //If there is no stable id, then there is no valid openpeer contact, so stop creation of HOPContact
-        if ([stableUniqueId length] > 0)
-            [[OpenPeerStorageManager sharedStorageManager] setContact:self forId:stableUniqueId];
+        if ([peerURI length] > 0)
+            [[OpenPeerStorageManager sharedStorageManager] setContact:self forId:peerURI];
         else
             return nil;
         
@@ -63,7 +63,7 @@
     return self;
 }
 
-- (id) initWithPeerFile:(NSString*) publicPeerFile previousStableUniqueID:(NSString*) previousStableUniqueID
+/*- (id) initWithPeerFile:(NSString*) publicPeerFile previousStableUniqueID:(NSString*) previousStableUniqueID
 {
     self = [super init];
     
@@ -71,7 +71,7 @@
     {
         if ([publicPeerFile length] > 0 && [previousStableUniqueID length] > 0)
         {
-            ElementPtr publicPeerXml = IHelper::createFromString([publicPeerFile UTF8String]);
+            ElementPtr publicPeerXml = IHelper::createElement([publicPeerFile UTF8String]);
             
             IContactPtr tempCoreContactPtr = IContact::createFromPeerFilePublic([[HOPAccount sharedAccount] getAccountPtr], publicPeerXml, [previousStableUniqueID UTF8String]);
                 
@@ -89,7 +89,7 @@
     }
 
     return self;
-}
+}*/
 
 
 + (HOPContact*) getForSelf
@@ -97,7 +97,7 @@
     HOPContact* ret = nil;
     
     IContactPtr selfContact = IContact::getForSelf([[HOPAccount sharedAccount] getAccountPtr]);
-    ret = [[OpenPeerStorageManager sharedStorageManager] getContactForId:[NSString stringWithCString:selfContact->getStableUniqueID() encoding:NSUTF8StringEncoding]];
+    ret = [[OpenPeerStorageManager sharedStorageManager] getContactForPeerURI:[NSString stringWithCString:selfContact->getPeerURI() encoding:NSUTF8StringEncoding]];
     if (!ret)
         ret = [[HOPContact alloc] initWithCoreContact:selfContact];
     
@@ -130,67 +130,7 @@
     }
     return ret;
 }
-    
 
-- (NSString*) getFindSecret
-{
-    NSString* ret = nil;
-    
-    if (coreContactPtr)
-    {
-        ret = [NSString stringWithCString:coreContactPtr->getFindSecret() encoding:NSUTF8StringEncoding];
-    }
-    else
-    {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid core contact object!"];
-    }
-    return ret;
-}
-        
-- (NSString*) getStableUniqueID
-{
-    NSString* ret = nil;
-    
-    if (coreContactPtr)
-    {
-        ret = [NSString stringWithCString:coreContactPtr->getStableUniqueID() encoding:NSUTF8StringEncoding];
-    }
-    else
-    {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid core contact object!"];
-    }
-    return ret;
-}
-
-- (BOOL) hasPeerFilePublic
-{
-    BOOL ret = NO;
-    
-    if (coreContactPtr)
-    {
-        ret = coreContactPtr->hasPeerFilePublic();
-    }
-    else
-    {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid core contact object!"];
-    }
-    return ret;
-}
-
-- (NSString*) savePeerFilePublic
-{
-    NSString* ret = nil;
-    
-    if (coreContactPtr)
-    {
-        ret = [NSString stringWithCString:IHelper::convertToString( coreContactPtr->savePeerFilePublic()) encoding:NSUTF8StringEncoding];
-    }
-    else
-    {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid core contact object!"];
-    }
-    return ret;
-}
 
 - (HOPAccount*) getAssociatedAccount
 {
@@ -212,6 +152,11 @@
     }
 }
 
+//JUST TO MAKE BUILDABLE
+- (NSString*) getStableUniqueID
+{
+    return nil;
+}
 #pragma mark - Internal methods
 - (IContactPtr) getContactPtr
 {

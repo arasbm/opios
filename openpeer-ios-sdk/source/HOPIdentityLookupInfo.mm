@@ -47,12 +47,12 @@
     return self;
 }
 
-- (id) initWithIdentityLookupInfo:(IdentityLookupInfo) inIdentityLookupInfo
+- (id) initWithIdentityLookupInfo:(IIdentityLookup::IdentityLookupInfo) inIdentityLookupInfo
 {
     self = [self init];
     if (self)
     {
-        self.hasData = inIdentityLookupInfo.hasData();
+        /*self.hasData = inIdentityLookupInfo.hasData();
         if (self.hasData)
         {
             if (inIdentityLookupInfo.mContact)
@@ -60,7 +60,7 @@
                 //Get a stable id and retrieve or create a contact for the provided stable id.
                 NSString* stableUniqueId = [NSString stringWithCString:inIdentityLookupInfo.mContact->getStableUniqueID() encoding:NSUTF8StringEncoding];
                 if (stableUniqueId)
-                    self.contact = [[OpenPeerStorageManager sharedStorageManager] getContactForId:stableUniqueId];
+                    self.contact = [[OpenPeerStorageManager sharedStorageManager] getContactForPeerURI:stableUniqueId];
                 
                 if (!self.contact)
                     self.contact = [[HOPContact alloc] initWithCoreContact:inIdentityLookupInfo.mContact]; //It is weak property, becase contact is stored in the OpenPeerStorageManager
@@ -81,7 +81,7 @@
             self.name = [NSString stringWithCString:inIdentityLookupInfo.mName encoding:NSUTF8StringEncoding];
             self.profileURL = [NSString stringWithCString:inIdentityLookupInfo.mProfileURL encoding:NSUTF8StringEncoding];
             self.vProfileURL = [NSString stringWithCString:inIdentityLookupInfo.mVProfileURL encoding:NSUTF8StringEncoding]; 
-        }
+        }*/
     }
     return self;
 }

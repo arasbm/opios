@@ -52,9 +52,11 @@
 
 /**
  Retrieves whether identiy lookup is completed or not.
+ @param error NSError this parameter will be initiated if some error occurs during lookup
  @returns BOOL YES if completed, otherwise NO
  */
-- (BOOL) isComplete;
+- (BOOL) isComplete:(NSError**) error;
+
 
 /**
  Retrieves identity lookup result.
@@ -73,4 +75,7 @@
  */
 - (NSArray*) getIdentities;
 
+- (NSArray*) getUpdatedIdentities;
+- (NSArray*) getUnchangedIdentities;
+- (NSArray*) getInvalidIdentities;
 @end

@@ -43,7 +43,7 @@
  @param previousStableUniqueID user Id string stored locally (initialy is received on identity lookup). This argument is mandatory.
  @returns Ponter to the created contact object
  */
-- (id) initWithPeerFile:(NSString*) publicPeerFile previousStableUniqueID:(NSString*) previousStableUniqueID;
+//- (id) initWithPeerFile:(NSString*) publicPeerFile previousStableUniqueID:(NSString*) previousStableUniqueID;
 
 /**
  Returns HOPContact object for logged in user
@@ -63,29 +63,8 @@
  */
 - (NSString*) getPeerURI;
 
-/**
- Retrieves finder secret from the contact object
- @returns NSString representation of the finder secret
- */
-- (NSString*) getFindSecret;
-
-/**
- Retrieves stable unique Id for the contact
- @returns NSString stable unique Id
- */
 - (NSString*) getStableUniqueID;
 
-/**
- Check contact object has public peer file
- @returns YES if it has
- */
-- (BOOL) hasPeerFilePublic;
-
-/**
- Retrieves public peer file
- @returns NSString public peer file
- */
-- (NSString*) savePeerFilePublic;
 
 /**
  Retrieves account object of logged user

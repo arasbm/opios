@@ -141,11 +141,11 @@ using namespace openpeer::core;
         IContactPtr contactPtr = callPtr->getCaller();
         if (contactPtr)
         {
-            NSString* contactUniqueID = [NSString stringWithUTF8String:contactPtr->getStableUniqueID()];
-            hopContact = [[OpenPeerStorageManager sharedStorageManager] getContactForId:contactUniqueID];
+            NSString* peerURI = [NSString stringWithUTF8String:contactPtr->getPeerURI()];
+            hopContact = [[OpenPeerStorageManager sharedStorageManager] getContactForPeerURI:peerURI];
             if (!hopContact)
             {
-                hopContact = [[[HOPContact getForSelf] getStableUniqueID] isEqualToString:contactUniqueID] ? [HOPContact getForSelf] : nil;
+                hopContact = [[[HOPContact getForSelf] getPeerURI] isEqualToString:peerURI] ? [HOPContact getForSelf] : nil;
             }
         }
     }
@@ -164,11 +164,11 @@ using namespace openpeer::core;
         IContactPtr contactPtr = callPtr->getCallee();
         if (contactPtr)
         {
-            NSString* contactUniqueID = [NSString stringWithUTF8String:contactPtr->getStableUniqueID()];
-            hopContact = [[OpenPeerStorageManager sharedStorageManager] getContactForId:contactUniqueID];
+            NSString* peerURI = [NSString stringWithUTF8String:contactPtr->getPeerURI()];
+            hopContact = [[OpenPeerStorageManager sharedStorageManager] getContactForPeerURI:peerURI];
             if (!hopContact)
             {
-                hopContact = [[[HOPContact getForSelf] getStableUniqueID] isEqualToString:contactUniqueID] ? [HOPContact getForSelf] : nil;
+                hopContact = [[[HOPContact getForSelf] getPeerURI] isEqualToString:peerURI] ? [HOPContact getForSelf] : nil;
             }
         }
     }

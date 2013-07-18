@@ -175,7 +175,7 @@
         [cell.detailTextLabel setText:@""];
     }
     
-    if ([contact.hopContact hasPeerFilePublic])
+    if (contact.hopContact)
     {
         cell.userInteractionEnabled = YES;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

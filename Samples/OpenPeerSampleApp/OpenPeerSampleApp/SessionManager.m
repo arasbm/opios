@@ -108,7 +108,7 @@
         ret = [[Session alloc] initWithContact:contact conversationThread:conversationThread];
         
         //Add list of all participants. Currently only one participant is added
-        if (ret && contact.hopContact && [contact.hopContact hasPeerFilePublic])
+        if (ret && contact.hopContact)
         {
             NSArray* participants = [NSArray arrayWithObject:contact.hopContact];
             [conversationThread addContacts:participants];
@@ -416,7 +416,7 @@
     if (self.sessionWithActiveCall)
     {
         if ([self.sessionWithActiveCall.participantsArray count] > 0)
-            messageResponse = [[[self.sessionWithActiveCall.participantsArray objectAtIndex:0] hopContact] getStableUniqueID];
+            messageResponse = [[[self.sessionWithActiveCall.participantsArray objectAtIndex:0] hopContact] getPeerURI];
     }
     
     [[MessageManager sharedMessageManager] sendSystemMessageToCheckAvailabilityResponseForSession:inSession message:messageResponse];

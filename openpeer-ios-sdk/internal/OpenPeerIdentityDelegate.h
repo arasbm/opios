@@ -60,6 +60,7 @@ public:
     
     virtual void onIdentityStateChanged(IIdentityPtr identity,IdentityStates state);
     virtual void onIdentityPendingMessageForInnerBrowserWindowFrame(IIdentityPtr identity);
+    virtual void onIdentityRolodexContactsDownloaded(IIdentityPtr identity);
     
 private:
     HOPIdentity* getHOPIdentity(IIdentityPtr identity);

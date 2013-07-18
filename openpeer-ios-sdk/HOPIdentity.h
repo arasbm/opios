@@ -68,6 +68,7 @@
  */
 + (id) loginWithDelegate:(id<HOPIdentityDelegate>) inIdentityDelegate redirectAfterLoginCompleteURL:(NSString*) redirectAfterLoginCompleteURL identityURIOridentityBaseURI:(NSString*) identityURIOridentityBaseURI identityProviderDomain:(NSString*) identityProviderDomain;
 
++ (id) loginWithDelegate:(id<HOPIdentityDelegate>) inIdentityDelegate identityPreauthorizedURI:(NSString*) identityURI identityAccessToken:(NSString*) identityAccessToken identityAccessSecret:(NSString*) identityAccessSecret identityAccessSecretExpires:(NSDate*) identityAccessSecretExpires;
 /**
  Retrieves identity state
  @returns HOPIdentityState Identity state
@@ -88,6 +89,7 @@
  */
 - (void) attachDelegate:(id<HOPIdentityDelegate>) inIdentityDelegate redirectionURL:(NSString*) redirectionURL;
 
+- (void) attachDelegateAndPreauthorizedLogin:(id<HOPIdentityDelegate>) inIdentityDelegate identityAccessToken:(NSString*) identityAccessToken identityAccessSecret:(NSString*) identityAccessSecret identityAccessSecretExpires:(NSDate*) identityAccessSecretExpires;
 /**
  Retrieves identity URI
  @returns NSString identity URI
@@ -146,6 +148,9 @@
  */
 - (void) handleMessageFromInnerBrowserWindowFrame:(NSString*) message;
 
+- (void) startRolodexDownload:(NSString*) lastDownloadedVersion;
+- (void) refreshRolodexContacts;
+- (BOOL) getDownloadedRolodexContacts:(BOOL) outFlushAllRolodexContacts outVersionDownloaded:(NSString**) outVersionDownloaded outRolodexContacts:(NSArray**) outRolodexContacts;
 /**
  Cancels identity login.
  */

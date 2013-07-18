@@ -67,6 +67,25 @@
     return ret;
 }
 
++ (id) loginWithDelegate:(id<HOPIdentityDelegate>) inIdentityDelegate identityPreauthorizedURI:(NSString*) identityURI identityAccessToken:(NSString*) identityAccessToken identityAccessSecret:(NSString*) identityAccessSecret identityAccessSecretExpires:(NSDate*) identityAccessSecretExpires
+{
+    HOPIdentity* ret = nil;
+    
+    if (!inIdentityDelegate || [identityURI length] == 0 || [identityAccessToken length] == 0 || [identityAccessSecret length] == 0)
+        return ret;
+    
+    boost::shared_ptr<OpenPeerIdentityDelegate> identityDelegatePtr = OpenPeerIdentityDelegate::create(inIdentityDelegate);
+    
+    IIdentityPtr identity;// = IIdentity::loginWithIdentityPreauthorized([[HOPAccount sharedAccount]getAccountPtr], identityDelegatePtr, [identityURI UTF8String],[identityAccessToken UTF8String], [identityAccessSecret UTF8String], boost::posix_time::from_time_t([identityAccessSecretExpires timeIntervalSince1970]));
+    
+    if (identity)
+    {
+        ret = [[self alloc] initWithIdentityPtr:identity openPeerIdentityDelegate:identityDelegatePtr];
+        [[OpenPeerStorageManager sharedStorageManager] setIdentity:ret forId:identityURI];
+    }
+    return ret;
+}
+
 - (HOPIdentityState*) getState
 {
     WORD lastErrorCode;
@@ -99,6 +118,27 @@
     {
         boost::shared_ptr<OpenPeerIdentityDelegate> identityDelegatePtr = OpenPeerIdentityDelegate::create(inIdentityDelegate);
         identityPtr->attachDelegate(identityDelegatePtr,[redirectionURL UTF8String]);
+    }
+    else
+    {
+        [NSException raise:NSInvalidArgumentException format:@"Invalid core identity object!"];
+    }
+}
+
+
+- (void) attachDelegateAndPreauthorizedLogin:(id<HOPIdentityDelegate>) inIdentityDelegate identityAccessToken:(NSString*) identityAccessToken identityAccessSecret:(NSString*) identityAccessSecret identityAccessSecretExpires:(NSDate*) identityAccessSecretExpires
+{
+    if(identityPtr)
+    {
+        if (inIdentityDelegate && [identityAccessToken length] > 0 && [identityAccessSecret length] > 0 )
+        {
+            boost::shared_ptr<OpenPeerIdentityDelegate> identityDelegatePtr = OpenPeerIdentityDelegate::create(inIdentityDelegate);
+            identityPtr->attachDelegateAndPreauthorizedLogin(identityDelegatePtr, [identityAccessToken UTF8String], [identityAccessSecret UTF8String], boost::posix_time::from_time_t([identityAccessSecretExpires timeIntervalSince1970]));
+        }
+        else
+        {
+            [NSException raise:NSInvalidArgumentException format:@"Invalid input parameters!"];
+        }
     }
     else
     {

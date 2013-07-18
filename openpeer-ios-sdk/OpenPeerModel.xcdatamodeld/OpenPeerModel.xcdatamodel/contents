@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12E55" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="HOPAvatar" representedClassName="HOPAvatar" syncable="YES">
+        <attribute name="height" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="width" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="HOPIdentityContact" representedClassName="HOPIdentityContact" syncable="YES">
+        <attribute name="expires" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="identityProofBundle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastUpdated" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="priority" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="stableID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="weight" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="peerFile" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="PublicPeerFile" inverseName="identityContact" inverseEntity="PublicPeerFile" syncable="YES"/>
+        <relationship name="rolodexContact" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="HOPRolodexContact" inverseName="identityContact" inverseEntity="HOPRolodexContact" syncable="YES"/>
+    </entity>
+    <entity name="HOPRolodexContact" representedClassName="HOPRolodexContact" syncable="YES">
+        <attribute name="identityProvider" attributeType="String" syncable="YES"/>
+        <attribute name="identityURI" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="profileURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="vProfileURL" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="avatars" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HOPAvatar" syncable="YES"/>
+        <relationship name="identityContact" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="HOPIdentityContact" inverseName="rolodexContact" inverseEntity="HOPIdentityContact" syncable="YES"/>
+    </entity>
+    <entity name="PublicPeerFile" representedClassName="PublicPeerFile" syncable="YES">
+        <attribute name="peerFile" attributeType="String" syncable="YES"/>
+        <relationship name="identityContact" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="HOPIdentityContact" inverseName="peerFile" inverseEntity="HOPIdentityContact" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="HOPRolodexContact" positionX="-153" positionY="-18" width="128" height="148"/>
+        <element name="HOPAvatar" positionX="43" positionY="32" width="128" height="103"/>
+        <element name="HOPIdentityContact" positionX="-153" positionY="198" width="128" height="163"/>
+        <element name="PublicPeerFile" positionX="16" positionY="236" width="128" height="73"/>
+    </elements>
+</model>

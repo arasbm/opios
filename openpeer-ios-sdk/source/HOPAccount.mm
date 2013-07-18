@@ -108,7 +108,7 @@ using namespace openpeer::core;
     
     [self setLocalDelegates:inAccountDelegate conversationThread:inConversationThreadDelegate callDelegate:inCallDelegate];
     
-    accountPtr = IAccount::relogin(openpeerAccountDelegatePtr, openpeerConversationDelegatePtr, openpeerCallDelegatePtr, [lockboxOuterFrameURLUponReload UTF8String],IHelper::createFromString([lockboxReloginInfo UTF8String]));
+    accountPtr = IAccount::relogin(openpeerAccountDelegatePtr, openpeerConversationDelegatePtr, openpeerCallDelegatePtr, [lockboxOuterFrameURLUponReload UTF8String],IHelper::createElement([lockboxReloginInfo UTF8String]));
     
     if (accountPtr)
         passedWithoutErrors = YES;
@@ -355,7 +355,7 @@ using namespace openpeer::core;
 {
     if(accountPtr)
     {
-        accountPtr->handleMessageFromInnerBrowserWindowFrame(IHelper::createFromString([message UTF8String]));
+        accountPtr->handleMessageFromInnerBrowserWindowFrame(IHelper::createElement([message UTF8String]));
     }
     else
     {

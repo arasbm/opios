@@ -101,7 +101,7 @@ using namespace openpeer::core;
     zsLib::XML::ElementPtr elementPtr;
     
     if ([profileBundle length] > 0)
-        elementPtr = IHelper::createFromString([profileBundle UTF8String]);
+        elementPtr = IHelper::createElement([profileBundle UTF8String]);
     else
         elementPtr = zsLib::XML::ElementPtr();
     
@@ -161,7 +161,7 @@ using namespace openpeer::core;
             IContactPtr contactPtr = *contact;
             if (!contactPtr->isSelf())
             {
-                HOPContact* tempContact = [[OpenPeerStorageManager sharedStorageManager] getContactForId:[NSString stringWithUTF8String:contactPtr->getStableUniqueID()]];
+                HOPContact* tempContact = [[OpenPeerStorageManager sharedStorageManager] getContactForPeerURI:[NSString stringWithUTF8String:contactPtr->getPeerURI()]];
                 [contactArray addObject:tempContact];
             }
         }
@@ -289,7 +289,7 @@ using namespace openpeer::core;
         {
             hopMessage = [[HOPMessage alloc] init];
             
-            hopMessage.contact = [[OpenPeerStorageManager sharedStorageManager] getContactForId:[NSString stringWithUTF8String:fromContact->getStableUniqueID()]];
+            hopMessage.contact = [[OpenPeerStorageManager sharedStorageManager] getContactForPeerURI:[NSString stringWithUTF8String:fromContact->getPeerURI()]];
             hopMessage.type = [NSString stringWithUTF8String:messageType];
             hopMessage.text = [NSString stringWithUTF8String:message];
             hopMessage.date = [OpenPeerUtility convertPosixTimeToDate:messageTime];
@@ -317,7 +317,7 @@ using namespace openpeer::core;
         
         if (fromContact && messageType && message)
         {
-            *outFrom = [[OpenPeerStorageManager sharedStorageManager] getContactForId:[NSString stringWithUTF8String:fromContact->getStableUniqueID()]];
+            *outFrom = [[OpenPeerStorageManager sharedStorageManager] getContactForPeerURI:[NSString stringWithUTF8String:fromContact->getPeerURI()]];
             *outMessageType = [NSString stringWithUTF8String:messageType];
             *outMessage = [NSString stringWithUTF8String:message];
             *outTime = [OpenPeerUtility convertPosixTimeToDate:messageTime];

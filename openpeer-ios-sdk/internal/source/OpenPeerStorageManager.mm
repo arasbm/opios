@@ -98,7 +98,7 @@
     [_dictionaryConversationThreads setObject:conversationThread forKey:threadId];
 }
 
-- (HOPContact*) getContactForId:(NSString*) contactId
+- (HOPContact*) getContactForPeerURI:(NSString*) contactId
 {
     HOPContact* contact = nil;
     

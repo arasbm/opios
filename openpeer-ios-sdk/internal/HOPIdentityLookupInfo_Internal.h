@@ -31,6 +31,7 @@
 
 
 #import <openpeer/core/types.h>
+#import <openpeer/core/IIdentityLookup.h>
 #import "HOPIdentityLookupInfo.h"
 
 using namespace openpeer;
@@ -38,5 +39,5 @@ using namespace openpeer::core;
 
 @interface HOPIdentityLookupInfo ()
 
-- (id) initWithIdentityLookupInfo:(IdentityLookupInfo) inIdentityLookupInfo;
+- (id) initWithIdentityLookupInfo:(IIdentityLookup::IdentityLookupInfo) inIdentityLookupInfo;
 @end

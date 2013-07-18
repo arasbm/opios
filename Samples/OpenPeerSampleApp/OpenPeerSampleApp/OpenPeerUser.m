@@ -81,7 +81,7 @@
             NSKeyedUnarchiver *aDecoder = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
             
             self.deviceId = [aDecoder decodeObjectForKey:archiveDeviceId];
-            self.stableUniqueId = [aDecoder decodeObjectForKey:archiveStableUniqueId];
+            //self.stableUniqueId = [aDecoder decodeObjectForKey:archiveStableUniqueId];
             self.identityURI = [aDecoder decodeObjectForKey:archiveIdentityURI];
             self.peerURI = [aDecoder decodeObjectForKey:archivePeerURI];
             self.privatePeerFile = [aDecoder decodeObjectForKey:archivePrivatePeerFile];
@@ -108,7 +108,7 @@
 - (void) saveUserData
 {
     //self.userId = [[HOPAccount sharedAccount] getUserID];
-    self.stableUniqueId = [[HOPContact getForSelf] getStableUniqueID];
+    //self.stableUniqueId = [[HOPContact getForSelf] getStableUniqueID];
     self.peerURI = [[HOPContact getForSelf] getPeerURI];
     self.privatePeerFile = [[HOPAccount sharedAccount] getPeerFilePrivate];
     self.privatePeerFileSecret = [[HOPAccount sharedAccount] getPeerFilePrivateSecret];
