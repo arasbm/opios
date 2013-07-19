@@ -2,7 +2,7 @@
 //  HOPAvatar.h
 //  openpeer-ios-sdk
 //
-//  Created by Sergej on 7/17/13.
+//  Created by Sergej on 7/19/13.
 //  Copyright (c) 2013 Hookflash. All rights reserved.
 //
 
@@ -12,9 +12,9 @@
 
 @interface HOPAvatar : NSManagedObject
 
+@property (nonatomic, retain) NSNumber * height;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * url;
 @property (nonatomic, retain) NSNumber * width;
-@property (nonatomic, retain) NSNumber * height;
 
 @end

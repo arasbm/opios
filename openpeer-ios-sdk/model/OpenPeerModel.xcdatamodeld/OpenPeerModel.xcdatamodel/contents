@@ -13,8 +13,12 @@
         <attribute name="priority" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="stableID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="weight" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="peerFile" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="PublicPeerFile" inverseName="identityContact" inverseEntity="PublicPeerFile" syncable="YES"/>
+        <relationship name="peerFile" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="HOPPublicPeerFile" inverseName="identityContact" inverseEntity="HOPPublicPeerFile" syncable="YES"/>
         <relationship name="rolodexContact" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="HOPRolodexContact" inverseName="identityContact" inverseEntity="HOPRolodexContact" syncable="YES"/>
+    </entity>
+    <entity name="HOPPublicPeerFile" representedClassName="HOPPublicPeerFile" syncable="YES">
+        <attribute name="peerFile" attributeType="String" syncable="YES"/>
+        <relationship name="identityContact" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="HOPIdentityContact" inverseName="peerFile" inverseEntity="HOPIdentityContact" syncable="YES"/>
     </entity>
     <entity name="HOPRolodexContact" representedClassName="HOPRolodexContact" syncable="YES">
         <attribute name="identityProvider" attributeType="String" syncable="YES"/>
@@ -25,14 +29,10 @@
         <relationship name="avatars" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HOPAvatar" syncable="YES"/>
         <relationship name="identityContact" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="HOPIdentityContact" inverseName="rolodexContact" inverseEntity="HOPIdentityContact" syncable="YES"/>
     </entity>
-    <entity name="PublicPeerFile" representedClassName="PublicPeerFile" syncable="YES">
-        <attribute name="peerFile" attributeType="String" syncable="YES"/>
-        <relationship name="identityContact" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="HOPIdentityContact" inverseName="peerFile" inverseEntity="HOPIdentityContact" syncable="YES"/>
-    </entity>
     <elements>
-        <element name="HOPRolodexContact" positionX="-153" positionY="-18" width="128" height="148"/>
         <element name="HOPAvatar" positionX="43" positionY="32" width="128" height="103"/>
         <element name="HOPIdentityContact" positionX="-153" positionY="198" width="128" height="163"/>
-        <element name="PublicPeerFile" positionX="16" positionY="236" width="128" height="73"/>
+        <element name="HOPPublicPeerFile" positionX="16" positionY="236" width="128" height="73"/>
+        <element name="HOPRolodexContact" positionX="-153" positionY="-18" width="128" height="148"/>
     </elements>
 </model>

@@ -1,8 +1,8 @@
 //
-//  PublicPeerFile.h
+//  HOPPublicPeerFile.h
 //  openpeer-ios-sdk
 //
-//  Created by Sergej on 7/17/13.
+//  Created by Sergej on 7/19/13.
 //  Copyright (c) 2013 Hookflash. All rights reserved.
 //
 
@@ -11,7 +11,7 @@
 
 @class HOPIdentityContact;
 
-@interface PublicPeerFile : NSManagedObject
+@interface HOPPublicPeerFile : NSManagedObject
 
 @property (nonatomic, retain) NSString * peerFile;
 @property (nonatomic, retain) HOPIdentityContact *identityContact;
