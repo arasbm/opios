@@ -254,7 +254,7 @@
     
     if ([identities length] > 0)
     {
-        HOPIdentityLookup* lookup = [[HOPIdentityLookup alloc] initWithDelegate:(id<HOPIdentityLookupDelegate>)[[OpenPeer sharedOpenPeer] identityLookupDelegate] identityURIList:identities identityServiceDomain:identityProviderDomain checkForUpdatesOnly:YES];
+        HOPIdentityLookup* lookup = [[HOPIdentityLookup alloc] initWithDelegate:(id<HOPIdentityLookupDelegate>)[[OpenPeer sharedOpenPeer] identityLookupDelegate] identityLookupInfos:identities identityServiceDomain:identityProviderDomain];
         if (!lookup)
             NSLog(@"Lookup request is not sent properly");
     }
@@ -411,14 +411,14 @@
  @param contact Contact that responed to system message.
  @param userIds list of contact user ids, that are on call with specified contact
  */
-- (void) onCheckAvailabilityResponseReceivedForContact:(Contact*) contact withListOfUserIds:(NSString*) userIds
+- (void) onCheckAvailabilityResponseReceivedForContact:(Contact*) contact withListOfPeerURIs:(NSString*) peerURIs
 {
-    NSArray* listOfUserIds = [userIds componentsSeparatedByString:@","];
-    if ([userIds length] > 0 && [listOfUserIds count] > 0)
+    NSArray* listOfPeerURIs = [peerURIs componentsSeparatedByString:@","];
+    if ([listOfPeerURIs count] > 0)
     {
-        for (NSString* userId in listOfUserIds)
+        for (NSString* peerURI in listOfPeerURIs)
         {
-            Contact* contactInSesion = [self getContactForID:userId];
+            Contact* contactInSesion = [self getContactForPeerURI:peerURI];
             if (contactInSesion)
                 [contact.listOfContactsInCallSession addObject:contactInSesion];
         }
@@ -442,15 +442,16 @@
         HOPIdentityLookupResult* result = [identityLookup getLookupResult];
         if ([result wasSuccessful])
         {
-            NSArray* identities= [identityLookup getIdentities];
+            NSArray* identities= [identityLookup getUpdatedIdentities];
             for (HOPIdentityLookupInfo* identityInfo in identities)
             {
-                if ([identityInfo hasData])
+                //TODO: Update this after full sdk implementation
+                /*if ([identityInfo hasData])
                 {
                     Contact* contact = nil;
                     if (identityInfo.contact)
                     {
-                        contact = [[ContactsManager sharedContactsManager] getContactForID:[identityInfo.contact getPeerURI]];
+                        contact = [[ContactsManager sharedContactsManager] getContactForPeerURI:[identityInfo.contact getPeerURI]];
                         if (!contact)
                         {
                             contact = [[ContactsManager sharedContactsManager] getContactForBaseIdentityURI:identityInfo.baseIdentityURI contactId:identityInfo.contactId];
@@ -479,7 +480,8 @@
                     }
                     if (contact)
                         NSLog(@"\n -------------------- \nContact name: %@ \nIdentity URI: %@, \nPeer URI: %@\n --------------------", [contact fullName],identityInfo.identityURI,[contact.hopContact getPeerURI]);
-                }
+                 
+                }*/
             }
         }
     }

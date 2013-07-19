@@ -51,10 +51,10 @@
 - (void)peerFileLookupQuery:(NSArray *)contacts;
 
 - (Contact*) getContactForBaseIdentityURI:(NSString*) identityURI contactId:(NSString*) contactId;
-- (Contact*) getContactForID:(NSString*) uniqueID;
+- (Contact*) getContactForPeerURI:(NSString*) uniqueID;
 
 - (void) checkAvailability;
-- (void) onCheckAvailabilityResponseReceivedForContact:(Contact*) contact withListOfUserIds:(NSString*) userIds;
+- (void) onCheckAvailabilityResponseReceivedForContact:(Contact*) contact withListOfPeerURIs:(NSString*) peerURIs;
 
 - (void) updateContactsWithDataFromLookup:(HOPIdentityLookup*) identityLookup;
 //- (void) setContactsPeerFiles:(HOPContactPeerFilePublicLookup*) contactPeerFilePublicLookup;

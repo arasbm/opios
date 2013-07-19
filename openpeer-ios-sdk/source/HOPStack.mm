@@ -71,6 +71,26 @@
     [self deleteLocalDelegates];
 }
 
+#warning "createAuthorizedApplicationID SHOULD BE USED ONLY DURING DEVELOPMENT. AN AUTHORIZED APPLICATION ID SHOULD BE GENERATED FROM  A SERVER AND GIVEN TO THE APPLICATION."
++ (NSString*) createAuthorizedApplicationID:(NSString*) applicationID applicationIDSharedSecret:(NSString*) applicationIDSharedSecret expires:(NSDate*) expires
+{
+    NSString* ret = nil;
+    
+    NSLog(@"!!!!!!!!!!!!!!!!!!!! WARNING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!/n THIS SHOULD BE USED ONLY DURING DEVELOPMENT. AN AUTHORIZED APPLICATION ID SHOULD BE GENERATED FROM  A SERVER AND GIVEN TO THE APPLICATION");
+    
+    if ([applicationID length] > 0 && [applicationIDSharedSecret length] > 0)
+    {
+        String authorizedApplicationID = IStack::createAuthorizedApplicationID([applicationID UTF8String], [applicationIDSharedSecret UTF8String], boost::posix_time::from_time_t([expires timeIntervalSince1970]));
+        if (authorizedApplicationID)
+        {
+            ret = [NSString stringWithUTF8String:authorizedApplicationID];
+        }
+    }
+    
+    return ret;
+}
+
+#pragma mark - Internal methods
 - (void) createLocalDelegates:(id<HOPStackDelegate>) stackDelegate mediaEngineDelegate:(id<HOPMediaEngineDelegate>) mediaEngineDelegate 
 {
     openPeerStackDelegatePtr = OpenPeerStackDelegate::create(stackDelegate);
@@ -83,7 +103,7 @@
     openPeerMediaEngineDelegatePtr.reset();
 }
 
-#pragma mark - Internal methods
+
 - (IStackPtr) getStackPtr
 {
     return IStack::singleton();

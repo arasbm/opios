@@ -104,9 +104,9 @@
     for (HOPContact* contact in peers)
     {
         if (counter == 0 || counter == ([peers count] - 1) )
-            messageText = [messageText stringByAppendingString:[contact getStableUniqueID]];
+            messageText = [messageText stringByAppendingString:[contact getPeerURI]];
         else
-            messageText = [messageText stringByAppendingFormat:@"%@,",[contact getStableUniqueID]];
+            messageText = [messageText stringByAppendingFormat:@"%@,",[contact getPeerURI]];
         
     }
     
@@ -147,7 +147,7 @@
                 case SystemMessage_EstablishSessionBetweenTwoPeers:
                 {
                     if ([messageText length] > 0)
-                    [[SessionManager sharedSessionManager] createSessionInitiatedFromSession:inSession forContactUserIds:messageText];
+                    [[SessionManager sharedSessionManager] createSessionInitiatedFromSession:inSession forContactPeerURIs:messageText];
                 }
                 break;
                     
@@ -159,7 +159,7 @@
                     
                 case SystemMessage_IsContactAvailable_Response:
                 {
-                    [[ContactsManager sharedContactsManager] onCheckAvailabilityResponseReceivedForContact:[inSession.participantsArray objectAtIndex:0] withListOfUserIds:messageText];
+                    [[ContactsManager sharedContactsManager] onCheckAvailabilityResponseReceivedForContact:[inSession.participantsArray objectAtIndex:0] withListOfPeerURIs:messageText];
                 }
                     break;
                     
@@ -208,7 +208,7 @@
     
     if ([message.type isEqualToString:messageTypeText])
     {
-        Contact* contact  = [[ContactsManager sharedContactsManager] getContactForID:[message.contact getStableUniqueID]];
+        Contact* contact  = [[ContactsManager sharedContactsManager] getContactForPeerURI:[message.contact getPeerURI]];
         Message* messageObj = [[Message alloc] initWithMessageText:message.text senderContact:contact];
         [session.messageArray addObject:messageObj];
         //If session view controller with message sender is not yet shown, show it

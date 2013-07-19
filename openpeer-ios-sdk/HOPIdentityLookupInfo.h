@@ -33,41 +33,13 @@
 
 #import <Foundation/Foundation.h>
 
-@class HOPContact;
-
-@interface HOPAvatar : NSObject
-
-@property (nonatomic, strong) NSString* name;
-@property (nonatomic, strong) NSString* avatarURL;
-@property (nonatomic) int width;
-@property (nonatomic) int height;
-
-@end
 
 /**
  Wrapper for identiy lookup info
  */
 @interface HOPIdentityLookupInfo : NSObject
 
-@property (nonatomic, strong) NSMutableArray* avatars;
-@property (nonatomic, weak) HOPContact* contact;
-
-@property (nonatomic, strong) NSString* baseIdentityURI;
-@property (nonatomic, strong) NSString* contactId;
-
 @property (nonatomic, strong) NSString* identityURI;
-@property (nonatomic, strong) NSString* userID;
-
-@property (nonatomic) unsigned short priority;
-@property (nonatomic) unsigned short weight;
-
 @property (nonatomic, strong) NSDate* lastUpdated;
-@property (nonatomic, strong) NSDate* expires;
-
-@property (nonatomic, strong) NSString* name;
-@property (nonatomic, strong) NSString* profileURL;
-@property (nonatomic, strong) NSString* vProfileURL;
-
-@property (nonatomic) BOOL hasData;
 
 @end

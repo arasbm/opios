@@ -36,6 +36,10 @@ NSString* const applicationName = @"OpenPeerSampleApp";
 NSString* const applicationImageURL = @"http://hookflash.com/wp-content/themes/CleanSpace/images/logo.png";
 NSString* const applicationURL = @"www.openpeer.org";
 
+//!!!!!!!!!!!!!!!!!!!! WARNING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//This value should be obtained from service provider. 
+NSString* const applicationIdSharedSecret = @"<copy-n-paste-shared-secret-from-service-provider>";
+
 NSString* const provisioningURI = @"provisioning-stable-dev.hookflash.me";//Not in use
 NSString* const outerFrameURL = @"https://app-javascript.hookflash.me/outer.html";
 NSString* const identityProviderDomain = @"idprovider-javascript.hookflash.me";

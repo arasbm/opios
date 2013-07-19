@@ -40,10 +40,9 @@
 /**
  Contact initializer used when the contact's data (stableUniqueId and peerFile) are stored locally
  @param publicPeerFile NSString Public peer file of the contact that will be created (self or remote). This is passed if peer file is sored locally. Otherwise it is nil
- @param previousStableUniqueID user Id string stored locally (initialy is received on identity lookup). This argument is mandatory.
  @returns Ponter to the created contact object
  */
-//- (id) initWithPeerFile:(NSString*) publicPeerFile previousStableUniqueID:(NSString*) previousStableUniqueID;
+- (id) initWithPeerFile:(NSString*) publicPeerFile;
 
 /**
  Returns HOPContact object for logged in user
@@ -62,6 +61,7 @@
  @returns NSString representation of peer URI
  */
 - (NSString*) getPeerURI;
+
 
 - (NSString*) getStableUniqueID;
 

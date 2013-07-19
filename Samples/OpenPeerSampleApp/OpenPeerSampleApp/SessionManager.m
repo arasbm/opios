@@ -148,17 +148,17 @@
  @param inSession Session session that initiates creation
  @param userIds NSString list of userIds separated by comma which will take a part in new session. Currently group sessions are not supported, so userIds contains just one user id.
  */
-- (Session*) createSessionInitiatedFromSession:(Session*) inSession forContactUserIds:(NSString*) userIds
+- (Session*) createSessionInitiatedFromSession:(Session*) inSession forContactPeerURIs:(NSString*) peerURIs
 {
     Session* session = nil;
-    NSArray *strings = [userIds componentsSeparatedByString:@","];
+    NSArray *strings = [peerURIs componentsSeparatedByString:@","];
     if ([strings count] > 0)
     {
         //If userId is valid string, find a contact with that user id
-        NSString* userId = [strings objectAtIndex:0];
-        if ([userId length] > 0)
+        NSString* peerURI = [strings objectAtIndex:0];
+        if ([peerURI length] > 0)
         {
-            Contact* contact = [[ContactsManager sharedContactsManager] getContactForID:userId];
+            Contact* contact = [[ContactsManager sharedContactsManager] getContactForPeerURI:peerURI];
             if (contact)
             {
                 //Create a session for contact

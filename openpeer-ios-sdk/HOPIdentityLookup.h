@@ -45,10 +45,10 @@
 /**
  Initializer for HOPIdentityLookup with passed HOPIdentityLookupDelegate delegate and list of identity URIs
  @param inDelegate HOPIdentityLookupDelegate delegate
- @param inIdentityURIList NSString list of identity URIs comma separated
+ @param identityLookupInfos NSArray list of HOPIdentityLookupInfo objects
  @returns HOPIdentityLookup object
  */
-- (id) initWithDelegate:(id<HOPIdentityLookupDelegate>) inDelegate identityURIList:(NSString*) inIdentityURIList identityServiceDomain:(NSString*) identityServiceDomain checkForUpdatesOnly:(BOOL) checkForUpdatesOnly;
+- (id) initWithDelegate:(id<HOPIdentityLookupDelegate>) inDelegate identityLookupInfos:(NSArray*) identityLookupInfos identityServiceDomain:(NSString*) identityServiceDomain;
 
 /**
  Retrieves whether identiy lookup is completed or not.
@@ -75,7 +75,21 @@
  */
 - (NSArray*) getIdentities;
 
+/**
+ Retrieves list of updated identity profiles received from lookup server
+ @return NSArray List of updated identity profiles for contacts that are registered in OpenPeer system
+ */
 - (NSArray*) getUpdatedIdentities;
+
+/**
+ Retrieves list of unchanged identity profiles received from lookup server
+ @return NSArray List of unchanged identity profiles for contacts that are registered in OpenPeer system
+ */
 - (NSArray*) getUnchangedIdentities;
+
+/**
+ Retrieves list of invalid identity profiles received from lookup server
+ @return NSArray List of invalid identity profiles for contacts that were registered in OpenPeer system
+ */
 - (NSArray*) getInvalidIdentities;
 @end

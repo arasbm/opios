@@ -37,52 +37,32 @@
 
 @implementation HOPIdentityLookupInfo
 
-- (id)init
+- (id)initWithIdentityURI:(NSString*) uri dateOfLastUpdate:(NSDate*) dateOfLastUpdate
 {
     self = [super init];
     if (self)
     {
-        self.avatars = [[NSMutableArray alloc] init];
+        self.identityURI = uri;
+        self.lastUpdated = dateOfLastUpdate;
     }
+    return self;
+}
+
+- (id) initWithRolodexContact:(RolodexContact) inRolodexContact
+{
+    self = [self initWithIdentityURI:[NSString stringWithCString:inRolodexContact.mIdentityURI encoding:NSUTF8StringEncoding] dateOfLastUpdate:nil];
+    return self;
+}
+
+- (id) initWithIdentityContact:(IdentityContact) inIdentityContact
+{
+    self = [self initWithIdentityURI:[NSString stringWithCString:inIdentityContact.mIdentityURI encoding:NSUTF8StringEncoding] dateOfLastUpdate:[OpenPeerUtility convertPosixTimeToDate:inIdentityContact.mLastUpdated]];
     return self;
 }
 
 - (id) initWithIdentityLookupInfo:(IIdentityLookup::IdentityLookupInfo) inIdentityLookupInfo
 {
-    self = [self init];
-    if (self)
-    {
-        /*self.hasData = inIdentityLookupInfo.hasData();
-        if (self.hasData)
-        {
-            if (inIdentityLookupInfo.mContact)
-            {
-                //Get a stable id and retrieve or create a contact for the provided stable id.
-                NSString* stableUniqueId = [NSString stringWithCString:inIdentityLookupInfo.mContact->getStableUniqueID() encoding:NSUTF8StringEncoding];
-                if (stableUniqueId)
-                    self.contact = [[OpenPeerStorageManager sharedStorageManager] getContactForPeerURI:stableUniqueId];
-                
-                if (!self.contact)
-                    self.contact = [[HOPContact alloc] initWithCoreContact:inIdentityLookupInfo.mContact]; //It is weak property, becase contact is stored in the OpenPeerStorageManager
-            }
-    
-            self.identityURI = [NSString stringWithCString:inIdentityLookupInfo.mIdentityURI encoding:NSUTF8StringEncoding];
-            //self.userID = [NSString stringWithCString:inIdentityLookupInfo.mUserID encoding:NSUTF8StringEncoding];
-            
-            self.baseIdentityURI = [OpenPeerUtility getBaseIdentityURIFromURI:self.identityURI];
-            self.contactId = [OpenPeerUtility getContactIdFromURI:self.identityURI];
-            
-            self.priority = inIdentityLookupInfo.mPriority;
-            self.weight = inIdentityLookupInfo.mWeight;
-            
-            self.lastUpdated = [OpenPeerUtility convertPosixTimeToDate:inIdentityLookupInfo.mLastUpdated];
-            self.expires = [OpenPeerUtility convertPosixTimeToDate:inIdentityLookupInfo.mExpires];
-            
-            self.name = [NSString stringWithCString:inIdentityLookupInfo.mName encoding:NSUTF8StringEncoding];
-            self.profileURL = [NSString stringWithCString:inIdentityLookupInfo.mProfileURL encoding:NSUTF8StringEncoding];
-            self.vProfileURL = [NSString stringWithCString:inIdentityLookupInfo.mVProfileURL encoding:NSUTF8StringEncoding]; 
-        }*/
-    }
+    self = [self initWithIdentityURI:[NSString stringWithCString:inIdentityLookupInfo.mIdentityURI encoding:NSUTF8StringEncoding] dateOfLastUpdate:[OpenPeerUtility convertPosixTimeToDate:inIdentityLookupInfo.mLastUpdated]];
     return self;
 }
 

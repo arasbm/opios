@@ -63,4 +63,15 @@
  Shutdown stack.
  */
 - (void) shutdown;
+
+/** 
+ Creates an authorized application ID from an application ID
+ @param applicationID NSString applicationID obtained from Hookflash customer portal.
+ @param applicationIDSharedSecret NSString Secret obtained from service provider
+ @param expires NSDate date when authorized application ID expires
+ @return NSString authorized application ID
+ */
++ (NSString*) createAuthorizedApplicationID:(NSString*) applicationID applicationIDSharedSecret:(NSString*) applicationIDSharedSecret expires:(NSDate*) expires;
+                                            
+                                        
 @end

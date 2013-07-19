@@ -63,23 +63,24 @@
     return self;
 }
 
-/*- (id) initWithPeerFile:(NSString*) publicPeerFile previousStableUniqueID:(NSString*) previousStableUniqueID
+- (id) initWithPeerFile:(NSString*) publicPeerFile
 {
     self = [super init];
     
     if (self)
     {
-        if ([publicPeerFile length] > 0 && [previousStableUniqueID length] > 0)
+        if ([publicPeerFile length] > 0)
         {
             ElementPtr publicPeerXml = IHelper::createElement([publicPeerFile UTF8String]);
+            IPeerFilePublicPtr publicPeer = IHelper::createPeerFilePublic(publicPeerXml);
             
-            IContactPtr tempCoreContactPtr = IContact::createFromPeerFilePublic([[HOPAccount sharedAccount] getAccountPtr], publicPeerXml, [previousStableUniqueID UTF8String]);
+            IContactPtr tempCoreContactPtr = IContact::createFromPeerFilePublic([[HOPAccount sharedAccount] getAccountPtr], publicPeer);
                 
                 if (tempCoreContactPtr)
                 {
                     //self.peerFile = publicPeerFile;
                     coreContactPtr = tempCoreContactPtr;
-                    [[OpenPeerStorageManager sharedStorageManager] setContact:self forId:previousStableUniqueID];
+                    [[OpenPeerStorageManager sharedStorageManager] setContact:self forId:[self getPeerURI]];
                 }
         }
         else
@@ -89,7 +90,7 @@
     }
 
     return self;
-}*/
+}
 
 
 + (HOPContact*) getForSelf
@@ -150,6 +151,11 @@
     {
         [NSException raise:NSInvalidArgumentException format:@"Invalid core contact object!"];
     }
+}
+
+-(NSString *)description
+{
+    return [NSString stringWithUTF8String: IContact::toDebugString([self getContactPtr],NO)];
 }
 
 //JUST TO MAKE BUILDABLE

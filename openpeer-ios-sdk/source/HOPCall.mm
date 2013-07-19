@@ -352,6 +352,11 @@ using namespace openpeer::core;
     }
 }
 
+-(NSString *)description
+{
+    return [NSString stringWithUTF8String: ICall::toDebugString([self getCallPtr],NO)];
+}
+
 #pragma mark - Internal methods
 - (ICallPtr) getCallPtr
 {

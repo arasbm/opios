@@ -43,7 +43,7 @@
 
 @implementation HOPIdentityLookup
 
-- (id) initWithDelegate:(id<HOPIdentityLookupDelegate>) inDelegate identityURIList:(NSString*) inIdentityURIList identityServiceDomain:(NSString*) identityServiceDomain checkForUpdatesOnly:(BOOL) checkForUpdatesOnly
+- (id) initWithDelegate:(id<HOPIdentityLookupDelegate>) inDelegate identityLookupInfos:(NSArray*) identityLookupInfos identityServiceDomain:(NSString*) identityServiceDomain
 {
     self = [super init];
     if (self)
@@ -145,6 +145,81 @@
     {
         [NSException raise:NSInvalidArgumentException format:@"Invalid identity lookup object!"];
     }*/
+    return ret;
+}
+
+- (NSArray*) getUpdatedIdentities
+{
+    NSMutableArray* ret = nil;
+    if(identityLookupPtr)
+    {
+        IdentityContactListPtr identityContactListPtr = identityLookupPtr->getUpdatedIdentities();
+        if (identityContactListPtr)
+        {
+            ret = [[NSMutableArray alloc] init];
+            for (IdentityContactList::iterator identityContactInfo = identityContactListPtr->begin(); identityContactInfo != identityContactListPtr->end(); ++identityContactInfo)
+            {
+                IdentityContact identityContact = *identityContactInfo;
+                if (identityContact.hasData())
+                {
+                    HOPIdentityLookupInfo* identityLookupInfo = [[HOPIdentityLookupInfo alloc] initWithIdentityContact:identityContact];
+                    [ret addObject:identityLookupInfo];
+                }
+            }
+        }
+    }
+    else
+    {
+        [NSException raise:NSInvalidArgumentException format:@"Invalid identity lookup object!"];
+    }
+    return ret;
+}
+
+- (NSArray*) getUnchangedIdentities
+{
+    NSMutableArray* ret = nil;
+    if(identityLookupPtr)
+    {
+        IIdentityLookup::IdentityLookupInfoListPtr identityLookupInfoListPtr = identityLookupPtr->getUnchangedIdentities();
+        if (identityLookupInfoListPtr)
+        {
+            ret = [[NSMutableArray alloc] init];
+            for (IIdentityLookup::IdentityLookupInfoList::iterator identityLookupInfo = identityLookupInfoListPtr->begin(); identityLookupInfo != identityLookupInfoListPtr->end(); ++identityLookupInfo)
+            {
+                IIdentityLookup::IdentityLookupInfo identityInfo = *identityLookupInfo;
+                HOPIdentityLookupInfo* hopIdentityLookupInfo = [[HOPIdentityLookupInfo alloc] initWithIdentityLookupInfo:identityInfo];
+                [ret addObject:hopIdentityLookupInfo];
+            }
+        }
+    }
+    else
+    {
+        [NSException raise:NSInvalidArgumentException format:@"Invalid identity lookup object!"];
+    }
+    return ret;
+}
+
+- (NSArray*) getInvalidIdentities
+{
+    NSMutableArray* ret = nil;
+    if(identityLookupPtr)
+    {
+        IIdentityLookup::IdentityLookupInfoListPtr identityLookupInfoListPtr = identityLookupPtr->getInvalidIdentities();
+        if (identityLookupInfoListPtr)
+        {
+            ret = [[NSMutableArray alloc] init];
+            for (IIdentityLookup::IdentityLookupInfoList::iterator identityLookupInfo = identityLookupInfoListPtr->begin(); identityLookupInfo != identityLookupInfoListPtr->end(); ++identityLookupInfo)
+            {
+                IIdentityLookup::IdentityLookupInfo identityInfo = *identityLookupInfo;
+                HOPIdentityLookupInfo* hopIdentityLookupInfo = [[HOPIdentityLookupInfo alloc] initWithIdentityLookupInfo:identityInfo];
+                [ret addObject:hopIdentityLookupInfo];
+            }
+        }
+    }
+    else
+    {
+        [NSException raise:NSInvalidArgumentException format:@"Invalid identity lookup object!"];
+    }
     return ret;
 }
 

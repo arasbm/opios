@@ -48,16 +48,16 @@
 
 @implementation HOPIdentity
 
-+ (id) loginWithDelegate:(id<HOPIdentityDelegate>) inIdentityDelegate redirectAfterLoginCompleteURL:(NSString*) redirectAfterLoginCompleteURL identityURIOridentityBaseURI:(NSString*) identityURIOridentityBaseURI identityProviderDomain:(NSString*) identityProviderDomain
++ (id) loginWithDelegate:(id<HOPIdentityDelegate>) inIdentityDelegate identityProviderDomain:(NSString*) identityProviderDomain  identityURIOridentityBaseURI:(NSString*) identityURIOridentityBaseURI outerFrameURLUponReload:(NSString*) outerFrameURLUponReload
 {
     HOPIdentity* ret = nil;
     
-    if (!inIdentityDelegate || [redirectAfterLoginCompleteURL length] == 0 || [identityURIOridentityBaseURI length] == 0 || [identityProviderDomain length] == 0)
+    if (!inIdentityDelegate || [outerFrameURLUponReload length] == 0 || [identityURIOridentityBaseURI length] == 0 || [identityProviderDomain length] == 0)
         return ret;
     
     boost::shared_ptr<OpenPeerIdentityDelegate> identityDelegatePtr = OpenPeerIdentityDelegate::create(inIdentityDelegate);
     
-    IIdentityPtr identity = IIdentity::login([[HOPAccount sharedAccount]getAccountPtr],identityDelegatePtr, [redirectAfterLoginCompleteURL UTF8String], [identityURIOridentityBaseURI UTF8String], [identityProviderDomain UTF8String]);
+    IIdentityPtr identity = IIdentity::login([[HOPAccount sharedAccount]getAccountPtr],identityDelegatePtr, [identityProviderDomain UTF8String], [outerFrameURLUponReload UTF8String], [identityURIOridentityBaseURI UTF8String]);
     
     if (identity)
     {
@@ -67,7 +67,7 @@
     return ret;
 }
 
-+ (id) loginWithDelegate:(id<HOPIdentityDelegate>) inIdentityDelegate identityPreauthorizedURI:(NSString*) identityURI identityAccessToken:(NSString*) identityAccessToken identityAccessSecret:(NSString*) identityAccessSecret identityAccessSecretExpires:(NSDate*) identityAccessSecretExpires
++ (id) loginWithDelegate:(id<HOPIdentityDelegate>) inIdentityDelegate identityProviderDomain:(NSString*) identityProviderDomain identityPreauthorizedURI:(NSString*) identityURI identityAccessToken:(NSString*) identityAccessToken identityAccessSecret:(NSString*) identityAccessSecret identityAccessSecretExpires:(NSDate*) identityAccessSecretExpires
 {
     HOPIdentity* ret = nil;
     
@@ -76,7 +76,7 @@
     
     boost::shared_ptr<OpenPeerIdentityDelegate> identityDelegatePtr = OpenPeerIdentityDelegate::create(inIdentityDelegate);
     
-    IIdentityPtr identity;// = IIdentity::loginWithIdentityPreauthorized([[HOPAccount sharedAccount]getAccountPtr], identityDelegatePtr, [identityURI UTF8String],[identityAccessToken UTF8String], [identityAccessSecret UTF8String], boost::posix_time::from_time_t([identityAccessSecretExpires timeIntervalSince1970]));
+    IIdentityPtr identity = IIdentity::loginWithIdentityPreauthorized([[HOPAccount sharedAccount]getAccountPtr], identityDelegatePtr, [identityProviderDomain UTF8String], [identityURI UTF8String],[identityAccessToken UTF8String], [identityAccessSecret UTF8String], boost::posix_time::from_time_t([identityAccessSecretExpires timeIntervalSince1970]));
     
     if (identity)
     {
@@ -192,20 +192,6 @@
     }
     return ret;
 }
-/*- (NSString*) getIdentityReloginAccessKey
-{
-    NSString* ret = nil;
-    
-    if(identityPtr)
-    {
-        ret = [NSString stringWithCString:identityPtr->getIdentityReloginAccessKey() encoding:NSUTF8StringEncoding];
-    }
-    else
-    {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid core identity object!"];
-    }
-    return ret;
-}*/
 
 - (NSString*) getInnerBrowserWindowFrameURL
 {
@@ -222,21 +208,6 @@
     return ret;
 }
 
-- (NSDate*) getLoginExpires
-{
-    NSDate* ret = nil;
-    
-    if(identityPtr)
-    {
-        identityPtr->notifyBrowserWindowVisible();
-    }
-    else
-    {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid core identity object!"];
-    }
-    
-    return ret;
-}
 
 - (void) notifyBrowserWindowVisible
 {
@@ -316,6 +287,60 @@
         ret = [NSString stringWithUTF8String: IIdentity::toDebugString(identityPtr,NO)];
     else
         ret = NSLocalizedString(@"Core identity object is not created.", @"Core identity object is not created.");
+    
+    return ret;
+}
+
+- (void) startRolodexDownload:(NSString*) lastDownloadedVersion
+{
+    if(identityPtr)
+    {
+        identityPtr->startRolodexDownload([lastDownloadedVersion UTF8String]);
+    }
+    else
+    {
+        [NSException raise:NSInvalidArgumentException format:@"Invalid core identity object!"];
+    }
+}
+
+- (void) refreshRolodexContacts
+{
+    if(identityPtr)
+    {
+        identityPtr->refreshRolodexContacts();
+    }
+    else
+    {
+        [NSException raise:NSInvalidArgumentException format:@"Invalid core identity object!"];
+    }
+}
+
+- (BOOL) getDownloadedRolodexContacts:(BOOL*) outFlushAllRolodexContacts outVersionDownloaded:(NSString**) outVersionDownloaded outRolodexContacts:(NSArray**) outRolodexContacts
+{
+    BOOL ret = NO;
+    if(identityPtr)
+    {
+        bool flushAllRolodexContacts;
+        String versionDownloadedStr;
+        RolodexContactListPtr rolodexContacts;
+        ret = identityPtr->getDownloadedRolodexContacts(flushAllRolodexContacts,versionDownloadedStr, rolodexContacts);
+        
+        *outFlushAllRolodexContacts = flushAllRolodexContacts;
+        if (versionDownloadedStr)
+            *outVersionDownloaded = [NSString stringWithCString:versionDownloadedStr encoding:NSUTF8StringEncoding];
+        
+        if (rolodexContacts && rolodexContacts->size() > 0)
+        {
+            NSMutableArray* tempArray = [[NSMutableArray alloc] init];
+            
+            //TODO: Here convert RolodexContacts into HOPRolodexContacts and fill the array
+            *outRolodexContacts = [NSArray arrayWithArray:tempArray];
+        }
+    }
+    else
+    {
+        [NSException raise:NSInvalidArgumentException format:@"Invalid core identity object!"];
+    }
     
     return ret;
 }
