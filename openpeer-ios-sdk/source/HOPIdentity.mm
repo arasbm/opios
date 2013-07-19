@@ -57,7 +57,7 @@
     
     boost::shared_ptr<OpenPeerIdentityDelegate> identityDelegatePtr = OpenPeerIdentityDelegate::create(inIdentityDelegate);
     
-    IIdentityPtr identity = IIdentity::login([[HOPAccount sharedAccount]getAccountPtr],identityDelegatePtr, [identityProviderDomain UTF8String], [outerFrameURLUponReload UTF8String], [identityURIOridentityBaseURI UTF8String]);
+    IIdentityPtr identity = IIdentity::login([[HOPAccount sharedAccount]getAccountPtr],identityDelegatePtr, [identityProviderDomain UTF8String], [identityURIOridentityBaseURI UTF8String], [outerFrameURLUponReload UTF8String]);
     
     if (identity)
     {
