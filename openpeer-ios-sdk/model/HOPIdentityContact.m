@@ -7,8 +7,8 @@
 //
 
 #import "HOPIdentityContact.h"
+#import "HOPPublicPeerFile.h"
 #import "HOPRolodexContact.h"
-#import "PublicPeerFile.h"
 
 
 @implementation HOPIdentityContact

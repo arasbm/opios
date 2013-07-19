@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class HOPRolodexContact, PublicPeerFile;
+@class HOPPublicPeerFile, HOPRolodexContact;
 
 @interface HOPIdentityContact : NSManagedObject
 
@@ -19,7 +19,7 @@
 @property (nonatomic, retain) NSNumber * priority;
 @property (nonatomic, retain) NSString * stableID;
 @property (nonatomic, retain) NSNumber * weight;
-@property (nonatomic, retain) PublicPeerFile *peerFile;
+@property (nonatomic, retain) HOPPublicPeerFile *peerFile;
 @property (nonatomic, retain) HOPRolodexContact *rolodexContact;
 
 @end
