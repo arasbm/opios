@@ -45,6 +45,7 @@
 #import <OpenpeerSDK/HOPIdentityLookupInfo.h>
 #import <OpenpeerSDK/HOPIdentity.h>
 #import <OpenpeerSDK/HOPContact.h>
+#import <OpenpeerSDK/HOPAccount.h>
 
 @interface ContactsManager ()
 {
@@ -111,15 +112,12 @@
     
     [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoadingStarted];
     
-    NSString* urlAddress = [NSString stringWithFormat:@"http://%@/%@", contactsLoadingtServiceDomain, facebookContactsLoadingPage];
     
-    NSURL *url = [NSURL URLWithString:urlAddress];
-    
-    //URL Requst Object
-    NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-    
-    //Load the request in the UIWebView.
-    [self.linkedinContactsWebView loadRequest:requestObj];
+    NSArray* associatedIdentities = [[HOPAccount sharedAccount] getAssociatedIdentities];
+    for (HOPIdentity* identity in associatedIdentities)
+    {
+        [identity startRolodexDownload:nil];
+    }
 }
 
 /**

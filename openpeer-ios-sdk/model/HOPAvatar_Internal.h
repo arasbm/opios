@@ -29,14 +29,16 @@
  
  */
 
-#import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
+#import "HOPAvatar.h"
+#import <openpeer/core/types.h>
 
-@class HOPIdentityContact;
+using namespace openpeer;
+using namespace openpeer::core;
 
-@interface HOPPublicPeerFile : NSManagedObject
+@interface HOPAvatar ()
+{
+    
+}
 
-@property (nonatomic, retain) NSString * peerFile;
-@property (nonatomic, retain) HOPIdentityContact *identityContact;
-
+- (void) updateWithAvatar:(RolodexContact::Avatar) inAvatar;
 @end

@@ -29,14 +29,16 @@
  
  */
 
-#import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
+#import "HOPAvatar_Internal.h"
 
-@class HOPIdentityContact;
+@implementation HOPAvatar
 
-@interface HOPPublicPeerFile : NSManagedObject
-
-@property (nonatomic, retain) NSString * peerFile;
-@property (nonatomic, retain) HOPIdentityContact *identityContact;
+- (void) updateWithAvatar:(RolodexContact::Avatar) inAvatar
+{
+    self.name = [NSString stringWithCString:inAvatar.mName encoding:NSUTF8StringEncoding];
+    self.url = [NSString stringWithCString:inAvatar.mURL encoding:NSUTF8StringEncoding];
+    self.height = [NSNumber numberWithInt:inAvatar.mHeight];
+    self.width = [NSNumber numberWithInt:inAvatar.mWidth];
+}
 
 @end

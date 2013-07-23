@@ -31,6 +31,7 @@
 
 #import "IdentityDelegate.h"
 #import <OpenpeerSDK/HOPIdentity.h>
+#import <OpenpeerSDK/HOPRolodexContact.h>
 #import "LoginManager.h"
 #import "Constants.h"
 #import "OpenPeerUser.h"
@@ -157,6 +158,35 @@
             [webLoginViewController passMessageToJS:jsMethod];
         }
     });
+}
+
+- (void)onIdentityRolodexContactsDownloaded:(HOPIdentity *)identity
+{
+    if (identity)
+    {
+        BOOL flushAllRolodexContacts;
+        NSString* downloadedVersion;
+        NSArray* rolodexContacts;
+        [identity getDownloadedRolodexContacts:&flushAllRolodexContacts outVersionDownloaded:&downloadedVersion outRolodexContacts:&rolodexContacts];
+        
+        if (flushAllRolodexContacts)
+        {
+            //TODO: Put timer that will delete local database if contacts are not received in some period of time
+        }
+        
+        if ([downloadedVersion length] > 0)
+        {
+            //TODO: Update database with last contacts download version
+        }
+        
+        if ([rolodexContacts count] > 0)
+        {
+            for (HOPRolodexContact* rolodexContact in rolodexContacts)
+            {
+                //TODO: Create a database record
+            }
+        }
+    }
 }
 
 @end

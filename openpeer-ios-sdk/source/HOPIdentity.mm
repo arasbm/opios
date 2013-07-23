@@ -38,6 +38,7 @@
 #import "OpenPeerStorageManager.h"
 #import "OpenPeerIdentityDelegate.h"
 #import "OpenPeerUtility.h"
+#import "HOPRolodexContact_Internal.h"
 
 @implementation HOPIdentityState
 
@@ -335,6 +336,27 @@
             
             //TODO: Here convert RolodexContacts into HOPRolodexContacts and fill the array
             *outRolodexContacts = [NSArray arrayWithArray:tempArray];
+            
+            for (RolodexContactList::iterator contact = rolodexContacts->begin(); contact != rolodexContacts->end(); ++contact)
+            {
+                HOPRolodexContact* hopRolodexContact = nil;
+                RolodexContact rolodexContact = *contact;
+                if (rolodexContact.mDisposition == RolodexContact::Disposition_Update)
+                {
+                    //TODO: Get Rolodex contact from the local database and update it
+                    [hopRolodexContact updateWithRolodexContact:rolodexContact];
+                }
+                else if (rolodexContact.mDisposition == RolodexContact::Disposition_Remove)
+                {
+                    //TODO: Get Rolodex contact from the local database and delete it
+                    //[[self managedObjectContext] deleteObject:hopRolodexContact];
+                }
+                else
+                {
+                    
+                    //hopRolodexContact = [NSEntityDescription insertNewObjectForEntityForName:@"HOPRolodexContact" inManagedObjectContext:context];
+                }
+            }
         }
     }
     else

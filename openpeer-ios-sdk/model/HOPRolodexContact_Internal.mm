@@ -29,14 +29,48 @@
  
  */
 
-#import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
+#import "HOPRolodexContact_Internal.h"
+#import "HOPAvatar_Internal.h"
 
-@class HOPIdentityContact;
 
-@interface HOPPublicPeerFile : NSManagedObject
+@implementation HOPRolodexContact
+/*
+struct Avatar
+{
+    String mName;
+    String mURL;
+    int mWidth;
+    int mHeight;
+};
+typedef std::list<Avatar> AvatarList;
 
-@property (nonatomic, retain) NSString * peerFile;
-@property (nonatomic, retain) HOPIdentityContact *identityContact;
+
+AvatarList mAvatars;*/
+
+- (void) updateWithRolodexContact:(RolodexContact) inRolodexContact
+{
+    self.identityProvider = [NSString stringWithCString:inRolodexContact.mIdentityProvider encoding:NSUTF8StringEncoding];
+    self.identityURI = [NSString stringWithCString:inRolodexContact.mIdentityURI encoding:NSUTF8StringEncoding];
+    self.name = [NSString stringWithCString:inRolodexContact.mName encoding:NSUTF8StringEncoding];
+    self.profileURL = [NSString stringWithCString:inRolodexContact.mProfileURL encoding:NSUTF8StringEncoding];
+    self.vProfileURL = [NSString stringWithCString:inRolodexContact.mVProfileURL encoding:NSUTF8StringEncoding];
+    
+    if (inRolodexContact.mAvatars.size() > 0)
+    {
+        self.avatars = [[NSSet alloc] init];
+        for (RolodexContact::AvatarList::iterator avatar = inRolodexContact.mAvatars.begin(); avatar != inRolodexContact.mAvatars.end(); ++avatar)
+        {
+            HOPAvatar* hopAvatar = nil;
+            //TODO: Get avatar from the database
+            
+            if (!hopAvatar)
+            {
+                //hopAvatar = [NSEntityDescription insertNewObjectForEntityForName:@"HOPAvatar" inManagedObjectContext:context];
+            }
+            
+            [hopAvatar updateWithAvatar:*avatar];
+        }
+    }
+}
 
 @end

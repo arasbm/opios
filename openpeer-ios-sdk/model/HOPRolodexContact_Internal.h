@@ -29,14 +29,17 @@
  
  */
 
-#import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 
-@class HOPIdentityContact;
+#import "HOPRolodexContact.h" 
+#import <openpeer/core/types.h>
 
-@interface HOPPublicPeerFile : NSManagedObject
+using namespace openpeer;
+using namespace openpeer::core;
 
-@property (nonatomic, retain) NSString * peerFile;
-@property (nonatomic, retain) HOPIdentityContact *identityContact;
+@interface HOPRolodexContact ()
+{
+    
+}
 
+- (void) updateWithRolodexContact:(RolodexContact) inRolodexContact;
 @end
