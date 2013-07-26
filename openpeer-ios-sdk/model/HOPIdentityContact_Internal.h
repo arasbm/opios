@@ -1,6 +1,6 @@
 /*
  
- Copyright (c) 2012, SMB Phone Inc.
+ Copyright (c) 2013, SMB Phone Inc.
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
@@ -29,30 +29,18 @@
  
  */
 
-#import <Foundation/Foundation.h>
-#import <OpenpeerSDK/HOPProtocols.h>
+#import "HOPIdentityContact.h"
+#import <openpeer/core/types.h>
+#import <openpeer/stack/types.h>
 
-@class Contact;
-@class HOPIdentityLookup;
+using namespace openpeer;
+using namespace openpeer::core;
 
-@interface ContactsManager : NSObject<UIWebViewDelegate>
+@interface HOPIdentityContact()
+{
+    
+}
 
-@property (nonatomic, strong) NSArray *contactArray;
-@property (nonatomic, strong) NSMutableDictionary *contactsDictionaryByProvider; //This is dictionary of dictionaries. Each provider has its own dictionary with contacts whose keys are contact provider id
-@property (nonatomic, strong) NSMutableDictionary *contactsDictionaryByIndentityURI;
-@property (nonatomic, strong) NSMutableDictionary *contactsDictionary;
-@property (nonatomic, strong) UIWebView *linkedinContactsWebView;
+- (void) updateWithIdentityContact:(IdentityContact) inIdentityContact;
 
-+ (id) sharedContactsManager;
-
-- (void) loadContacts;
-- (void) identityLookupForContacts:(NSArray *)contacts identityServiceDomain:(NSString*) identityServiceDomain;
-
-- (Contact*) getContactForBaseIdentityURI:(NSString*) identityURI contactId:(NSString*) contactId;
-- (Contact*) getContactForPeerURI:(NSString*) uniqueID;
-
-- (void) checkAvailability;
-- (void) onCheckAvailabilityResponseReceivedForContact:(Contact*) contact withListOfPeerURIs:(NSString*) peerURIs;
-
-- (void) updateContactsWithDataFromLookup:(HOPIdentityLookup*) identityLookup;
 @end

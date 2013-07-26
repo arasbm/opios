@@ -36,6 +36,9 @@
 #import <openpeer/core/IIdentityLookup.h>
 #import "OpenPeerStorageManager.h"
 #import "HOPAccount_Internal.h"
+#import "HOPRolodexContact.h"
+#import "HOPIdentityContact_Internal.h"
+#import "HOPModelManager.h"
 
 @implementation HOPIdentityLookupResult
 
@@ -45,16 +48,25 @@
 
 - (id) initWithDelegate:(id<HOPIdentityLookupDelegate>) inDelegate identityLookupInfos:(NSArray*) identityLookupInfos identityServiceDomain:(NSString*) identityServiceDomain
 {
-    self = [super init];
-    if (self)
+    if ([identityServiceDomain length] > 0 && [identityLookupInfos count] > 0)
     {
-        //IdentityURIList identityURIList;//(new IdentityURIList());
-        [self setLocalDelegates:inDelegate];
-        //if ([inIdentityURIList length] > 0)
-        //  [self convertString:inIdentityURIList toIdentityURIList:identityURIList];
-        //identityLookupPtr = IIdentityLookup::create([[HOPAccount sharedAccount] getAccountPtr], openPeerIdentityLookupDelegatePtr, identityURIList, [identityServiceDomain UTF8String],checkForUpdatesOnly);
-        if (identityLookupPtr)
-            [[OpenPeerStorageManager sharedStorageManager] setIdentityLookup:self forPUID:identityLookupPtr->getID()];
+        if (self = [super init])
+        {
+            IIdentityLookup::IdentityLookupInfoList identityLookupInfoList;
+            for (HOPRolodexContact* contact in identityLookupInfos)
+            {
+                IIdentityLookup::IdentityLookupInfo lookupInfo;
+                lookupInfo.mIdentityURI = [contact.identityURI UTF8String];
+                lookupInfo.mLastUpdated = [contact isKindOfClass:[HOPIdentityContact class]] ? boost::posix_time::from_time_t([[(HOPIdentityContact*)contact lastUpdated] timeIntervalSince1970]) : Time();
+                
+                identityLookupInfoList.push_back(lookupInfo);
+            }
+            [self setLocalDelegates:inDelegate];
+            
+            identityLookupPtr = IIdentityLookup::create([[HOPAccount sharedAccount] getAccountPtr], openPeerIdentityLookupDelegatePtr, identityLookupInfoList, [identityServiceDomain UTF8String]);
+            if (identityLookupPtr)
+                [[OpenPeerStorageManager sharedStorageManager] setIdentityLookup:self forPUID:identityLookupPtr->getID()];
+        }
     }
     return self;
 }
@@ -162,8 +174,22 @@
                 IdentityContact identityContact = *identityContactInfo;
                 if (identityContact.hasData())
                 {
-                    HOPIdentityLookupInfo* identityLookupInfo = [[HOPIdentityLookupInfo alloc] initWithIdentityContact:identityContact];
-                    [ret addObject:identityLookupInfo];
+                    NSString* sId = [NSString stringWithUTF8String:identityContact.mStableID];
+                    NSString* identityURI = [NSString stringWithUTF8String:identityContact.mIdentityURI];
+                    HOPIdentityContact* hopIdentityContact = [[HOPModelManager sharedModelManager] getIdentityContactByStableID:sId identityURI:identityURI];
+                    
+                    if (!hopIdentityContact)
+                    {
+                        NSManagedObject* managedObject = [[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPIdentityContact"];
+                        if (managedObject && [managedObject isKindOfClass:[HOPIdentityContact class]])
+                        {
+                            hopIdentityContact = (HOPIdentityContact*) managedObject;
+                        }
+                    }
+                    
+                    [hopIdentityContact updateWithIdentityContact:identityContact];
+                    
+                    [ret addObject:hopIdentityContact];
                 }
             }
         }
@@ -187,7 +213,7 @@
             for (IIdentityLookup::IdentityLookupInfoList::iterator identityLookupInfo = identityLookupInfoListPtr->begin(); identityLookupInfo != identityLookupInfoListPtr->end(); ++identityLookupInfo)
             {
                 IIdentityLookup::IdentityLookupInfo identityInfo = *identityLookupInfo;
-                HOPIdentityLookupInfo* hopIdentityLookupInfo = [[HOPIdentityLookupInfo alloc] initWithIdentityLookupInfo:identityInfo];
+                HOPIdentityLookupInfo* hopIdentityLookupInfo = [[HOPIdentityLookupInfo alloc] initWithCoreIdentityLookupInfo:identityInfo];
                 [ret addObject:hopIdentityLookupInfo];
             }
         }
@@ -211,7 +237,7 @@
             for (IIdentityLookup::IdentityLookupInfoList::iterator identityLookupInfo = identityLookupInfoListPtr->begin(); identityLookupInfo != identityLookupInfoListPtr->end(); ++identityLookupInfo)
             {
                 IIdentityLookup::IdentityLookupInfo identityInfo = *identityLookupInfo;
-                HOPIdentityLookupInfo* hopIdentityLookupInfo = [[HOPIdentityLookupInfo alloc] initWithIdentityLookupInfo:identityInfo];
+                HOPIdentityLookupInfo* hopIdentityLookupInfo = [[HOPIdentityLookupInfo alloc] initWithCoreIdentityLookupInfo:identityInfo];
                 [ret addObject:hopIdentityLookupInfo];
             }
         }

@@ -121,243 +121,17 @@
 }
 
 /**
- Web view which will perform contacts loading procedure.
- */
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{
-    NSString *requestString = [[request URL] absoluteString];
-    NSLog(@"Getting contacts - web request: %@", requestString);
-    
-    if ([requestString hasPrefix:@"https://datapass.hookflash.me/?method="] || [requestString hasPrefix:@"http://datapass.hookflash.me/?method="])
-    {
-        NSString *function = [Utility getFunctionNameForRequest:requestString];
-        NSString *params = [Utility getParametersNameForRequest:requestString];
-        
-        params = [params stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        
-        NSString *functionNameSelector = [NSString stringWithFormat:@"%@:", function];
-        //Execute JSON parsing in function read from requestString.
-        if ([self respondsToSelector:NSSelectorFromString(functionNameSelector)])
-            [self performSelector:NSSelectorFromString(functionNameSelector) withObject:params];
-        return NO;
-    }
-    return YES;
-}
-
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
-{
-    NSLog(@"WebRequest error: %@", [error localizedDescription]);
-}
-/**
- Parse JSON to get the profile for logged user.
- @param input NSString JSON input for processing.
- */
-/*- (void)proccessMyProfile:(NSString*)input
-{
- SBJsonParser *jsonParser = [[SBJsonParser alloc] init];
- NSDictionary *result = [jsonParser objectWithString:input];
- 
- NSString *fullName = [[NSString stringWithFormat:@"%@ %@", [result objectForKey:keyJSONContactFirstName], [result objectForKey:keyJSONContacLastName]] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
- if ([fullName length] > 0)
- [[OpenPeerUser sharedOpenPeerUser] setFullName:fullName];
- 
- //[[[OpenPeer sharedOpenPeer] mainViewController].contactsNavigationController.navigationBar.topItem setTitle:[NSString stringWithFormat:@"%@ Contacts",fullName]];
- 
- NSNumber* providerKey = [NSNumber numberWithInt:HOPProvisioningAccountIdentityTypeLinkedInID];
- if (providerKey)
- [[OpenPeerUser sharedOpenPeerUser] setProviderKey:providerKey];
- 
- NSString* cotnactProviderId = [result objectForKey:keyJSONContactId];
- if ([cotnactProviderId length] > 0)
- [[OpenPeerUser sharedOpenPeerUser] setContactProviderId:cotnactProviderId];
- 
- 
- NSString *jsMethodName = @"getAllConnections()";
- NSNumber *lastUpdateTimestamp = 0;//[[StorageManager storageManager] getLastUpdateTimestamp];
- if ([lastUpdateTimestamp intValue] != 0)
- {
- jsMethodName = [NSString stringWithFormat:@"getNewConnections(%@)", [lastUpdateTimestamp stringValue]];
- }
- 
- [self.linkedinContactsWebView performSelectorOnMainThread:@selector(stringByEvaluatingJavaScriptFromString:) withObject:jsMethodName waitUntilDone:NO];
-}*/
-
-/**
- Process connections.
- @param input NSString JSON input for processing.
- */
-- (void)proccessConnections:(NSString*)input
-{
-    //Parse JSON to get the contacts
-    SBJsonParser *jsonParser = [[SBJsonParser alloc] init];
-    NSArray *result = [jsonParser objectWithString:input];
-    
-    //NSNumber* providerKey = [NSNumber numberWithInt:HOPProvisioningAccountIdentityTypeLinkedInID];
-    NSMutableDictionary* contacts = [[NSMutableDictionary alloc] init];
-    
-    for (NSDictionary* dict in result)
-    {
-        NSString* providerContactId = [dict objectForKey:keyJSONContactId];
-        
-        if (providerContactId)
-        {
-            NSString *fullName = [[NSString stringWithFormat:@"%@ %@", [dict objectForKey:keyJSONContactFirstName], [dict objectForKey:keyJSONContacLastName]] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            if (fullName)
-            {
-                NSString* profession = [dict objectForKey:keyJSONContactProfession];
-                NSString *avatarUrl = [dict objectForKey:keyJSONContactPictureURL];
-                
-                Contact* contact = [[Contact alloc] initWithFullName:fullName profession:profession avatarUrl:avatarUrl identityProvider:identityLinkedInBaseURI identityContactId:providerContactId];
-                
-                [contacts setObject:contact forKey:providerContactId];
-                NSString* identityURI = [identityLinkedInBaseURI stringByAppendingString:providerContactId];
-                [self.contactsDictionaryByIndentityURI setObject:contact forKey:identityURI];
-            }
-        }
-    }
-    //[self.contactsDictionaryByProvider setObject:contacts forKey:identityLinkedInBaseURI];
-    
-    [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoaded];
-    
-    [self contactsLookupQuery:[contacts allValues] forBaseIdentityURI:identityLinkedInBaseURI];
-    //[[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLookupCheckStarted];
-}
-
-/**
  Check contact identites against openpeer database.
  @param contacts NSArray List of contacts.
  */
-- (void)contactsLookupQuery:(NSArray *)contacts forBaseIdentityURI:(NSString*) baseIdentityURI
+- (void) identityLookupForContacts:(NSArray *)contacts identityServiceDomain:(NSString*) identityServiceDomain
 {
-    NSString* identities = @"";
-    
-    for (Contact* contact in contacts)
-    {
-        NSString* contactId = [contact.dictionaryIdentities objectForKey:baseIdentityURI];
-        if ([contactId length] > 0)
-        {
-            NSString* contactIdentity = [baseIdentityURI stringByAppendingString:contactId];
-            if ([contactIdentity length] > 0)
-            {
-                if ([identities length] == 0)
-                    identities = [identities stringByAppendingString:contactIdentity];
-                else
-                {
-                    NSString* temp = [NSString stringWithFormat:@",%@",contactIdentity];
-                    identities = [identities stringByAppendingString:temp];
-                }
-            }
-        }
-    }
-    
-    if ([identities length] > 0)
-    {
-        HOPIdentityLookup* lookup = [[HOPIdentityLookup alloc] initWithDelegate:(id<HOPIdentityLookupDelegate>)[[OpenPeer sharedOpenPeer] identityLookupDelegate] identityLookupInfos:identities identityServiceDomain:identityProviderDomain];
-        if (!lookup)
-            NSLog(@"Lookup request is not sent properly");
-    }
-    
-    NSLog(@"%@ is performing the identiy lookup for the following identities: %@ \n", [[OpenPeerUser sharedOpenPeerUser] fullName],identities);
+    HOPIdentityLookup* identityLookup = [[HOPIdentityLookup alloc] initWithDelegate:(id<HOPIdentityLookupDelegate>)[[OpenPeer sharedOpenPeer] identityLookupDelegate] identityLookupInfos:contacts identityServiceDomain:identityServiceDomain];
 }
 
-/**
- Does JSON response parsing to get user facebook profile.
- @param input NSString JSON input for processing.
- */
-- (void)proccessMyFBProfile:(NSString*)input
-{
-    SBJsonParser *jsonParser = [[SBJsonParser alloc] init];
-    NSDictionary *result = [jsonParser objectWithString:input];
-    
-    NSString *fullName = [[result objectForKey:keyJSONContactFullName] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    if ([fullName length] > 0)
-    {
-        [[OpenPeerUser sharedOpenPeerUser] setFullName:fullName];
-        [[OpenPeerUser sharedOpenPeerUser] saveUserData];
-    }
-}
 
-/**
- Does JSON response parsing to get the list of facebook contacts
- @param input NSString JSON input for processing.
- */
-- (void)proccessFbFriends:(NSString*)input
-{
-    //Parse JSON to get the contacts
-    SBJsonParser *jsonParser = [[SBJsonParser alloc] init];
-    NSArray *result = [jsonParser objectWithString:input];
-    
-    //Provider key for Facebook
-    //NSNumber* providerKey = [NSNumber numberWithInt:HOPProvisioningAccountIdentityTypeFacebookID];
-    NSMutableDictionary* contacts = [[NSMutableDictionary alloc] init];
-    
-    for (NSDictionary* dict in result)
-    {
-        //Get contact facebook id
-        NSString* providerContactId = [dict objectForKey:keyJSONContactId];
-        
-        if (providerContactId)
-        {
-            //Get contact fullname
-            NSString *fullName = [[NSString stringWithFormat:@"%@", [dict objectForKey:@"fullName"] ] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            if (fullName)
-            {
-                //Get avatar url
-                NSString *avatarUrl = [dict objectForKey:keyJSONContactPictureURL];
-                
-                Contact* contact = [self getContactForBaseIdentityURI:identityFacebookBaseURI contactId:providerContactId];
-                if (!contact)
-                    contact = [[Contact alloc] initWithFullName:fullName profession:@"" avatarUrl:avatarUrl identityProvider:identityFacebookBaseURI identityContactId:providerContactId];
-                
-                //[self.contactArray addObject:contact];
-                [contacts setObject:contact forKey:providerContactId];
-                
-                NSString* identityURI = [identityFacebookBaseURI stringByAppendingString:providerContactId];
-                [self.contactsDictionaryByIndentityURI setObject:contact forKey:identityURI];
-                
-                NSLog(@"\n -------------------- \nContact name: %@ \nIdentity URI: %@ \n --------------------", [contact fullName],identityURI);
-            }
-        }
-    }
-    
-    [self.contactsDictionaryByProvider setObject:contacts forKey:identityFacebookBaseURI];
-    
-    [self refreshListOfContacts];
-    
-    [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoaded];
-    
-    [self contactsLookupQuery:[contacts allValues] forBaseIdentityURI:identityFacebookBaseURI];
-    //[[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLookupCheckStarted];
-}
 
-/**
- Send request to get the peer files for specified list of contacts
- @param contacts NSArray List of contacts.
- */
-- (void)peerFileLookupQuery:(NSArray *)contacts
-{
-    NSMutableArray* hopContacts = [[NSMutableArray alloc] init];
-    NSString* peerURIs = @"";
-    
-    //Create list of hopContact objects
-    for (Contact* contact in contacts)
-    {
-        if (contact.hopContact)
-        {
-            [hopContacts addObject:contact.hopContact];
-            if ([peerURIs length] > 0)
-                peerURIs = [NSString stringWithFormat:@"%@,%@",peerURIs,[contact.hopContact getPeerURI]];
-            else
-                peerURIs = [contact.hopContact getPeerURI];
-        }
-    }
- 
-    [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsPeerFilesLoadingStarted];
-    
-    //Ask for peer files for passed contacts
-    
-     NSLog(@"%@ is searching peer files for the followin peer uris: %@ \n", [[OpenPeerUser sharedOpenPeerUser] fullName],peerURIs);
-}
+
 
 /**
  Retrieves contact for passed list of identities.
@@ -434,58 +208,18 @@
 {
     BOOL refreshContacts = NO;
     NSError* error;
-    NSMutableArray* contacts = [[NSMutableArray alloc] init];
     if ([identityLookup isComplete:&error])
     {
         HOPIdentityLookupResult* result = [identityLookup getLookupResult];
         if ([result wasSuccessful])
         {
-            NSArray* identities= [identityLookup getUpdatedIdentities];
-            for (HOPIdentityLookupInfo* identityInfo in identities)
+            NSArray* identityContacts = [identityLookup getUpdatedIdentities];
+            for (HOPIdentityContact* identityContact in identityContacts)
             {
-                //TODO: Update this after full sdk implementation
-                /*if ([identityInfo hasData])
-                {
-                    Contact* contact = nil;
-                    if (identityInfo.contact)
-                    {
-                        contact = [[ContactsManager sharedContactsManager] getContactForPeerURI:[identityInfo.contact getPeerURI]];
-                        if (!contact)
-                        {
-                            contact = [[ContactsManager sharedContactsManager] getContactForBaseIdentityURI:identityInfo.baseIdentityURI contactId:identityInfo.contactId];
-                            [self.contactsDictionary setObject:contact forKey:[identityInfo.contact getPeerURI]];
-                        }
-                        else
-                        {
-                            if (![contact.dictionaryIdentities objectForKey:identityInfo.baseIdentityURI])
-                            {
-                                //Add identity for existing contact
-                                [contact.dictionaryIdentities setObject:identityInfo.contactId forKey:identityInfo.baseIdentityURI];
-                                
-                                //Identity is added to existing openpeer contact, so replace old contact created for specified identity with openpeer contact
-                                Contact* contactToReplace = [self getContactForBaseIdentityURI:identityInfo.baseIdentityURI contactId:identityInfo.contactId];
-                                //[self.contactArray removeObject:contactToReplace];
-                                [[self.contactsDictionaryByProvider objectForKey:identityInfo.baseIdentityURI] setObject:contact forKey:identityInfo.contactId];
-                                refreshContacts = YES;
-                            }
-                        }
-                        
-                        if (contact)
-                        {
-                            contact.hopContact = identityInfo.contact;
-                            [contacts addObject:contact];
-                        }
-                    }
-                    if (contact)
-                        NSLog(@"\n -------------------- \nContact name: %@ \nIdentity URI: %@, \nPeer URI: %@\n --------------------", [contact fullName],identityInfo.identityURI,[contact.hopContact getPeerURI]);
-                 
-                }*/
+                //TODO: Check should contacts details be updated in sdk or from app
             }
         }
     }
-    
-    if ([contacts count] > 0)
-        [self peerFileLookupQuery:contacts];
     
     if (refreshContacts)
     {
@@ -494,24 +228,6 @@
     }
 }
 
-/*- (void) setContactsPeerFiles:(HOPContactPeerFilePublicLookup*) contactPeerFilePublicLookup
-{
-    if ([contactPeerFilePublicLookup isComplete])
-    {
-        HOPContactPeerFilePublicLookupResult* result = [contactPeerFilePublicLookup getLookupResult];
-    
-        if ([result wasSuccessful])
-        {
-            NSArray* contacts = [contactPeerFilePublicLookup getContacts];
-            for (HOPContact* contact in contacts)
-            {
-                NSString* publicPeerFile = [contact savePeerFilePublic];
-                NSLog(@"Public Peeer File:%@",publicPeerFile);
-            }
-            [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoaded];
-        }
-    }
-}*/
 
 
 - (void) refreshListOfContacts

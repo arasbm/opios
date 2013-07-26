@@ -36,7 +36,8 @@
 
 - (void) onIdentityLookupCompleted:(HOPIdentityLookup*) lookup
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_main_queue(), ^
+    {
         [[ContactsManager sharedContactsManager] updateContactsWithDataFromLookup:lookup];
     });
 }

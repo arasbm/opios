@@ -39,7 +39,7 @@ using namespace openpeer::core;
 
 @interface HOPIdentityLookupInfo ()
 
-- (id) initWithRolodexContact:(RolodexContact) inRolodexContact;
-- (id) initWithIdentityContact:(IdentityContact) inIdentityContact;
-- (id) initWithIdentityLookupInfo:(IIdentityLookup::IdentityLookupInfo) inIdentityLookupInfo;
+- (id) initWithCoreRolodexContact:(RolodexContact) inRolodexContact;
+- (id) initWithCoreIdentityContact:(IdentityContact) inIdentityContact;
+- (id) initWithCoreIdentityLookupInfo:(IIdentityLookup::IdentityLookupInfo) inIdentityLookupInfo;
 @end

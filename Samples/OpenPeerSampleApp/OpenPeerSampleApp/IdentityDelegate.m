@@ -32,7 +32,10 @@
 #import "IdentityDelegate.h"
 #import <OpenpeerSDK/HOPIdentity.h>
 #import <OpenpeerSDK/HOPRolodexContact.h>
+#import <OpenpeerSDK/HOPModelManager.h>
+#import <OpenpeerSDK/HOPIdentityLookup.h>
 #import "LoginManager.h"
+#import "ContactsManager.h"
 #import "Constants.h"
 #import "OpenPeerUser.h"
 #import "OpenPeer.h"
@@ -167,25 +170,14 @@
         BOOL flushAllRolodexContacts;
         NSString* downloadedVersion;
         NSArray* rolodexContacts;
-        [identity getDownloadedRolodexContacts:&flushAllRolodexContacts outVersionDownloaded:&downloadedVersion outRolodexContacts:&rolodexContacts];
+        BOOL rolodexContactsObtained = [identity getDownloadedRolodexContacts:&flushAllRolodexContacts outVersionDownloaded:&downloadedVersion outRolodexContacts:&rolodexContacts];
         
-        if (flushAllRolodexContacts)
+        if (rolodexContactsObtained)
         {
-            //TODO: Put timer that will delete local database if contacts are not received in some period of time
+            NSArray* rolodexContacts = [[HOPModelManager sharedModelManager]getRolodexContactsForHomeUserIdentityURI:[identity getIdentityURI] openPeerContacts:NO];
+            [[ContactsManager sharedContactsManager] identityLookupForContacts:rolodexContacts identityServiceDomain:[identity getIdentityProviderDomain]];
         }
-        
-        if ([downloadedVersion length] > 0)
-        {
-            //TODO: Update database with last contacts download version
-        }
-        
-        if ([rolodexContacts count] > 0)
-        {
-            for (HOPRolodexContact* rolodexContact in rolodexContacts)
-            {
-                //TODO: Create a database record
-            }
-        }
+
     }
 }
 

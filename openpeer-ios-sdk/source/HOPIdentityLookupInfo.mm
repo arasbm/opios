@@ -33,6 +33,8 @@
 #include "OpenPeerUtility.h"
 #include "OpenPeerStorageManager.h"
 #include "HOPContact_Internal.h"
+#import "HOPIdentityContact.h"
+#import "HOPRolodexContact.h"
 #import <openpeer/core/IContact.h>
 
 @implementation HOPIdentityLookupInfo
@@ -48,19 +50,31 @@
     return self;
 }
 
-- (id) initWithRolodexContact:(RolodexContact) inRolodexContact
+- (id)initWithIdentityContact:(HOPIdentityContact *)inIdentityContact
+{
+    self = [self initWithIdentityURI:inIdentityContact.rolodexContact.identityURI dateOfLastUpdate:inIdentityContact.lastUpdated];
+    return self;
+}
+
+- (id)initWithRolodexContact:(HOPRolodexContact *)inRolodexContact
+{
+    self = [self initWithIdentityURI:inRolodexContact.identityURI dateOfLastUpdate:nil];
+    return self;
+}
+
+- (id) initWithCoreRolodexContact:(RolodexContact) inRolodexContact
 {
     self = [self initWithIdentityURI:[NSString stringWithCString:inRolodexContact.mIdentityURI encoding:NSUTF8StringEncoding] dateOfLastUpdate:nil];
     return self;
 }
 
-- (id) initWithIdentityContact:(IdentityContact) inIdentityContact
+- (id) initWithCoreIdentityContact:(IdentityContact) inIdentityContact
 {
     self = [self initWithIdentityURI:[NSString stringWithCString:inIdentityContact.mIdentityURI encoding:NSUTF8StringEncoding] dateOfLastUpdate:[OpenPeerUtility convertPosixTimeToDate:inIdentityContact.mLastUpdated]];
     return self;
 }
 
-- (id) initWithIdentityLookupInfo:(IIdentityLookup::IdentityLookupInfo) inIdentityLookupInfo
+- (id) initWithCoreIdentityLookupInfo:(IIdentityLookup::IdentityLookupInfo) inIdentityLookupInfo
 {
     self = [self initWithIdentityURI:[NSString stringWithCString:inIdentityLookupInfo.mIdentityURI encoding:NSUTF8StringEncoding] dateOfLastUpdate:[OpenPeerUtility convertPosixTimeToDate:inIdentityLookupInfo.mLastUpdated]];
     return self;

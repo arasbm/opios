@@ -36,6 +36,7 @@
 
 #import "HOPAccount_Internal.h"
 #import "OpenPeerStorageManager.h"
+#import "HOPModelManager.h"
 #import "OpenPeerIdentityDelegate.h"
 #import "OpenPeerUtility.h"
 #import "HOPRolodexContact_Internal.h"
@@ -334,29 +335,56 @@
         {
             NSMutableArray* tempArray = [[NSMutableArray alloc] init];
             
-            //TODO: Here convert RolodexContacts into HOPRolodexContacts and fill the array
-            *outRolodexContacts = [NSArray arrayWithArray:tempArray];
-            
             for (RolodexContactList::iterator contact = rolodexContacts->begin(); contact != rolodexContacts->end(); ++contact)
             {
                 HOPRolodexContact* hopRolodexContact = nil;
                 RolodexContact rolodexContact = *contact;
-                if (rolodexContact.mDisposition == RolodexContact::Disposition_Update)
+                NSString* contactIdentityURI = [NSString stringWithCString:rolodexContact.mIdentityURI encoding:NSUTF8StringEncoding];
+                
+                if ([contactIdentityURI length] > 0)
                 {
-                    //TODO: Get Rolodex contact from the local database and update it
-                    [hopRolodexContact updateWithRolodexContact:rolodexContact];
+                    if (rolodexContact.mDisposition == RolodexContact::Disposition_Update)
+                    {
+                        hopRolodexContact = [[HOPModelManager sharedModelManager] getRolodexContactByIdentityURI:contactIdentityURI];
+                        if (hopRolodexContact)
+                        {
+                            //Update existing rolodex contact
+                            [hopRolodexContact updateWithRolodexContact:rolodexContact identityProviderDomain:[self getIdentityProviderDomain] homeUserIdentityURI:[self getIdentityURI]];
+                            [[HOPModelManager sharedModelManager] saveContext];
+                        }
+                        else
+                        {
+                            //Create a new menaged object for new rolodex contact
+                            NSManagedObject* managedObject = [[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPRolodexContact"];
+                            if ([managedObject isKindOfClass:[HOPRolodexContact class]])
+                            {
+                                hopRolodexContact = (HOPRolodexContact*)managedObject;
+                                [hopRolodexContact updateWithRolodexContact:rolodexContact identityProviderDomain:[self getIdentityProviderDomain] homeUserIdentityURI:[self getIdentityURI]];
+                                [[HOPModelManager sharedModelManager] saveContext];
+                            }
+                        }
+                    }
+                    else if (rolodexContact.mDisposition == RolodexContact::Disposition_Remove)
+                    {
+                        hopRolodexContact = [[HOPModelManager sharedModelManager] getRolodexContactByIdentityURI:contactIdentityURI];
+                        [[HOPModelManager sharedModelManager] deleteObject:hopRolodexContact];
+                    }
+                    else if (rolodexContact.mDisposition == RolodexContact::Disposition_NA)
+                    {
+                        
+                    }
+                    else
+                    {
+                        
+                    }
                 }
-                else if (rolodexContact.mDisposition == RolodexContact::Disposition_Remove)
-                {
-                    //TODO: Get Rolodex contact from the local database and delete it
-                    //[[self managedObjectContext] deleteObject:hopRolodexContact];
-                }
-                else
-                {
-                    
-                    //hopRolodexContact = [NSEntityDescription insertNewObjectForEntityForName:@"HOPRolodexContact" inManagedObjectContext:context];
-                }
+                
+                if (hopRolodexContact)
+                    [tempArray addObject:hopRolodexContact];
             }
+            
+            if ([tempArray count] > 0)
+                *outRolodexContacts = [NSArray arrayWithArray:tempArray];
         }
     }
     else

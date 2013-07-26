@@ -41,5 +41,5 @@ using namespace openpeer::core;
     
 }
 
-- (void) updateWithRolodexContact:(RolodexContact) inRolodexContact;
+- (void) updateWithRolodexContact:(RolodexContact) inRolodexContact identityProviderDomain:(NSString*)identityProviderDomain homeUserIdentityURI:(NSString*)homeUserIdentityURI;
 @end

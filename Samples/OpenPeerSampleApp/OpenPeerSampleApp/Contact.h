@@ -31,10 +31,10 @@
  
 #import <Foundation/Foundation.h>
 #import <OpenpeerSDK/HOPTypes.h>
+#import <OpenpeerSDK/HOPContact.h>
 
-@class HOPContact;
 
-@interface Contact : NSObject
+@interface Contact : HOPContact
 
 @property (strong) NSString* fullName;
 @property (strong) NSString* profession;

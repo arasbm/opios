@@ -32,6 +32,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class HOPRolodexContact;
+@class HOPIdentityContact;
 
 /**
  Wrapper for identiy lookup info
@@ -40,5 +42,8 @@
 
 @property (nonatomic, strong) NSString* identityURI;
 @property (nonatomic, strong) NSDate* lastUpdated;
+
+- (id) initWithIdentityContact:(HOPIdentityContact*) inIdentityContact;
+- (id) initWithRolodexContact:(HOPRolodexContact*) inRolodexContact;
 
 @end

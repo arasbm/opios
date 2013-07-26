@@ -31,25 +31,26 @@
 
 #import "HOPRolodexContact_Internal.h"
 #import "HOPAvatar_Internal.h"
-
+#import "HOPIdentityProvider.h"
+#import "HOPModelManager.h"
 
 @implementation HOPRolodexContact
-/*
-struct Avatar
+
+
+- (void) updateWithRolodexContact:(RolodexContact) inRolodexContact identityProviderDomain:(NSString*)identityProviderDomain homeUserIdentityURI:(NSString*)homeUserIdentityURI
 {
-    String mName;
-    String mURL;
-    int mWidth;
-    int mHeight;
-};
-typedef std::list<Avatar> AvatarList;
-
-
-AvatarList mAvatars;*/
-
-- (void) updateWithRolodexContact:(RolodexContact) inRolodexContact
-{
-    self.identityProvider = [NSString stringWithCString:inRolodexContact.mIdentityProvider encoding:NSUTF8StringEncoding];
+    NSString* identityName = [NSString stringWithCString:inRolodexContact.mIdentityProvider encoding:NSUTF8StringEncoding];
+    HOPIdentityProvider* iProvider = [[HOPModelManager sharedModelManager] getIdentityProviderByDomain:identityProviderDomain identityName:identityName homeUserIdentityURI:homeUserIdentityURI];
+    if (!iProvider)
+    {
+        iProvider = [NSEntityDescription insertNewObjectForEntityForName:@"HOPIdentityProvider" inManagedObjectContext:[[HOPModelManager sharedModelManager]managedObjectContext]];
+        
+        iProvider.name = identityName;
+        iProvider.identityProviderDomain = identityProviderDomain;
+        iProvider.homeUserIdentityURI = homeUserIdentityURI;
+    }
+    
+    self.identityProvider = iProvider;
     self.identityURI = [NSString stringWithCString:inRolodexContact.mIdentityURI encoding:NSUTF8StringEncoding];
     self.name = [NSString stringWithCString:inRolodexContact.mName encoding:NSUTF8StringEncoding];
     self.profileURL = [NSString stringWithCString:inRolodexContact.mProfileURL encoding:NSUTF8StringEncoding];
