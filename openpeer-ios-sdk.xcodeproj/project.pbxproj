@@ -233,6 +233,13 @@
 			remoteGlobalIDString = 87B864C81796BBB10027F8B1;
 			remoteInfo = OpenPeerModels;
 		};
+		E210812117A69831001D1608 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E21080BD17A697E1001D1608 /* webrtc_ios.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 307C243DFDDBFD9EF8440480;
+			remoteInfo = All;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -349,7 +356,7 @@
 		87E3CD1F172A859500084D2F /* HOPIdentityLookupInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HOPIdentityLookupInfo.mm; sourceTree = "<group>"; };
 		87E3CD23172A85FC00084D2F /* HOPIdentityLookupInfo_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HOPIdentityLookupInfo_Internal.h; sourceTree = "<group>"; };
 		87FA4CE0165F891A00F7D973 /* HOPIdentity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HOPIdentity.h; sourceTree = "<group>"; };
-		E210481717830EA40038A071 /* webrtc.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = webrtc.xcodeproj; path = libs/op/libs/webrtc/webrtc.xcodeproj; sourceTree = SOURCE_ROOT; };
+		E21080BD17A697E1001D1608 /* webrtc_ios.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = webrtc_ios.xcodeproj; path = libs/op/libs/webrtc/webrtc_ios.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E2489EAC1790404E0036CCBF /* libaudio_coding_module.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libaudio_coding_module.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2489EAD1790404E0036CCBF /* libaudio_conference_mixer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libaudio_conference_mixer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2489EAE1790404F0036CCBF /* libaudio_device.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libaudio_device.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -633,7 +640,7 @@
 				8792E9AA1651A12B00DEAC58 /* cryptopp_ios.xcodeproj */,
 				8792E8FD1651A08F00DEAC58 /* udns_ios.xcodeproj */,
 				8792E8F41651A04800DEAC58 /* zsLib_ios.xcodeproj */,
-				E210481717830EA40038A071 /* webrtc.xcodeproj */,
+				E21080BD17A697E1001D1608 /* webrtc_ios.xcodeproj */,
 			);
 			name = "Core Projects";
 			path = "openpeer-ios-sdk";
@@ -723,7 +730,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		E210481817830EA40038A071 /* Products */ = {
+		E21080BE17A697E1001D1608 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -845,6 +852,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				E210812217A69831001D1608 /* PBXTargetDependency */,
 				87B864D81796BC1A0027F8B1 /* PBXTargetDependency */,
 				00EB8DD2177D1C2400FFD40F /* PBXTargetDependency */,
 				00EB8DD4177D1C2400FFD40F /* PBXTargetDependency */,
@@ -916,8 +924,8 @@
 					ProjectRef = 8792E8FD1651A08F00DEAC58 /* udns_ios.xcodeproj */;
 				},
 				{
-					ProductGroup = E210481817830EA40038A071 /* Products */;
-					ProjectRef = E210481717830EA40038A071 /* webrtc.xcodeproj */;
+					ProductGroup = E21080BE17A697E1001D1608 /* Products */;
+					ProjectRef = E21080BD17A697E1001D1608 /* webrtc_ios.xcodeproj */;
 				},
 				{
 					ProductGroup = 00EB8DA8177D14DA00FFD40F /* Products */;
@@ -1090,6 +1098,11 @@
 			isa = PBXTargetDependency;
 			target = 87B864C81796BBB10027F8B1 /* OpenPeerModels */;
 			targetProxy = 87B864D71796BC1A0027F8B1 /* PBXContainerItemProxy */;
+		};
+		E210812217A69831001D1608 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = All;
+			targetProxy = E210812117A69831001D1608 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
