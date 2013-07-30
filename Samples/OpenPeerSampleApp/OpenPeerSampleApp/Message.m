@@ -30,10 +30,11 @@
  */
 
 #import "Message.h"
+#import <OpenpeerSDK/HOPRolodexContact.h>
 
 @implementation Message
 
-- (id) initWithMessageText:(NSString*) messageText senderContact:(Contact*) senderContact
+- (id) initWithMessageText:(NSString*) messageText senderContact:(HOPRolodexContact*) senderContact
 {
     self = [super init];
     

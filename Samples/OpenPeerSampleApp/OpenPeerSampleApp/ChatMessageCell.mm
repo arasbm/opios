@@ -33,6 +33,7 @@
 #import "Message.h"
 #import "Contact.h"
 #import "OpenPeerUser.h"
+#import <OpenpeerSDK/HOPRolodexContact.h>
 
 #define AVATAR_SIZE 31
 
@@ -257,7 +258,7 @@
             //if message is received
             if(self.message.contact)
             {
-                messageSenderName = [self.message.contact fullName];
+                messageSenderName = [self.message.contact name];
                 [self.contentView setBackgroundColor:[UIColor colorWithRed:193.0/255.0 green:208.0/255.0 blue:1.0 alpha:1.0]];
             }
             else

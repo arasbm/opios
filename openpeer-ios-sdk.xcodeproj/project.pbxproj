@@ -20,15 +20,15 @@
 		871BC9A5179EEB4000AEA4A6 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 871BC9A4179EEB3F00AEA4A6 /* CoreData.framework */; };
 		871BC9C517A1233800AEA4A6 /* HOPIdentityContact_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 871BC9C317A1233500AEA4A6 /* HOPIdentityContact_Internal.h */; };
 		871BC9C617A1233800AEA4A6 /* HOPIdentityContact_Internal.mm in Sources */ = {isa = PBXBuildFile; fileRef = 871BC9C417A1233600AEA4A6 /* HOPIdentityContact_Internal.mm */; };
-		871BC9DD17A1457B00AEA4A6 /* HOPAvatar.h in Headers */ = {isa = PBXBuildFile; fileRef = 871BC9DB17A1457900AEA4A6 /* HOPAvatar.h */; };
+		871BC9DD17A1457B00AEA4A6 /* HOPAvatar.h in Headers */ = {isa = PBXBuildFile; fileRef = 871BC9DB17A1457900AEA4A6 /* HOPAvatar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		871BC9DE17A1457B00AEA4A6 /* HOPAvatar.m in Sources */ = {isa = PBXBuildFile; fileRef = 871BC9DC17A1457A00AEA4A6 /* HOPAvatar.m */; };
-		871BC9E117A1457D00AEA4A6 /* HOPRolodexContact.h in Headers */ = {isa = PBXBuildFile; fileRef = 871BC9DF17A1457B00AEA4A6 /* HOPRolodexContact.h */; };
+		871BC9E117A1457D00AEA4A6 /* HOPRolodexContact.h in Headers */ = {isa = PBXBuildFile; fileRef = 871BC9DF17A1457B00AEA4A6 /* HOPRolodexContact.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		871BC9E217A1457D00AEA4A6 /* HOPRolodexContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 871BC9E017A1457C00AEA4A6 /* HOPRolodexContact.m */; };
-		871BC9E517A1458000AEA4A6 /* HOPIdentityProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 871BC9E317A1458000AEA4A6 /* HOPIdentityProvider.h */; };
+		871BC9E517A1458000AEA4A6 /* HOPIdentityProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 871BC9E317A1458000AEA4A6 /* HOPIdentityProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		871BC9E617A1458000AEA4A6 /* HOPIdentityProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 871BC9E417A1458000AEA4A6 /* HOPIdentityProvider.m */; };
-		871BC9E917A1458100AEA4A6 /* HOPIdentityContact.h in Headers */ = {isa = PBXBuildFile; fileRef = 871BC9E717A1458100AEA4A6 /* HOPIdentityContact.h */; };
+		871BC9E917A1458100AEA4A6 /* HOPIdentityContact.h in Headers */ = {isa = PBXBuildFile; fileRef = 871BC9E717A1458100AEA4A6 /* HOPIdentityContact.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		871BC9EA17A1458100AEA4A6 /* HOPIdentityContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 871BC9E817A1458100AEA4A6 /* HOPIdentityContact.m */; };
-		871BC9ED17A1458500AEA4A6 /* HOPPublicPeerFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 871BC9EB17A1458200AEA4A6 /* HOPPublicPeerFile.h */; };
+		871BC9ED17A1458500AEA4A6 /* HOPPublicPeerFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 871BC9EB17A1458200AEA4A6 /* HOPPublicPeerFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		871BC9EE17A1458500AEA4A6 /* HOPPublicPeerFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 871BC9EC17A1458200AEA4A6 /* HOPPublicPeerFile.m */; };
 		872725C3166636F50089CBB6 /* HOPMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 872725C1166636F50089CBB6 /* HOPMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		872DA9E6175CEC9C000CCA76 /* HOPCache.mm in Sources */ = {isa = PBXBuildFile; fileRef = 872DA9E5175CEC9C000CCA76 /* HOPCache.mm */; };
@@ -786,6 +786,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				871BC9DD17A1457B00AEA4A6 /* HOPAvatar.h in Headers */,
+				871BC9E117A1457D00AEA4A6 /* HOPRolodexContact.h in Headers */,
+				871BC9E517A1458000AEA4A6 /* HOPIdentityProvider.h in Headers */,
+				871BC9E917A1458100AEA4A6 /* HOPIdentityContact.h in Headers */,
+				871BC9ED17A1458500AEA4A6 /* HOPPublicPeerFile.h in Headers */,
 				87B013F01661557C00E8938B /* HOPStack.h in Headers */,
 				87B013F21661557C00E8938B /* HOPContact.h in Headers */,
 				87B013F31661557C00E8938B /* HOPCall.h in Headers */,
@@ -821,11 +826,6 @@
 				87A5B1F816EDE5F9007E825A /* OpenPeerUtility.h in Headers */,
 				87CEF2F1179DC7E0003770EE /* HOPAvatar_Internal.h in Headers */,
 				871BC9C517A1233800AEA4A6 /* HOPIdentityContact_Internal.h in Headers */,
-				871BC9DD17A1457B00AEA4A6 /* HOPAvatar.h in Headers */,
-				871BC9E117A1457D00AEA4A6 /* HOPRolodexContact.h in Headers */,
-				871BC9E517A1458000AEA4A6 /* HOPIdentityProvider.h in Headers */,
-				871BC9E917A1458100AEA4A6 /* HOPIdentityContact.h in Headers */,
-				871BC9ED17A1458500AEA4A6 /* HOPPublicPeerFile.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

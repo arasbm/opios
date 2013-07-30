@@ -30,11 +30,12 @@
  */
 
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
 
-@interface ContactsTableViewController : UIViewController<UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface ContactsTableViewController : UIViewController<UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource,NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, weak) IBOutlet UITableView *contactsTableView;
-
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
 - (void) onContactsLoadingStarted;
 - (void) onContactsPeerFilesLoadingStarted;

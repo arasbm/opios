@@ -46,6 +46,7 @@
 #import <OpenpeerSDK/HOPIdentity.h>
 #import <OpenpeerSDK/HOPContact.h>
 #import <OpenpeerSDK/HOPAccount.h>
+#import <OpenpeerSDK/HOPModelManager.h>
 
 @interface ContactsManager ()
 {
@@ -85,16 +86,6 @@
     self = [super init];
     if (self)
     {
-        keyJSONContacLastName = @"firstName";
-        keyJSONContactFirstName = @"lastName";
-        keyJSONContactId          = @"id";
-        keyJSONContactProfession  = @"headline";
-        keyJSONContactPictureURL  = @"pictureUrl";
-        keyJSONContactFullName    = @"fullName";
-        
-        self.linkedinContactsWebView = [[UIWebView alloc] init];
-        self.linkedinContactsWebView.delegate = self;
-        
         self.contactArray = [[NSMutableArray alloc] init];
         self.contactsDictionaryByProvider = [[NSMutableDictionary alloc] init];
         self.contactsDictionaryByIndentityURI = [[NSMutableDictionary alloc] init];
@@ -131,50 +122,15 @@
 
 
 
-
-
-/**
- Retrieves contact for passed list of identities.
- @param identities NSArray List of identities.
- @return Contact with specified identities.
- */
-- (Contact*) getContactForBaseIdentityURI:(NSString*) identityURI contactId:(NSString*) contactId
-{
-    Contact* contact = nil;
-    NSDictionary* identityContactsDictionary = [self.contactsDictionaryByProvider objectForKey:identityURI];
-    if (identityContactsDictionary)
-    {
-        contact = [identityContactsDictionary objectForKey:contactId];
-    }
-    
-    return contact;
-}
-
-/**
- Retrieves contact for specific user id
- @param userId NSString unique contact id.
- @return Contact with specified user id.
- */
-- (Contact*) getContactForPeerURI:(NSString*) uniqueID
-{
-    Contact* contact = [self.contactsDictionary objectForKey:uniqueID];
-    return contact;
-}
-
-
-
 /**
  For each contact in the list create a session and send system message to check if contact is available for call.
  */
 - (void) checkAvailability
 {
-    for (Contact* contact in self.contactArray)
+    for (HOPContact* contact in self.contactArray)
     {
-        if (contact.hopContact)
-        {
-            Session* session = [[SessionManager sharedSessionManager] createSessionForContact:contact];
-            [[MessageManager sharedMessageManager] sendSystemMessageToCheckAvailabilityForSession:session];
-        }
+        Session* session = [[SessionManager sharedSessionManager] createSessionForContact:contact];
+        [[MessageManager sharedMessageManager] sendSystemMessageToCheckAvailabilityForSession:session];
     }
 }
 
@@ -185,7 +141,8 @@
  */
 - (void) onCheckAvailabilityResponseReceivedForContact:(Contact*) contact withListOfPeerURIs:(NSString*) peerURIs
 {
-    NSArray* listOfPeerURIs = [peerURIs componentsSeparatedByString:@","];
+#warning onCheckAvailabilityResponseReceivedForContact: NOT implemented
+    /*NSArray* listOfPeerURIs = [peerURIs componentsSeparatedByString:@","];
     if ([listOfPeerURIs count] > 0)
     {
         for (NSString* peerURI in listOfPeerURIs)
@@ -199,7 +156,7 @@
     {
         [contact.listOfContactsInCallSession removeAllObjects];
     }
-    [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoaded];
+    [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoaded];*/
 }
 /**
  Handles response received from lookup server. 

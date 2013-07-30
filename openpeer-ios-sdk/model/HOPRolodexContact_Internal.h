@@ -36,10 +36,13 @@
 using namespace openpeer;
 using namespace openpeer::core;
 
+@class HOPContact;
+
 @interface HOPRolodexContact ()
 {
     
 }
 
 - (void) updateWithRolodexContact:(RolodexContact) inRolodexContact identityProviderDomain:(NSString*)identityProviderDomain homeUserIdentityURI:(NSString*)homeUserIdentityURI;
+- (HOPContact*) getCoreContact;
 @end

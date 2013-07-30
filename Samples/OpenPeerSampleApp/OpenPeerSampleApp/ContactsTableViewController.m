@@ -35,6 +35,8 @@
 #import "Contact.h"
 #import "Constants.h"
 #import <OpenpeerSDK/HOPContact.h>
+#import <OpenpeerSDK/HOPRolodexContact.h>
+#import <OpenpeerSDK/HOPModelManager.h>
 #import "OpenPeer.h"
 #import "ActivityIndicatorViewController.h"
 #import "MainViewController.h"
@@ -142,12 +144,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return [[self.fetchedResultsController sections] count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[[ContactsManager sharedContactsManager] contactArray] count];
+    return [[[self.fetchedResultsController sections] objectAtIndex:section] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -161,11 +163,11 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
     }
     
+    HOPRolodexContact* contact = [[[self.fetchedResultsController sections] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     
-    Contact* contact = [[[ContactsManager sharedContactsManager] contactArray] objectAtIndex:indexPath.row];
-    [cell.textLabel setText:contact.fullName];
+    [cell.textLabel setText:contact.name];
     
-    if ([contact.listOfContactsInCallSession count] > 0)
+    /*if ([contact.listOfContactsInCallSession count] > 0)
     {
         Contact* contactInSession = [contact.listOfContactsInCallSession objectAtIndex:0];
         [cell.detailTextLabel setText:contactInSession.fullName];
@@ -173,9 +175,9 @@
     else
     {
         [cell.detailTextLabel setText:@""];
-    }
+    }*/
     
-    if (contact.hopContact)
+    if (contact.identityContact)
     {
         cell.userInteractionEnabled = YES;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -186,7 +188,6 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
-    //[cell.detailTextLabel setText:contact.profession];
     return cell;
 }
 
@@ -197,7 +198,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Contact* contact = [[[ContactsManager sharedContactsManager] contactArray] objectAtIndex:indexPath.row];
+    HOPRolodexContact* contact = [[[self.fetchedResultsController sections] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     if (contact)
     {
         //Check if app is in remote session mode
@@ -213,7 +214,7 @@
         else
         {
             self.contactsTableView.allowsMultipleSelection = YES;
-            //If app is in remote session mode, add selected contact to list of contacts which will takr aprt in a remote session
+            //If app is in remote session mode, add selected contact to the list of contacts which will take a part in a remote session
             //If contact is already in the list, remove it
             if ([self.listOfSelectedContacts containsObject:contact])
             {
@@ -277,6 +278,64 @@
             [[SessionManager sharedSessionManager] createRemoteSessionForContacts:self.listOfSelectedContacts];
         }
     }
+}
+
+
+#pragma mark - NSFetchedResultsController
+- (NSFetchedResultsController *)fetchedResultsController
+{
+    if (_fetchedResultsController != nil)
+    {
+        return _fetchedResultsController;
+    }
+    
+	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+	NSEntityDescription *entity = [NSEntityDescription entityForName:@"HOPRolodexContact" inManagedObjectContext:[[HOPModelManager sharedModelManager] managedObjectContext]];
+	[fetchRequest setEntity:entity];
+	
+	[fetchRequest setFetchBatchSize:20];
+	
+	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:NO];
+	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+	
+	[fetchRequest setSortDescriptors:sortDescriptors];
+
+	_fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[[HOPModelManager sharedModelManager] managedObjectContext] sectionNameKeyPath:nil cacheName:@"RolodexContacts"];
+    _fetchedResultsController.delegate = self;
+
+	return _fetchedResultsController;
+}
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
+{
+	[self.contactsTableView beginUpdates];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+	
+	switch (type)
+    {
+		case NSFetchedResultsChangeInsert:
+			[self.contactsTableView  insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+			break;
+		case NSFetchedResultsChangeUpdate:
+			[[self.contactsTableView cellForRowAtIndexPath:indexPath].textLabel setText:((HOPRolodexContact*)[[[self.fetchedResultsController sections] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]).name];
+			break;
+		case NSFetchedResultsChangeDelete:
+			[self.contactsTableView  deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+			break;
+		case NSFetchedResultsChangeMove:
+			[self.contactsTableView  deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+			[self.contactsTableView  insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+			break;
+		default:
+			break;
+	}
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+	[self.contactsTableView endUpdates];
 }
 
 @end
