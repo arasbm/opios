@@ -34,7 +34,7 @@
 #import <OpenpeerSDK/HOPIdentity.h>
 #import <OpenpeerSDK/HOPContact.h>
 
-@implementation Contact
+@implementation YContact
 
 - (id) initWithFullName:(NSString*) inFullName profession:(NSString*) inProfession avatarUrl:(NSString*) inAvatarUrl identityProvider:(NSString*) identityBaseURI identityContactId:(NSString*) identityContactId
 {

@@ -31,13 +31,13 @@
 
 #import <Foundation/Foundation.h>
 
-@class Contact;
+@class HOPRolodexContact;
 
 @interface Message : NSObject
 
 @property (nonatomic, strong) NSString* message;
 @property (nonatomic, strong) NSDate* date;
-@property (nonatomic, weak) Contact* contact;
+@property (nonatomic, weak) HOPRolodexContact* contact;
 
-- (id) initWithMessageText:(NSString*) messageText senderContact:(Contact*) senderContact;
+- (id) initWithMessageText:(NSString*) messageText senderContact:(HOPRolodexContact*) senderContact;
 @end

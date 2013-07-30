@@ -68,11 +68,8 @@ using namespace zsLib;
 - (NSArray*) getConversationThreads;
 - (void) setConversationThread:(HOPConversationThread*) conversationThread forId:(NSString*) threadId;
 
-- (HOPContact*) getContactForPeerURI:(NSString*) contactId;
-- (void) setContact:(HOPContact*) contact forId:(NSString*) contactId;
-//This will be in use till we move to new provisioning
-- (HOPContact*) getContactForUserId:(NSString*) userId;
-- (void) setContact:(HOPContact*) contact withContactId:(NSString*) contactId andUserId:(NSString*) userId;
+- (HOPContact*) getContactForPeerURI:(NSString*) peerURI;
+- (void) setContact:(HOPContact*) contact forPeerURI:(NSString*) contactId;
 
 - (HOPProvisioningAccount*) getProvisioningAccountForUserId:(NSString*) userId;
 - (void) setCProvisioningAccount:(HOPProvisioningAccount*) account forUserId:(NSString*) userId;

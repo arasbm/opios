@@ -32,7 +32,11 @@
 #import "HOPRolodexContact_Internal.h"
 #import "HOPAvatar_Internal.h"
 #import "HOPIdentityProvider.h"
+#import "HOPPublicPeerFile.h"
+#import "HOPIdentityContact.h"
 #import "HOPModelManager.h"
+#import "HOPContact.h"
+#import "OpenPeerStorageManager.h"
 
 @implementation HOPRolodexContact
 
@@ -72,6 +76,16 @@
             [hopAvatar updateWithAvatar:*avatar];
         }
     }
+}
+
+- (HOPContact*) getCoreContact
+{
+    HOPContact* ret = [[OpenPeerStorageManager sharedStorageManager] getContactForPeerURI:self.identityContact.peerFile.peerURI];
+    if (!ret)
+    {
+        ret = [[HOPContact alloc] initWithPeerFile:self.identityContact.peerFile.peerFile];
+    }
+    return ret;
 }
 
 @end

@@ -36,6 +36,7 @@
 
 #import <OpenpeerSDK/HOPConversationThread.h>
 #import <OpenpeerSDK/HOPContact.h>
+#import <OpenpeerSDK/HOPRolodexContact.h>
 
 @implementation ConversationThreadDelegate
 
@@ -44,14 +45,13 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if (conversationThread)
         {
+            //TODO: Link HOPRolodexContact and HOPContact by using OPenPeerStorageManageer - peerURI to be key and hopcontact value
             NSMutableArray* contacts = [[NSMutableArray alloc] init];
             NSArray* participants = [conversationThread getContacts];
             for (HOPContact* hopContact in participants)
             {
                 if (![hopContact isSelf])
                 {
-                    //In case profile bundle is required you can get it this way
-                    NSString* profile = [conversationThread getProfileBundle:hopContact];
                     //Here you can parse element to identifier contact who initiated communication. This is necessary in case contact is in the list, but it is not marked as openpeer user.
                     Contact* contact = [[ContactsManager sharedContactsManager] getContactForPeerURI:[hopContact getPeerURI]];
                     

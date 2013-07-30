@@ -44,6 +44,9 @@
 
 #import <OpenpeerSDK/HOPConversationThread.h>
 #import <OpenpeerSDK/HOPContact.h>
+#import <OpenpeerSDK/HOPRolodexContact.h>
+#import <OpenpeerSDK/HOPIdentityContact.h>
+#import <OpenpeerSDK/HOPPublicPeerFile.h>
 #import <OpenpeerSDK/HOPMessage.h>
 #import <OpenpeerSDK/HOPCall.h>
 #import <OpenpeerSDK/HOPMediaEngine.h>
@@ -92,25 +95,23 @@
  Creates a session for the selected contacts
  @param contact Contact Contact for which session will be created.
 */
-- (Session*)createSessionForContact:(Contact *)contact
+- (Session*)createSessionForContact:(HOPRolodexContact *)contact
 {
     Session* ret = [self getSessionForContact:contact];
     
-    if (!ret)
+    if (!ret && contact.identityContact)
     {
-        NSLog(@"%@ is creating a session with %@", [[OpenPeerUser sharedOpenPeerUser] fullName],[contact fullName]);
+        NSLog(@"%@ is creating a session with %@", [[OpenPeerUser sharedOpenPeerUser] fullName],[contact name]);
         
-        //Create user profile which will be passed to other partie.
-        NSString* profileBundle = [[OpenPeerUser sharedOpenPeerUser] createProfileBundle];
         //Create a conversation thread
-        HOPConversationThread* conversationThread = [HOPConversationThread conversationThreadWithProfileBundle:profileBundle];
+        HOPConversationThread* conversationThread = [HOPConversationThread conversationThreadWithProfileBundle:contact.identityContact.identityProofBundle];
         //Create a session with new conversation thread
         ret = [[Session alloc] initWithContact:contact conversationThread:conversationThread];
         
         //Add list of all participants. Currently only one participant is added
-        if (ret && contact.hopContact)
+        if (ret && [contact.identityContact.peerFile.peerFile length] > 0)
         {
-            NSArray* participants = [NSArray arrayWithObject:contact.hopContact];
+            NSArray* participants = [NSArray arrayWithObject:contact];
             [conversationThread addContacts:participants];
         }
         
@@ -119,8 +120,6 @@
             //Store session object in dictionary
             [self.sessionsDictionary setObject:ret forKey:[conversationThread getThreadId]];
         }
-        
-        return ret;
     }
     
     return ret;
@@ -189,15 +188,15 @@
     if ([participants count] > 1)
     {
         //First contact is master and he will be remote session host
-        Contact* masterContact = [participants objectAtIndex:0];
-        Contact* slaveContact = [participants objectAtIndex:1];
+        HOPRolodexContact* masterContact = [participants objectAtIndex:0];
+        HOPRolodexContact* slaveContact = [participants objectAtIndex:1];
         
         //Create a session with the master contact, that will be used to send system message for creating a remote session
         sessionThatWillInitiateRemoteSession = [self createSessionForContact:masterContact];
         if (sessionThatWillInitiateRemoteSession)
         {
             //Send system message, where is passed the slave contacts. Session will be established between slave contacts and master contact.
-            [[MessageManager sharedMessageManager] sendSystemMessageToInitSessionBetweenPeers:[NSArray arrayWithObject:slaveContact.hopContact] forSession:sessionThatWillInitiateRemoteSession];
+            [[MessageManager sharedMessageManager] sendSystemMessageToInitSessionBetweenPeers:[NSArray arrayWithObject:slaveContact] forSession:sessionThatWillInitiateRemoteSession];
         }
     }
     return sessionThatWillInitiateRemoteSession;
@@ -208,7 +207,7 @@
  @param contact Contact participant of new conversation thread
  @param inConversationThread HOPConversationThread new conversation thread
  */
-- (Session*) proceedWithExistingSessionForContact:(Contact*) contact newConversationThread:(HOPConversationThread*) inConversationThread
+- (Session*) proceedWithExistingSessionForContact:(HOPRolodexContact*) contact newConversationThread:(HOPConversationThread*) inConversationThread
 {
     Session* ret = [self getSessionForContact:contact];
     if (ret)
@@ -230,7 +229,7 @@
  @param contacts Contact One of the participants.
  @return session with participant
 */
-- (Session*) getSessionForContact:(Contact*) contact
+- (Session*) getSessionForContact:(HOPRolodexContact*) contact
 {
     for (Session* session in [self.sessionsDictionary allValues])
     {

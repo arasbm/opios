@@ -98,31 +98,17 @@
     [_dictionaryConversationThreads setObject:conversationThread forKey:threadId];
 }
 
-- (HOPContact*) getContactForPeerURI:(NSString*) contactId
+- (HOPContact*) getContactForPeerURI:(NSString*) peerURI
 {
     HOPContact* contact = nil;
     
-    contact = [_dictionaryContacts objectForKey:contactId];
+    contact = [_dictionaryContacts objectForKey:peerURI];
     
     return contact;
 }
-- (void) setContact:(HOPContact*) contact forId:(NSString*) contactId
+- (void) setContact:(HOPContact*) contact forPeerURI:(NSString*) peerURI
 {
-    [_dictionaryContacts setObject:contact forKey:contactId];
-}
-
-- (HOPContact*) getContactForUserId:(NSString*) userId
-{
-    HOPContact* contact = nil;
-    
-    contact = [_dictionaryContactsWithUserId objectForKey:userId];
-    
-    return contact;
-}
-- (void) setContact:(HOPContact*) contact withContactId:(NSString*) contactId andUserId:(NSString*) userId
-{
-    [self setContact:contact forId:contactId];
-    [_dictionaryContactsWithUserId setObject:contact forKey:userId];
+    [_dictionaryContacts setObject:contact forKey:peerURI];
 }
 
 

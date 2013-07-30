@@ -55,7 +55,7 @@
         NSString* peerURI = [NSString stringWithCString:coreContactPtr->getPeerURI() encoding:NSUTF8StringEncoding];
         //If there is no stable id, then there is no valid openpeer contact, so stop creation of HOPContact
         if ([peerURI length] > 0)
-            [[OpenPeerStorageManager sharedStorageManager] setContact:self forId:peerURI];
+            [[OpenPeerStorageManager sharedStorageManager] setContact:self forPeerURI:peerURI];
         else
             return nil;
         
@@ -80,7 +80,7 @@
                 {
                     //self.peerFile = publicPeerFile;
                     coreContactPtr = tempCoreContactPtr;
-                    [[OpenPeerStorageManager sharedStorageManager] setContact:self forId:[self getPeerURI]];
+                    [[OpenPeerStorageManager sharedStorageManager] setContact:self forPeerURI:[self getPeerURI]];
                 }
         }
         else

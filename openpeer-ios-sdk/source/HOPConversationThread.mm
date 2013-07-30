@@ -38,6 +38,10 @@
 #import "HOPContact_Internal.h"
 #import "OpenPeerUtility.h"
 #import "HOPMessage.h"
+#import "HOPRolodexContact_Internal.h"
+#import "HOPIdentityContact.h"
+#import "HOPIdentityProvider.h"
+#import "HOPPublicPeerFile.h"
 #import "HOPAccount_Internal.h"
 #import "OpenPeerStorageManager.h"
 
@@ -165,14 +169,13 @@ using namespace openpeer::core;
                 [contactArray addObject:tempContact];
             }
         }
-        
     }
     else
     {
         [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer conversation thread pointer!"];
     }
     
-    return contactArray;//[contactArray autorelease];
+    return contactArray;
 }
 
 - (NSString*) getProfileBundle: (HOPContact*) contact
@@ -211,14 +214,20 @@ using namespace openpeer::core;
         if ([contacts count] > 0)
         {
             ContactProfileInfoList contactList;
-            for (HOPContact* contact in contacts)
+            for (HOPRolodexContact* contact in contacts)
             {
-                ContactProfileInfo contactInfo;
-                contactInfo.mContact = [contact getContactPtr];
-                contactInfo.mProfileBundleEl = zsLib::XML::ElementPtr();
+                HOPContact* hopContact = [contact getCoreContact];
                 
-                contactList.push_back(contactInfo);
+                if (hopContact)
+                {
+                    ContactProfileInfo contactInfo;
+                    contactInfo.mContact = [hopContact getContactPtr];
+                    contactInfo.mProfileBundleEl = zsLib::XML::ElementPtr();
+                    
+                    contactList.push_back(contactInfo);
+                }
             }
+
             conversationThreadPtr->addContacts(contactList);
         }
     }
@@ -235,9 +244,11 @@ using namespace openpeer::core;
         if ([contacts count] > 0)
         {
             ContactList contactList;
-            for (HOPContact* contact in contacts)
+            for (HOPRolodexContact* contact in contacts)
             {
-                contactList.push_back([contact getContactPtr]);
+                HOPContact* hopContact = [contact getCoreContact];
+                if (hopContact)
+                    contactList.push_back([hopContact getContactPtr]);
             }
             conversationThreadPtr->removeContacts(contactList);
         }

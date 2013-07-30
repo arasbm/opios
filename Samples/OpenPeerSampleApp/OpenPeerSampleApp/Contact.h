@@ -34,7 +34,7 @@
 #import <OpenpeerSDK/HOPContact.h>
 
 
-@interface Contact : HOPContact
+@interface YContact : HOPContact
 
 @property (strong) NSString* fullName;
 @property (strong) NSString* profession;

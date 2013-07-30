@@ -48,7 +48,6 @@
 - (void) loadContacts;
 - (void) identityLookupForContacts:(NSArray *)contacts identityServiceDomain:(NSString*) identityServiceDomain;
 
-- (Contact*) getContactForBaseIdentityURI:(NSString*) identityURI contactId:(NSString*) contactId;
 - (Contact*) getContactForPeerURI:(NSString*) uniqueID;
 
 - (void) checkAvailability;

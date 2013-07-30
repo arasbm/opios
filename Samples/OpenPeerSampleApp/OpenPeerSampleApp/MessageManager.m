@@ -44,7 +44,10 @@
 #import "XMLWriter.h"
 #import "RXMLElement.h"
 
-#import <OpenpeerSDK/HOPContact.h>
+//#import <OpenpeerSDK/HOPContact.h>
+#import <OpenpeerSDK/HOPRolodexContact.h>
+#import <OpenpeerSDK/HOPIdentityContact.h>
+#import <OpenpeerSDK/HOPPublicPeerFile.h>
 #import <OpenpeerSDK/HOPMessage.h>
 #import <OpenpeerSDK/HOPConversationThread.h>
 
@@ -101,12 +104,12 @@
 {
     NSString *messageText = @"";
     int counter = 0;
-    for (HOPContact* contact in peers)
+    for (HOPRolodexContact* contact in peers)
     {
         if (counter == 0 || counter == ([peers count] - 1) )
-            messageText = [messageText stringByAppendingString:[contact getPeerURI]];
+            messageText = [messageText stringByAppendingString:contact.identityContact.peerFile.peerURI];
         else
-            messageText = [messageText stringByAppendingFormat:@"%@,",[contact getPeerURI]];
+            messageText = [messageText stringByAppendingFormat:@"%@,",contact.identityContact.peerFile.peerURI];
         
     }
     

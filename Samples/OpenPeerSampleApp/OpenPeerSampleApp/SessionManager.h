@@ -36,6 +36,7 @@
 @class Session;
 @class HOPConversationThread;
 @class HOPMessage;
+@class HOPRolodexContact;
 
 @interface SessionManager : NSObject
 
@@ -45,12 +46,12 @@
 
 + (id) sharedSessionManager;
 
-- (Session*) createSessionForContact:(Contact*) contact;
+- (Session*) createSessionForContact:(HOPRolodexContact*) contact;
 - (Session*) createSessionForContacts:(NSArray*) contacts andConversationThread:(HOPConversationThread*) inConversationThread;
 - (Session*) createSessionInitiatedFromSession:(Session*) inSession forContactPeerURIs:(NSString*) peerURIs;
 - (Session*) createRemoteSessionForContacts:(NSArray*) participants;
-- (Session*) proceedWithExistingSessionForContact:(Contact*) contact newConversationThread:(HOPConversationThread*) inConversationThread;
-- (Session*) getSessionForContact:(Contact*) contact;
+- (Session*) proceedWithExistingSessionForContact:(HOPRolodexContact*) contact newConversationThread:(HOPConversationThread*) inConversationThread;
+- (Session*) getSessionForContact:(HOPRolodexContact*) contact;
 - (Session*) getSessionForSessionId:(NSString*) sessionId;
 
 
