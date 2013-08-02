@@ -223,13 +223,20 @@
 {
     HOPRolodexContact* ret = nil;
     
-    NSArray* results = [self getResultsForEntity:@"HOPIdentityProvider" withPredicateString:[NSString stringWithFormat:@"(identityURI MATCHES '%@')", identityURI]];
+    NSArray* results = [self getResultsForEntity:@"HOPRolodexContact" withPredicateString:[NSString stringWithFormat:@"(identityURI MATCHES '%@')", identityURI]];
     
     if([results count] > 0)
     {
         ret = [results objectAtIndex:0];
     }
+    
+    return ret;
+}
 
+- (NSArray *) getRolodexContactsByPeerURI:(NSString*) peerURI
+{
+    NSArray* ret = [self getResultsForEntity:@"HOPRolodexContact" withPredicateString:[NSString stringWithFormat:@"(ANY identityContact.peerFile.peerURI MATCHES '%@')", peerURI]];
+    
     return ret;
 }
 
@@ -253,11 +260,11 @@
     
     if (openPeerContacts)
     {
-        stringFormat = [NSString stringWithFormat:@"(identityContact != nil || identityContact.@count > 0 && homeUserIdentityURI MATCHES '%@')",homeUserIdentityURI];
+        stringFormat = [NSString stringWithFormat:@"(identityContact != nil || identityContact.@count > 0 && identityProvider.homeUserIdentityURI MATCHES '%@')",homeUserIdentityURI];
     }
     else
     {
-        stringFormat = [NSString stringWithFormat:@"(identityContact == nil || identityContact.@count == 0 && homeUserIdentityURI MATCHES '%@')",homeUserIdentityURI];
+        stringFormat = [NSString stringWithFormat:@"(identityContact == nil || identityContact.@count == 0 && identityProvider.homeUserIdentityURI MATCHES '%@')",homeUserIdentityURI];
     }
     
     ret = [self getResultsForEntity:@"HOPRolodexContact" withPredicateString:stringFormat];

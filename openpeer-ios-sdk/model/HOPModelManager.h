@@ -49,13 +49,14 @@
 + (id)sharedModelManager;
 - (id) init __attribute__((unavailable("HOPModelManager is singleton class, so the init is not available.")));
 
-- (NSURL *)applicationDocumentsDirectory;
+- (NSURL*)applicationDocumentsDirectory;
 - (void)saveContext;
 
 - (void) deleteObject:(NSManagedObject*) managedObjectToDelete;
 - (NSManagedObject*) createObjectForEntity:(NSString*) entityName;
 
-- (HOPRolodexContact *) getRolodexContactByIdentityURI:(NSString*) identityURI;
+- (HOPRolodexContact*) getRolodexContactByIdentityURI:(NSString*) identityURI;
+- (NSArray*) getRolodexContactsByPeerURI:(NSString*) peerURI;
 - (NSArray*) getAllRolodexContactForHomeUserIdentityURI:(NSString*) homeUserIdentityURI;
 - (NSArray*) getRolodexContactsForHomeUserIdentityURI:(NSString*) homeUserIdentityURI openPeerContacts:(BOOL) openPeerContacts;
 
@@ -63,8 +64,8 @@
 
 - (HOPPublicPeerFile*) getPublicPeerFileForPeerURI:(NSString*) peerURI;
 
-- (HOPIdentityProvider *) getIdentityProviderByDomain:(NSString*) identityProviderDomain;
-- (HOPIdentityProvider *) getIdentityProviderByDomain:(NSString*) identityProviderDomain identityName:(NSString*) identityName homeUserIdentityURI:(NSString*) homeUserIdentityURI;
-- (HOPIdentityProvider *) getIdentityProviderByName:(NSString*) name;
+- (HOPIdentityProvider*) getIdentityProviderByDomain:(NSString*) identityProviderDomain;
+- (HOPIdentityProvider*) getIdentityProviderByDomain:(NSString*) identityProviderDomain identityName:(NSString*) identityName homeUserIdentityURI:(NSString*) homeUserIdentityURI;
+- (HOPIdentityProvider*) getIdentityProviderByName:(NSString*) name;
 
 @end

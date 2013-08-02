@@ -349,7 +349,7 @@
                         if (hopRolodexContact)
                         {
                             //Update existing rolodex contact
-                            [hopRolodexContact updateWithRolodexContact:rolodexContact identityProviderDomain:[self getIdentityProviderDomain] homeUserIdentityURI:[self getIdentityURI]];
+                            [hopRolodexContact updateWithCoreRolodexContact:rolodexContact identityProviderDomain:[self getIdentityProviderDomain] homeUserIdentityURI:[self getIdentityURI]];
                             [[HOPModelManager sharedModelManager] saveContext];
                         }
                         else
@@ -359,7 +359,7 @@
                             if ([managedObject isKindOfClass:[HOPRolodexContact class]])
                             {
                                 hopRolodexContact = (HOPRolodexContact*)managedObject;
-                                [hopRolodexContact updateWithRolodexContact:rolodexContact identityProviderDomain:[self getIdentityProviderDomain] homeUserIdentityURI:[self getIdentityURI]];
+                                [hopRolodexContact updateWithCoreRolodexContact:rolodexContact identityProviderDomain:[self getIdentityProviderDomain] homeUserIdentityURI:[self getIdentityURI]];
                                 [[HOPModelManager sharedModelManager] saveContext];
                             }
                         }
