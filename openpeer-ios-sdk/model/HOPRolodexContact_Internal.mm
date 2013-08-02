@@ -41,7 +41,7 @@
 @implementation HOPRolodexContact
 
 
-- (void) updateWithRolodexContact:(RolodexContact) inRolodexContact identityProviderDomain:(NSString*)identityProviderDomain homeUserIdentityURI:(NSString*)homeUserIdentityURI
+- (void) updateWithCoreRolodexContact:(RolodexContact) inRolodexContact identityProviderDomain:(NSString*)identityProviderDomain homeUserIdentityURI:(NSString*)homeUserIdentityURI
 {
     NSString* identityName = [NSString stringWithCString:inRolodexContact.mIdentityProvider encoding:NSUTF8StringEncoding];
     HOPIdentityProvider* iProvider = [[HOPModelManager sharedModelManager] getIdentityProviderByDomain:identityProviderDomain identityName:identityName homeUserIdentityURI:homeUserIdentityURI];
@@ -76,16 +76,6 @@
             [hopAvatar updateWithAvatar:*avatar];
         }
     }
-}
-
-- (HOPContact*) getCoreContact
-{
-    HOPContact* ret = [[OpenPeerStorageManager sharedStorageManager] getContactForPeerURI:self.identityContact.peerFile.peerURI];
-    if (!ret)
-    {
-        ret = [[HOPContact alloc] initWithPeerFile:self.identityContact.peerFile.peerFile];
-    }
-    return ret;
 }
 
 @end

@@ -49,9 +49,6 @@ typedef enum
 - (HOPMessage*) createSystemMessageWithType:(SystemMessageTypes) type andText:(NSString*) text;
 - (void) sendSystemMessageToInitSessionBetweenPeers:(NSArray*) peers forSession:(Session*) inSession;
 - (void) sendSystemMessageToCallAgainForSession:(Session*) inSession;
-- (void) sendSystemMessageToCheckAvailabilityForSession:(Session*) inSession;
-
-- (void) sendSystemMessageToCheckAvailabilityResponseForSession:(Session*) inSession message:(NSString*) message;
 
 - (void) parseSystemMessage:(HOPMessage*) inMessage forSession:(Session*) inSession;
 - (void) sendMessage:(NSString*) message forSession:(Session*) inSession;

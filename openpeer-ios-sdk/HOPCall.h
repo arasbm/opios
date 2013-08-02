@@ -34,6 +34,7 @@
 
 @class HOPConversationThread;
 @class HOPContact;
+@class HOPRolodexContact;
 
 @interface HOPCall : NSObject
 
@@ -77,8 +78,8 @@
 - (HOPConversationThread*) getConversationThread;
 
 /**
- Retrieves caller contact
- @returns Pointer to the caller contact object
+ Retrieves caller core contact
+ @returns Pointer to the caller core contact object
  */
 - (HOPContact*) getCaller;
 
