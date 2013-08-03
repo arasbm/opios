@@ -343,7 +343,7 @@
 		87E3CD1F172A859500084D2F /* HOPIdentityLookupInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HOPIdentityLookupInfo.mm; sourceTree = "<group>"; };
 		87E3CD23172A85FC00084D2F /* HOPIdentityLookupInfo_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HOPIdentityLookupInfo_Internal.h; sourceTree = "<group>"; };
 		87FA4CE0165F891A00F7D973 /* HOPIdentity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HOPIdentity.h; sourceTree = "<group>"; };
-		E210481717830EA40038A071 /* webrtc.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = webrtc.xcodeproj; path = libs/op/libs/webrtc/webrtc.xcodeproj; sourceTree = SOURCE_ROOT; };
+		E210481717830EA40038A071 /* webrtc_ios.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = webrtc_ios.xcodeproj; path = libs/op/libs/webrtc/webrtc_ios.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E2489EAC1790404E0036CCBF /* libaudio_coding_module.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libaudio_coding_module.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2489EAD1790404E0036CCBF /* libaudio_conference_mixer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libaudio_conference_mixer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2489EAE1790404F0036CCBF /* libaudio_device.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libaudio_device.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -490,6 +490,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		005E6B8817AD56F6002D8335 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		00EB8DA8177D14DA00FFD40F /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -620,7 +627,7 @@
 				8792E9AA1651A12B00DEAC58 /* cryptopp_ios.xcodeproj */,
 				8792E8FD1651A08F00DEAC58 /* udns_ios.xcodeproj */,
 				8792E8F41651A04800DEAC58 /* zsLib_ios.xcodeproj */,
-				E210481717830EA40038A071 /* webrtc.xcodeproj */,
+				E210481717830EA40038A071 /* webrtc_ios.xcodeproj */,
 			);
 			name = "Core Projects";
 			path = "openpeer-ios-sdk";
@@ -708,13 +715,6 @@
 				87B864D21796BBB20027F8B1 /* OpenPeerModels-Prefix.pch */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		E210481817830EA40038A071 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		E2AF705717561D74001F85F1 /* WebRTC libs */ = {
@@ -886,8 +886,8 @@
 					ProjectRef = 8792E8FD1651A08F00DEAC58 /* udns_ios.xcodeproj */;
 				},
 				{
-					ProductGroup = E210481817830EA40038A071 /* Products */;
-					ProjectRef = E210481717830EA40038A071 /* webrtc.xcodeproj */;
+					ProductGroup = 005E6B8817AD56F6002D8335 /* Products */;
+					ProjectRef = E210481717830EA40038A071 /* webrtc_ios.xcodeproj */;
 				},
 				{
 					ProductGroup = 00EB8DA8177D14DA00FFD40F /* Products */;
