@@ -34,6 +34,7 @@
 #import "HOPIdentityContact.h"
 #import "HOPIdentityProvider.h"
 #import "HOPPublicPeerFile.h"
+#import "OpenPeerConstants.h"
 #import <CoreData/CoreData.h>
 
 @interface HOPModelManager()
@@ -98,8 +99,8 @@
     {
         return _managedObjectModel;
     }
-#warning TODO: Define model url with other constants
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"OpenPeer" withExtension:@"momd"];
+
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:modelName withExtension:@"momd"];
     _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     
     return _managedObjectModel;
@@ -113,11 +114,19 @@
     {
         return _persistentStoreCoordinator;
     }
-
-#warning TODO: Define database url with other constants
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"OpenPeer.sqlite"];
+    
+    NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject];
+    NSString *pathDirectory = [libraryPath stringByAppendingPathComponent:databaseDirectory];
     
     NSError *error = nil;
+    if (![[NSFileManager defaultManager] createDirectoryAtPath:pathDirectory withIntermediateDirectories:YES attributes:nil error:&error])
+    {
+        [NSException raise:@"Failed creating directory" format:@"[%@], %@", pathDirectory, error];
+    }
+    
+    NSString *path = [pathDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@",databaseName]];
+    NSURL *storeURL = [NSURL fileURLWithPath:path];
+    
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error])
