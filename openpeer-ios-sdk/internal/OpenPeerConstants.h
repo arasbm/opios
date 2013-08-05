@@ -34,3 +34,4 @@
 
 extern NSString* const databaseDirectory;
 extern NSString* const databaseName;
+extern NSString* const modelName;

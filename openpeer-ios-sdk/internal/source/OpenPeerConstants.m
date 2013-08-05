@@ -33,3 +33,4 @@
 
 NSString* const databaseDirectory = @"Database";
 NSString* const databaseName = @"OpenPeer.sqlite";
+NSString* const modelName = @"OpenPeer";
