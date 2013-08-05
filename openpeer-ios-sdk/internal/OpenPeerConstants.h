@@ -29,17 +29,8 @@
  
  */
 
-#import "HOPIdentityProvider.h"
-#import "HOPRolodexContact.h"
+#import <Foundation/Foundation.h>
 
 
-@implementation HOPIdentityProvider
-
-@dynamic identityProviderDomain;
-@dynamic baseIdentityURI;
-@dynamic lastDownloadTime;
-@dynamic name;
-@dynamic homeUserIdentityURI;
-@dynamic rolodexContacts;
-
-@end
+extern NSString* const databaseDirectory;
+extern NSString* const databaseName;

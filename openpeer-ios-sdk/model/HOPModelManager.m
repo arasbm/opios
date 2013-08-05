@@ -34,6 +34,7 @@
 #import "HOPIdentityContact.h"
 #import "HOPIdentityProvider.h"
 #import "HOPPublicPeerFile.h"
+#import "OpenPeerConstants.h"
 #import <CoreData/CoreData.h>
 
 @interface HOPModelManager()
@@ -115,6 +116,20 @@
     }
 
 #warning TODO: Define database url with other constants
+    
+    NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject];
+    NSString *pathDirectory = [libraryPath stringByAppendingPathComponent:databaseDirectory];
+    
+    NSError *error = nil;
+    if (![[NSFileManager defaultManager] createDirectoryAtPath:pathDirectory withIntermediateDirectories:YES attributes:nil error:&error])
+    {
+        // Handle error.
+        [NSException raise:@"Failed creating directory" format:@"[%@], %@", pathDirectory, error];
+    }
+    
+    NSString *path = [pathDirectory stringByAppendingPathComponent:@"/OpenPeer.sqlite"];
+    NSURL *storeURL = [NSURL fileURLWithPath:path];
+    
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"OpenPeer.sqlite"];
     
     NSError *error = nil;

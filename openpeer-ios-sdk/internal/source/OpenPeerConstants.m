@@ -29,17 +29,7 @@
  
  */
 
-#import "HOPIdentityProvider.h"
-#import "HOPRolodexContact.h"
+#import "OpenPeerConstants.h"
 
-
-@implementation HOPIdentityProvider
-
-@dynamic identityProviderDomain;
-@dynamic baseIdentityURI;
-@dynamic lastDownloadTime;
-@dynamic name;
-@dynamic homeUserIdentityURI;
-@dynamic rolodexContacts;
-
-@end
+NSString* const databaseDirectory = @"Database";
+NSString* const databaseName = @"OpenPeer.sqlite";
