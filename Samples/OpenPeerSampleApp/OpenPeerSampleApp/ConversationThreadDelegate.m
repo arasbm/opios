@@ -46,7 +46,6 @@
     {
         if (conversationThread)
         {
-            //TODO: Link HOPRolodexContact and HOPContact by using OPenPeerStorageManageer - peerURI to be key and hopcontact value
             NSArray* participants = [conversationThread getContacts];
             
             if ([participants count] > 0)

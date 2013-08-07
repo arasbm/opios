@@ -34,6 +34,7 @@
 #import "HOPIdentityContact.h"
 #import "HOPIdentityProvider.h"
 #import "HOPPublicPeerFile.h"
+#import "HOPHomeUser.h"
 #import "OpenPeerConstants.h"
 #import <CoreData/CoreData.h>
 
@@ -311,7 +312,7 @@
 {
     HOPIdentityProvider* ret = nil;
     
-    NSArray* results = [self getResultsForEntity:@"HOPIdentityProvider" withPredicateString:[NSString stringWithFormat:@"(identityProviderDomain LIKE '%@')", identityProviderDomain]];
+    NSArray* results = [self getResultsForEntity:@"HOPIdentityProvider" withPredicateString:[NSString stringWithFormat:@"(identityProviderDomain MATCHES '%@')", identityProviderDomain]];
     
     if([results count] > 0)
     {
@@ -325,7 +326,7 @@
 {
     HOPIdentityProvider* ret = nil;
     
-    NSArray* results = [self getResultsForEntity:@"HOPIdentityProvider" withPredicateString:[NSString stringWithFormat:@"(identityProviderDomain LIKE '%@' AND name LIKE '%@' AND homeUserIdentityURI LIKE '%@')", identityProviderDomain, identityName, homeUserIdentityURI]];
+    NSArray* results = [self getResultsForEntity:@"HOPIdentityProvider" withPredicateString:[NSString stringWithFormat:@"(identityProviderDomain MATCHES '%@' AND name MATCHES '%@' AND homeUserIdentityURI MATCHES '%@')", identityProviderDomain, identityName, homeUserIdentityURI]];
     
     if([results count] > 0)
     {
@@ -339,7 +340,7 @@
 {
     HOPIdentityProvider* ret = nil;
     
-    NSArray* results = [self getResultsForEntity:@"HOPIdentityProvider" withPredicateString:[NSString stringWithFormat:@"(name LIKE '%@')", name]];
+    NSArray* results = [self getResultsForEntity:@"HOPIdentityProvider" withPredicateString:[NSString stringWithFormat:@"(name MATCHES '%@')", name]];
     
     if([results count] > 0)
     {
@@ -348,4 +349,47 @@
     
     return ret;
 }
+
+- (HOPAvatar*) getAvatarByURL:(NSString*) url
+{
+    HOPAvatar* ret = nil;
+    
+    NSArray* results = [self getResultsForEntity:@"HOPAvatar" withPredicateString:[NSString stringWithFormat:@"(url MATCHES '%@')", url]];
+    
+    if([results count] > 0)
+    {
+        ret = [results objectAtIndex:0];
+    }
+    
+    return ret;
+}
+
+- (HOPHomeUser*) getLastLoggedInHomeUser
+{
+    HOPHomeUser* ret = nil;
+    
+    NSArray* results = [self getResultsForEntity:@"HOPHomeUser" withPredicateString:@"(loggedIn == YES)"];
+    
+    if([results count] > 0)
+    {
+        ret = [results objectAtIndex:0];
+    }
+    
+    return ret;
+}
+
+- (HOPHomeUser*) getHomeUserByStableID:(NSString*) stableID
+{
+    HOPHomeUser* ret = nil;
+    
+    NSArray* results = [self getResultsForEntity:@"HOPHomeUser" withPredicateString:[NSString stringWithFormat:@"(stableId MATCHES '%@')", stableID]];
+    
+    if([results count] > 0)
+    {
+        ret = [results objectAtIndex:0];
+    }
+    
+    return ret;
+}
+
 @end

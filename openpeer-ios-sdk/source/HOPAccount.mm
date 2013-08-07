@@ -146,6 +146,25 @@ using namespace openpeer::core;
     return ret;
 }
 
+- (NSString*) getStableID
+{
+    NSString* ret = nil;
+    
+    if(accountPtr)
+    {
+//        if (accountPtr->getReloginInformation())
+//        {
+//            String reloginInfo = IHelper::convertToString(accountPtr->getReloginInformation());
+//            if (reloginInfo.length() > 0)
+//                ret = [NSString stringWithUTF8String: reloginInfo];
+//        }
+    }
+    else
+    {
+        [NSException raise:NSInvalidArgumentException format:@"Invalid account object!"];
+    }
+    return ret;
+}
 
 - (NSString*) getReloginInformation
 {

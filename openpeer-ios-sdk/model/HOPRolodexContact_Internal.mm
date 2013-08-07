@@ -73,15 +73,19 @@
         self.avatars = [[NSSet alloc] init];
         for (RolodexContact::AvatarList::iterator avatar = inRolodexContact.mAvatars.begin(); avatar != inRolodexContact.mAvatars.end(); ++avatar)
         {
-            HOPAvatar* hopAvatar = nil;
-            //TODO: Get avatar from the database
+            NSString* avatarURL = [NSString stringWithUTF8String:avatar->mURL];
             
-            if (!hopAvatar)
+            if ([avatarURL length] > 0)
             {
-                //hopAvatar = [NSEntityDescription insertNewObjectForEntityForName:@"HOPAvatar" inManagedObjectContext:context];
+                HOPAvatar* hopAvatar = [[HOPModelManager sharedModelManager] getAvatarByURL:avatarURL];
+                
+                if (!hopAvatar)
+                {
+                    hopAvatar = [NSEntityDescription insertNewObjectForEntityForName:@"HOPAvatar" inManagedObjectContext:[[HOPModelManager sharedModelManager]managedObjectContext]];
+                }
+                
+                [hopAvatar updateWithAvatar:*avatar];
             }
-            
-            [hopAvatar updateWithAvatar:*avatar];
         }
     }
 }

@@ -8,6 +8,7 @@
         <relationship name="rolodexContacts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HOPRolodexContact" inverseName="avatars" inverseEntity="HOPRolodexContact" syncable="YES"/>
     </entity>
     <entity name="HOPHomeUser" representedClassName="HOPHomeUser" syncable="YES">
+        <attribute name="loggedIn" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="reloginInfo" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="stableId" attributeType="String" indexed="YES" syncable="YES"/>
         <relationship name="identityProviders" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HOPIdentityProvider" inverseName="homeUser" inverseEntity="HOPIdentityProvider" syncable="YES"/>
@@ -47,7 +48,7 @@
     </entity>
     <elements>
         <element name="HOPAvatar" positionX="97" positionY="36" width="128" height="118"/>
-        <element name="HOPHomeUser" positionX="43" positionY="225" width="128" height="88"/>
+        <element name="HOPHomeUser" positionX="43" positionY="225" width="128" height="103"/>
         <element name="HOPIdentityContact" positionX="-380" positionY="-28" width="128" height="163"/>
         <element name="HOPIdentityProvider" positionX="-135" positionY="200" width="126" height="148"/>
         <element name="HOPPublicPeerFile" positionX="-387" positionY="225" width="128" height="88"/>

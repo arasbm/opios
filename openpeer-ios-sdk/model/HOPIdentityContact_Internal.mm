@@ -70,7 +70,6 @@
     identityContact.priority = [NSNumber numberWithInt:inIdentityContact.mPriority];
     identityContact.weight = [NSNumber numberWithInt:inIdentityContact.mWeight];
     
-    //TODO: check also against homeuserid
     HOPRolodexContact* hopRolodexContact = [[HOPModelManager sharedModelManager] getRolodexContactByIdentityURI:[NSString stringWithCString:inIdentityContact.mIdentityURI encoding:NSUTF8StringEncoding]];
     
     identityContact.rolodexContact = hopRolodexContact;

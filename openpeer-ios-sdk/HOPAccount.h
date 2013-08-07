@@ -91,6 +91,14 @@
  */
 - (HOPAccountState*) getState;
 
+
+/**
+ Retrieves account atable id
+ @returns NSString stable id
+ */
+- (NSString*) getStableID;
+
+
 /**
  Retrieves relogin info for logged user. Relogin info contains": lockboxDomain, accountID, grandID, keyIdentityHalf, keyLockboxHalf.
  @returns NSString relogin info in packed in JSON format.

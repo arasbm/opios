@@ -40,6 +40,8 @@
 @class HOPIdentityProvider;
 @class HOPIdentityContact;
 @class HOPPublicPeerFile;
+@class HOPHomeUser;
+@class HOPAvatar;
 
 @interface HOPModelManager : NSObject
 
@@ -143,4 +145,23 @@
  */
 - (HOPIdentityProvider*) getIdentityProviderByName:(NSString*) name;
 
+/**
+ Retrieves the avatar object for spcified url.
+ @param url NSString image url
+ @return HOPAvatar avatar object
+ */
+- (HOPAvatar*) getAvatarByURL:(NSString*) url;
+
+/**
+ Retrieves the last logged in user.
+ @return HOPHomeUser home user object
+ */
+- (HOPHomeUser*) getLastLoggedInHomeUser;
+
+/**
+ Retrieves home user with specified stable id.
+ @param stableId NSString contact stble id
+ @return HOPHomeUser home user object
+ */
+- (HOPHomeUser*) getHomeUserByStableID:(NSString*) stableID;
 @end
