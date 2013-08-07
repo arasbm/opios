@@ -43,5 +43,11 @@ using namespace openpeer::core;
     
 }
 
+/**
+ Update data model with core rolodex contact data
+ @param inRolodexContact RolodexContact core rolodex contact object
+ @param identityProviderDomain NSString identity provider domain
+ @param homeUserIdentityURI NSString home user identity URI
+ */
 - (void) updateWithCoreRolodexContact:(RolodexContact) inRolodexContact identityProviderDomain:(NSString*)identityProviderDomain homeUserIdentityURI:(NSString*)homeUserIdentityURI;
 @end
