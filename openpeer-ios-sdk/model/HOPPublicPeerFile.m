@@ -37,6 +37,6 @@
 
 @dynamic peerFile;
 @dynamic peerURI;
-@dynamic identityContact;
+@dynamic identityContacts;
 
 @end

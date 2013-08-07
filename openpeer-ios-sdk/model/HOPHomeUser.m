@@ -29,23 +29,14 @@
  
  */
 
-#import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
+#import "HOPHomeUser.h"
+#import "HOPIdentityProvider.h"
 
-@class HOPIdentityContact;
 
-@interface HOPPublicPeerFile : NSManagedObject
+@implementation HOPHomeUser
 
-@property (nonatomic, retain) NSString * peerFile;
-@property (nonatomic, retain) NSString * peerURI;
-@property (nonatomic, retain) NSSet *identityContacts;
-@end
-
-@interface HOPPublicPeerFile (CoreDataGeneratedAccessors)
-
-- (void)addIdentityContactsObject:(HOPIdentityContact *)value;
-- (void)removeIdentityContactsObject:(HOPIdentityContact *)value;
-- (void)addIdentityContacts:(NSSet *)values;
-- (void)removeIdentityContacts:(NSSet *)values;
+@dynamic reloginInfo;
+@dynamic stableId;
+@dynamic identityProviders;
 
 @end

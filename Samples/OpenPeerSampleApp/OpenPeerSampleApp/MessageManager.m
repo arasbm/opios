@@ -198,7 +198,7 @@
     
     if ([message.type isEqualToString:messageTypeText])
     {
-        HOPRolodexContact* contact  = [[HOPModelManager sharedModelManager] getRolodexContactsByPeerURI:[message.contact getPeerURI]];
+        HOPRolodexContact* contact  = [[[HOPModelManager sharedModelManager] getRolodexContactsByPeerURI:[message.contact getPeerURI]] objectAtIndex:0];
         Message* messageObj = [[Message alloc] initWithMessageText:message.text senderContact:contact];
         [session.messageArray addObject:messageObj];
         //If session view controller with message sender is not yet shown, show it

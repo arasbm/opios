@@ -37,6 +37,15 @@
 
 @implementation HOPIdentityContact
 
+@dynamic expires;
+@dynamic identityProofBundle;
+@dynamic lastUpdated;
+@dynamic priority;
+@dynamic stableID;
+@dynamic weight;
+@dynamic peerFile;
+@dynamic rolodexContact;
+
 - (void) updateWithIdentityContact:(IdentityContact) inIdentityContact
 {
     NSString* sId = [NSString stringWithUTF8String:inIdentityContact.mStableID];
@@ -67,7 +76,7 @@
     identityContact.rolodexContact = hopRolodexContact;
     
     NSString* peerURI = [NSString stringWithCString: IHelper::getPeerURI(inIdentityContact.mPeerFilePublic) encoding:NSUTF8StringEncoding];
-    NSString* peerFile = [NSString stringWithCString:IHelper::convertToString(IHelper::convertToElement(inIdentityContact.mPeerFilePublic)) encoding:NSUTF8StringEncoding];
+    //NSString* peerFile = [NSString stringWithCString:IHelper::convertToString(IHelper::convertToElement(inIdentityContact.mPeerFilePublic)) encoding:NSUTF8StringEncoding];
     
     HOPPublicPeerFile* publicPeerFile = [[HOPModelManager sharedModelManager] getPublicPeerFileForPeerURI:peerURI];
     

@@ -86,13 +86,6 @@
 			remoteGlobalIDString = 8792E86816519CFF00DEAC58;
 			remoteInfo = OpenpeerSDK;
 		};
-		871BC9A9179EECC400AEA4A6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 872729CF166CDF530089CBB6 /* openpeer-ios-sdk.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 87B864C91796BBB10027F8B1;
-			remoteInfo = OpenPeerModels;
-		};
 		872DA9E2175CC429000CCA76 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 872729CF166CDF530089CBB6 /* openpeer-ios-sdk.xcodeproj */;
@@ -315,7 +308,6 @@
 			isa = PBXGroup;
 			children = (
 				870E0B70175C93BF00C93CC1 /* libOpenpeerSDK.a */,
-				871BC9AA179EECC400AEA4A6 /* OpenPeerModels.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -560,13 +552,6 @@
 			remoteRef = 870E0B6F175C93BF00C93CC1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		871BC9AA179EECC400AEA4A6 /* OpenPeerModels.bundle */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = OpenPeerModels.bundle;
-			remoteRef = 871BC9A9179EECC400AEA4A6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -736,6 +721,7 @@
 				OTHER_LDFLAGS = (
 					"-lstdc++",
 					"-lz",
+					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -776,6 +762,7 @@
 				OTHER_LDFLAGS = (
 					"-lstdc++",
 					"-lz",
+					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

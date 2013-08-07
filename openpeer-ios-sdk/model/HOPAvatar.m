@@ -30,6 +30,7 @@
  */
 
 #import "HOPAvatar.h"
+#import "HOPRolodexContact.h"
 
 
 @implementation HOPAvatar
@@ -38,5 +39,6 @@
 @dynamic name;
 @dynamic url;
 @dynamic width;
+@dynamic rolodexContacts;
 
 @end

@@ -30,16 +30,18 @@
  */
 
 #import "HOPIdentityProvider.h"
+#import "HOPHomeUser.h"
 #import "HOPRolodexContact.h"
 
 
 @implementation HOPIdentityProvider
 
-@dynamic identityProviderDomain;
 @dynamic baseIdentityURI;
+@dynamic homeUserIdentityURI;
+@dynamic identityProviderDomain;
 @dynamic lastDownloadTime;
 @dynamic name;
-@dynamic homeUserIdentityURI;
 @dynamic rolodexContacts;
+@dynamic homeUser;
 
 @end

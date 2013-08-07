@@ -32,20 +32,20 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class HOPIdentityContact;
+@class HOPIdentityProvider;
 
-@interface HOPPublicPeerFile : NSManagedObject
+@interface HOPHomeUser : NSManagedObject
 
-@property (nonatomic, retain) NSString * peerFile;
-@property (nonatomic, retain) NSString * peerURI;
-@property (nonatomic, retain) NSSet *identityContacts;
+@property (nonatomic, retain) NSString * reloginInfo;
+@property (nonatomic, retain) NSString * stableId;
+@property (nonatomic, retain) NSSet *identityProviders;
 @end
 
-@interface HOPPublicPeerFile (CoreDataGeneratedAccessors)
+@interface HOPHomeUser (CoreDataGeneratedAccessors)
 
-- (void)addIdentityContactsObject:(HOPIdentityContact *)value;
-- (void)removeIdentityContactsObject:(HOPIdentityContact *)value;
-- (void)addIdentityContacts:(NSSet *)values;
-- (void)removeIdentityContacts:(NSSet *)values;
+- (void)addIdentityProvidersObject:(HOPIdentityProvider *)value;
+- (void)removeIdentityProvidersObject:(HOPIdentityProvider *)value;
+- (void)addIdentityProviders:(NSSet *)values;
+- (void)removeIdentityProviders:(NSSet *)values;
 
 @end

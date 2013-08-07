@@ -40,6 +40,14 @@
 
 @implementation HOPRolodexContact
 
+@dynamic identityURI;
+@dynamic name;
+@dynamic profileURL;
+@dynamic vProfileURL;
+@dynamic avatars;
+@dynamic identityContact;
+@dynamic identityProvider;
+
 
 - (void) updateWithCoreRolodexContact:(RolodexContact) inRolodexContact identityProviderDomain:(NSString*)identityProviderDomain homeUserIdentityURI:(NSString*)homeUserIdentityURI
 {

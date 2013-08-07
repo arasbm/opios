@@ -47,6 +47,7 @@
  @returns HOPCall object if ICallPtr object is created sucessfully, otherwise nil
  */
 + (id) placeCall:(HOPConversationThread*) conversationThread toContact:(HOPContact*) toContact includeAudio:(BOOL) includeAudio includeVideo:(BOOL) includeVideo;
+- (id) init __attribute__((unavailable("Use static placeCall:toContact:includeAudio:includeVideo method to create a call object.")));
 
 
 /**

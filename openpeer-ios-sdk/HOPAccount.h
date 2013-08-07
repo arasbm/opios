@@ -49,6 +49,7 @@
 @interface HOPAccount : NSObject
 
 + (HOPAccount*) sharedAccount;
+- (id) init __attribute__((unavailable("HOPAccount is singleton class.")));
 
 /**
  Converts account state enum to string

@@ -33,7 +33,7 @@
 #import "ContactsManager.h"
 #import "SessionManager.h"
 #import "Constants.h"
-#import <OpenpeerSDK/HOPRolodexContact.h>
+#import <OpenpeerSDK/HOPRolodexContact+External.h>
 #import <OpenpeerSDK/HOPModelManager.h>
 #import "OpenPeer.h"
 #import "ActivityIndicatorViewController.h"
@@ -202,7 +202,7 @@
             [tableView deselectRowAtIndexPath:indexPath animated:NO];
             self.contactsTableView.allowsMultipleSelection = NO;
             //If not, create a session for selecte contact
-            Session* session = [[SessionManager sharedSessionManager] createSessionForContact:contact];
+            Session* session = [[SessionManager sharedSessionManager] createSessionForContact:[contact getCoreContact]];
             
             [[[OpenPeer sharedOpenPeer] mainViewController] showSessionViewControllerForSession:session forIncomingCall:NO forIncomingMessage:NO];
         }

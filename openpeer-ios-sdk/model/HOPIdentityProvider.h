@@ -32,16 +32,17 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class HOPRolodexContact;
+@class HOPHomeUser, HOPRolodexContact;
 
 @interface HOPIdentityProvider : NSManagedObject
 
-@property (nonatomic, retain) NSString * identityProviderDomain;
 @property (nonatomic, retain) NSString * baseIdentityURI;
+@property (nonatomic, retain) NSString * homeUserIdentityURI;
+@property (nonatomic, retain) NSString * identityProviderDomain;
 @property (nonatomic, retain) NSDate * lastDownloadTime;
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSString * homeUserIdentityURI;
 @property (nonatomic, retain) NSSet *rolodexContacts;
+@property (nonatomic, retain) HOPHomeUser *homeUser;
 @end
 
 @interface HOPIdentityProvider (CoreDataGeneratedAccessors)

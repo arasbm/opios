@@ -33,6 +33,7 @@
 
 @class HOPMessage;
 @class Session;
+@class HOPRolodexContact;
 
 typedef enum
 {
@@ -46,7 +47,7 @@ typedef enum
 
 + (id) sharedMessageManager;
 
-- (HOPMessage*) createSystemMessageWithType:(SystemMessageTypes) type andText:(NSString*) text;
+- (HOPMessage*) createSystemMessageWithType:(SystemMessageTypes) type andText:(NSString*) text andRecipient:(HOPRolodexContact*) contact;
 - (void) sendSystemMessageToInitSessionBetweenPeers:(NSArray*) peers forSession:(Session*) inSession;
 - (void) sendSystemMessageToCallAgainForSession:(Session*) inSession;
 

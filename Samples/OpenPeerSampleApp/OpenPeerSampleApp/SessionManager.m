@@ -94,7 +94,7 @@
 
 /**
  Creates a session for the selected contacts
- @param contact HOPRolodexContact Contact for which session will be created.
+ @param contact HOPContact Contact for which session will be created.
 */
 - (Session*)createSessionForContact:(HOPContact *)contact
 {
