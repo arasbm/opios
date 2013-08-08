@@ -34,6 +34,8 @@
 #import "HOPTypes.h"
 #import "HOPProtocols.h"
 
+@class HOPIdentityContact;
+
 /**
  Wrapper for identity state data.
  */
@@ -123,6 +125,9 @@
  @returns NSString identity provider domain
  */
 - (NSString*) getIdentityProviderDomain;
+
+
+- (HOPIdentityContact*) getIdentityContact;
 
 /**
  Retrieves identity inner browser frame URL

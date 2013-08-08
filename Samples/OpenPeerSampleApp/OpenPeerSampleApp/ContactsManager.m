@@ -132,10 +132,8 @@
         if ([result wasSuccessful])
         {
             NSArray* identityContacts = [identityLookup getUpdatedIdentities];
-            for (HOPIdentityContact* identityContact in identityContacts)
-            {
-                //TODO: Check should contacts details be updated in sdk or from app
-            }
+            
+            refreshContacts = [identityContacts count] > 0 ? YES : NO;
         }
     }
     

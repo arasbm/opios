@@ -152,12 +152,12 @@ using namespace openpeer::core;
     
     if(accountPtr)
     {
-//        if (accountPtr->getReloginInformation())
-//        {
-//            String reloginInfo = IHelper::convertToString(accountPtr->getReloginInformation());
-//            if (reloginInfo.length() > 0)
-//                ret = [NSString stringWithUTF8String: reloginInfo];
-//        }
+        String stableId = accountPtr->getStableID();
+        
+        if (stableId && stableId.length() > 0)
+        {
+            ret = [NSString stringWithUTF8String: stableId];
+        }
     }
     else
     {
