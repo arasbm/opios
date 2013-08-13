@@ -130,6 +130,7 @@
     if (!self.loginViewController)
     {
         self.loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+        [self.loginViewController.view setFrame:self.view.bounds];
     }
     
     [self removeAllSubViews];

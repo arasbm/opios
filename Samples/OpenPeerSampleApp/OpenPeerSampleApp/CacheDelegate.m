@@ -38,7 +38,6 @@
 {
     NSString* ret = nil;
     
-    //TODO: What to do when cookie has expired
     NSData* data = [[NSUserDefaults standardUserDefaults] objectForKey:cookieNamePath];
     if (data)
     {
