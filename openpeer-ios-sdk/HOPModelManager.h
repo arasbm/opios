@@ -123,13 +123,6 @@
 - (HOPPublicPeerFile*) getPublicPeerFileForPeerURI:(NSString*) peerURI;
 
 /**
- Retrieves the identity provider object for spcified identity provider domain.
- @param identityProviderDomain NSString for spcified identity provider domain
- @return HOPIdentityProvider identity provider object
- */
-- (HOPIdentityProvider*) getIdentityProviderByDomain:(NSString*) identityProviderDomain;
-
-/**
  Retrieves the identity provider object for spcified identity provider domain, identity name and home user identity URI.
  @param identityProviderDomain NSString identity provider domain
  @param identityName NSString identity name (e.g. foo.com)
@@ -137,13 +130,6 @@
  @return HOPIdentityProvider identity provider object
  */
 - (HOPIdentityProvider*) getIdentityProviderByDomain:(NSString*) identityProviderDomain identityName:(NSString*) identityName homeUserIdentityURI:(NSString*) homeUserIdentityURI;
-
-/**
- Retrieves the identity provider object for spcified identity name.
- @param name NSString identity name (e.g. foo.com)
- @return HOPIdentityProvider identity provider object
- */
-- (HOPIdentityProvider*) getIdentityProviderByName:(NSString*) name;
 
 /**
  Retrieves the avatar object for spcified url.
@@ -164,4 +150,17 @@
  @return HOPHomeUser home user object
  */
 - (HOPHomeUser*) getHomeUserByStableID:(NSString*) stableID;
+
+/**
+ Deletes all marked rolodex contacts for home user specific identity URI.
+ @param homeUserIdentityURI NSString user identity URI
+ */
+- (void) deleteAllMarkedRolodexContactsForHomeUserIdentityURI:(NSString*) homeUserIdentityURI;
+
+/**
+ Retrieves all rolodex contacts ready for deletion for home user specific identity URI.
+ @param homeUserIdentityURI NSString user identity URI
+ @return NSArray array of rolodex contacts ready for deleteion
+ */
+- (NSArray*) getAllRolodexContactsMarkedForDeletionForHomeUserIdentityURI:(NSString*) homeUserIdentityURI;
 @end

@@ -51,6 +51,7 @@
 
 @property (nonatomic, strong) NSString* identityBaseURI;
 @property (copy) NSString* identityId;
+@property (nonatomic, strong) NSTimer* deletionTimer;
 
 /**
  Converts identity state enum to string
@@ -182,4 +183,14 @@
  Cancels identity login.
  */
 - (void) cancel;
+
+/**
+ Starts timer after which expire all marked contacts will be deleted.
+ */
+- (void) startTimerForContactsDeletion;
+
+/**
+ Stops deletion timer..
+ */
+- (void) stopTimerForContactsDeletion;
 @end

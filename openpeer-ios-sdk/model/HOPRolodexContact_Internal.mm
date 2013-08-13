@@ -58,8 +58,8 @@
         iProvider = [NSEntityDescription insertNewObjectForEntityForName:@"HOPIdentityProvider" inManagedObjectContext:[[HOPModelManager sharedModelManager]managedObjectContext]];
         
         iProvider.name = identityName;
-        iProvider.identityProviderDomain = identityProviderDomain;
-        iProvider.homeUserIdentityURI = homeUserIdentityURI;
+        iProvider.domain = identityProviderDomain;
+        iProvider.homeUserProfile = self;
     }
     
     self.identityProvider = iProvider;

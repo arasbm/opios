@@ -41,12 +41,19 @@
 #import "OpenPeerUtility.h"
 #import "HOPRolodexContact_Internal.h"
 #import "HOPIdentityContact_Internal.h"
+#import "OpenPeerConstants.h"
 
 @implementation HOPIdentityState
 
 
+@end
+
+@interface HOPIdentity()
+
+- (void) deleteMarkedRolodexContacts;
 
 @end
+
 
 
 @implementation HOPIdentity
@@ -423,6 +430,24 @@
     }
     
     return ret;
+}
+
+- (void) startTimerForContactsDeletion
+{
+    [self stopTimerForContactsDeletion];
+    
+    self.deletionTimer = [NSTimer scheduledTimerWithTimeInterval:flushContactsDownloadTime target:self selector:@selector(deleteMarkedRolodexContacts) userInfo:nil repeats:NO];
+}
+
+- (void) stopTimerForContactsDeletion
+{
+    if ([self.deletionTimer isValid])
+        [self.deletionTimer invalidate];
+}
+
+- (void) deleteMarkedRolodexContacts
+{
+    
 }
 
 #pragma mark - Internal methods

@@ -92,6 +92,7 @@
                 break;
                 
             case HOPAccountWaitingForBrowserWindowToClose:
+                [account notifyBrowserWindowClosed];
                 [self.webLoginViewController.view removeFromSuperview];
                 break;
                 

@@ -128,6 +128,7 @@
                 
             case HOPIdentityStateWaitingForBrowserWindowToClose:
                 //Detach the web view
+                [identity notifyBrowserWindowClosed];
                 [webLoginViewController.view removeFromSuperview];
                 [self removeLoginWebViewForIdentity:identity];
                 break;
@@ -170,12 +171,27 @@
         BOOL flushAllRolodexContacts;
         NSString* downloadedVersion;
         NSArray* rolodexContacts;
+        
         BOOL rolodexContactsObtained = [identity getDownloadedRolodexContacts:&flushAllRolodexContacts outVersionDownloaded:&downloadedVersion outRolodexContacts:&rolodexContacts];
+        
+        NSArray* allUserRolodexContacts = [[HOPModelManager sharedModelManager]getRolodexContactsForHomeUserIdentityURI:[identity getIdentityURI] openPeerContacts:NO];
+        
+        [identity stopTimerForContactsDeletion];
         
         if (rolodexContactsObtained)
         {
-            NSArray* rolodexContacts = [[HOPModelManager sharedModelManager]getRolodexContactsForHomeUserIdentityURI:[identity getIdentityURI] openPeerContacts:NO];
-            [[ContactsManager sharedContactsManager] identityLookupForContacts:rolodexContacts identityServiceDomain:[identity getIdentityProviderDomain]];
+            [rolodexContacts setValue:[NSNumber numberWithBool:NO] forKey:@"readyForDeletion"];
+            [[ContactsManager sharedContactsManager] identityLookupForContacts:allUserRolodexContacts identityServiceDomain:[identity getIdentityProviderDomain]];
+            
+            NSArray* contactsToDelete = [[HOPModelManager sharedModelManager] getAllRolodexContactsMarkedForDeletionForHomeUserIdentityURI:[identity getIdentityURI]];
+            if ([contactsToDelete count] > 0)
+                [identity startTimerForContactsDeletion];
+        }
+        else if (flushAllRolodexContacts)
+        {
+            [identity startTimerForContactsDeletion];
+            [allUserRolodexContacts setValue:[NSNumber numberWithBool:YES] forKey:@"readyForDeletion"];
+            [[HOPModelManager sharedModelManager] saveContext];
         }
 
     }

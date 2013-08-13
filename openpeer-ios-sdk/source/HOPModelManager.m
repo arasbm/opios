@@ -251,7 +251,7 @@
 - (NSArray*) getAllRolodexContactForHomeUserIdentityURI:(NSString*) homeUserIdentityURI
 {
     NSArray* ret = nil;
-    NSArray* results = [self getResultsForEntity:@"HOPIdentityProvider" withPredicateString:[NSString stringWithFormat:@"(homeUserIdentityURI MATCHES '%@')",homeUserIdentityURI]];
+    NSArray* results = [self getResultsForEntity:@"HOPIdentityProvider" withPredicateString:[NSString stringWithFormat:@"(homeUserProfile.identityURI MATCHES '%@')",homeUserIdentityURI]];
     
     if([results count] > 0)
     {
@@ -268,11 +268,11 @@
     
     if (openPeerContacts)
     {
-        stringFormat = [NSString stringWithFormat:@"(identityContact != nil || identityContact.@count > 0 && identityProvider.homeUserIdentityURI MATCHES '%@')",homeUserIdentityURI];
+        stringFormat = [NSString stringWithFormat:@"(identityContact != nil || identityContact.@count > 0 && identityProvider.homeUserProfile.identityURI MATCHES '%@')",homeUserIdentityURI];
     }
     else
     {
-        stringFormat = [NSString stringWithFormat:@"(identityContact == nil || identityContact.@count == 0 && identityProvider.homeUserIdentityURI MATCHES '%@')",homeUserIdentityURI];
+        stringFormat = [NSString stringWithFormat:@"(identityContact == nil || identityContact.@count == 0 && identityProvider.homeUserProfile.identityURI MATCHES '%@')",homeUserIdentityURI];
     }
     
     ret = [self getResultsForEntity:@"HOPRolodexContact" withPredicateString:stringFormat];
@@ -308,39 +308,11 @@
     return ret;
 }
 
-- (HOPIdentityProvider *) getIdentityProviderByDomain:(NSString*) identityProviderDomain
-{
-    HOPIdentityProvider* ret = nil;
-    
-    NSArray* results = [self getResultsForEntity:@"HOPIdentityProvider" withPredicateString:[NSString stringWithFormat:@"(identityProviderDomain MATCHES '%@')", identityProviderDomain]];
-    
-    if([results count] > 0)
-    {
-        ret = [results objectAtIndex:0];
-    }
-    
-    return ret;
-}
-
 - (HOPIdentityProvider *) getIdentityProviderByDomain:(NSString*) identityProviderDomain identityName:(NSString*) identityName homeUserIdentityURI:(NSString*) homeUserIdentityURI
 {
     HOPIdentityProvider* ret = nil;
     
-    NSArray* results = [self getResultsForEntity:@"HOPIdentityProvider" withPredicateString:[NSString stringWithFormat:@"(identityProviderDomain MATCHES '%@' AND name MATCHES '%@' AND homeUserIdentityURI MATCHES '%@')", identityProviderDomain, identityName, homeUserIdentityURI]];
-    
-    if([results count] > 0)
-    {
-        ret = [results objectAtIndex:0];
-    }
-    
-    return ret;
-}
-
-- (HOPIdentityProvider *) getIdentityProviderByName:(NSString*) name
-{
-    HOPIdentityProvider* ret = nil;
-    
-    NSArray* results = [self getResultsForEntity:@"HOPIdentityProvider" withPredicateString:[NSString stringWithFormat:@"(name MATCHES '%@')", name]];
+    NSArray* results = [self getResultsForEntity:@"HOPIdentityProvider" withPredicateString:[NSString stringWithFormat:@"(domain MATCHES '%@' AND name MATCHES '%@' AND homeUser.identityURI MATCHES '%@')", identityProviderDomain, identityName, homeUserIdentityURI]];
     
     if([results count] > 0)
     {
@@ -392,4 +364,27 @@
     return ret;
 }
 
+- (void) deleteAllMarkedRolodexContactsForHomeUserIdentityURI:(NSString*) homeUserIdentityURI
+{
+    NSArray* objectsForDeleteion = nil;
+    NSArray* results = [self getResultsForEntity:@"HOPIdentityProvider" withPredicateString:[NSString stringWithFormat:@"(ANY rolodexContacts.readyForDeletion == YES AND homeUserProfile.identityURI MATCHES '%@')",homeUserIdentityURI]];
+    
+    if([results count] > 0)
+    {
+        HOPIdentityProvider* identityProvider = [results objectAtIndex:0];
+        objectsForDeleteion = [identityProvider.rolodexContacts allObjects];
+        for (NSManagedObject* objectToDelete in objectsForDeleteion)
+        {
+            [self deleteObject:objectToDelete];
+        }
+        [self saveContext];
+    }
+}
+
+- (NSArray*) getAllRolodexContactsMarkedForDeletionForHomeUserIdentityURI:(NSString*) homeUserIdentityURI
+{
+     NSArray* ret = [self getResultsForEntity:@"HOPIdentityProvider" withPredicateString:[NSString stringWithFormat:@"(ANY rolodexContacts.readyForDeletion == YES AND homeUserProfile.identityURI MATCHES '%@')",homeUserIdentityURI]];
+    
+    return ret;
+}
 @end
