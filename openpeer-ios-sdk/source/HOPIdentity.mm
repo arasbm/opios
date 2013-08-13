@@ -203,14 +203,14 @@
     return ret;
 }
 
-- (HOPIdentityContact*) getIdentityContact
+- (HOPIdentityContact*) getSelfIdentityContact
 {
     HOPIdentityContact* ret = nil;
     
     if(identityPtr)
     {
         IdentityContact identityContact;
-        identityPtr->getIdentityContact(identityContact);
+        identityPtr->getSelfIdentityContact(identityContact);
         
         NSString* sId = [NSString stringWithUTF8String:identityContact.mStableID];
         NSString* identityURI = [NSString stringWithUTF8String:identityContact.mIdentityURI];

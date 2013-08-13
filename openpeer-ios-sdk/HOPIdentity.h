@@ -128,7 +128,7 @@
 - (NSString*) getIdentityProviderDomain;
 
 
-- (HOPIdentityContact*) getIdentityContact;
+- (HOPIdentityContact*) getSelfIdentityContact;
 
 /**
  Retrieves identity inner browser frame URL
