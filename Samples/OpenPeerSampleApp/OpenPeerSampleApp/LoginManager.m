@@ -337,6 +337,7 @@
     {
         //Start loading contacts.
         [[ContactsManager sharedContactsManager] loadContacts];
+        [[ContactsManager sharedContactsManager] refreshExisitngContacts];
     }
 }
 

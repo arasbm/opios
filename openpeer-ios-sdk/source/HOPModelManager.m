@@ -383,7 +383,14 @@
 
 - (NSArray*) getAllRolodexContactsMarkedForDeletionForHomeUserIdentityURI:(NSString*) homeUserIdentityURI
 {
-     NSArray* ret = [self getResultsForEntity:@"HOPIdentityProvider" withPredicateString:[NSString stringWithFormat:@"(ANY rolodexContacts.readyForDeletion == YES AND homeUserProfile.identityURI MATCHES '%@')",homeUserIdentityURI]];
+     NSArray* ret = [self getResultsForEntity:@"HOPRolodexContact" withPredicateString:[NSString stringWithFormat:@"(ANY identityProvider.rolodexContacts.identityContact.rolodexContacts.readyForDeletion == YES AND identityProvider.rolodexContacts.identityContact.homeUserProfile.identityURI MATCHES '%@')",homeUserIdentityURI]];
+    
+    return ret;
+}
+
+- (NSArray*) getRolodexContactsForRefreshByHomeUserIdentityURI:(NSString*) homeUserIdentityURI lastRefreshTime:(NSDate*) lastRefreshTime
+{
+    NSArray* ret = [self getResultsForEntity:@"HOPRolodexContact" withPredicateString:[NSString stringWithFormat:@"(identityProvider.homeUserProfile.identityURI MATCHES '%@' AND (ANY identityProvider.rolodexContacts.identityContact == nil OR ANY identityProvider.rolodexContacts.identityContact.lastUpdated < %@)",homeUserIdentityURI,lastRefreshTime]];
     
     return ret;
 }

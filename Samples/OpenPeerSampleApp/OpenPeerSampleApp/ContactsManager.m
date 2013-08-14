@@ -89,6 +89,7 @@
         self.contactsDictionaryByProvider = [[NSMutableDictionary alloc] init];
         self.contactsDictionaryByIndentityURI = [[NSMutableDictionary alloc] init];
         self.contactsDictionary = [[NSMutableDictionary alloc] init];
+        self.identityLookupsArray = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -110,6 +111,19 @@
     }
 }
 
+- (void) refreshExisitngContacts
+{
+    NSArray* associatedIdentities = [[HOPAccount sharedAccount] getAssociatedIdentities];
+    
+    for (HOPIdentity* identity in associatedIdentities)
+    {
+        NSArray* rolodexContactsForRefresh = [[HOPModelManager sharedModelManager] getRolodexContactsForRefreshByHomeUserIdentityURI:[identity getIdentityURI] lastRefreshTime:[NSDate date]];
+        
+        if ([rolodexContactsForRefresh count] > 0)
+            [self identityLookupForContacts:rolodexContactsForRefresh identityServiceDomain:[identity getIdentityProviderDomain]];
+    }
+}
+
 /**
  Check contact identites against openpeer database.
  @param contacts NSArray List of contacts.
@@ -117,6 +131,9 @@
 - (void) identityLookupForContacts:(NSArray *)contacts identityServiceDomain:(NSString*) identityServiceDomain
 {
     HOPIdentityLookup* identityLookup = [[HOPIdentityLookup alloc] initWithDelegate:(id<HOPIdentityLookupDelegate>)[[OpenPeer sharedOpenPeer] identityLookupDelegate] identityLookupInfos:contacts identityServiceDomain:identityServiceDomain];
+    
+    if (identityLookup)
+        [self.identityLookupsArray addObject:identityLookup];
 }
 
 /**
@@ -142,6 +159,8 @@
         [self refreshListOfContacts];
         [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoaded];
     }
+    
+    [self.identityLookupsArray removeObject:identityLookup];
 }
 
 

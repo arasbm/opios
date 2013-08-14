@@ -43,10 +43,12 @@
 @property (nonatomic, strong) NSMutableDictionary *contactsDictionary;
 @property (nonatomic, strong) UIWebView *linkedinContactsWebView;
 
+@property (nonatomic, strong) NSMutableArray *identityLookupsArray;
+
 + (id) sharedContactsManager;
 
 - (void) loadContacts;
+- (void) refreshExisitngContacts;
 - (void) identityLookupForContacts:(NSArray *)contacts identityServiceDomain:(NSString*) identityServiceDomain;
-
 - (void) updateContactsWithDataFromLookup:(HOPIdentityLookup*) identityLookup;
 @end

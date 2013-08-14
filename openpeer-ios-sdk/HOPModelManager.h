@@ -163,4 +163,12 @@
  @return NSArray array of rolodex contacts ready for deleteion
  */
 - (NSArray*) getAllRolodexContactsMarkedForDeletionForHomeUserIdentityURI:(NSString*) homeUserIdentityURI;
+
+/**
+ Retrieves all rolodex contacts that should be refreshed. It refreshes all contacts that are not openpeer and contacts that are refreshed some time ago.
+ @param homeUserIdentityURI NSString user identity URI
+ @param lastRefreshTime NSDate all contacts that are refreshed earlier than this date should be refreshed
+ @return NSArray array of rolodex contacts ready for refresh
+ */
+- (NSArray*) getRolodexContactsForRefreshByHomeUserIdentityURI:(NSString*) homeUserIdentityURI lastRefreshTime:(NSDate*) lastRefreshTime;
 @end
