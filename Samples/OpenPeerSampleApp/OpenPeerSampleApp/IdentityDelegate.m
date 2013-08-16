@@ -31,6 +31,8 @@
 
 #import "IdentityDelegate.h"
 #import <OpenpeerSDK/HOPIdentity.h>
+#import <OpenpeerSDK/HOPAccount.h>
+#import <OpenpeerSDK/HOPHomeUser.h>
 #import <OpenpeerSDK/HOPRolodexContact.h>
 #import <OpenpeerSDK/HOPModelManager.h>
 #import <OpenpeerSDK/HOPIdentityLookup.h>
@@ -92,6 +94,7 @@
     dispatch_async(dispatch_get_main_queue(), ^
     {
         WebLoginViewController* webLoginViewController = [self getLoginWebViewForIdentity:identity];
+        NSString* relogininfo = nil;
         
         switch (state)
         {
@@ -134,12 +137,42 @@
                 break;
                 
             case HOPIdentityStateReady:
+#warning TODO: Find better place to save relogin info
+                relogininfo = [[HOPAccount sharedAccount] getReloginInformation];
+                if ([relogininfo length] > 0)
+                {
+                    NSLog(@"Relogin info: %@", relogininfo);
+                    HOPHomeUser* previousLoggedInHomeUser = [[HOPModelManager sharedModelManager] getLastLoggedInHomeUser];
+                    HOPHomeUser* homeUser = [[HOPModelManager sharedModelManager] getHomeUserByStableID:[[HOPAccount sharedAccount] getStableID]];
+                    
+                    if (homeUser)
+                    {
+                        if (![homeUser.loggedIn boolValue])
+                        {
+                            previousLoggedInHomeUser.loggedIn = NO;
+                            homeUser.loggedIn = [NSNumber numberWithBool: YES];
+                            [[HOPModelManager sharedModelManager] saveContext];
+                        }
+                    }
+                    else
+                    {
+                        homeUser = (HOPHomeUser*)[[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPHomeUser"];
+                        homeUser.stableId = [[HOPAccount sharedAccount] getStableID];
+                        homeUser.reloginInfo = [[HOPAccount sharedAccount] getReloginInformation];
+                        homeUser.loggedIn = [NSNumber numberWithBool: YES];
+                        if (previousLoggedInHomeUser)
+                            previousLoggedInHomeUser.loggedIn = NO;
+                        
+                        [[HOPModelManager sharedModelManager] saveContext];
+                    }
+                }
                 break;
                 
             case HOPIdentityStateShutdown:
                 [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
                 [[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
                 break;
+                
             default:
                 break;
         }

@@ -59,7 +59,7 @@
         
         iProvider.name = identityName;
         iProvider.domain = identityProviderDomain;
-        iProvider.homeUserProfile = self;
+        iProvider.homeUserProfile = self; //This is set here because this method is called for the first time when is creating home user rolodex contact
     }
     
     self.identityProvider = iProvider;

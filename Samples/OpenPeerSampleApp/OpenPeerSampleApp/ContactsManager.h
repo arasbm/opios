@@ -47,8 +47,14 @@
 
 + (id) sharedContactsManager;
 
+#warning REMOVE this is a test method
+- (void) loadAddressBookContacts;
+
 - (void) loadContacts;
 - (void) refreshExisitngContacts;
 - (void) identityLookupForContacts:(NSArray *)contacts identityServiceDomain:(NSString*) identityServiceDomain;
 - (void) updateContactsWithDataFromLookup:(HOPIdentityLookup*) identityLookup;
+
+#warning REMOVE this is a test method
+- (void) testIdentityLookup;
 @end

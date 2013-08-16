@@ -100,8 +100,8 @@
     {
         return _managedObjectModel;
     }
-
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:modelName withExtension:@"momd"];
+    NSString *staticLibraryBundlePath = [[NSBundle mainBundle] pathForResource:@"OpenpeerSDK" ofType:@"framework"];
+    NSURL *modelURL = [[NSBundle bundleWithPath:staticLibraryBundlePath] URLForResource:@"OpenPeerModel" withExtension:@"momd"];
     _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     
     return _managedObjectModel;

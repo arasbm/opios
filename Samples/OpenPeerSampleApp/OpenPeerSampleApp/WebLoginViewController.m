@@ -103,13 +103,14 @@
         NSString *params = [Utility getParametersNameForRequest:requestString];
 
         params = [params stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            
-        NSString *functionNameSelector = [NSString stringWithFormat:@"%@:", function];
-        //Execute JSON parsing in function read from requestString.
-//        if ([[LoginManager sharedLoginManager] respondsToSelector:NSSelectorFromString(functionNameSelector)])
-//            [[LoginManager sharedLoginManager] performSelector:NSSelectorFromString(functionNameSelector) withObject:params];
-        if ([self respondsToSelector:NSSelectorFromString(functionNameSelector)])
-            [self performSelector:NSSelectorFromString(functionNameSelector) withObject:params];
+        
+        if ([function length] > 0 && [params length] > 0)
+        {
+            NSString *functionNameSelector = [NSString stringWithFormat:@"%@:", function];
+            //Execute JSON parsing in function read from requestString.
+            if ([self respondsToSelector:NSSelectorFromString(functionNameSelector)])
+                [self performSelector:NSSelectorFromString(functionNameSelector) withObject:params];
+        }
         return NO;
     }
     //NOT IN USE

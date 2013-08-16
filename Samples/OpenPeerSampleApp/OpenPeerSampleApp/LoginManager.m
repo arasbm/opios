@@ -1,4 +1,4 @@
-/*
+    /*
  
  Copyright (c) 2012, SMB Phone Inc.
  All rights reserved.
@@ -116,7 +116,7 @@
 - (void) login
 {
     //If peer file doesn't exists, show login view, otherwise start relogin
-    if ([[[OpenPeerUser sharedOpenPeerUser] privatePeerFile] length] == 0)
+    if (![[HOPModelManager sharedModelManager] getLastLoggedInHomeUser])
     {
         [[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
         self.isLogin = YES;
@@ -192,6 +192,9 @@
     
     if (!reloginStarted)
         NSLog(@"Relogin failed");
+    
+    #warning REMOVE this is a test method
+    [[ContactsManager sharedContactsManager] testIdentityLookup];
 }
 
 /**
@@ -310,7 +313,7 @@
     }
     else
     {
-        homeUser = (HOPHomeUser*)[[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPModelManager"];
+        homeUser = (HOPHomeUser*)[[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPHomeUser"];
         homeUser.stableId = [[HOPAccount sharedAccount] getStableID];
         homeUser.reloginInfo = [[HOPAccount sharedAccount] getReloginInformation];
         homeUser.loggedIn = [NSNumber numberWithBool: YES];
