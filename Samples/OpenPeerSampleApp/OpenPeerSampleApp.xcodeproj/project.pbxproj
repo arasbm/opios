@@ -43,7 +43,6 @@
 		876CBCBB16F20A88004D542B /* IdentityDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 876CBCBA16F20A88004D542B /* IdentityDelegate.m */; };
 		87D91B2A17687EFD00E46B66 /* CacheDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D91B2917687EFD00E46B66 /* CacheDelegate.m */; };
 		87E0FFB417BB8ADD00F30484 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87E0FFB317BB8ADD00F30484 /* AddressBook.framework */; };
-		87E0FFB717BCDC0500F30484 /* OpenpeerSDK.framework in Resources */ = {isa = PBXBuildFile; fileRef = 87570E45172ED183006E1C2F /* OpenpeerSDK.framework */; };
 		87E3CCE7172A814F00084D2F /* IdentityLookupDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 87E3CCE6172A814F00084D2F /* IdentityLookupDelegate.m */; };
 		87EE5FE9166E917B002C5FA3 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 87EE5FE8166E917B002C5FA3 /* libresolv.dylib */; };
 		87EE5FF4166E9615002C5FA3 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 874ADDB4166E138A0095FE33 /* CoreAudio.framework */; };
@@ -57,6 +56,7 @@
 		87F09EE3171EBB1B0045F6A6 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F09EDE171EBB1A0045F6A6 /* ChatViewController.m */; };
 		87F09EE4171EBB1B0045F6A6 /* ChatMessageCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 87F09EE0171EBB1B0045F6A6 /* ChatMessageCell.mm */; };
 		87F09EE7171EBB2A0045F6A6 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F09EE5171EBB2A0045F6A6 /* Message.m */; };
+		87F11AF017C2854700CFE85D /* OpenPeerDataModel.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 87098FDC17C23997007C9093 /* OpenPeerDataModel.bundle */; };
 		87F24B5F166FF0C900A5389F /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F24B5E166FF0C900A5389F /* Utility.m */; };
 		87F24B62167003F400A5389F /* ContactsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F24B61167003F300A5389F /* ContactsManager.m */; };
 		87F24B691670048000A5389F /* ContactsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F24B671670047A00A5389F /* ContactsTableViewController.m */; };
@@ -81,6 +81,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		87098FD917C2361B007C9093 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 872729CF166CDF530089CBB6 /* openpeer-ios-sdk.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 87C9820717BE38A7002B947B;
+			remoteInfo = HOPSDK;
+		};
 		870E0B6F175C93BF00C93CC1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 872729CF166CDF530089CBB6 /* openpeer-ios-sdk.xcodeproj */;
@@ -88,18 +95,31 @@
 			remoteGlobalIDString = 8792E86816519CFF00DEAC58;
 			remoteInfo = OpenpeerSDK;
 		};
-		872DA9E2175CC429000CCA76 /* PBXContainerItemProxy */ = {
+		87C9821117BE38C0002B947B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 872729CF166CDF530089CBB6 /* openpeer-ios-sdk.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8792E86716519CFF00DEAC58;
-			remoteInfo = OpenpeerSDK;
+			proxyType = 2;
+			remoteGlobalIDString = 87C981F917BE37CF002B947B;
+			remoteInfo = OpenPeerDataModel;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		87098FD017C20DAB007C9093 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0012C551177D11DB0017FF5E /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		0024393B178F55BF00B79368 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		87098FDC17C23997007C9093 /* OpenPeerDataModel.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = OpenPeerDataModel.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		870F337C168376450090A97F /* ActivityIndicatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityIndicatorViewController.h; sourceTree = "<group>"; };
 		870F337D168376450090A97F /* ActivityIndicatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityIndicatorViewController.m; sourceTree = "<group>"; };
 		870F337E168376450090A97F /* ActivityIndicatorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityIndicatorViewController.xib; sourceTree = "<group>"; };
@@ -312,6 +332,7 @@
 			isa = PBXGroup;
 			children = (
 				870E0B70175C93BF00C93CC1 /* libOpenpeerSDK.a */,
+				87C9821217BE38C0002B947B /* OpenPeerDataModel.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -382,6 +403,7 @@
 		87272833166CBF9B0089CBB6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				87098FDC17C23997007C9093 /* OpenPeerDataModel.bundle */,
 				87272834166CBF9B0089CBB6 /* OpenPeerSampleApp-Info.plist */,
 				87272835166CBF9B0089CBB6 /* InfoPlist.strings */,
 				87272838166CBF9B0089CBB6 /* main.m */,
@@ -505,11 +527,12 @@
 				87272824166CBF9B0089CBB6 /* Sources */,
 				87272825166CBF9B0089CBB6 /* Frameworks */,
 				87272826166CBF9B0089CBB6 /* Resources */,
+				87098FD017C20DAB007C9093 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				872DA9E3175CC429000CCA76 /* PBXTargetDependency */,
+				87098FDA17C2361B007C9093 /* PBXTargetDependency */,
 			);
 			name = OpenPeerSampleApp;
 			productName = OpenPeerSampleApp;
@@ -557,6 +580,13 @@
 			remoteRef = 870E0B6F175C93BF00C93CC1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		87C9821217BE38C0002B947B /* OpenPeerDataModel.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = OpenPeerDataModel.bundle;
+			remoteRef = 87C9821117BE38C0002B947B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -573,9 +603,9 @@
 				87EE6070166F667C002C5FA3 /* WebLoginViewController.xib in Resources */,
 				87F24B6A1670048000A5389F /* ContactsTableViewController.xib in Resources */,
 				87421DA4168274BB00699479 /* ActiveSessionViewController.xib in Resources */,
+				87F11AF017C2854700CFE85D /* OpenPeerDataModel.bundle in Resources */,
 				870F3380168376450090A97F /* ActivityIndicatorViewController.xib in Resources */,
 				87F09EE2171EBB1B0045F6A6 /* ChatViewController.xib in Resources */,
-				87E0FFB717BCDC0500F30484 /* OpenpeerSDK.framework in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -632,10 +662,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		872DA9E3175CC429000CCA76 /* PBXTargetDependency */ = {
+		87098FDA17C2361B007C9093 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = OpenpeerSDK;
-			targetProxy = 872DA9E2175CC429000CCA76 /* PBXContainerItemProxy */;
+			name = HOPSDK;
+			targetProxy = 87098FD917C2361B007C9093 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

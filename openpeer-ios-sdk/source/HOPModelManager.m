@@ -100,8 +100,8 @@
     {
         return _managedObjectModel;
     }
-    NSString *staticLibraryBundlePath = [[NSBundle mainBundle] pathForResource:@"OpenpeerSDK" ofType:@"framework"];
-    NSURL *modelURL = [[NSBundle bundleWithPath:staticLibraryBundlePath] URLForResource:@"OpenPeerModel" withExtension:@"momd"];
+    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"OpenPeerDataModel" ofType:@"bundle"];
+    NSURL *modelURL = [[NSBundle bundleWithPath:bundlePath] URLForResource:@"OpenPeerModel" withExtension:@"momd"];
     _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     
     return _managedObjectModel;
@@ -132,6 +132,7 @@
     
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error])
     {
+#warning TODO: remove this comment
         /*
          Replace this implementation with code to handle the error appropriately.
          

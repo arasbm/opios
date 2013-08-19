@@ -6,6 +6,21 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		87C9820717BE38A7002B947B /* HOPSDK */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 87C9820817BE38A7002B947B /* Build configuration list for PBXAggregateTarget "HOPSDK" */;
+			buildPhases = (
+			);
+			dependencies = (
+				87C9820C17BE38B1002B947B /* PBXTargetDependency */,
+				87C9820E17BE38B1002B947B /* PBXTargetDependency */,
+			);
+			name = HOPSDK;
+			productName = HOPSDK;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		0024393A178F52D300B79368 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00243939178F52D300B79368 /* Security.framework */; };
 		00EB8DC3177D15BD00FFD40F /* libcryptopp_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0012C535177D10C80017FF5E /* libcryptopp_ios.a */; };
@@ -14,7 +29,7 @@
 		00EB8DC7177D15BD00FFD40F /* libzsLib_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EB8DB1177D14DA00FFD40F /* libzsLib_ios.a */; };
 		00EB8DCF177D1C1600FFD40F /* libhfcore_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EB8DCE177D1BE600FFD40F /* libhfcore_ios.a */; };
 		00EB8DD0177D1C1600FFD40F /* libhfstack_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EB8DB6177D14DB00FFD40F /* libhfstack_ios.a */; };
-		8702E53D17997568003287D5 /* OpenPeerModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8702E53B17997568003287D5 /* OpenPeerModel.xcdatamodeld */; };
+		87098FCA17C20739007C9093 /* OpenPeerModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8702E53B17997568003287D5 /* OpenPeerModel.xcdatamodeld */; };
 		871BC9A5179EEB4000AEA4A6 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 871BC9A4179EEB3F00AEA4A6 /* CoreData.framework */; };
 		871BC9C517A1233800AEA4A6 /* HOPIdentityContact_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 871BC9C317A1233500AEA4A6 /* HOPIdentityContact_Internal.h */; };
 		871BC9C617A1233800AEA4A6 /* HOPIdentityContact_Internal.mm in Sources */ = {isa = PBXBuildFile; fileRef = 871BC9C417A1233600AEA4A6 /* HOPIdentityContact_Internal.mm */; };
@@ -79,6 +94,9 @@
 		87B013F91661557C00E8938B /* HOPTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 872E40771653CFE2006ECA60 /* HOPTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87B013FF1661557C00E8938B /* HOPMediaEngineRtpRtcpStatistics.h in Headers */ = {isa = PBXBuildFile; fileRef = 87343FE9165E4B0C0070E6E0 /* HOPMediaEngineRtpRtcpStatistics.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87B014001661557C00E8938B /* HOPIdentity.h in Headers */ = {isa = PBXBuildFile; fileRef = 87FA4CE0165F891A00F7D973 /* HOPIdentity.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87C981FA17BE37CF002B947B /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87B864CA1796BBB20027F8B1 /* CoreFoundation.framework */; };
+		87C9820017BE37CF002B947B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 87C981FE17BE37CF002B947B /* InfoPlist.strings */; };
+		87C9820617BE3838002B947B /* OpenPeerModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8702E53B17997568003287D5 /* OpenPeerModel.xcdatamodeld */; };
 		87CEF2ED179D5CD0003770EE /* HOPRolodexContact_Internal.mm in Sources */ = {isa = PBXBuildFile; fileRef = 87CEF2EC179D5CD0003770EE /* HOPRolodexContact_Internal.mm */; };
 		87CEF2F0179DC7E0003770EE /* HOPAvatar_Internal.mm in Sources */ = {isa = PBXBuildFile; fileRef = 87CEF2EE179DC7E0003770EE /* HOPAvatar_Internal.mm */; };
 		87CEF2F1179DC7E0003770EE /* HOPAvatar_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 87CEF2EF179DC7E0003770EE /* HOPAvatar_Internal.h */; };
@@ -229,6 +247,20 @@
 			remoteGlobalIDString = 0063B94816CA91F000E6DB4D;
 			remoteInfo = hfstack_ios;
 		};
+		87C9820B17BE38B1002B947B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8792E85F16519CFF00DEAC58 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8792E86716519CFF00DEAC58;
+			remoteInfo = OpenpeerSDK;
+		};
+		87C9820D17BE38B1002B947B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8792E85F16519CFF00DEAC58 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 87C981F817BE37CE002B947B;
+			remoteInfo = OpenPeerDataModel;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -236,7 +268,7 @@
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "include/${PRODUCT_NAME}";
-			dstSubfolderSpec = 16;
+			dstSubfolderSpec = 7;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -325,6 +357,10 @@
 		87B864CE1796BBB20027F8B1 /* OpenPeerModels-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OpenPeerModels-Info.plist"; sourceTree = "<group>"; };
 		87B864D01796BBB20027F8B1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		87B864D21796BBB20027F8B1 /* OpenPeerModels-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OpenPeerModels-Prefix.pch"; sourceTree = "<group>"; };
+		87C981F917BE37CF002B947B /* OpenPeerDataModel.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenPeerDataModel.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		87C981FD17BE37CF002B947B /* OpenPeerDataModel-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OpenPeerDataModel-Info.plist"; sourceTree = "<group>"; };
+		87C981FF17BE37CF002B947B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		87C9820117BE37CF002B947B /* OpenPeerDataModel-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OpenPeerDataModel-Prefix.pch"; sourceTree = "<group>"; };
 		87CEF2C2179D4E4B003770EE /* HOPRolodexContact_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HOPRolodexContact_Internal.h; sourceTree = "<group>"; };
 		87CEF2EC179D5CD0003770EE /* HOPRolodexContact_Internal.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HOPRolodexContact_Internal.mm; sourceTree = "<group>"; };
 		87CEF2EE179DC7E0003770EE /* HOPAvatar_Internal.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HOPAvatar_Internal.mm; sourceTree = "<group>"; };
@@ -459,6 +495,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		87C981F617BE37CE002B947B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87C981FA17BE37CF002B947B /* CoreFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -558,6 +602,7 @@
 				E2AF705717561D74001F85F1 /* WebRTC libs */,
 				0012C521177D10110017FF5E /* Libraries */,
 				87B864CC1796BBB20027F8B1 /* OpenPeerModels */,
+				87C981FB17BE37CF002B947B /* OpenPeerDataModel */,
 				8792E86A16519CFF00DEAC58 /* Frameworks */,
 				8792E86916519CFF00DEAC58 /* Products */,
 			);
@@ -567,6 +612,7 @@
 			isa = PBXGroup;
 			children = (
 				8792E86816519CFF00DEAC58 /* libOpenpeerSDK.a */,
+				87C981F917BE37CF002B947B /* OpenPeerDataModel.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -721,6 +767,24 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		87C981FB17BE37CF002B947B /* OpenPeerDataModel */ = {
+			isa = PBXGroup;
+			children = (
+				87C981FC17BE37CF002B947B /* Supporting Files */,
+			);
+			path = OpenPeerDataModel;
+			sourceTree = "<group>";
+		};
+		87C981FC17BE37CF002B947B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				87C981FD17BE37CF002B947B /* OpenPeerDataModel-Info.plist */,
+				87C981FE17BE37CF002B947B /* InfoPlist.strings */,
+				87C9820117BE37CF002B947B /* OpenPeerDataModel-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		87DD73CC17AFC1210086C295 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -857,6 +921,23 @@
 			productReference = 8792E86816519CFF00DEAC58 /* libOpenpeerSDK.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		87C981F817BE37CE002B947B /* OpenPeerDataModel */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 87C9820517BE37CF002B947B /* Build configuration list for PBXNativeTarget "OpenPeerDataModel" */;
+			buildPhases = (
+				87C981F517BE37CE002B947B /* Sources */,
+				87C981F617BE37CE002B947B /* Frameworks */,
+				87C981F717BE37CE002B947B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OpenPeerDataModel;
+			productName = OpenPeerDataModel;
+			productReference = 87C981F917BE37CF002B947B /* OpenPeerDataModel.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -909,6 +990,8 @@
 			projectRoot = "";
 			targets = (
 				8792E86716519CFF00DEAC58 /* OpenpeerSDK */,
+				87C981F817BE37CE002B947B /* OpenPeerDataModel */,
+				87C9820717BE38A7002B947B /* HOPSDK */,
 			);
 		};
 /* End PBXProject section */
@@ -958,6 +1041,17 @@
 		};
 /* End PBXReferenceProxy section */
 
+/* Begin PBXResourcesBuildPhase section */
+		87C981F717BE37CE002B947B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87C9820017BE37CF002B947B /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXShellScriptBuildPhase section */
 		87B013E41661327800E8938B /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1003,7 +1097,6 @@
 				87E3CD21172A859600084D2F /* HOPIdentityLookupInfo.mm in Sources */,
 				872DA9E6175CEC9C000CCA76 /* HOPCache.mm in Sources */,
 				87D91AA71767509700E46B66 /* OpenPeerCacheDelegate.mm in Sources */,
-				8702E53D17997568003287D5 /* OpenPeerModel.xcdatamodeld in Sources */,
 				87CEF2ED179D5CD0003770EE /* HOPRolodexContact_Internal.mm in Sources */,
 				87CEF2F0179DC7E0003770EE /* HOPAvatar_Internal.mm in Sources */,
 				871BC9C617A1233800AEA4A6 /* HOPIdentityContact_Internal.mm in Sources */,
@@ -1015,7 +1108,16 @@
 				87FCB15E17B8D85D00E913AD /* HOPAvatar.m in Sources */,
 				87FCB16217B8D85D00E913AD /* HOPRolodexContact.m in Sources */,
 				87FCB16617B8D85D00E913AD /* HOPPublicPeerFile.m in Sources */,
+				87098FCA17C20739007C9093 /* OpenPeerModel.xcdatamodeld in Sources */,
 				87FCB16A17B8D85D00E913AD /* HOPHomeUser.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87C981F517BE37CE002B947B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87C9820617BE3838002B947B /* OpenPeerModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1052,6 +1154,16 @@
 			name = hfstack_ios;
 			targetProxy = 00EB8DD3177D1C2400FFD40F /* PBXContainerItemProxy */;
 		};
+		87C9820C17BE38B1002B947B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8792E86716519CFF00DEAC58 /* OpenpeerSDK */;
+			targetProxy = 87C9820B17BE38B1002B947B /* PBXContainerItemProxy */;
+		};
+		87C9820E17BE38B1002B947B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 87C981F817BE37CE002B947B /* OpenPeerDataModel */;
+			targetProxy = 87C9820D17BE38B1002B947B /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -1059,6 +1171,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				87B864D01796BBB20027F8B1 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		87C981FE17BE37CF002B947B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				87C981FF17BE37CF002B947B /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1222,6 +1342,65 @@
 			};
 			name = Release;
 		};
+		87C9820217BE37CF002B947B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OpenPeerDataModel/OpenPeerDataModel-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				INFOPLIST_FILE = "OpenPeerDataModel/OpenPeerDataModel-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		87C9820317BE37CF002B947B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OpenPeerDataModel/OpenPeerDataModel-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				INFOPLIST_FILE = "OpenPeerDataModel/OpenPeerDataModel-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		87C9820917BE38A7002B947B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		87C9820A17BE38A7002B947B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1239,6 +1418,24 @@
 			buildConfigurations = (
 				8792E87716519CFF00DEAC58 /* Debug */,
 				8792E87816519CFF00DEAC58 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		87C9820517BE37CF002B947B /* Build configuration list for PBXNativeTarget "OpenPeerDataModel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				87C9820217BE37CF002B947B /* Debug */,
+				87C9820317BE37CF002B947B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		87C9820817BE38A7002B947B /* Build configuration list for PBXAggregateTarget "HOPSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				87C9820917BE38A7002B947B /* Debug */,
+				87C9820A17BE38A7002B947B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
