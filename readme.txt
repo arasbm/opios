@@ -32,20 +32,31 @@ popd
 
 opios/openpeer-ios-sdk (project/workspace)
 
-4) Select OpenpeerSDK > iOS Device schema and then build
+4) Select HOPSDK > iOS Device schema and then build
 
+The OpenpeerSDK.framework and OpenpeerDataModel.bundle will be built inside:
+project_derived_data_folder/Build/Products/Debug-iphoneos/		- in debug mode
+project_derived_data_folder/Build/Products/Release-iphoneos/	- in release mode
 
-The framework will be built inside:
-opios/build/Debug-iphoneos/OpenpeerSDK.framework
 
 Required frameworks:
 CoreAudio
 CoreVideo
 CoreMedia
+CoreData
+CoreGraphics
+CoreImage
+Foundation
+MobileCoreServices
+QuartzCore
+AssetLibrary
 AudioToolbox
 AVFoundation
+Security
+UIKIT
 libresolve.dylib
-
+libz.dylib
+libxml2.dylib
 
 Exploring the dependency libraries:
 Core Projects/zsLib      - asynchronous communication library for C++
@@ -65,66 +76,55 @@ Samples/OpenPeerSampleApp - basic example of how to use the SDK
 
 Exploring the header files:
 
-HOPTypes.h
-- basic HOP types
+HOPAccount.h
+- Object representing Open Peer account.
+
+HOPCache.h
+- Object used for caching user data.
+
+HOPCall.h
+- Object used for placing audio/video calls created with the contact of a conversation thread.
+
+HOPConctact.h
+- Contact object representing a local or remote peer contact/person.
+
+HOPConversationThread.h
+- Conversation object where contacts are added and text and calls can be performed.
+
+HOPIdentity.h
+- Identity object used for identity login and downloading rolodex contacts.
+
+HOPIdentityLookup.h
+- Object used to lookup identities of peer contacts to obtain peer contact information.
+
+HOPIdentityLookupInfo.h
+- Object representing information about the identity URI and date of last update.
+
+HOPLogger.h
+- Object used for managing core debug logs.
+
+HOPMediaEngine.h
+- Object used for media control.
+
+HOPMediaEngineRtpRtcpStatistics.h
+- Object representing media engine stats.
+
+HOPMessage.h
+- Object representing sent/received message.
+
+HOPModelManager.h
+- Object used for core data manipulation.
+
+HOPProtocols.h
+- Object-C protocols to implement callback event routines.
 
 HOPStack.h
 - Object to be constructed after HOPClient object, pass in all the listener event protocol objects
 
-HOPProtocols.h
-- Object-C protocols to implement callback event routines
+HOPTypes.h
+- Place where are defined most of enums used in SDK
 
-HOPAccountSubscription.h
-- Object returned when subscribing to Open Peer account status
-
-HOPCall.h
-- Call object for audio/video calls created with the contact of a conversation thread
-
-HOPConctact.h
-- Contact object representing a local or remote peer contact/person
-
-HOPConversationThread.h
-- Conversation object where contacts are added and text and calls can be performed
-
-HOPMediaEngine.h
-- controls for media
-
-HOPMedaEngineStatistics.h
-- Object used for gathering RTCP media statistics
-
-HOPIdentity.h
-- Identity object used in provisioning, used to map user's identity to open peer contact
-
-HOPIdentityInfo.h
-- Object representing information about the state of the identity of "self" contact during provisioning
-
-HOPLookupProfileInfo.h
-- Object returned after lookup of an identity representing a peer contact for provisioning
-
-HOPProvisioingAccount.h
-- Object used to create an account or login to an existing account for provisioned accounts
-
-HOPProvisioningAccountOAuthIdentityAssociation.h
-– API for associating an OAuth identity to the provisioned account
-
-HOPAccountPush.h
-- Object used for push notifications for offline messages
-
-HOPProvisioningAccountIdentityLookupQuery.h
-- Object used to lookup identities of peer contacts to obtain peer contact information
-
-HOPProvisioningAccountPeerFileLookupQuery.h
-- Object used to lookup the public peer files to create contact objects for peer contacts
-
-HOPProvisioningAccount_ForFutureUse.h
-- Not currently used, this will be the set of APIs that will replace the current provisioning mechanism
-
-
-Notes on the future API changes:
-
-The provisioning API will change to allow for 3rd party identities with any website and federation between websites. The new provisioning API is put inside the _ForFutureUse.h header file and has no implementation at this time. This API is of high priority.
-
-The current provisioning API supports email, phone number, LinkedIn and Facebook identity association only. The new API will allow any Open Peer oauth login to any Open Peer enabled websites.
+Contact info:
 
 Please contact robin@hookflash.com if you have any suggestions to improve the API. Please use support@hookflash.com for any bug reports. New feature requests should be directed to erik@hookflash.com.
 

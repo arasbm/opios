@@ -158,11 +158,7 @@
     return [NSString stringWithUTF8String: IContact::toDebugString([self getContactPtr],NO)];
 }
 
-//JUST TO MAKE BUILDABLE
-- (NSString*) getStableUniqueID
-{
-    return nil;
-}
+
 #pragma mark - Internal methods
 - (IContactPtr) getContactPtr
 {

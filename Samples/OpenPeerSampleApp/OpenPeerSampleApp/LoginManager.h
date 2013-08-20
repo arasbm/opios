@@ -46,9 +46,6 @@
 - (void) login;
 - (void) logout;
 
-//- (void) onLoginUrlReceived:(NSString*) url forIdentity:(HOPIdentity*) identity;
-//- (void) onOuterFrameLoaded;
-//- (void) onMessageForJS:(NSString*) message;
 - (void) onLoginRedirectURLReceived;
 
 - (void) makeLoginWebViewVisible:(BOOL) isVisible;
@@ -57,6 +54,5 @@
 
 - (void) onUserLoggedIn;
 
-//- (void) notifyClient:(NSString*) message;
 - (BOOL) isAssociatedIdentity:(NSString*) inBaseIdentityURI;
 @end

@@ -55,7 +55,7 @@
     static dispatch_once_t pred = 0;
     __strong static id _sharedObject = nil;
     dispatch_once(&pred, ^{
-        _sharedObject = [[self alloc] initSingleton]; // or some other init method
+        _sharedObject = [[self alloc] initSingleton];
     });
     return _sharedObject;
 }

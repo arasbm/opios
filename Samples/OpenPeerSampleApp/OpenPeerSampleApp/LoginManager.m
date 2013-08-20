@@ -198,44 +198,6 @@
 }
 
 /**
- Handles core event that login URL is available.
- @param url NSString Login URL.
- */
-//- (void) onLoginUrlReceived:(NSString*) url forIdentity:(HOPIdentity*) identity
-//{
-//    self.loginIdentity = identity;
-//    
-//    //Login url is received. Remove activity indicator
-//    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
-//    
-//    if ([url length] > 0)
-//    {
-//        [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Opening login page ..." inView:[[[OpenPeer sharedOpenPeer] mainViewController] view]];
-//        //Open identity login web page
-//        [self.webLoginViewController openLoginUrl:url];
-//    }
-//}
-
-/**
- Outer frame of login page is loaded, so it is time now to initiate a inner frame.
- */
-//- (void) onOuterFrameLoaded
-//{
-//    NSString* jsMethod = [NSString stringWithFormat:@"initInnerFrame(\'%@\')",[self.loginIdentity getInnerBrowserWindowFrameURL]];
-//    [self.webLoginViewController passMessageToJS:jsMethod];
-//}
-
-/**
- Passes JSON message received from core to JS in inner frame in login page.
- @param message NSString JSON message to pass
- */
-//- (void) onMessageForJS: (NSString*) message
-//{
-//  NSString* jsMethod = [NSString stringWithFormat:@"sendNotifyBundleToInnerFrame(\'%@\')", message];
-//  [self.webLoginViewController passMessageToJS:jsMethod];
-//}
-
-/**
  Handles case when redirection url upon successful login is received.
  */
 - (void) onLoginRedirectURLReceived

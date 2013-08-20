@@ -37,7 +37,8 @@ using namespace openpeer::core;
 
 @implementation HOPLogger
 
-+ (NSString*) toStringSeverity:(HOPLoggerSeverities) severity
+
++ (NSString*) stringForSeverity:(HOPLoggerSeverities) severity
 {
     NSString* ret = nil;
     switch (severity)
@@ -66,7 +67,7 @@ using namespace openpeer::core;
     return ret;
 }
 
-+ (NSString*) toStringLevel:(HOPLoggerLevels) level
++ (NSString*) stringForLevel:(HOPLoggerLevels) level
 {
     NSString* ret = nil;
     switch (level)

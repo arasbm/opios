@@ -70,12 +70,6 @@
 - (void) cancel;
 
 /**
- Retrieves list of identity profiles received from lookup server
- @returns List of identity profiles for contacts that are registered in OpenPeer system
- */
-- (NSArray*) getIdentities;
-
-/**
  Retrieves list of updated identity profiles received from lookup server
  @return NSArray List of updated identity profiles for contacts that are registered in OpenPeer system
  */

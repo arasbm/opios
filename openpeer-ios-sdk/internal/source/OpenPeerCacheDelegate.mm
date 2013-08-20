@@ -32,6 +32,11 @@
 #import "OpenPeerCacheDelegate.h"
 #import "OpenPeerUtility.h"
 
+OpenPeerCacheDelegate::OpenPeerCacheDelegate(id<HOPCacheDelegate> inCacheDelegate)
+{
+    cacheDelegate = inCacheDelegate;
+}
+
 boost::shared_ptr<OpenPeerCacheDelegate>  OpenPeerCacheDelegate::create(id<HOPCacheDelegate> inCacheDelegate)
 {
     return boost::shared_ptr<OpenPeerCacheDelegate> (new OpenPeerCacheDelegate(inCacheDelegate));

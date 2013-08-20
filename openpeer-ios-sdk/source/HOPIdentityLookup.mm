@@ -133,34 +133,6 @@
     }
 }
 
-- (NSArray*) getIdentities
-{
-    NSMutableArray* ret = nil;
-    /*if(identityLookupPtr)
-    {
-        IdentityLookupInfoListPtr identityLookupInfoListPtr = identityLookupPtr->getIdentities();
-        if (identityLookupInfoListPtr)
-        {
-            ret = [[NSMutableArray alloc] init];
-            for (IdentityLookupInfoList::iterator identityLookupInfo = identityLookupInfoListPtr->begin(); identityLookupInfo != identityLookupInfoListPtr->end(); ++identityLookupInfo)
-            {
-                IdentityLookupInfo identityInfo = *identityLookupInfo;
-                if (identityInfo.hasData())
-                {
-                    HOPIdentityLookupInfo* hopIdentityLookupInfo = [[HOPIdentityLookupInfo alloc] initWithIdentityLookupInfo:identityInfo];
-                    if (hopIdentityLookupInfo)
-                        [ret addObject:hopIdentityLookupInfo];
-                }
-            }
-        }
-    }
-    else
-    {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid identity lookup object!"];
-    }*/
-    return ret;
-}
-
 - (NSArray*) getUpdatedIdentities
 {
     NSMutableArray* ret = nil;
@@ -267,17 +239,6 @@
 {
     openPeerIdentityLookupDelegatePtr = OpenPeerIdentityLookupDelegate::create(inIdentityLookupDelegate);
 }
-
-/*- (void) convertString:(NSString*) indentityURIListStr toIdentityURIList:(IdentityURIList &) outIdentityURIList
-{
-    NSArray* uris = [indentityURIListStr componentsSeparatedByString:@","];
-    
-    for (NSString* uri in uris)
-    {
-        IdentityURI identityURI = [uri UTF8String];
-        outIdentityURIList.push_back(identityURI);
-    }
-}*/
 
 - (IIdentityLookupPtr) getIdentityLookupPtr
 {

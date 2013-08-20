@@ -39,8 +39,6 @@
 #import "ChatMessageCell.h"
 
 @interface ChatViewController()
-- (void) actionBack;
-- (void) actionCallMenu;
 
 @property (nonatomic, weak) NSDictionary* userInfo;
 @end

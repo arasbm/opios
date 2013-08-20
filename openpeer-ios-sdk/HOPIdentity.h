@@ -102,13 +102,14 @@
 - (void) attachDelegate:(id<HOPIdentityDelegate>) inIdentityDelegate redirectionURL:(NSString*) redirectionURL;
 
 /**
- Attaches identity delegate.
+ Attaches identity delegate for preauthorized login.
  @param inIdentityDelegate HOPIdentityDelegate IIdentityDelegate delegate
  @param identityAccessToken NSString Access token obtained from YOUR server.
  @param identityAccessSecret NSString Access secret obtained from YOUR server.
  @param identityAccessSecretExpires NSDate Access secret expire date.
  */
 - (void) attachDelegateAndPreauthorizedLogin:(id<HOPIdentityDelegate>) inIdentityDelegate identityAccessToken:(NSString*) identityAccessToken identityAccessSecret:(NSString*) identityAccessSecret identityAccessSecretExpires:(NSDate*) identityAccessSecretExpires;
+
 /**
  Retrieves identity URI
  @return NSString identity URI
@@ -127,8 +128,12 @@
  */
 - (NSString*) getIdentityProviderDomain;
 
-
+/**
+ Retrieves identity contact for logged in user
+ @returns HOPIdentityContact identity contact
+ */
 - (HOPIdentityContact*) getSelfIdentityContact;
+
 
 /**
  Retrieves identity inner browser frame URL

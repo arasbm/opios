@@ -37,8 +37,19 @@
  */
 @interface HOPLogger : NSObject
 
-+ (NSString*) toStringSeverity:(HOPLoggerSeverities) severity;
-+ (NSString*) toStringLevel:(HOPLoggerLevels) level;
+/**
+ Converts logger severity enum to string
+ @param severity HOPLoggerSeverities Logger severity enum
+ @returns String representation of logger severitiy
+ */
++ (NSString*) stringForSeverity:(HOPLoggerSeverities) severity;
+
+/**
+ Converts logger level enum to string
+ @param level HOPLoggerSeverities Logger level enum
+ @returns String representation of logger severitiy
+ */
++ (NSString*) stringForLevel:(HOPLoggerLevels) level;
 
 /**
  Install a logger to output to the standard out.
@@ -70,7 +81,7 @@
 + (void) installOutgoingTelnetLogger: (NSString*) serverToConnect colorizeOutput: (BOOL) colorizeOutput stringToSendUponConnection: (NSString*) stringToSendUponConnection;
 
 /**
- Install a logger to output to the windows debugger window.
+ Install a logger to output to the debugger window.
  */
 + (void) installWindowsDebuggerLogger;
 

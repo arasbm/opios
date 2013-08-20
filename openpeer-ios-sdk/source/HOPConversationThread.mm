@@ -298,7 +298,6 @@ using namespace openpeer::core;
             hopMessage.text = [NSString stringWithUTF8String:message];
             hopMessage.date = [OpenPeerUtility convertPosixTimeToDate:messageTime];
         }
-        
     }
     else
     {

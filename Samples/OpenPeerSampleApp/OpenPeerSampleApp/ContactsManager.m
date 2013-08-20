@@ -138,8 +138,8 @@
                 {
                     ABRecordRef person =  CFArrayGetValueAtIndex(allPeopleRef, z);
                     
-                    NSString* firstName = (__bridge NSString *)ABRecordCopyValue(person, kABPersonFirstNameProperty);
-                    NSString* lastName = (__bridge NSString *)ABRecordCopyValue(person, kABPersonLastNameProperty);
+                    NSString* firstName = (NSString *)CFBridgingRelease(ABRecordCopyValue(person, kABPersonFirstNameProperty));
+                    NSString* lastName = (NSString *)CFBridgingRelease(ABRecordCopyValue(person, kABPersonLastNameProperty));
                     NSString* fullNameTemp = @"";
                     
                     if (firstName)
@@ -162,10 +162,10 @@
                             CFStringRef typeLabel = ABMultiValueCopyLabelAtIndex(contactPhones, i);
                             if (typeLabel)
                             {
-                                NSString* typeLabelLocalized = (__bridge NSString*)ABAddressBookCopyLocalizedLabel(typeLabel);
+                                NSString* typeLabelLocalized = (NSString*)CFBridgingRelease(ABAddressBookCopyLocalizedLabel(typeLabel));
                                 if (typeLabelLocalized)
                                 {
-                                    NSString* phone = (__bridge NSString*)ABMultiValueCopyValueAtIndex(contactPhones, i);
+                                    NSString* phone = (NSString*)CFBridgingRelease(ABMultiValueCopyValueAtIndex(contactPhones, i));
                                     
                                     if (phone && phone.length > 0)
                                     {
@@ -233,6 +233,7 @@
                     }*/
 
                 }
+                CFRelease(allPeopleRef);
             }
             CFRelease(addressBookRef);
         }

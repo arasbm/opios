@@ -51,13 +51,6 @@ using namespace openpeer::core;
 @implementation HOPCall
 
 
-- (id)init
-{
-    //[self release];
-    [NSException raise:NSInvalidArgumentException format:@"Don't use init for object creation. Use class method placeCall."];
-    return nil;
-}
-
 - (id) initWithCallPtr:(ICallPtr) inCallPtr
 {
     self = [super init];
@@ -73,10 +66,12 @@ using namespace openpeer::core;
     HOPCall* ret = nil;
     if (conversationThread != nil && toContact != nil)
     {
+        //Create the core call object and start placing call procedure
         ICallPtr tempCallPtr = ICall::placeCall([conversationThread getConversationThreadPtr], [toContact getContactPtr], includeAudio, includeVideo);
         
         if (tempCallPtr)
         {
+            //If core call object is create, create HOPCall object
             ret = [[self alloc] initWithCallPtr:tempCallPtr];
             [[OpenPeerStorageManager sharedStorageManager] setCall:ret forId:[NSString stringWithUTF8String:tempCallPtr->getCallID()]];
         }

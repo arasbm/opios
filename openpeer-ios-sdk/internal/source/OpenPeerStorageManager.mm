@@ -47,7 +47,7 @@
     static dispatch_once_t pred = 0;
     __strong static id _sharedObject = nil;
     dispatch_once(&pred, ^{
-        _sharedObject = [[self alloc] init]; // or some other init method
+        _sharedObject = [[self alloc] init];
         if (_sharedObject)
             [_sharedObject initSingleton];
     });
@@ -153,12 +153,4 @@
     [_dictionaryIdentityLookups setObject:lookup forKey:[NSNumber numberWithInt:puid]];
 }
 
-/*- (HOPContactPeerFilePublicLookup*) getContactPeerFilePublicLookupForPUID:(PUID) puid
-{
-    return [_dictionaryContactPeerFilePublicLookup objectForKey:[NSNumber numberWithInt:puid]];
-}
-- (void) setContactPeerFilePublicLookup:(HOPContactPeerFilePublicLookup*) lookup forPUID:(PUID) puid
-{
-    [_dictionaryContactPeerFilePublicLookup setObject:lookup forKey:[NSNumber numberWithInt:puid]];
-}*/
 @end

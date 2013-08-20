@@ -32,10 +32,40 @@
 
 
 #import <Foundation/Foundation.h>
+#import "HOPProtocols.h"
 
 @interface HOPCache : NSObject
 
-+ (NSString*) fetchForCookieNamePath:(NSString*) cookieNamePath;
-+ (void) store:(NSString*) stringToStore expireDate:(NSDate*) expireDate cookieNamePath:(NSString*) cookieNamePath;
-+ (void) clearForCookieNamePath:(NSString*) cookieNamePath;
+/**
+ Returns singleton object of this class.
+ */
++ (HOPCache*) sharedCache;
+- (id) init __attribute__((unavailable("HOPCache is singleton class.")));
+
+/**
+ Set cache delegate implemented in client app
+ @param cacheDelegate id<HOPCacheDelegate> cache delegate
+ */
+- (void) setDelegate:(id<HOPCacheDelegate>) cacheDelegate;
+
+/**
+ Fetches data for specified path
+ @param cookieNamePath NSString path
+ @return NSString fetched data
+ */
+- (NSString*) fetchForCookieNamePath:(NSString*) cookieNamePath;
+
+/**
+ Stored data to cache for specified path
+ @param stringToStore NSString data to store
+ @param expireDate NSDate data expire date
+ @param cookieNamePath NSString path
+ */
+- (void) store:(NSString*) stringToStore expireDate:(NSDate*) expireDate cookieNamePath:(NSString*) cookieNamePath;
+
+/**
+ Removes data from cache for specified path
+ @param cookieNamePath NSString path
+ */
+- (void) clearForCookieNamePath:(NSString*) cookieNamePath;
 @end

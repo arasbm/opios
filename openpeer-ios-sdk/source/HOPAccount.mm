@@ -53,7 +53,7 @@ using namespace openpeer::core;
     static dispatch_once_t pred = 0;
     __strong static id _sharedObject = nil;
     dispatch_once(&pred, ^{
-        _sharedObject = [[self alloc] initSingleton]; // or some other init method
+        _sharedObject = [[self alloc] initSingleton];
     });
     return _sharedObject;
 }
@@ -272,7 +272,6 @@ using namespace openpeer::core;
                 
                 HOPIdentity* identity = [[OpenPeerStorageManager sharedStorageManager] getIdentityForId:identityURI];
                 
-                //HOP_CHECK: At this moment this identity should be present in the dictionary. Check if this is not the case.
                 if (identity)
                     [array addObject:identity];
             }

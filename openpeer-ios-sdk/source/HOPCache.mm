@@ -29,21 +29,49 @@
  
  */
 
-#import "HOPCache.h"
+
 #import <openpeer/core/ICache.h>
+#import "HOPCache_Internal.h"
+#import "OpenPeerCacheDelegate.h"
 
 using namespace openpeer;
 using namespace openpeer::core;
 
 @implementation HOPCache
 
-+ (NSString*) fetchForCookieNamePath:(NSString*) cookieNamePath
++ (id)sharedCache
+{
+    static dispatch_once_t pred = 0;
+    __strong static id _sharedObject = nil;
+    dispatch_once(&pred, ^{
+        _sharedObject = [[self alloc] initSingleton];
+    });
+    return _sharedObject;
+}
+
+- (id) initSingleton
+{
+    self = [super init];
+    if (self)
+    {
+        cachePtr = ICache::singleton();
+    }
+    
+    return self;
+}
+
+- (void) setDelegate:(id<HOPCacheDelegate>) cacheDelegate
+{
+    openpeerCacheDelegatePtr = OpenPeerCacheDelegate::create(cacheDelegate);
+}
+
+- (NSString*) fetchForCookieNamePath:(NSString*) cookieNamePath
 {
     NSString* ret = nil;
     
     if ([cookieNamePath length] > 0)
     {
-        zsLib::String data = ICache::singleton()->fetch([cookieNamePath UTF8String]);
+        zsLib::String data = cachePtr->fetch([cookieNamePath UTF8String]);
         if (!data.isEmpty())
             ret = [NSString stringWithUTF8String:data];
     }
@@ -51,16 +79,16 @@ using namespace openpeer::core;
     return ret;
 }
 
-+ (void) store:(NSString*) stringToStore expireDate:(NSDate*) expireDate cookieNamePath:(NSString*) cookieNamePath
+- (void) store:(NSString*) stringToStore expireDate:(NSDate*) expireDate cookieNamePath:(NSString*) cookieNamePath
 {
     if ([stringToStore length] > 0 && [cookieNamePath length] > 0)
-        ICache::singleton()->store([stringToStore UTF8String], boost::posix_time::from_time_t([expireDate timeIntervalSince1970]), [cookieNamePath UTF8String]);
+        cachePtr->store([stringToStore UTF8String], boost::posix_time::from_time_t([expireDate timeIntervalSince1970]), [cookieNamePath UTF8String]);
 }
 
-+ (void) clearForCookieNamePath:(NSString*) cookieNamePath
+- (void) clearForCookieNamePath:(NSString*) cookieNamePath
 {
     if ([cookieNamePath length] > 0)
-        ICache::singleton()->clear([cookieNamePath UTF8String]);
+        cachePtr->clear([cookieNamePath UTF8String]);
 }
 
 @end

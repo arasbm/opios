@@ -49,7 +49,6 @@
 + (id) placeCall:(HOPConversationThread*) conversationThread toContact:(HOPContact*) toContact includeAudio:(BOOL) includeAudio includeVideo:(BOOL) includeVideo;
 - (id) init __attribute__((unavailable("Use static placeCall:toContact:includeAudio:includeVideo method to create a call object.")));
 
-
 /**
  Converts call state enum to string
  @param state HOPCallStates Call state enum
@@ -58,7 +57,6 @@
 + (NSString*) stateToString: (HOPCallStates) state __attribute__((deprecated("use method stringForCallState instead")));
 + (NSString*) stringForCallState:(HOPCallStates) state;
 
-
 /**
  Converts call closed reason enum to string
  @param reason HOPCallClosedReasons Call closed reason enum
@@ -66,6 +64,7 @@
  */
 + (NSString*) reasonToString: (HOPCallClosedReasons) reason __attribute__((deprecated("use method stringForClosingReason instead")));
 + (NSString*) stringForClosingReason:(HOPCallClosedReasons) reason;
+
 /**
  Retrieves call ID
  @returns String representation of call ID
@@ -79,8 +78,8 @@
 - (HOPConversationThread*) getConversationThread;
 
 /**
- Retrieves caller core contact
- @returns Pointer to the caller core contact object
+ Retrieves caller contact
+ @returns Pointer to the caller contact object
  */
 - (HOPContact*) getCaller;
 
@@ -145,7 +144,6 @@
 
 /**
  Answer incoming call.
- @returns NSDate representation of call closed time
  */
 - (void) answer;
 

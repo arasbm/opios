@@ -66,21 +66,14 @@
 - (void)setFramesSizes;
 - (float)getHeaderHeight:(float)tableViewHeight;
 
-- (void)setMessage:(Message *)message;
-- (void) updateSessionView;
-
 - (void)registerForNotifications:(BOOL)registerForNotifications;
 
-
-- (IBAction) closeSession:(id) sender;
 
 - (void)sendIMmessage:(NSString *)message;
 
 - (void)setDefaults;
 
 - (void) setKeyboardIsHidden:(BOOL) hidden;
-- (CGSize)calcMessageHeight:(NSString *)message forScreenWidth:(float)width;
 
 - (IBAction) sendButtonPressed:(id) sender;
-- (IBAction) actionBack;
 @end
