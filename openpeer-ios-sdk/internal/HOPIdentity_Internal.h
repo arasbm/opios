@@ -47,4 +47,5 @@ using namespace openpeer::core;
 - (void) setLocalDelegate:(id<HOPIdentityDelegate>) inIdentityDelegate;
 - (IIdentityPtr) getIdentityPtr;
 
+- (String) log:(NSString*) message;
 @end

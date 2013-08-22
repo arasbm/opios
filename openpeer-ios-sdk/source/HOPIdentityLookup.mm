@@ -40,6 +40,8 @@
 #import "HOPIdentityContact_Internal.h"
 #import "HOPModelManager.h"
 
+ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
+
 @implementation HOPIdentityLookupResult
 
 @end
@@ -68,6 +70,11 @@
                 [[OpenPeerStorageManager sharedStorageManager] setIdentityLookup:self forPUID:identityLookupPtr->getID()];
         }
     }
+    else
+    {
+        ZS_LOG_ERROR(Debug, "Invalid input parameters!");
+    }
+                     
     return self;
 }
 
@@ -94,6 +101,7 @@
     }
     else
     {
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid identity lookup object!"]);
         [NSException raise:NSInvalidArgumentException format:@"Invalid identity lookup object!"];
     }
     
@@ -115,6 +123,7 @@
     }
     else
     {
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid identity lookup object!"]);
         [NSException raise:NSInvalidArgumentException format:@"Invalid identity lookup object!"];
     }
     
@@ -129,6 +138,7 @@
     }
     else
     {
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid identity lookup object!"]);
         [NSException raise:NSInvalidArgumentException format:@"Invalid identity lookup object!"];
     }
 }
@@ -169,6 +179,7 @@
     }
     else
     {
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid identity lookup object!"]);
         [NSException raise:NSInvalidArgumentException format:@"Invalid identity lookup object!"];
     }
     return ret;
@@ -193,6 +204,7 @@
     }
     else
     {
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid identity lookup object!"]);
         [NSException raise:NSInvalidArgumentException format:@"Invalid identity lookup object!"];
     }
     return ret;
@@ -217,6 +229,7 @@
     }
     else
     {
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid identity lookup object!"]);
         [NSException raise:NSInvalidArgumentException format:@"Invalid identity lookup object!"];
     }
     return ret;
@@ -244,4 +257,13 @@
 {
     return identityLookupPtr;
 }
+
+- (String) log:(NSString*) message
+{
+    if (identityLookupPtr)
+        return String("HOPIdentityLookup [") + string(identityLookupPtr->getID()) + "] " + [message UTF8String];
+    else
+        return String("HOPIdentityLookup: ") + [message UTF8String];
+}
+
 @end

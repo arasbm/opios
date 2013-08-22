@@ -49,4 +49,6 @@ using namespace openpeer::core;
 
 - (id) initWithCoreContact:(IContactPtr) inContactPtr;
 - (IContactPtr) getContactPtr;
+
+- (String) log:(NSString*) message;
 @end

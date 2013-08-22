@@ -38,6 +38,8 @@
 #import "HOPContact_Internal.h"
 #import "OpenPeerStorageManager.h"
 
+ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
+
 @implementation HOPContact
 
 - (id)init
@@ -58,8 +60,8 @@
             [[OpenPeerStorageManager sharedStorageManager] setContact:self forPeerURI:peerURI];
         else
             return nil;
-        
     }
+    
     return self;
 }
 
@@ -78,7 +80,6 @@
                 
                 if (tempCoreContactPtr)
                 {
-                    //self.peerFile = publicPeerFile;
                     coreContactPtr = tempCoreContactPtr;
                     [[OpenPeerStorageManager sharedStorageManager] setContact:self forPeerURI:[self getPeerURI]];
                 }
@@ -113,7 +114,12 @@
     {
         ret = coreContactPtr->isSelf();
     }
-
+    else
+    {
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid contact object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid contact object!"];
+    }
+    
     return ret;
 }
 
@@ -127,7 +133,8 @@
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid core contact object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid contact object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid contact object!"];
     }
     return ret;
 }
@@ -145,11 +152,15 @@
         if ([contactsLocationID length] > 0)
             coreContactPtr->hintAboutLocation([contactsLocationID UTF8String]);
         else
-           [NSException raise:NSInvalidArgumentException format:@"Invalid contacts location ID!"]; 
+        {
+            ZS_LOG_ERROR(Debug, [self log:@"nvalid contacts location ID!"]);
+            [NSException raise:NSInvalidArgumentException format:@"Invalid contacts location ID!"];
+        }
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid core contact object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid contact object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid contact object!"];
     }
 }
 
@@ -163,5 +174,13 @@
 - (IContactPtr) getContactPtr
 {
     return coreContactPtr;
+}
+
+- (String) log:(NSString*) message
+{
+    if (coreContactPtr)
+        return String("HOPContact [") + string(coreContactPtr->getID()) + "] " + [message UTF8String];
+    else
+        return String("HOPContact: ") + [message UTF8String];
 }
 @end

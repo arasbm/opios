@@ -41,5 +41,4 @@
     ICachePtr cachePtr;
 }
 
-- (id) initSingleton;
 @end

@@ -43,6 +43,8 @@
 #import "HOPIdentityContact_Internal.h"
 #import "OpenPeerConstants.h"
 
+ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
+
 @implementation HOPIdentityState
 
 
@@ -63,7 +65,10 @@
     HOPIdentity* ret = nil;
     
     if (!inIdentityDelegate || [outerFrameURLUponReload length] == 0 || [identityURIOridentityBaseURI length] == 0 || [identityProviderDomain length] == 0)
+    {
+        ZS_LOG_ERROR(Debug, "Invalid input parameters!");
         return ret;
+    }
     
     boost::shared_ptr<OpenPeerIdentityDelegate> identityDelegatePtr = OpenPeerIdentityDelegate::create(inIdentityDelegate);
     
@@ -74,6 +79,11 @@
         ret = [[self alloc] initWithIdentityPtr:identity openPeerIdentityDelegate:identityDelegatePtr];
         [[OpenPeerStorageManager sharedStorageManager] setIdentity:ret forId:identityURIOridentityBaseURI];
     }
+    else
+    {
+        ZS_LOG_ERROR(Debug, "Identity login is not started successfully!");
+    }
+    
     return ret;
 }
 
@@ -82,7 +92,10 @@
     HOPIdentity* ret = nil;
     
     if (!inIdentityDelegate || [identityURI length] == 0 || [identityAccessToken length] == 0 || [identityAccessSecret length] == 0)
+    {
+        ZS_LOG_ERROR(Debug, "Invalid input parameters!");
         return ret;
+    }
     
     boost::shared_ptr<OpenPeerIdentityDelegate> identityDelegatePtr = OpenPeerIdentityDelegate::create(inIdentityDelegate);
     
@@ -93,6 +106,11 @@
         ret = [[self alloc] initWithIdentityPtr:identity openPeerIdentityDelegate:identityDelegatePtr];
         [[OpenPeerStorageManager sharedStorageManager] setIdentity:ret forId:identityURI];
     }
+    else
+    {
+        ZS_LOG_ERROR(Debug, "Identity login is not started successfully!");
+    }
+    
     return ret;
 }
 
@@ -107,6 +125,7 @@
     ret.lastErrorReason = [NSString stringWithCString:lastErrorReason encoding:NSUTF8StringEncoding];
     return ret;
 }
+
 - (BOOL) isDelegateAttached
 {
     BOOL ret = NO;
@@ -117,7 +136,8 @@
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid core identity object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid identity object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid identity object!"];
     }
     return ret;
 }
@@ -131,7 +151,8 @@
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid core identity object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid identity object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid identity object!"];
     }
 }
 
@@ -147,12 +168,14 @@
         }
         else
         {
+            ZS_LOG_ERROR(Debug, [self log:@"Invalid input parameters!"]);
             [NSException raise:NSInvalidArgumentException format:@"Invalid input parameters!"];
         }
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid core identity object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid identity object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid identity object!"];
     }
 }
 
@@ -166,7 +189,8 @@
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid core identity object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid identity object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid identity object!"];
     }
     return ret;
 }
@@ -183,7 +207,8 @@
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid core identity object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid identity object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid identity object!"];
     }
     return ret;
 }
@@ -198,7 +223,8 @@
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid core identity object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid identity object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid identity object!"];
     }
     return ret;
 }
@@ -227,7 +253,8 @@
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid core identity object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid identity object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid identity object!"];
     }
     return ret;
 }
@@ -242,7 +269,8 @@
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid core identity object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid identity object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid identity object!"];
     }
     return ret;
 }
@@ -256,7 +284,8 @@
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid core identity object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid identity object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid identity object!"];
     }
 }
 
@@ -268,7 +297,8 @@
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid core identity object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid identity object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid identity object!"];
     }
 }
 - (NSString*) getNextMessageForInnerBrowerWindowFrame
@@ -281,7 +311,8 @@
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid core identity object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid identity object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid identity object!"];
     }
     return ret;
 }
@@ -294,7 +325,8 @@
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid core identity object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid identity object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid identity object!"];
     }
 }
 - (void) cancel
@@ -305,7 +337,8 @@
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid core identity object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid identity object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid identity object!"];
     }
 }
 
@@ -338,7 +371,8 @@
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid core identity object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid identity object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid identity object!"];
     }
 }
 
@@ -350,7 +384,8 @@
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid core identity object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid identity object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid identity object!"];
     }
 }
 
@@ -426,6 +461,7 @@
     }
     else
     {
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid identity object!"]);
         [NSException raise:NSInvalidArgumentException format:@"Invalid core identity object!"];
     }
     
@@ -473,5 +509,13 @@
 - (IIdentityPtr) getIdentityPtr
 {
     return identityPtr;
+}
+
+- (String) log:(NSString*) message
+{
+    if (identityPtr)
+        return String("HOPIdentity [") + string(identityPtr->getID()) + "] " + [message UTF8String];
+    else
+        return String("HOPIdentity: ") + [message UTF8String];
 }
 @end

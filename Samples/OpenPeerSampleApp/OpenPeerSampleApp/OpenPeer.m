@@ -125,6 +125,8 @@
     [HOPLogger setLogLevelbyName:@"openpeer_stack" level:HOPLoggerLevelTrace];
     [HOPLogger setLogLevelbyName:@"openpeer_webrtc" level:HOPLoggerLevelBasic];
     [HOPLogger setLogLevelbyName:@"zsLib" level:HOPLoggerLevelTrace];
+    [HOPLogger setLogLevelbyName:@"openpeer_sdk" level:HOPLoggerLevelBasic];
+    
     //Srart logger without colorized output
     [HOPLogger installStdOutLogger:NO];
     [HOPLogger installTelnetLogger:59999 maxSecondsWaitForSocketToBeAvailable:60 colorizeOutput:YES];

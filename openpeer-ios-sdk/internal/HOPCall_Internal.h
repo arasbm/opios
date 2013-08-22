@@ -44,4 +44,5 @@ using namespace openpeer::core;
 - (id) initWithCallPtr:(ICallPtr) inCallPtr;
 - (ICallPtr) getCallPtr;
 
+- (String) log:(NSString*) message;
 @end

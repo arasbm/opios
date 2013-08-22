@@ -32,6 +32,9 @@
 
 #import <Foundation/Foundation.h>
 #import <zsLib/types.h>
+#import "HOPTypes.h"
+
+void OpenPeerLog(HOPLoggerLevels logLevel, NSString* format,...);
 
 @interface OpenPeerUtility : NSObject
 
@@ -39,4 +42,5 @@
 + (NSString*) getBaseIdentityURIFromURI:(NSString*) identityURI;
 + (NSString*) getContactIdFromURI:(NSString*) identityURI;
 + (BOOL) isBaseIdentityURI:(NSString*) identityURI;
+
 @end

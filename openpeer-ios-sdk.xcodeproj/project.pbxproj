@@ -706,6 +706,7 @@
 		87A5B1B416EDE5F9007E825A /* internal */ = {
 			isa = PBXGroup;
 			children = (
+				87A5B1D016EDE5F9007E825A /* source */,
 				87A5B1B516EDE5F9007E825A /* HOPAccount_Internal.h */,
 				87F11AF517C361AE00CFE85D /* HOPCache_Internal.h */,
 				87A5B1B716EDE5F9007E825A /* HOPCall_Internal.h */,
@@ -728,7 +729,6 @@
 				87A5B1CD16EDE5F9007E825A /* OpenPeerStackDelegate.h */,
 				87A5B1CE16EDE5F9007E825A /* OpenPeerStorageManager.h */,
 				87A5B1CF16EDE5F9007E825A /* OpenPeerUtility.h */,
-				87A5B1D016EDE5F9007E825A /* source */,
 			);
 			path = internal;
 			sourceTree = "<group>";

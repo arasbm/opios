@@ -45,6 +45,8 @@
 #import "HOPContact.h"
 #import "HOPModelManager.h"
 
+ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
+
 using namespace openpeer;
 using namespace openpeer::core;
 
@@ -74,6 +76,10 @@ using namespace openpeer::core;
             //If core call object is create, create HOPCall object
             ret = [[self alloc] initWithCallPtr:tempCallPtr];
             [[OpenPeerStorageManager sharedStorageManager] setCall:ret forId:[NSString stringWithUTF8String:tempCallPtr->getCallID()]];
+        }
+        else
+        {
+            ZS_LOG_ERROR(Debug, "Call object is not created!");
         }
     }
     return ret;
@@ -106,7 +112,8 @@ using namespace openpeer::core;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call pointer!"];
     }
     return callId;
 }
@@ -121,10 +128,15 @@ using namespace openpeer::core;
         {
             hopConversationThread = [[OpenPeerStorageManager sharedStorageManager] getConversationThreadForId:[NSString stringWithUTF8String:conversationThreaPtr->getThreadID()]];
         }
+        else
+        {
+            ZS_LOG_ERROR(Debug, [self log:@"Invalid conversation thread object!"]);
+        }
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call pointer!"];
     }
     
     return hopConversationThread;
@@ -141,10 +153,15 @@ using namespace openpeer::core;
             NSString* peerURI = [NSString stringWithUTF8String:contactPtr->getPeerURI()];
             ret = [[OpenPeerStorageManager sharedStorageManager] getContactForPeerURI:peerURI];
         }
+        else
+        {
+            ZS_LOG_ERROR(Debug, [self log:@"Invalid caller contact object!"]);
+        }
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call object!"];
     }
     return ret;
 }
@@ -160,10 +177,15 @@ using namespace openpeer::core;
             NSString* peerURI = [NSString stringWithUTF8String:contactPtr->getPeerURI()];
             ret = [[OpenPeerStorageManager sharedStorageManager] getContactForPeerURI:peerURI];
         }
+        else
+        {
+            ZS_LOG_ERROR(Debug, [self log:@"Invalid callee contact object!"]);
+        }
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call object!"];
     }
     return ret;
 }
@@ -177,7 +199,8 @@ using namespace openpeer::core;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call object!"];
     }
     
     return ret;
@@ -192,7 +215,8 @@ using namespace openpeer::core;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call object!"];
     }
     
     return ret;
@@ -207,7 +231,8 @@ using namespace openpeer::core;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call object!"];
     }
     
     return hopCallStates;
@@ -223,7 +248,8 @@ using namespace openpeer::core;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call object!"];
     }
     
     return hopCallClosedReasons;
@@ -240,7 +266,8 @@ using namespace openpeer::core;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call object!"];
     }
     return date;
 }
@@ -255,7 +282,8 @@ using namespace openpeer::core;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call object!"];
     }
     return date;
 }
@@ -270,7 +298,8 @@ using namespace openpeer::core;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call object!"];
     }
     return date;
 }
@@ -286,7 +315,8 @@ using namespace openpeer::core;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call object!"];
     }
     return date;
 }
@@ -299,7 +329,8 @@ using namespace openpeer::core;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call object!"];
     }
 }
 
@@ -311,7 +342,8 @@ using namespace openpeer::core;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call object!"];
     }
 }
 
@@ -324,7 +356,8 @@ using namespace openpeer::core;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call object!"];
     }
 }
 
@@ -337,7 +370,8 @@ using namespace openpeer::core;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call object!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call object!"];
     }
 }
 
@@ -350,5 +384,13 @@ using namespace openpeer::core;
 - (ICallPtr) getCallPtr
 {
     return callPtr;
+}
+
+- (String) log:(NSString*) message
+{
+    if (callPtr)
+        return String("HOPCall [") + string(callPtr->getID()) + "] " + [message UTF8String];
+    else
+        return String("HOPCall: ") + [message UTF8String];
 }
 @end

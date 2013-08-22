@@ -34,6 +34,8 @@
 #import "HOPMediaEngine.h"
 #import <openpeer/core/IMediaEngine.h>
 
+ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
+
 using namespace openpeer::core;
 
 @interface HOPMediaEngine()
@@ -487,5 +489,10 @@ using namespace openpeer::core;
 - (IMediaEnginePtr) getMediaEnginePtr
 {
     return mediaEnginePtr;
+}
+
+- (String) log:(NSString*) message
+{
+    return String("HOPMediaEngine: ") + [message UTF8String];
 }
 @end

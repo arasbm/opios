@@ -39,6 +39,8 @@
 #import <openpeer/core/IIdentity.h>
 #import <openpeer/core/IHelper.h>
 
+ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
+
 using namespace openpeer;
 using namespace openpeer::core;
 
@@ -82,13 +84,19 @@ using namespace openpeer::core;
 {
     BOOL passedWithoutErrors = NO;
     
-    //Check if valid arguments are passed
+    //Check if valid parameters are passed
     if (!inAccountDelegate || !inConversationThreadDelegate || !inCallDelegate || [namespaceGrantOuterFrameURLUponReload length] == 0 || [grantID length] == 0  || [lockboxServiceDomain length] == 0 )
+    {
+        ZS_LOG_ERROR(Debug, [self log:@"Passed invalid parameters."]);
         return passedWithoutErrors;
+    }
     
     //If core account object already exists, shut it down
     if (accountPtr)
+    {
+        ZS_LOG_DEBUG([self log:@"Core account object already exists. Shuting down existing account object."]);
         accountPtr->shutdown();
+    }
     
     //Set account, conversation thread and call delegates
     [self setLocalDelegates:inAccountDelegate conversationThread:inConversationThreadDelegate callDelegate:inCallDelegate];
@@ -96,9 +104,16 @@ using namespace openpeer::core;
     //Start login. This static method will create an account core object
     accountPtr = IAccount::login(openpeerAccountDelegatePtr, openpeerConversationDelegatePtr, openpeerCallDelegatePtr, [namespaceGrantOuterFrameURLUponReload UTF8String], [grantID UTF8String], [lockboxServiceDomain UTF8String], forceCreateNewLockboxAccount);
     
-    //If core account object is created return that login process is started successfully
+    //If core account object is created, return that login process is started successfully
     if (accountPtr)
+    {
+        ZS_LOG_DEBUG([self log:@"Account object created successfully."]);
         passedWithoutErrors = YES;
+    }
+    else
+    {
+        ZS_LOG_DEBUG([self log:@"Account object is NOT created successfully."]);
+    }
     
     return passedWithoutErrors;
 }
@@ -110,7 +125,10 @@ using namespace openpeer::core;
     
     //Check if valid arguments are passed
     if (!inAccountDelegate || !inConversationThreadDelegate || !inCallDelegate || [lockboxOuterFrameURLUponReload length] == 0 || [reloginInformation length] == 0)
+    {
+        ZS_LOG_ERROR(Debug, [self log:@"Passed invalid arguments."]);
         return passedWithoutErrors;
+    }
     
     //Set account, conversation thread and call delegates
     [self setLocalDelegates:inAccountDelegate conversationThread:inConversationThreadDelegate callDelegate:inCallDelegate];
@@ -120,7 +138,14 @@ using namespace openpeer::core;
     
     //If core account object is created return that relogin process is started successfully
     if (accountPtr)
+    {
+        ZS_LOG_DEBUG([self log:@"Account object created successfully."]);
         passedWithoutErrors = YES;
+    }
+    else
+    {
+        ZS_LOG_DEBUG([self log:@"Account object is NOT created successfully."]);
+    }
     
     return passedWithoutErrors;
 }
@@ -140,6 +165,7 @@ using namespace openpeer::core;
     }
     else
     {
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid account object!"]);
         [NSException raise:NSInvalidArgumentException format:@"Invalid account object!"];
     }
     
@@ -158,9 +184,14 @@ using namespace openpeer::core;
         {
             ret = [NSString stringWithUTF8String: stableId];
         }
+        else
+        {
+            ZS_LOG_WARNING(Debug, [self log:@"Account object doesn't have a valid stable id!"]);
+        }
     }
     else
     {
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid account object!"]);
         [NSException raise:NSInvalidArgumentException format:@"Invalid account object!"];
     }
     return ret;
@@ -178,9 +209,14 @@ using namespace openpeer::core;
             if (reloginInfo.length() > 0)
                 ret = [NSString stringWithUTF8String: reloginInfo];
         }
+        else
+        {
+            ZS_LOG_WARNING(Debug, [self log:@"Account object relogin information are not available!"]);
+        }
     }
     else
     {
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid account object!"]);
         [NSException raise:NSInvalidArgumentException format:@"Invalid account object!"];
     }
     return ret;
@@ -196,6 +232,7 @@ using namespace openpeer::core;
     }
     else
     {
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid account object!"]);
         [NSException raise:NSInvalidArgumentException format:@"Invalid account object!"];
     }
     return ret;
@@ -210,6 +247,7 @@ using namespace openpeer::core;
     }
     else
     {
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid account object!"]);
         [NSException raise:NSInvalidArgumentException format:@"Invalid account object!"];
     }
 }
@@ -225,9 +263,14 @@ using namespace openpeer::core;
         {
             xml = [NSString stringWithUTF8String: IHelper::convertToString(element)];
         }
+        else
+        {
+            ZS_LOG_WARNING(Debug, [self log:@"Account object private peer file is not available!"]);
+        }
     }
     else
     {
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid account object!"]);
         [NSException raise:NSInvalidArgumentException format:@"Invalid account object!"];
     }
     return xml;
@@ -246,9 +289,14 @@ using namespace openpeer::core;
             int sizeInBytes = secure->SizeInBytes();
             ret = [NSData dataWithBytes:secureInBytes length:sizeInBytes];
         }
+        else
+        {
+            ZS_LOG_WARNING(Debug, [self log:@"Account object private peer file secret is not available!"]);
+        }
     }
     else
     {
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid account object!"]);
         [NSException raise:NSInvalidArgumentException format:@"Invalid account object!"];
     }
     return ret;
@@ -279,6 +327,7 @@ using namespace openpeer::core;
     }
     else
     {
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid account object!"]);
         [NSException raise:NSInvalidArgumentException format:@"Invalid account object!"];
     }
     return array;
@@ -304,6 +353,7 @@ using namespace openpeer::core;
     }
     else
     {
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid account object!"]);
         [NSException raise:NSInvalidArgumentException format:@"Invalid account object!"];
     }
 }
@@ -318,6 +368,7 @@ using namespace openpeer::core;
     }
     else
     {
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid account object!"]);
         [NSException raise:NSInvalidArgumentException format:@"Invalid account object!"];
     }
     return ret;
@@ -331,6 +382,7 @@ using namespace openpeer::core;
     }
     else
     {
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid account object!"]);
         [NSException raise:NSInvalidArgumentException format:@"Invalid account object!"];
     }
 }
@@ -343,6 +395,7 @@ using namespace openpeer::core;
     }
     else
     {
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid account object!"]);
         [NSException raise:NSInvalidArgumentException format:@"Invalid account object!"];
     }
 }
@@ -357,6 +410,7 @@ using namespace openpeer::core;
     }
     else
     {
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid account object!"]);
         [NSException raise:NSInvalidArgumentException format:@"Invalid account object!"];
     }
     return ret;
@@ -370,6 +424,7 @@ using namespace openpeer::core;
     }
     else
     {
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid account object!"]);
         [NSException raise:NSInvalidArgumentException format:@"Invalid account object!"];
     }
 }
@@ -396,5 +451,13 @@ using namespace openpeer::core;
 - (IAccountPtr) getAccountPtr
 {
     return accountPtr;
+}
+
+- (String) log:(NSString*) message
+{
+    if (accountPtr)
+        return String("HOPAccount [") + string(accountPtr->getID()) + "] " + [message UTF8String];
+    else
+        return String("HOPAccount: ") + [message UTF8String];
 }
 @end

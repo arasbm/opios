@@ -31,12 +31,15 @@
 
 
 #import <openpeer/core/IStack.h>
+#import <zsLib/Log.h>
 
 #import "HOPStack_Internal.h"
 #import "OpenPeerStorageManager.h"
+#import "OpenPeerUtility.h"
 
 #import "HOPStack.h"
 
+ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
 
 @implementation HOPStack
 
@@ -54,11 +57,17 @@
 {
     //Check if delegates are nil
     if (!stackDelegate || !mediaEngineDelegate)
-        [NSException raise:NSInvalidArgumentException format:@"Passed invalid delegates!"];
+    {
+        ZS_LOG_ERROR(Debug, [self log:@"Passed invalid delegate."]);
+        [NSException raise:NSInvalidArgumentException format:@"Passed invalid delegate!"];
+    }
     
-    //Check if other arguments are valid
+    //Check if other parameters are valid
     if ( ([userAgent length] == 0 ) || ([deviceOs length] == 0 ) || ([system length] == 0 ) || ([deviceID length] == 0))
+    {
+        ZS_LOG_ERROR(Debug, [self log:@"Passed invalid system information."]);
         [NSException raise:NSInvalidArgumentException format:@"Invalid system information!"];
+    }
     
     [self createLocalDelegates:stackDelegate mediaEngineDelegate:mediaEngineDelegate];
     
@@ -109,6 +118,10 @@
     return IStack::singleton();
 }
 
+- (String) log:(NSString*) message
+{
+    return String("HOPStack: ") + [message UTF8String];
+}
 @end
 
 

@@ -47,4 +47,6 @@ using namespace openpeer::core;
 - (void) setLocalDelegates:(id<HOPIdentityLookupDelegate>) inIdentityLookupDelegate;
 
 - (IIdentityLookupPtr) getIdentityLookupPtr;
+
+- (String) log:(NSString*) message;
 @end

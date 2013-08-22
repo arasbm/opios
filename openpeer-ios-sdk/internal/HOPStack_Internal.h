@@ -55,4 +55,5 @@
 
 - (IStackPtr) getStackPtr;
 
+- (String) log:(NSString*) message;
 @end

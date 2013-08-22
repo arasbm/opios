@@ -42,4 +42,6 @@ using namespace openpeer::core;
 }
 
 - (IMediaEnginePtr) getMediaEnginePtr;
+
+- (String) log:(NSString*) message;
 @end

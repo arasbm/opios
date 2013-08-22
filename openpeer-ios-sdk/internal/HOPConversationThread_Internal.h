@@ -44,4 +44,6 @@ using namespace openpeer::core;
 
 - (id) initWithConversationThread:(IConversationThreadPtr) inConversationThreadPtr;
 - (IConversationThreadPtr) getConversationThreadPtr;
+
+- (String) log:(NSString*) message;
 @end

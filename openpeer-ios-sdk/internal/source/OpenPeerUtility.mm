@@ -31,6 +31,41 @@
 
 
 #import "OpenPeerUtility.h"
+#import <zsLib/Log.h>
+#include <zsLib/helpers.h>
+
+ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
+
+void OpenPeerLog(HOPLoggerLevels logLevel, NSString* format,...)
+{
+    va_list argumentList;
+    va_start(argumentList, format);
+    NSString *fullString = [[NSString alloc] initWithFormat:format arguments:argumentList];
+    va_end(argumentList);
+    
+    switch (logLevel)
+    {
+        case HOPLoggerLevelBasic:
+            ZS_LOG_BASIC(zsLib::String("SDK: ") + [fullString UTF8String]);
+            break;
+            
+        case HOPLoggerLevelDetail:
+            ZS_LOG_DETAIL(zsLib::String("SDK: ") + [fullString UTF8String]);
+            break;
+            
+        case HOPLoggerLevelDebug:
+            ZS_LOG_DEBUG(zsLib::String("SDK: ") + [fullString UTF8String]);
+            break;
+            
+        case HOPLoggerLevelTrace:
+            ZS_LOG_TRACE(zsLib::String("SDK: ") + [fullString UTF8String]);
+            break;
+        
+        case HOPLoggerLevelNone:
+        default:
+            break;
+    }
+}
 
 @implementation OpenPeerUtility
 
@@ -80,5 +115,10 @@
         ret = [[identityParts objectAtIndex:index] length] == 0;
     }
     return ret;
+}
+
+static void OpenPeerLog(NSString* format,...)
+{
+    
 }
 @end

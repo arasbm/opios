@@ -43,7 +43,7 @@
 #import "OpenPeerUtility.h"
 
 
-
+ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
 
 using namespace openpeer;
 using namespace openpeer::core;
@@ -128,7 +128,8 @@ using namespace openpeer::core;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer conversation thread pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid conversation thread object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid conversation thread object!"];
     }
     return threadId;
 }
@@ -142,7 +143,8 @@ using namespace openpeer::core;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer conversation thread pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid conversation thread object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid conversation thread object!"];
     }
     return ret;
 }
@@ -172,7 +174,8 @@ using namespace openpeer::core;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer conversation thread pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid conversation thread object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid conversation thread object!"];
     }
     
     return contactArray;
@@ -187,7 +190,8 @@ using namespace openpeer::core;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer conversation thread pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid conversation thread object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid conversation thread object!"];
     }
     return ret;
 }
@@ -201,7 +205,8 @@ using namespace openpeer::core;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer conversation thread pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid conversation thread object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid conversation thread object!"];
     }
     
     return ret;
@@ -228,7 +233,8 @@ using namespace openpeer::core;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer conversation thread pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid conversation thread object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid conversation thread object!"];
     }
 }
 
@@ -248,7 +254,8 @@ using namespace openpeer::core;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer conversation thread pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid conversation thread object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid conversation thread object!"];
     }
 
 }
@@ -261,7 +268,8 @@ using namespace openpeer::core;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer conversation thread pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid conversation thread object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid conversation thread object!"];
     }
 }
 
@@ -273,7 +281,8 @@ using namespace openpeer::core;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer conversation thread pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid conversation thread object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid conversation thread object!"];
     }
 }
 
@@ -301,7 +310,8 @@ using namespace openpeer::core;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer conversation thread pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid conversation thread object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid conversation thread object!"];
     }
 
     return hopMessage;
@@ -330,7 +340,8 @@ using namespace openpeer::core;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer conversation thread pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid conversation thread object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid conversation thread object!"];
     }
     return ret;
 }
@@ -350,7 +361,8 @@ using namespace openpeer::core;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer conversation thread pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid conversation thread object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid conversation thread object!"];
     }
     return ret;
 }
@@ -364,5 +376,13 @@ using namespace openpeer::core;
 - (IConversationThreadPtr) getConversationThreadPtr
 {
     return conversationThreadPtr;
+}
+
+- (String) log:(NSString*) message
+{
+    if (conversationThreadPtr)
+        return String("HOPConversationThread [") + string(conversationThreadPtr->getID()) + "] " + [message UTF8String];
+    else
+        return String("HOPConversationThread: ") + [message UTF8String];
 }
 @end

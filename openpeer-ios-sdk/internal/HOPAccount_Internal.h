@@ -57,4 +57,6 @@ using namespace openpeer::core;
 - (void) setLocalDelegates:(id<HOPAccountDelegate>) inAccountDelegate conversationThread:(id<HOPConversationThreadDelegate>) inConversationThread callDelegate:(id<HOPCallDelegate>) inCallDelegate;
 
 - (IAccountPtr) getAccountPtr;
+
+- (String) log:(NSString*) message;
 @end
