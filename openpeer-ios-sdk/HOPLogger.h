@@ -32,6 +32,14 @@
 #import <Foundation/Foundation.h>
 #import "HOPProtocols.h"
 
+#if defined(__cplusplus)
+#define SDK_EXTERN extern "C"
+#else
+#define SDK_EXTERN extern
+#endif
+
+SDK_EXTERN void HOPLog(HOPLoggerLevels logLevel, NSString* format,...);
+
 /**
  Singleton class to represent the openpeer stack.
  */

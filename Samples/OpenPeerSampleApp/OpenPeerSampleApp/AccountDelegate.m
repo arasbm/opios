@@ -37,6 +37,7 @@
 #import "Constants.h"
 #import "MainViewController.h"
 #import "WebLoginViewController.h"
+#import "OpenpeerSDK/HOPLogger.h"
 
 @interface AccountDelegate()
 @property (nonatomic, strong) WebLoginViewController* webLoginViewController;
@@ -63,6 +64,8 @@
 - (void) account:(HOPAccount*) account stateChanged:(HOPAccountStates) accountState
 {
     NSLog(@"Account login state: %@", [HOPAccount stringForAccountState:accountState]);
+     NSLogww(@"Account login state: %@", [HOPAccount stringForAccountState:accountState]);
+    HOPLog(HOPLoggerLevelDebug,@"Account login state: %@", [HOPAccount stringForAccountState:accountState]);
     
     dispatch_async(dispatch_get_main_queue(), ^
     {
