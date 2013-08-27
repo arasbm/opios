@@ -64,8 +64,7 @@
 - (void) account:(HOPAccount*) account stateChanged:(HOPAccountStates) accountState
 {
     NSLog(@"Account login state: %@", [HOPAccount stringForAccountState:accountState]);
-     NSLogww(@"Account login state: %@", [HOPAccount stringForAccountState:accountState]);
-    HOPLog(HOPLoggerLevelDebug,@"Account login state: %@", [HOPAccount stringForAccountState:accountState]);
+    //HOPLog(HOPLoggerLevelDebug,@"Account login state: %@", [HOPAccount stringForAccountState:accountState]);
     
     dispatch_async(dispatch_get_main_queue(), ^
     {
@@ -85,18 +84,37 @@
                 break;
                 
             case HOPAccountWaitingForBrowserWindowToBeMadeVisible:
-                self.webLoginViewController.view.hidden = NO;
+            {
+                //Add login web view like main view subview
                 if (!self.webLoginViewController.view.superview)
                 {
-                    [[[OpenPeer sharedOpenPeer] mainViewController] showWebLoginView:self.webLoginViewController];
                     [self.webLoginViewController.view setFrame:[[OpenPeer sharedOpenPeer] mainViewController].view.bounds];
+                    [[[OpenPeer sharedOpenPeer] mainViewController] showWebLoginView:self.webLoginViewController];
                 }
+                
+                self.webLoginViewController.view.alpha = 0;
+                self.webLoginViewController.view.hidden = NO;
+                
+                [UIView animateWithDuration:0.7 animations:^{
+                    self.webLoginViewController.view.alpha = 1;
+                }];
+
+                //Notify core that login web view is visible now
                 [account notifyBrowserWindowVisible];
+            }
                 break;
                 
             case HOPAccountWaitingForBrowserWindowToClose:
+            {
+                //Detach login web view
+                [UIView animateWithDuration:0.77 animations:^{
+                    self.webLoginViewController.view.alpha = 0;
+                } completion: ^(BOOL finished) {
+                    [self.webLoginViewController.view removeFromSuperview];
+                }];
+                //Notify core that login web view is closed
                 [account notifyBrowserWindowClosed];
-                [self.webLoginViewController.view removeFromSuperview];
+            }
                 break;
                 
             case HOPAccountStateReady:

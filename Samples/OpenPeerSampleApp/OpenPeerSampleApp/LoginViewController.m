@@ -37,7 +37,7 @@
 @interface LoginViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *buttonLinkedIn;
 @property (weak, nonatomic) IBOutlet UIButton *buttonFacebook;
-
+@property (weak, nonatomic) IBOutlet UIButton *buttonFederated;
 @end
 
 @implementation LoginViewController
@@ -55,6 +55,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UIImage* buttonBackgroundImage = [[UIImage imageNamed:@"iPhone_blue_button.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(20.0, 5.0, 20.0, 5.0)];
+    [self.buttonLinkedIn setBackgroundImage:buttonBackgroundImage forState:UIControlStateNormal];
+    [self.buttonFacebook setBackgroundImage:buttonBackgroundImage forState:UIControlStateNormal];
+    [self.buttonFederated setBackgroundImage:buttonBackgroundImage forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning

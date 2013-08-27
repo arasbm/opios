@@ -120,20 +120,42 @@
                 break;
                 
             case HOPIdentityStateWaitingForBrowserWindowToBeMadeVisible:
-                webLoginViewController.view.hidden = NO;
+            {
+                //Add identity login web view like main view subview
                 if (!webLoginViewController.view.superview)
                 {
-                    [[[OpenPeer sharedOpenPeer] mainViewController] showWebLoginView:webLoginViewController];
                     [webLoginViewController.view setFrame:[[OpenPeer sharedOpenPeer] mainViewController].view.bounds];
+                    [[[OpenPeer sharedOpenPeer] mainViewController] showWebLoginView:webLoginViewController];
                 }
+                
+                webLoginViewController.view.alpha = 0;
+                //Make visible identity login web view
+                webLoginViewController.view.hidden = NO;
+                
+                [UIView animateWithDuration:0.7 animations:^{
+                    webLoginViewController.view.alpha = 1;
+                }];
+                
+                //Notify core that identity login web view is visible now
                 [identity notifyBrowserWindowVisible];
+            }
                 break;
                 
             case HOPIdentityStateWaitingForBrowserWindowToClose:
-                //Detach the web view
+            {
+                //Detach identity login web view
+                [UIView animateWithDuration:0.77 animations:^{
+                    webLoginViewController.view.alpha = 0;
+                } completion: ^(BOOL finished) {
+                    [webLoginViewController.view removeFromSuperview];
+                }];
+                
+                //Notify core that identity login web view is closed
                 [identity notifyBrowserWindowClosed];
-                [webLoginViewController.view removeFromSuperview];
+                
+                //Remove identity login web view from the dictionary
                 [self removeLoginWebViewForIdentity:identity];
+            }
                 break;
                 
             case HOPIdentityStateReady:
