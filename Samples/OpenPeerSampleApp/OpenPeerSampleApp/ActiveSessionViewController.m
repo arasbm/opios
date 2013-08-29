@@ -38,6 +38,7 @@
 #import <OpenpeerSDK/HOPCall.h>
 #import <OpenpeerSDK/HOPMediaEngine.h>
 #import "Utility.h"
+#import <QuartzCore/QuartzCore.h>
 
 #define MAKE_CALL 1
 #define END_CALL 2
@@ -91,6 +92,9 @@
     [super viewDidLoad];
 
     self.originalFrame = self.videoPreviewImageView.frame;
+    
+    self.incomingCallView.layer.cornerRadius = 5;
+    self.incomingCallView.layer.masksToBounds = YES;
     
     //Set default video orientation to be portrait
     [[HOPMediaEngine sharedInstance] setDefaultVideoOrientation:HOPMediaEngineVideoOrientationPortrait];

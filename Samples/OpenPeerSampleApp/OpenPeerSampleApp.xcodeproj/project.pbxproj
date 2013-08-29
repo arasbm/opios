@@ -17,6 +17,15 @@
 		8713363B17CCBD6F008C91F7 /* iPhone_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8713363817CCBD6F008C91F7 /* iPhone_background@2x.png */; };
 		8713363E17CCC10B008C91F7 /* iPhone_blue_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8713363C17CCC10B008C91F7 /* iPhone_blue_button@2x.png */; };
 		8713363F17CCC10B008C91F7 /* iPhone_blue_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 8713363D17CCC10B008C91F7 /* iPhone_blue_button.png */; };
+		8719AB0117CE0523007E991B /* tableViewCell@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8719AAFF17CE0523007E991B /* tableViewCell@2x.png */; };
+		8719AB0217CE0523007E991B /* tableViewCell.png in Resources */ = {isa = PBXBuildFile; fileRef = 8719AB0017CE0523007E991B /* tableViewCell.png */; };
+		8719AB0717CE0710007E991B /* tableViewCell_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8719AB0517CE0710007E991B /* tableViewCell_selected@2x.png */; };
+		8719AB0817CE0710007E991B /* tableViewCell_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 8719AB0617CE0710007E991B /* tableViewCell_selected.png */; };
+		8719AB0C17CE0CEE007E991B /* iPhone_background_navigation_mode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8719AB0917CE0CEE007E991B /* iPhone_background_navigation_mode@2x.png */; };
+		8719AB0D17CE0CEE007E991B /* iPhone_background_navigation_mode.png in Resources */ = {isa = PBXBuildFile; fileRef = 8719AB0A17CE0CEE007E991B /* iPhone_background_navigation_mode.png */; };
+		8719AB0E17CE0CEE007E991B /* iPhone_background_navigation_mode-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8719AB0B17CE0CEE007E991B /* iPhone_background_navigation_mode-568h@2x.png */; };
+		8719AB1117CE2C60007E991B /* audio_call_incoming_decline_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 8719AB0F17CE2C60007E991B /* audio_call_incoming_decline_button.png */; };
+		8719AB1217CE2C60007E991B /* audio_call_incoming_accept_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 8719AB1017CE2C60007E991B /* audio_call_incoming_accept_button.png */; };
 		871BC9A7179EECC400AEA4A6 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 871BC9A6179EECC400AEA4A6 /* CoreData.framework */; };
 		8727282D166CBF9B0089CBB6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8727282C166CBF9B0089CBB6 /* UIKit.framework */; };
 		8727282F166CBF9B0089CBB6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8727282E166CBF9B0089CBB6 /* Foundation.framework */; };
@@ -134,6 +143,15 @@
 		8713363817CCBD6F008C91F7 /* iPhone_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_background@2x.png"; sourceTree = "<group>"; };
 		8713363C17CCC10B008C91F7 /* iPhone_blue_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_blue_button@2x.png"; sourceTree = "<group>"; };
 		8713363D17CCC10B008C91F7 /* iPhone_blue_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_blue_button.png; sourceTree = "<group>"; };
+		8719AAFF17CE0523007E991B /* tableViewCell@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tableViewCell@2x.png"; sourceTree = "<group>"; };
+		8719AB0017CE0523007E991B /* tableViewCell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tableViewCell.png; sourceTree = "<group>"; };
+		8719AB0517CE0710007E991B /* tableViewCell_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tableViewCell_selected@2x.png"; sourceTree = "<group>"; };
+		8719AB0617CE0710007E991B /* tableViewCell_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tableViewCell_selected.png; sourceTree = "<group>"; };
+		8719AB0917CE0CEE007E991B /* iPhone_background_navigation_mode@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_background_navigation_mode@2x.png"; sourceTree = "<group>"; };
+		8719AB0A17CE0CEE007E991B /* iPhone_background_navigation_mode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_background_navigation_mode.png; sourceTree = "<group>"; };
+		8719AB0B17CE0CEE007E991B /* iPhone_background_navigation_mode-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_background_navigation_mode-568h@2x.png"; sourceTree = "<group>"; };
+		8719AB0F17CE2C60007E991B /* audio_call_incoming_decline_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = audio_call_incoming_decline_button.png; sourceTree = "<group>"; };
+		8719AB1017CE2C60007E991B /* audio_call_incoming_accept_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = audio_call_incoming_accept_button.png; sourceTree = "<group>"; };
 		871BC9A6179EECC400AEA4A6 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		87272828166CBF9B0089CBB6 /* OpenPeerSampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenPeerSampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8727282C166CBF9B0089CBB6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -350,6 +368,15 @@
 		8713363517CCBD6F008C91F7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				8719AB0F17CE2C60007E991B /* audio_call_incoming_decline_button.png */,
+				8719AB1017CE2C60007E991B /* audio_call_incoming_accept_button.png */,
+				8719AB0917CE0CEE007E991B /* iPhone_background_navigation_mode@2x.png */,
+				8719AB0A17CE0CEE007E991B /* iPhone_background_navigation_mode.png */,
+				8719AB0B17CE0CEE007E991B /* iPhone_background_navigation_mode-568h@2x.png */,
+				8719AB0517CE0710007E991B /* tableViewCell_selected@2x.png */,
+				8719AB0617CE0710007E991B /* tableViewCell_selected.png */,
+				8719AAFF17CE0523007E991B /* tableViewCell@2x.png */,
+				8719AB0017CE0523007E991B /* tableViewCell.png */,
 				8713363C17CCC10B008C91F7 /* iPhone_blue_button@2x.png */,
 				8713363D17CCC10B008C91F7 /* iPhone_blue_button.png */,
 				8713363617CCBD6F008C91F7 /* iPhone_background-568h@2x.png */,
@@ -635,6 +662,15 @@
 				8713363B17CCBD6F008C91F7 /* iPhone_background@2x.png in Resources */,
 				8713363E17CCC10B008C91F7 /* iPhone_blue_button@2x.png in Resources */,
 				8713363F17CCC10B008C91F7 /* iPhone_blue_button.png in Resources */,
+				8719AB0117CE0523007E991B /* tableViewCell@2x.png in Resources */,
+				8719AB0217CE0523007E991B /* tableViewCell.png in Resources */,
+				8719AB0717CE0710007E991B /* tableViewCell_selected@2x.png in Resources */,
+				8719AB0817CE0710007E991B /* tableViewCell_selected.png in Resources */,
+				8719AB0C17CE0CEE007E991B /* iPhone_background_navigation_mode@2x.png in Resources */,
+				8719AB0D17CE0CEE007E991B /* iPhone_background_navigation_mode.png in Resources */,
+				8719AB0E17CE0CEE007E991B /* iPhone_background_navigation_mode-568h@2x.png in Resources */,
+				8719AB1117CE2C60007E991B /* audio_call_incoming_decline_button.png in Resources */,
+				8719AB1217CE2C60007E991B /* audio_call_incoming_accept_button.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
