@@ -38,6 +38,7 @@
 #import "OpenPeer.h"
 #import "ActivityIndicatorViewController.h"
 #import "MainViewController.h"
+#import "ContactTableViewCell.h"
 
 #define REMOTE_SESSION_ALERT_TAG 1
 @interface ContactsTableViewController ()
@@ -76,6 +77,15 @@
     
     self.navigationController.navigationBar.hidden = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(prepareTableForRemoteSessionMode) name:notificationRemoteSessionModeChanged object:nil];
+    
+    self.contactsTableView.backgroundColor = [UIColor clearColor];
+    NSError *error;
+    if (![self.fetchedResultsController performFetch:&error])
+    {
+		// Update to handle the error appropriately.
+		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+		exit(-1);  // Fail
+	}
 }
 
 - (void)didReceiveMemoryWarning
@@ -151,11 +161,11 @@
 {
     static NSString *cellIdentifier = @"ContactCell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
+    ContactTableViewCell *cell = (ContactTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"ContactTableViewCell" owner:self options:nil];
+        cell = [topLevelObjects objectAtIndex:0];
     }
     
     cell.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"tableViewCell.png"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0]];
@@ -163,17 +173,7 @@
     
     HOPRolodexContact* contact = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    [cell.textLabel setText:contact.name];
-    
-    /*if ([contact.listOfContactsInCallSession count] > 0)
-    {
-        Contact* contactInSession = [contact.listOfContactsInCallSession objectAtIndex:0];
-        [cell.detailTextLabel setText:contactInSession.fullName];
-    }
-    else
-    {
-        [cell.detailTextLabel setText:@""];
-    }*/
+    [cell setContact:contact];
     
     if (contact.identityContact)
     {
@@ -191,7 +191,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 50.0;
+    return 55.0;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
