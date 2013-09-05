@@ -34,6 +34,7 @@
 #import "HOPIdentityContact.h"
 #import "HOPIdentityProvider.h"
 #import "HOPPublicPeerFile.h"
+#import "HOPAvatar.h"
 #import "HOPHomeUser.h"
 #import "OpenPeerConstants.h"
 #import <CoreData/CoreData.h>
@@ -319,6 +320,13 @@
     {
         ret = [results objectAtIndex:0];
     }
+    
+    return ret;
+}
+
+- (NSArray*) getAllIdentitiesInfoForHomeUserIdentityURI:(NSString*) identityURI
+{
+    NSArray* ret = [self getResultsForEntity:@"HOPIdentityProvider" withPredicateString:[NSString stringWithFormat:@"(homeUser.identityURI MATCHES '%@')", identityURI]];
     
     return ret;
 }

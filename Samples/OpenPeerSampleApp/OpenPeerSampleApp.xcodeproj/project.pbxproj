@@ -11,6 +11,22 @@
 		0024393C178F55BF00B79368 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0024393B178F55BF00B79368 /* Security.framework */; };
 		870F337F168376450090A97F /* ActivityIndicatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 870F337D168376450090A97F /* ActivityIndicatorViewController.m */; };
 		870F3380168376450090A97F /* ActivityIndicatorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 870F337E168376450090A97F /* ActivityIndicatorViewController.xib */; };
+		8712BE7517D8CC7C00665F42 /* iPhone_top_bar_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8712BE6717D8CC7C00665F42 /* iPhone_top_bar_background@2x.png */; };
+		8712BE7617D8CC7C00665F42 /* iPhone_top_bar_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 8712BE6817D8CC7C00665F42 /* iPhone_top_bar_background.png */; };
+		8712BE7717D8CC7C00665F42 /* iPhone_tabBar_settings_inactive_Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8712BE6917D8CC7C00665F42 /* iPhone_tabBar_settings_inactive_Icon@2x.png */; };
+		8712BE7817D8CC7C00665F42 /* iPhone_tabBar_settings_inactive_Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8712BE6A17D8CC7C00665F42 /* iPhone_tabBar_settings_inactive_Icon.png */; };
+		8712BE7917D8CC7C00665F42 /* iPhone_tabBar_settings_active_Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8712BE6B17D8CC7C00665F42 /* iPhone_tabBar_settings_active_Icon@2x.png */; };
+		8712BE7A17D8CC7C00665F42 /* iPhone_tabBar_settings_active_Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8712BE6C17D8CC7C00665F42 /* iPhone_tabBar_settings_active_Icon.png */; };
+		8712BE7B17D8CC7C00665F42 /* iPhone_tabBar_contacts_inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8712BE6D17D8CC7C00665F42 /* iPhone_tabBar_contacts_inactive@2x.png */; };
+		8712BE7C17D8CC7C00665F42 /* iPhone_tabBar_contacts_inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 8712BE6E17D8CC7C00665F42 /* iPhone_tabBar_contacts_inactive.png */; };
+		8712BE7D17D8CC7C00665F42 /* iPhone_tabBar_contacts_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8712BE6F17D8CC7C00665F42 /* iPhone_tabBar_contacts_active@2x.png */; };
+		8712BE7E17D8CC7C00665F42 /* iPhone_tabBar_contacts_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 8712BE7017D8CC7C00665F42 /* iPhone_tabBar_contacts_active.png */; };
+		8712BE7F17D8CC7C00665F42 /* iPhone_tabBar_bkgd@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8712BE7117D8CC7C00665F42 /* iPhone_tabBar_bkgd@2x.png */; };
+		8712BE8017D8CC7C00665F42 /* iPhone_tabBar_bkgd.png in Resources */ = {isa = PBXBuildFile; fileRef = 8712BE7217D8CC7C00665F42 /* iPhone_tabBar_bkgd.png */; };
+		8712BE8117D8CC7C00665F42 /* iPhone_back_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8712BE7317D8CC7C00665F42 /* iPhone_back_button@2x.png */; };
+		8712BE8217D8CC7C00665F42 /* iPhone_back_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 8712BE7417D8CC7C00665F42 /* iPhone_back_button.png */; };
+		8712BE8A17D8CCAD00665F42 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8712BE8617D8CCAD00665F42 /* SettingsViewController.m */; };
+		8712BE8B17D8CCAD00665F42 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8712BE8817D8CCAD00665F42 /* InfoViewController.m */; };
 		8713363217CCB676008C91F7 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8713363117CCB676008C91F7 /* Default-568h@2x.png */; };
 		8713363917CCBD6F008C91F7 /* iPhone_background-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8713363617CCBD6F008C91F7 /* iPhone_background-568h@2x.png */; };
 		8713363A17CCBD6F008C91F7 /* iPhone_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 8713363717CCBD6F008C91F7 /* iPhone_background.png */; };
@@ -143,6 +159,24 @@
 		870F337C168376450090A97F /* ActivityIndicatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityIndicatorViewController.h; sourceTree = "<group>"; };
 		870F337D168376450090A97F /* ActivityIndicatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityIndicatorViewController.m; sourceTree = "<group>"; };
 		870F337E168376450090A97F /* ActivityIndicatorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityIndicatorViewController.xib; sourceTree = "<group>"; };
+		8712BE6717D8CC7C00665F42 /* iPhone_top_bar_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_top_bar_background@2x.png"; sourceTree = "<group>"; };
+		8712BE6817D8CC7C00665F42 /* iPhone_top_bar_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_top_bar_background.png; sourceTree = "<group>"; };
+		8712BE6917D8CC7C00665F42 /* iPhone_tabBar_settings_inactive_Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_tabBar_settings_inactive_Icon@2x.png"; sourceTree = "<group>"; };
+		8712BE6A17D8CC7C00665F42 /* iPhone_tabBar_settings_inactive_Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_tabBar_settings_inactive_Icon.png; sourceTree = "<group>"; };
+		8712BE6B17D8CC7C00665F42 /* iPhone_tabBar_settings_active_Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_tabBar_settings_active_Icon@2x.png"; sourceTree = "<group>"; };
+		8712BE6C17D8CC7C00665F42 /* iPhone_tabBar_settings_active_Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_tabBar_settings_active_Icon.png; sourceTree = "<group>"; };
+		8712BE6D17D8CC7C00665F42 /* iPhone_tabBar_contacts_inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_tabBar_contacts_inactive@2x.png"; sourceTree = "<group>"; };
+		8712BE6E17D8CC7C00665F42 /* iPhone_tabBar_contacts_inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_tabBar_contacts_inactive.png; sourceTree = "<group>"; };
+		8712BE6F17D8CC7C00665F42 /* iPhone_tabBar_contacts_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_tabBar_contacts_active@2x.png"; sourceTree = "<group>"; };
+		8712BE7017D8CC7C00665F42 /* iPhone_tabBar_contacts_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_tabBar_contacts_active.png; sourceTree = "<group>"; };
+		8712BE7117D8CC7C00665F42 /* iPhone_tabBar_bkgd@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_tabBar_bkgd@2x.png"; sourceTree = "<group>"; };
+		8712BE7217D8CC7C00665F42 /* iPhone_tabBar_bkgd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_tabBar_bkgd.png; sourceTree = "<group>"; };
+		8712BE7317D8CC7C00665F42 /* iPhone_back_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_back_button@2x.png"; sourceTree = "<group>"; };
+		8712BE7417D8CC7C00665F42 /* iPhone_back_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_back_button.png; sourceTree = "<group>"; };
+		8712BE8617D8CCAD00665F42 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		8712BE8717D8CCAD00665F42 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		8712BE8817D8CCAD00665F42 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
+		8712BE8917D8CCAD00665F42 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
 		8713363117CCB676008C91F7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = SOURCE_ROOT; };
 		8713363617CCBD6F008C91F7 /* iPhone_background-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_background-568h@2x.png"; sourceTree = "<group>"; };
 		8713363717CCBD6F008C91F7 /* iPhone_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_background.png; sourceTree = "<group>"; };
@@ -381,9 +415,34 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		8712BE8517D8CC9900665F42 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				8712BE8617D8CCAD00665F42 /* SettingsViewController.m */,
+				8712BE8717D8CCAD00665F42 /* SettingsViewController.h */,
+				8712BE8817D8CCAD00665F42 /* InfoViewController.m */,
+				8712BE8917D8CCAD00665F42 /* InfoViewController.h */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
 		8713363517CCBD6F008C91F7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				8712BE6717D8CC7C00665F42 /* iPhone_top_bar_background@2x.png */,
+				8712BE6817D8CC7C00665F42 /* iPhone_top_bar_background.png */,
+				8712BE6917D8CC7C00665F42 /* iPhone_tabBar_settings_inactive_Icon@2x.png */,
+				8712BE6A17D8CC7C00665F42 /* iPhone_tabBar_settings_inactive_Icon.png */,
+				8712BE6B17D8CC7C00665F42 /* iPhone_tabBar_settings_active_Icon@2x.png */,
+				8712BE6C17D8CC7C00665F42 /* iPhone_tabBar_settings_active_Icon.png */,
+				8712BE6D17D8CC7C00665F42 /* iPhone_tabBar_contacts_inactive@2x.png */,
+				8712BE6E17D8CC7C00665F42 /* iPhone_tabBar_contacts_inactive.png */,
+				8712BE6F17D8CC7C00665F42 /* iPhone_tabBar_contacts_active@2x.png */,
+				8712BE7017D8CC7C00665F42 /* iPhone_tabBar_contacts_active.png */,
+				8712BE7117D8CC7C00665F42 /* iPhone_tabBar_bkgd@2x.png */,
+				8712BE7217D8CC7C00665F42 /* iPhone_tabBar_bkgd.png */,
+				8712BE7317D8CC7C00665F42 /* iPhone_back_button@2x.png */,
+				8712BE7417D8CC7C00665F42 /* iPhone_back_button.png */,
 				8722A69617D375E4002A3BB6 /* avatar.png */,
 				8722A67B17D35AB3002A3BB6 /* video_indicator_blue.png */,
 				8722A67C17D35AB3002A3BB6 /* chat_indicator_blue.png */,
@@ -457,6 +516,7 @@
 		87272832166CBF9B0089CBB6 /* OpenPeerSampleApp */ = {
 			isa = PBXGroup;
 			children = (
+				8712BE8517D8CC9900665F42 /* Settings */,
 				87FC39F81709BB66002030D1 /* Session */,
 				87368AE0167600A900166F35 /* Model */,
 				870C5E1B1672355300A3AA4F /* Main */,
@@ -696,6 +756,20 @@
 				8722A67F17D35AB3002A3BB6 /* chat_indicator_blue.png in Resources */,
 				8722A68017D35AB3002A3BB6 /* audio_indicator_blue.png in Resources */,
 				8722A69717D375E4002A3BB6 /* avatar.png in Resources */,
+				8712BE7517D8CC7C00665F42 /* iPhone_top_bar_background@2x.png in Resources */,
+				8712BE7617D8CC7C00665F42 /* iPhone_top_bar_background.png in Resources */,
+				8712BE7717D8CC7C00665F42 /* iPhone_tabBar_settings_inactive_Icon@2x.png in Resources */,
+				8712BE7817D8CC7C00665F42 /* iPhone_tabBar_settings_inactive_Icon.png in Resources */,
+				8712BE7917D8CC7C00665F42 /* iPhone_tabBar_settings_active_Icon@2x.png in Resources */,
+				8712BE7A17D8CC7C00665F42 /* iPhone_tabBar_settings_active_Icon.png in Resources */,
+				8712BE7B17D8CC7C00665F42 /* iPhone_tabBar_contacts_inactive@2x.png in Resources */,
+				8712BE7C17D8CC7C00665F42 /* iPhone_tabBar_contacts_inactive.png in Resources */,
+				8712BE7D17D8CC7C00665F42 /* iPhone_tabBar_contacts_active@2x.png in Resources */,
+				8712BE7E17D8CC7C00665F42 /* iPhone_tabBar_contacts_active.png in Resources */,
+				8712BE7F17D8CC7C00665F42 /* iPhone_tabBar_bkgd@2x.png in Resources */,
+				8712BE8017D8CC7C00665F42 /* iPhone_tabBar_bkgd.png in Resources */,
+				8712BE8117D8CC7C00665F42 /* iPhone_back_button@2x.png in Resources */,
+				8712BE8217D8CC7C00665F42 /* iPhone_back_button.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -747,6 +821,8 @@
 				87E3CCE7172A814F00084D2F /* IdentityLookupDelegate.m in Sources */,
 				87D91B2A17687EFD00E46B66 /* CacheDelegate.m in Sources */,
 				8722A67417CF7FAE002A3BB6 /* ContactTableViewCell.mm in Sources */,
+				8712BE8A17D8CCAD00665F42 /* SettingsViewController.m in Sources */,
+				8712BE8B17D8CCAD00665F42 /* InfoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
