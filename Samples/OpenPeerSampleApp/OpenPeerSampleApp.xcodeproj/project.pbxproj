@@ -11,6 +11,8 @@
 		0024393C178F55BF00B79368 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0024393B178F55BF00B79368 /* Security.framework */; };
 		870F337F168376450090A97F /* ActivityIndicatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 870F337D168376450090A97F /* ActivityIndicatorViewController.m */; };
 		870F3380168376450090A97F /* ActivityIndicatorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 870F337E168376450090A97F /* ActivityIndicatorViewController.xib */; };
+		8712BE4E17D89C4A00665F42 /* iPhone_back_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8712BE4C17D89C4A00665F42 /* iPhone_back_button@2x.png */; };
+		8712BE4F17D89C4A00665F42 /* iPhone_back_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 8712BE4D17D89C4A00665F42 /* iPhone_back_button.png */; };
 		8713363217CCB676008C91F7 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8713363117CCB676008C91F7 /* Default-568h@2x.png */; };
 		8713363917CCBD6F008C91F7 /* iPhone_background-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8713363617CCBD6F008C91F7 /* iPhone_background-568h@2x.png */; };
 		8713363A17CCBD6F008C91F7 /* iPhone_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 8713363717CCBD6F008C91F7 /* iPhone_background.png */; };
@@ -44,6 +46,7 @@
 		87272855166CC2640089CBB6 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87272853166CC2630089CBB6 /* LoginViewController.m */; };
 		87272856166CC2640089CBB6 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87272854166CC2640089CBB6 /* LoginViewController.xib */; };
 		87272859166CC45B0089CBB6 /* LoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87272858166CC45B0089CBB6 /* LoginManager.m */; };
+		872DFB1217D7354700AD9BA3 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 872DFB1117D7354700AD9BA3 /* InfoViewController.m */; };
 		87355FE517CCA7E3006151E7 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 87355FE417CCA7E3006151E7 /* Default.png */; };
 		87355FE917CCA8AF006151E7 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87355FE817CCA8AF006151E7 /* Default@2x.png */; };
 		8740266F1670AA52008CC0F1 /* OpenPeerUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8740266E1670AA52008CC0F1 /* OpenPeerUser.m */; };
@@ -81,6 +84,19 @@
 		87F24B62167003F400A5389F /* ContactsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F24B61167003F300A5389F /* ContactsManager.m */; };
 		87F24B691670048000A5389F /* ContactsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F24B671670047A00A5389F /* ContactsTableViewController.m */; };
 		87F24B6A1670048000A5389F /* ContactsTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87F24B681670047D00A5389F /* ContactsTableViewController.xib */; };
+		87FC128D17D4C9D400DA8CE8 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87FC128C17D4C9D300DA8CE8 /* SettingsViewController.m */; };
+		87FC129617D6083E00DA8CE8 /* iPhone_tabBar_settings_inactive_Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87FC129017D6083E00DA8CE8 /* iPhone_tabBar_settings_inactive_Icon@2x.png */; };
+		87FC129717D6083E00DA8CE8 /* iPhone_tabBar_settings_inactive_Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 87FC129117D6083E00DA8CE8 /* iPhone_tabBar_settings_inactive_Icon.png */; };
+		87FC129817D6083E00DA8CE8 /* iPhone_tabBar_settings_active_Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87FC129217D6083E00DA8CE8 /* iPhone_tabBar_settings_active_Icon@2x.png */; };
+		87FC129917D6083E00DA8CE8 /* iPhone_tabBar_settings_active_Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 87FC129317D6083E00DA8CE8 /* iPhone_tabBar_settings_active_Icon.png */; };
+		87FC129A17D6083E00DA8CE8 /* iPhone_tabBar_bkgd@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87FC129417D6083E00DA8CE8 /* iPhone_tabBar_bkgd@2x.png */; };
+		87FC129B17D6083E00DA8CE8 /* iPhone_tabBar_bkgd.png in Resources */ = {isa = PBXBuildFile; fileRef = 87FC129517D6083E00DA8CE8 /* iPhone_tabBar_bkgd.png */; };
+		87FC12A017D6096700DA8CE8 /* iPhone_tabBar_contacts_inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87FC129C17D6096700DA8CE8 /* iPhone_tabBar_contacts_inactive@2x.png */; };
+		87FC12A117D6096700DA8CE8 /* iPhone_tabBar_contacts_inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 87FC129D17D6096700DA8CE8 /* iPhone_tabBar_contacts_inactive.png */; };
+		87FC12A217D6096700DA8CE8 /* iPhone_tabBar_contacts_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87FC129E17D6096700DA8CE8 /* iPhone_tabBar_contacts_active@2x.png */; };
+		87FC12A317D6096700DA8CE8 /* iPhone_tabBar_contacts_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 87FC129F17D6096700DA8CE8 /* iPhone_tabBar_contacts_active.png */; };
+		87FC12A617D60BBE00DA8CE8 /* iPhone_top_bar_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87FC12A417D60BBE00DA8CE8 /* iPhone_top_bar_background@2x.png */; };
+		87FC12A717D60BBE00DA8CE8 /* iPhone_top_bar_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 87FC12A517D60BBE00DA8CE8 /* iPhone_top_bar_background.png */; };
 		87FC39F71709BB39002030D1 /* MessageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87FC39F51709BB36002030D1 /* MessageManager.m */; };
 		87FC3A151709BD8D002030D1 /* XMLWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 87FC39FB1709BD8C002030D1 /* XMLWriter.m */; };
 		87FC3A161709BD8D002030D1 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 87FC39FF1709BD8C002030D1 /* SBJsonParser.m */; };
@@ -143,6 +159,8 @@
 		870F337C168376450090A97F /* ActivityIndicatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityIndicatorViewController.h; sourceTree = "<group>"; };
 		870F337D168376450090A97F /* ActivityIndicatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityIndicatorViewController.m; sourceTree = "<group>"; };
 		870F337E168376450090A97F /* ActivityIndicatorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityIndicatorViewController.xib; sourceTree = "<group>"; };
+		8712BE4C17D89C4A00665F42 /* iPhone_back_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_back_button@2x.png"; sourceTree = "<group>"; };
+		8712BE4D17D89C4A00665F42 /* iPhone_back_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_back_button.png; sourceTree = "<group>"; };
 		8713363117CCB676008C91F7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = SOURCE_ROOT; };
 		8713363617CCBD6F008C91F7 /* iPhone_background-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_background-568h@2x.png"; sourceTree = "<group>"; };
 		8713363717CCBD6F008C91F7 /* iPhone_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_background.png; sourceTree = "<group>"; };
@@ -185,6 +203,8 @@
 		87272857166CC45A0089CBB6 /* LoginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginManager.h; sourceTree = "<group>"; };
 		87272858166CC45B0089CBB6 /* LoginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginManager.m; sourceTree = "<group>"; };
 		872729CF166CDF530089CBB6 /* openpeer-ios-sdk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "openpeer-ios-sdk.xcodeproj"; path = "../../openpeer-ios-sdk.xcodeproj"; sourceTree = "<group>"; };
+		872DFB1017D7354700AD9BA3 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
+		872DFB1117D7354700AD9BA3 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		87355FE417CCA7E3006151E7 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
 		87355FE817CCA8AF006151E7 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = SOURCE_ROOT; };
 		8740266D1670AA52008CC0F1 /* OpenPeerUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenPeerUser.h; sourceTree = "<group>"; };
@@ -246,6 +266,20 @@
 		87F24B661670047A00A5389F /* ContactsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsTableViewController.h; sourceTree = "<group>"; };
 		87F24B671670047A00A5389F /* ContactsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsTableViewController.m; sourceTree = "<group>"; };
 		87F24B681670047D00A5389F /* ContactsTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactsTableViewController.xib; sourceTree = "<group>"; };
+		87FC128B17D4C9D300DA8CE8 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		87FC128C17D4C9D300DA8CE8 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		87FC129017D6083E00DA8CE8 /* iPhone_tabBar_settings_inactive_Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_tabBar_settings_inactive_Icon@2x.png"; sourceTree = "<group>"; };
+		87FC129117D6083E00DA8CE8 /* iPhone_tabBar_settings_inactive_Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_tabBar_settings_inactive_Icon.png; sourceTree = "<group>"; };
+		87FC129217D6083E00DA8CE8 /* iPhone_tabBar_settings_active_Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_tabBar_settings_active_Icon@2x.png"; sourceTree = "<group>"; };
+		87FC129317D6083E00DA8CE8 /* iPhone_tabBar_settings_active_Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_tabBar_settings_active_Icon.png; sourceTree = "<group>"; };
+		87FC129417D6083E00DA8CE8 /* iPhone_tabBar_bkgd@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_tabBar_bkgd@2x.png"; sourceTree = "<group>"; };
+		87FC129517D6083E00DA8CE8 /* iPhone_tabBar_bkgd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_tabBar_bkgd.png; sourceTree = "<group>"; };
+		87FC129C17D6096700DA8CE8 /* iPhone_tabBar_contacts_inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_tabBar_contacts_inactive@2x.png"; sourceTree = "<group>"; };
+		87FC129D17D6096700DA8CE8 /* iPhone_tabBar_contacts_inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_tabBar_contacts_inactive.png; sourceTree = "<group>"; };
+		87FC129E17D6096700DA8CE8 /* iPhone_tabBar_contacts_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_tabBar_contacts_active@2x.png"; sourceTree = "<group>"; };
+		87FC129F17D6096700DA8CE8 /* iPhone_tabBar_contacts_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_tabBar_contacts_active.png; sourceTree = "<group>"; };
+		87FC12A417D60BBE00DA8CE8 /* iPhone_top_bar_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_top_bar_background@2x.png"; sourceTree = "<group>"; };
+		87FC12A517D60BBE00DA8CE8 /* iPhone_top_bar_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_top_bar_background.png; sourceTree = "<group>"; };
 		87FC39F51709BB36002030D1 /* MessageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageManager.m; sourceTree = "<group>"; };
 		87FC39F61709BB37002030D1 /* MessageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageManager.h; sourceTree = "<group>"; };
 		87FC39FA1709BD8C002030D1 /* XMLWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLWriter.h; sourceTree = "<group>"; };
@@ -384,6 +418,20 @@
 		8713363517CCBD6F008C91F7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				8712BE4C17D89C4A00665F42 /* iPhone_back_button@2x.png */,
+				8712BE4D17D89C4A00665F42 /* iPhone_back_button.png */,
+				87FC12A417D60BBE00DA8CE8 /* iPhone_top_bar_background@2x.png */,
+				87FC12A517D60BBE00DA8CE8 /* iPhone_top_bar_background.png */,
+				87FC129C17D6096700DA8CE8 /* iPhone_tabBar_contacts_inactive@2x.png */,
+				87FC129D17D6096700DA8CE8 /* iPhone_tabBar_contacts_inactive.png */,
+				87FC129E17D6096700DA8CE8 /* iPhone_tabBar_contacts_active@2x.png */,
+				87FC129F17D6096700DA8CE8 /* iPhone_tabBar_contacts_active.png */,
+				87FC129017D6083E00DA8CE8 /* iPhone_tabBar_settings_inactive_Icon@2x.png */,
+				87FC129117D6083E00DA8CE8 /* iPhone_tabBar_settings_inactive_Icon.png */,
+				87FC129217D6083E00DA8CE8 /* iPhone_tabBar_settings_active_Icon@2x.png */,
+				87FC129317D6083E00DA8CE8 /* iPhone_tabBar_settings_active_Icon.png */,
+				87FC129417D6083E00DA8CE8 /* iPhone_tabBar_bkgd@2x.png */,
+				87FC129517D6083E00DA8CE8 /* iPhone_tabBar_bkgd.png */,
 				8722A69617D375E4002A3BB6 /* avatar.png */,
 				8722A67B17D35AB3002A3BB6 /* video_indicator_blue.png */,
 				8722A67C17D35AB3002A3BB6 /* chat_indicator_blue.png */,
@@ -465,6 +513,10 @@
 				870C5E181672345A00A3AA4F /* Utilities */,
 				874AD9D2166CEAC50095FE33 /* Delegates */,
 				87272833166CBF9B0089CBB6 /* Supporting Files */,
+				87FC128B17D4C9D300DA8CE8 /* SettingsViewController.h */,
+				87FC128C17D4C9D300DA8CE8 /* SettingsViewController.m */,
+				872DFB1017D7354700AD9BA3 /* InfoViewController.h */,
+				872DFB1117D7354700AD9BA3 /* InfoViewController.m */,
 			);
 			path = OpenPeerSampleApp;
 			sourceTree = "<group>";
@@ -696,6 +748,20 @@
 				8722A67F17D35AB3002A3BB6 /* chat_indicator_blue.png in Resources */,
 				8722A68017D35AB3002A3BB6 /* audio_indicator_blue.png in Resources */,
 				8722A69717D375E4002A3BB6 /* avatar.png in Resources */,
+				87FC129617D6083E00DA8CE8 /* iPhone_tabBar_settings_inactive_Icon@2x.png in Resources */,
+				87FC129717D6083E00DA8CE8 /* iPhone_tabBar_settings_inactive_Icon.png in Resources */,
+				87FC129817D6083E00DA8CE8 /* iPhone_tabBar_settings_active_Icon@2x.png in Resources */,
+				87FC129917D6083E00DA8CE8 /* iPhone_tabBar_settings_active_Icon.png in Resources */,
+				87FC129A17D6083E00DA8CE8 /* iPhone_tabBar_bkgd@2x.png in Resources */,
+				87FC129B17D6083E00DA8CE8 /* iPhone_tabBar_bkgd.png in Resources */,
+				87FC12A017D6096700DA8CE8 /* iPhone_tabBar_contacts_inactive@2x.png in Resources */,
+				87FC12A117D6096700DA8CE8 /* iPhone_tabBar_contacts_inactive.png in Resources */,
+				87FC12A217D6096700DA8CE8 /* iPhone_tabBar_contacts_active@2x.png in Resources */,
+				87FC12A317D6096700DA8CE8 /* iPhone_tabBar_contacts_active.png in Resources */,
+				87FC12A617D60BBE00DA8CE8 /* iPhone_top_bar_background@2x.png in Resources */,
+				87FC12A717D60BBE00DA8CE8 /* iPhone_top_bar_background.png in Resources */,
+				8712BE4E17D89C4A00665F42 /* iPhone_back_button@2x.png in Resources */,
+				8712BE4F17D89C4A00665F42 /* iPhone_back_button.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -747,6 +813,8 @@
 				87E3CCE7172A814F00084D2F /* IdentityLookupDelegate.m in Sources */,
 				87D91B2A17687EFD00E46B66 /* CacheDelegate.m in Sources */,
 				8722A67417CF7FAE002A3BB6 /* ContactTableViewCell.mm in Sources */,
+				87FC128D17D4C9D400DA8CE8 /* SettingsViewController.m in Sources */,
+				872DFB1217D7354700AD9BA3 /* InfoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -51,7 +51,7 @@
         <element name="HOPAvatar" positionX="97" positionY="36" width="128" height="118"/>
         <element name="HOPHomeUser" positionX="70" positionY="248" width="128" height="103"/>
         <element name="HOPIdentityContact" positionX="-380" positionY="-28" width="128" height="163"/>
-        <element name="HOPIdentityProvider" positionX="-144" positionY="215" width="126" height="148"/>
+        <element name="HOPIdentityProvider" positionX="-162" positionY="234" width="126" height="148"/>
         <element name="HOPPublicPeerFile" positionX="-387" positionY="225" width="128" height="88"/>
         <element name="HOPRolodexContact" positionX="-155" positionY="-13" width="128" height="163"/>
     </elements>

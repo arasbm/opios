@@ -68,7 +68,7 @@
 
 - (void)dealloc
 {
-    [self removeObserver:self forKeyPath:notificationRemoteSessionModeChanged];
+    [[NSNotificationCenter defaultCenter]  removeObserver:self];
 }
 
 - (void)viewDidLoad

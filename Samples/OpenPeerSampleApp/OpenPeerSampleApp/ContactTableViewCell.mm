@@ -25,6 +25,7 @@
 
 - (void) setAccessoryViewFrame:(NSInteger) howMuch
 {
+    return;
     CGRect frame = self.accessoryView.frame;
     
     if (self.accessoryView) {

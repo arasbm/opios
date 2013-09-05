@@ -49,6 +49,7 @@
 #import "ActiveSessionViewController.h"
 #import "MainViewController.h"
 #import "ChatViewController.h"
+#import "SettingsViewController.h"
 
 //Private methods
 @interface MainViewController ()
@@ -73,6 +74,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -87,38 +89,45 @@
     [[[self view] subviews] makeObjectsPerformSelector: @selector(removeFromSuperview)];
 }
 
-/**
- Show Demo menu
- */
-- (void)actionDemo
+
+- (void) showTabBarController
 {
-    NSString* remoteSessionTitle = ![[OpenPeer sharedOpenPeer] isRemoteSessionActivationModeOn] ? @"Remote Session - Turn On" : @"Remote Session - Turn Off";
-    NSString* faceDectionTitle = ![[OpenPeer sharedOpenPeer] isFaceDetectionModeOn] ? @"Face Detection - Turn On" : @"Face Detection - Turn Off";
+    [self removeAllSubViews];
     
-    NSString* redialTitle = ![[OpenPeer sharedOpenPeer] isRedialModeOn] ? @"Redial - Turn On" : @"Redial - Turn Off";
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"iPhone_top_bar_background.png"] forBarMetrics:UIBarMetricsDefault];
     
-    NSString* loggedUserInfo = [[[OpenPeerUser sharedOpenPeerUser] fullName] length] > 0 ? [[[OpenPeerUser sharedOpenPeerUser] fullName] stringByAppendingString:@" info"] : nil;
+    if (!self.tabBarController)
+    {
+        self.contactsTableViewController = nil;
+        
+        //Contacts tab
+        self.contactsTableViewController = [[ContactsTableViewController alloc] initWithNibName:@"ContactsTableViewController" bundle:nil];
+        self.contactsTableViewController.title = @"Contacts";
+        self.tabBarItem.title = @"CONTACTS";
+        
+        [self.contactsTableViewController.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"iPhone_tabBar_contacts_active.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"iPhone_tabBar_contacts_inactive.png"]];
+        
+        UINavigationController *contactsNavigationController = [[UINavigationController alloc] initWithRootViewController:self.contactsTableViewController];
+        
+        //Settings tab
+        SettingsViewController* settingsViewController = [[SettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        settingsViewController.title = @"Settings";
+        self.tabBarItem.title = @"SETTINGS";
+            
+        [settingsViewController.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"iPhone_tabBar_settings_active_Icon.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"iPhone_tabBar_settings_inactive_Icon.png"]];
+        
+        UINavigationController *settingsNavigationController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
+        
+        //Tab
+        self.tabBarController = [[UITabBarController alloc] init];
+        self.tabBarController.delegate = self;
+        self.tabBarController.viewControllers = [NSArray arrayWithObjects:contactsNavigationController, settingsNavigationController, nil];
+        
+        self.tabBarController.view.frame = self.view.bounds;
+        [self.tabBarController.tabBar setBackgroundImage:[UIImage imageNamed:@"iPhone_tabBar_bkgd.png"]];
+    }
     
-    UIActionSheet *sheet = nil;
-    
-    if (loggedUserInfo)
-        sheet = [[UIActionSheet alloc] initWithTitle:@"Demo options"
-                                                       delegate:self
-                                              cancelButtonTitle:@"Cancel"
-                                         destructiveButtonTitle:nil
-                                              otherButtonTitles:remoteSessionTitle, faceDectionTitle, redialTitle, loggedUserInfo, nil];
-    else
-        sheet = [[UIActionSheet alloc] initWithTitle:@"Demo options"
-                                            delegate:self
-                                   cancelButtonTitle:@"Cancel"
-                              destructiveButtonTitle:nil
-                                   otherButtonTitles:remoteSessionTitle, faceDectionTitle, redialTitle, nil];
-    
-    [sheet setActionSheetStyle:UIActionSheetStyleAutomatic];
-    
-    [sheet setAlpha:0.9];
-    
-    [sheet showFromBarButtonItem:self.contactsTableViewController.navigationItem.leftBarButtonItem animated:YES];
+    [self.view addSubview:self.tabBarController.view];
 }
 
 #pragma mark - Login views
@@ -134,6 +143,8 @@
     }
     
     [self removeAllSubViews];
+    self.tabBarController = nil;
+    
     [self.loginViewController prepareForLogin];
     [self.view addSubview:self.loginViewController.view];
 }
@@ -151,38 +162,6 @@
     }
 }
 
-#pragma mark - Contacts views
-/**
- Show table with list of contacts.
- */
-- (void)showContactsTable
-{
-    [self removeAllSubViews];
-    
-    if (!self.contactsTableViewController)
-        self.contactsTableViewController = [[ContactsTableViewController alloc] initWithNibName:@"ContactsTableViewController" bundle:nil];
-    
-    if (!self.contactsNavigationController)
-    {
-        self.contactsNavigationController = [[UINavigationController alloc] initWithRootViewController:self.contactsTableViewController];
-        [self.contactsNavigationController.navigationBar.topItem setTitle:@"Contacts"];
-        // Add logout button in navigation bar
-        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithTitle:@"LogOut"
-                                                                      style:UIBarButtonItemStyleBordered
-                                                                     target:[LoginManager sharedLoginManager]
-                                                                     action:@selector(logout)];
-        self.contactsTableViewController.navigationItem.rightBarButtonItem = barButton;
-        
-        //Create Demo options button
-        UIBarButtonItem *barButtonLeft = [[UIBarButtonItem alloc] initWithTitle:@"Demo"
-                                                                          style:UIBarButtonItemStyleBordered
-                                                                         target:self
-                                                                         action:@selector(actionDemo)];
-        self.contactsTableViewController.navigationItem.leftBarButtonItem = barButtonLeft;
-    }
-    
-    [self presentViewController:self.contactsNavigationController animated:NO completion:nil];
-}
 
 #pragma mark - Session view
 /**
@@ -284,7 +263,7 @@
                 return INCOMING_CALL_WHILE_OTHER_INPROGRESS; //Cannot have two active calls at once
             else
             {
-                if (self.contactsNavigationController.visibleViewController && self.contactsNavigationController.visibleViewController != self.contactsTableViewController)
+                if (self.contactsNavigationController.visibleViewController && ![self.contactsNavigationController.visibleViewController isKindOfClass:[ContactsTableViewController class]])
                     return NEW_SESSION_SWITCH; //Incoming call has priority over chat session, so switch from currently active session to new with incoming call
                 else
                     return NEW_SESSION_WITH_CALL; //Create and show a new session with incomming call
@@ -293,7 +272,7 @@
         }
         else if (incomingMessage)
         {
-            if (self.contactsNavigationController.visibleViewController && self.contactsNavigationController.visibleViewController != self.contactsTableViewController)
+            if (self.contactsNavigationController.visibleViewController && ![self.contactsNavigationController.visibleViewController isKindOfClass:[ContactsTableViewController class]])
                 return NEW_SESSION_REFRESH_CHAT; //Create a new session and update chat, but don't switch from existing session
             else
                 return NEW_SESSION_WITH_CHAT; //Create and show a new session with incomming message
@@ -329,7 +308,7 @@
             {
                 return EXISTING_SESSION_REFRESH_CHAT; //Already displayed chat view, so just refresh messages
             }
-            else if (self.contactsNavigationController.visibleViewController == self.contactsTableViewController)
+            else if ([self.contactsNavigationController.visibleViewController isKindOfClass:[ContactsTableViewController class]])
             {
                 return EXISTIG_SESSION_SHOW_CHAT; //Move from the contacts list to the chat view for session
             }
@@ -372,80 +351,6 @@
 }
 
 
-#pragma mark - UIActionSheet Delegate Methods
-/**
- Handling choosed Demo option
- */
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    switch (buttonIndex)
-    {
-        case DEMO_REMOTE_SESSION_INIT:
-        {
-            ((OpenPeer*)[OpenPeer sharedOpenPeer]).isRemoteSessionActivationModeOn = ![[OpenPeer sharedOpenPeer] isRemoteSessionActivationModeOn];
-            [[NSNotificationCenter defaultCenter] postNotificationName:notificationRemoteSessionModeChanged object:nil];
-            
-            NSString* message = [[OpenPeer sharedOpenPeer] isRemoteSessionActivationModeOn] ? @"Remote session activation mode is turned ON. Please, select two openpeer contacts from your list and remote session will be created." : @"Remote session activation mode is turned OFF";
-            
-            UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Remote session activation"
-                                                                message:message
-                                                               delegate:self
-                                                      cancelButtonTitle:@"Ok"
-                                                      otherButtonTitles:nil];
-            [alertView show];
-        }
-            break;
-
-            
-        case DEMO_FACE_DETECTION_MODE:
-        {
-            ((OpenPeer*)[OpenPeer sharedOpenPeer]).isFaceDetectionModeOn = ![[OpenPeer sharedOpenPeer] isFaceDetectionModeOn];
-            
-            NSString* message = [[OpenPeer sharedOpenPeer] isFaceDetectionModeOn] ? @"Face detection mode is turned ON. Please, select contact from the list. Session will be created and face detection activated. As soon face is detected, video call will be started." : @"Face detection mode is turned OFF";
-            
-            UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Face detection"
-                                                                message:message
-                                                               delegate:self
-                                                      cancelButtonTitle:@"Ok"
-                                                      otherButtonTitles:nil];
-            [alertView show];
-        }
-            break;
-            
-        case DEMO_CALL_REDIAL:
-            ((OpenPeer*)[OpenPeer sharedOpenPeer]).isRedialModeOn = ![[OpenPeer sharedOpenPeer] isRedialModeOn];
-            break;
-            
-        case DEMO_LOGGED_USER_INFO:
-        {
-            NSString* uris = @"";
-            for (NSString* uri in [[[OpenPeerUser sharedOpenPeerUser] dictionaryIdentities]allValues])
-            {
-                if ([uris length] == 0)
-                {
-                    uris = uri;
-                }
-                else
-                {
-                    uris = [uris stringByAppendingFormat:@"%@,",uri];
-                }
-            }
-            
-            NSString* info = [NSString stringWithFormat:@"Identity URIs: %@ \n Stable Id: %@ \n Peer URI: %@",uris,[[OpenPeerUser sharedOpenPeerUser] stableUniqueId],[[OpenPeerUser sharedOpenPeerUser] peerURI]];
-            UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:[[OpenPeerUser sharedOpenPeerUser] fullName]
-                                                                message:info
-                                                               delegate:self
-                                                      cancelButtonTitle:@"Ok"
-                                                      otherButtonTitles:nil];
-            [alertView show];
-            }
-            break;
-        default:
-            
-            break;
-    }
-    
-}
 
 - (void) showNotification:(NSString*) message
 {

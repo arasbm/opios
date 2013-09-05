@@ -32,12 +32,14 @@
 #import "AppDelegate.h"
 #import "OpenPeer.h"
 #import "MainViewController.h"
+#import <OpenpeerSDK/HOPModelManager.h>
 
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[HOPModelManager sharedModelManager] fillCoreData];
     [UIApplication sharedApplication].idleTimerDisabled = YES;
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

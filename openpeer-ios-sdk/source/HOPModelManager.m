@@ -34,6 +34,7 @@
 #import "HOPIdentityContact.h"
 #import "HOPIdentityProvider.h"
 #import "HOPPublicPeerFile.h"
+#import "HOPAvatar.h"
 #import "HOPHomeUser.h"
 #import "OpenPeerConstants.h"
 #import <CoreData/CoreData.h>
@@ -323,6 +324,13 @@
     return ret;
 }
 
+- (NSArray*) getAllIdentitiesInfoForHomeUserIdentityURI:(NSString*) identityURI
+{
+    NSArray* ret = [self getResultsForEntity:@"HOPIdentityProvider" withPredicateString:[NSString stringWithFormat:@"(homeUser.identityURI MATCHES '%@')", identityURI]];
+    
+    return ret;
+}
+
 - (HOPAvatar*) getAvatarByURL:(NSString*) url
 {
     HOPAvatar* ret = nil;
@@ -395,4 +403,97 @@
     
     return ret;
 }
+
+- (void) fillCoreData
+{
+    HOPRolodexContact* test = [self getRolodexContactByIdentityURI:@"identityURIVeseli1"];
+    if (!test)
+    {
+        HOPHomeUser* homeUser = (HOPHomeUser*)[self createObjectForEntity:@"HOPHomeUser"];
+        homeUser.stableId = @"StabilniVeselnik";
+        homeUser.loggedIn = [NSNumber numberWithBool:YES];
+        
+        HOPIdentityProvider* identityProvider = (HOPIdentityProvider*)[self createObjectForEntity:@"HOPIdentityProvider"];
+        
+        identityProvider.baseIdentityURI = @"baseVeseliIdentityURI";
+        identityProvider.domain = @"identityProviderDomainVeseli";
+        identityProvider.lastDownloadTime = [NSDate date];
+        identityProvider.name = @"Veseli";
+        identityProvider.homeUser = homeUser;
+        
+        //homeUser.identityProvider = [NSSet setWithObject: identityProvider];
+        
+        HOPAvatar* hopAvatar = (HOPAvatar*)[self createObjectForEntity:@"HOPAvatar"];
+        hopAvatar.url = @"www.blic.rs";
+        hopAvatar.name = @"Ma gonite se";
+        
+        HOPRolodexContact* rolodexContact = (HOPRolodexContact*)[self createObjectForEntity:@"HOPRolodexContact"];
+        
+        rolodexContact.identityURI = @"identityURIVeseli1";
+        rolodexContact.name = @"Veselnikov drugar 1";
+        
+        rolodexContact.identityProvider = identityProvider;
+        NSMutableSet *avatars1 = [rolodexContact mutableSetValueForKey:@"avatars"];
+        [avatars1 addObject:hopAvatar];
+        
+        HOPRolodexContact* rolodexContact2 = (HOPRolodexContact*)[self createObjectForEntity:@"HOPRolodexContact"];
+        
+        rolodexContact2.identityURI = @"identityURIVeseli2";
+        rolodexContact2.name = @"Veselnikov drugar 2P";
+        NSMutableSet *avatars2 = [rolodexContact2 mutableSetValueForKey:@"avatars"];
+        [avatars2 addObject:hopAvatar];
+        
+        rolodexContact2.identityProvider = identityProvider;
+        
+        HOPIdentityContact* identityContact = (HOPIdentityContact*)[self createObjectForEntity:@"HOPIdentityContact"];
+        identityContact.identityProofBundle = @"ddd";
+        identityContact.lastUpdated = [NSDate date];
+        identityContact.priority = [NSNumber numberWithInt:1];
+        identityContact.stableID = @"MamuVam";
+        
+        HOPPublicPeerFile* publicPeerFile = (HOPPublicPeerFile*)[self createObjectForEntity:@"HOPPublicPeerFile"];
+        
+        publicPeerFile.peerFile = @"fdngve9r-tut84ngf-9e8tu34ng9er25=jgue=tjg-93j=tg=54j3tgn4=jt4-t3j";
+        publicPeerFile.peerURI = @"sssaaaassssaaaa";
+        identityContact.peerFile = publicPeerFile;
+        
+        identityContact.rolodexContact = rolodexContact2;
+        
+        HOPAvatar* hopAvatar2 = (HOPAvatar*)[self createObjectForEntity:@"HOPAvatar"];
+        hopAvatar2.url = @"www.eee.jebiga.com";
+        hopAvatar2.name = @"Gonite se";
+        
+        HOPRolodexContact* rolodexContact3 = (HOPRolodexContact*)[self createObjectForEntity:@"HOPRolodexContact"];
+        
+        rolodexContact3.identityURI = @"identityURIVeseli3";
+        rolodexContact3.name = @"Veselnikov drugar 3P";
+        NSMutableSet *avatars3 = [rolodexContact3 mutableSetValueForKey:@"avatars"];
+        [avatars3 addObject:hopAvatar2];
+        [avatars1 addObject:hopAvatar2];
+        
+        rolodexContact3.identityProvider = identityProvider;
+        
+        HOPIdentityContact* identityContact3 = (HOPIdentityContact*)[self createObjectForEntity:@"HOPIdentityContact"];
+        identityContact3.identityProofBundle = @"ddd3";
+        identityContact3.lastUpdated = [NSDate date];
+        identityContact3.priority = [NSNumber numberWithInt:1];
+        identityContact3.stableID = @"MamuVam3";
+        
+        HOPPublicPeerFile* publicPeerFile3 = (HOPPublicPeerFile*)[self createObjectForEntity:@"HOPPublicPeerFile"];
+        
+        publicPeerFile3.peerFile = @"fdngve9r-tut84ngf-9e8tu34ng9er25=jgue=tjg-93j=tg=54j3tgn4=jt4-t3j3";
+        publicPeerFile3.peerURI = @"sssaaaassssaaaa3";
+        identityContact3.peerFile = publicPeerFile3;
+        
+        identityContact3.rolodexContact = rolodexContact3;
+        
+        [self saveContext];
+    }
+    else
+    {
+        
+        
+    }
+}
+
 @end

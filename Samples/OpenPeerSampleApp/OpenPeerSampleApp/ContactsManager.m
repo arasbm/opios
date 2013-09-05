@@ -244,16 +244,16 @@
  */
 - (void) loadContacts
 {
-    [[[OpenPeer sharedOpenPeer] mainViewController] showContactsTable];
+    [[[OpenPeer sharedOpenPeer] mainViewController] showTabBarController];
     
-    [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoadingStarted];
+    //[[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoadingStarted];
     
     
-    NSArray* associatedIdentities = [[HOPAccount sharedAccount] getAssociatedIdentities];
-    for (HOPIdentity* identity in associatedIdentities)
-    {
-        [identity startRolodexDownload:nil];
-    }
+//    NSArray* associatedIdentities = [[HOPAccount sharedAccount] getAssociatedIdentities];
+//    for (HOPIdentity* identity in associatedIdentities)
+//    {
+//        [identity startRolodexDownload:nil];
+//    }
 }
 
 - (void) refreshExisitngContacts

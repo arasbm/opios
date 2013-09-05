@@ -115,6 +115,8 @@
  */
 - (void) login
 {
+    [[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
+    return;
     //If peer file doesn't exists, show login view, otherwise start relogin
     if (![[HOPModelManager sharedModelManager] getLastLoggedInHomeUser])
     {
@@ -143,7 +145,7 @@
     [[[ContactsManager sharedContactsManager] contactsDictionaryByProvider] removeAllObjects];
     
     //Call to the SDK in order to shutdown Open Peer engine.
-    [[HOPAccount sharedAccount] shutdown];
+    //[[HOPAccount sharedAccount] shutdown];
     
     //Return to the login page.
     [[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
@@ -160,6 +162,9 @@
  */
 - (void) startLoginUsingIdentityURI:(NSString*) identityURI
 {
+    [self startRelogin];
+    return;
+    
     NSLog(@"Identity login started");
     [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Getting identity login url ..." inView:[[[[OpenPeer sharedOpenPeer] mainViewController] loginViewController] view]];
     
@@ -178,6 +183,9 @@
  */
 - (void) startRelogin
 {
+    [self onUserLoggedIn];
+    return;
+    
     BOOL reloginStarted = NO;
     NSLog(@"Relogin started");
     [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Relogin ..." inView:[[[OpenPeer sharedOpenPeer] mainViewController] view]];
@@ -244,7 +252,7 @@
  */
 - (void) onUserLoggedIn
 {
-    NSString* uris = @"";
+    /*NSString* uris = @"";
     for (NSString* uri in [[[OpenPeerUser sharedOpenPeerUser] dictionaryIdentities]allValues])
     {
         if ([uris length] == 0)
@@ -298,11 +306,11 @@
         
         [alert show];
     }
-    else
+    else*/
     {
         //Start loading contacts.
         [[ContactsManager sharedContactsManager] loadContacts];
-        [[ContactsManager sharedContactsManager] refreshExisitngContacts];
+        //[[ContactsManager sharedContactsManager] refreshExisitngContacts];
     }
 }
 

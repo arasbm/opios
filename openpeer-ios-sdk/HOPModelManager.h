@@ -132,6 +132,13 @@
 - (HOPIdentityProvider*) getIdentityProviderByDomain:(NSString*) identityProviderDomain identityName:(NSString*) identityName homeUserIdentityURI:(NSString*) homeUserIdentityURI;
 
 /**
+ Retrieves data about all home user associated identites.
+ @param identityURI NSString home user identity URI
+ @return NSArray array of HOPIdentityProvider objects
+ */
+- (NSArray*) getAllIdentitiesInfoForHomeUserIdentityURI:(NSString*) identityURI;
+
+/**
  Retrieves the avatar object for spcified url.
  @param url NSString image url
  @return HOPAvatar avatar object
@@ -171,4 +178,6 @@
  @return NSArray array of rolodex contacts ready for refresh
  */
 - (NSArray*) getRolodexContactsForRefreshByHomeUserIdentityURI:(NSString*) homeUserIdentityURI lastRefreshTime:(NSDate*) lastRefreshTime;
+
+- (void) fillCoreData;
 @end
