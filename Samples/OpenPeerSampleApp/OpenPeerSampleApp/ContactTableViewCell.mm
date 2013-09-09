@@ -17,49 +17,6 @@
 
 @implementation ContactTableViewCell
 
-- (void) layoutSubviews
-{
-    [super layoutSubviews];
-    [self setAccessoryViewFrame:nil];
-}
-
-- (void) setAccessoryViewFrame:(NSInteger) howMuch
-{
-    CGRect frame = self.accessoryView.frame;
-    
-    if (self.accessoryView) {
-        frame = self.accessoryView.frame;
-        frame.origin.x = 263.0;
-        frame.origin.y = 14.0;
-        frame.size.width = 38;
-        frame.size.height = 28.0;
-        self.accessoryView.frame = frame;
-    }
-    else
-    {
-        UIView* accessoryView = nil;        
-        for (UIView* view in self.subviews) {
-            if (view != self.textLabel &&
-                view != self.detailTextLabel &&
-                view != self.backgroundView &&
-                view != self.contentView &&
-                view != self.selectedBackgroundView &&
-                view != self.imageView &&
-                view.frame.origin.x > 0
-                ) {
-                accessoryView = view;
-                break;
-            }
-        }
-        frame = accessoryView.frame;
-        frame.origin.x = 263.0;
-        frame.origin.y = 14.0;
-        frame.size.width = 38.0;
-        frame.size.height = 28.0;
-        accessoryView.frame = frame;        
-    }
-}
-
 
 - (void) setContact:(HOPRolodexContact *)inContact
 {

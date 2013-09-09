@@ -88,6 +88,7 @@
 
 - (void) passMessageToJS:(NSString*) message
 {
+    NSLog(@"\n\n\n++++++++++\n\n\n Message to JS: \n %@ \n\n\n++++++++++\n\n\n",message);
     [self.loginWebView stringByEvaluatingJavaScriptFromString:message];
 }
 
@@ -157,6 +158,8 @@
 
 - (void)notifyClient:(NSString *)message
 {
+    NSLog(@"\n\n\n++++++++++\n\n\n Message from JS: \n %@ \n\n\n++++++++++\n\n\n",message);
+    
     if ([self.coreObject isKindOfClass:[HOPIdentity class]])
     {
         [(HOPIdentity*)self.coreObject handleMessageFromInnerBrowserWindowFrame:message];
