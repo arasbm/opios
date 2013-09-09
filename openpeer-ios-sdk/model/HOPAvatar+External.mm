@@ -29,26 +29,32 @@
  
  */
 
-#import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
+#import "HOPAvatar+External.h"
+#import "HOPAvatar_Internal.h"
+#import "HOPImage.h"
 
-@class HOPImage, HOPRolodexContact;
+#import "HOPModelManager.h"
 
-@interface HOPAvatar : NSManagedObject
+#import <UIKit/UIKit.h>
 
-@property (nonatomic, retain) NSNumber * height;
-@property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSString * url;
-@property (nonatomic, retain) NSNumber * width;
-@property (nonatomic, retain) NSSet *rolodexContacts;
-@property (nonatomic, retain) HOPImage *avatarImage;
-@end
+@implementation HOPAvatar (External)
 
-@interface HOPAvatar (CoreDataGeneratedAccessors)
+- (UIImage*) getImage
+{
+    UIImage* ret = [UIImage imageWithData:((HOPImage*)self.avatarImage).image];
+    
+    return ret;
+}
 
-- (void)addRolodexContactsObject:(HOPRolodexContact *)value;
-- (void)removeRolodexContactsObject:(HOPRolodexContact *)value;
-- (void)addRolodexContacts:(NSSet *)values;
-- (void)removeRolodexContacts:(NSSet *)values;
+- (void) storeImage:(UIImage*) inImage
+{
+    HOPImage* hopImage = (HOPImage*)[[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPImage"];
+    
+    
+    NSData *imageData = UIImagePNGRepresentation(inImage);
+    hopImage.image = imageData;
+    hopImage.avatar = self;
+    [[HOPModelManager sharedModelManager] saveContext];
+}
 
 @end

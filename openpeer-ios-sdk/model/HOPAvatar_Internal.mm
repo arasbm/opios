@@ -39,6 +39,7 @@
 @dynamic name;
 @dynamic url;
 @dynamic width;
+@dynamic avatarImage;
 
 - (void) updateWithAvatar:(RolodexContact::Avatar) inAvatar
 {

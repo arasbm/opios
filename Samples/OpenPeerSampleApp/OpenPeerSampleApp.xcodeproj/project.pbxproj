@@ -13,6 +13,7 @@
 		870F3380168376450090A97F /* ActivityIndicatorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 870F337E168376450090A97F /* ActivityIndicatorViewController.xib */; };
 		8712BE4E17D89C4A00665F42 /* iPhone_back_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8712BE4C17D89C4A00665F42 /* iPhone_back_button@2x.png */; };
 		8712BE4F17D89C4A00665F42 /* iPhone_back_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 8712BE4D17D89C4A00665F42 /* iPhone_back_button.png */; };
+		8712BEA317D8E40D00665F42 /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8712BEA117D8E40D00665F42 /* IconDownloader.m */; };
 		8713363217CCB676008C91F7 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8713363117CCB676008C91F7 /* Default-568h@2x.png */; };
 		8713363917CCBD6F008C91F7 /* iPhone_background-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8713363617CCBD6F008C91F7 /* iPhone_background-568h@2x.png */; };
 		8713363A17CCBD6F008C91F7 /* iPhone_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 8713363717CCBD6F008C91F7 /* iPhone_background.png */; };
@@ -161,6 +162,8 @@
 		870F337E168376450090A97F /* ActivityIndicatorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityIndicatorViewController.xib; sourceTree = "<group>"; };
 		8712BE4C17D89C4A00665F42 /* iPhone_back_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_back_button@2x.png"; sourceTree = "<group>"; };
 		8712BE4D17D89C4A00665F42 /* iPhone_back_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_back_button.png; sourceTree = "<group>"; };
+		8712BEA117D8E40D00665F42 /* IconDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconDownloader.m; sourceTree = "<group>"; };
+		8712BEA217D8E40D00665F42 /* IconDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconDownloader.h; sourceTree = "<group>"; };
 		8713363117CCB676008C91F7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = SOURCE_ROOT; };
 		8713363617CCBD6F008C91F7 /* iPhone_background-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_background-568h@2x.png"; sourceTree = "<group>"; };
 		8713363717CCBD6F008C91F7 /* iPhone_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_background.png; sourceTree = "<group>"; };
@@ -346,6 +349,8 @@
 		870C5E181672345A00A3AA4F /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				8712BEA117D8E40D00665F42 /* IconDownloader.m */,
+				8712BEA217D8E40D00665F42 /* IconDownloader.h */,
 				87FC39F91709BD8C002030D1 /* XMLWriter */,
 				87FC39FC1709BD8C002030D1 /* SBJSON */,
 				87FC3A121709BD8C002030D1 /* RaptureXML */,
@@ -815,6 +820,7 @@
 				8722A67417CF7FAE002A3BB6 /* ContactTableViewCell.mm in Sources */,
 				87FC128D17D4C9D400DA8CE8 /* SettingsViewController.m in Sources */,
 				872DFB1217D7354700AD9BA3 /* InfoViewController.m in Sources */,
+				8712BEA317D8E40D00665F42 /* IconDownloader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

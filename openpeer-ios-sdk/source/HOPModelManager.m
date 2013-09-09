@@ -424,7 +424,7 @@
         //homeUser.identityProvider = [NSSet setWithObject: identityProvider];
         
         HOPAvatar* hopAvatar = (HOPAvatar*)[self createObjectForEntity:@"HOPAvatar"];
-        hopAvatar.url = @"www.blic.rs";
+        hopAvatar.url = @"http://i1.ytimg.com/vi/HsCQKM4wscc/default.jpg";
         hopAvatar.name = @"Ma gonite se";
         
         HOPRolodexContact* rolodexContact = (HOPRolodexContact*)[self createObjectForEntity:@"HOPRolodexContact"];
@@ -460,7 +460,7 @@
         identityContact.rolodexContact = rolodexContact2;
         
         HOPAvatar* hopAvatar2 = (HOPAvatar*)[self createObjectForEntity:@"HOPAvatar"];
-        hopAvatar2.url = @"www.eee.jebiga.com";
+        hopAvatar2.url = @"http://i1.ytimg.com/i/j7hXPeXEg6rbc4y_IuhLaw/1.jpg?v=4ffd3f34";
         hopAvatar2.name = @"Gonite se";
         
         HOPRolodexContact* rolodexContact3 = (HOPRolodexContact*)[self createObjectForEntity:@"HOPRolodexContact"];
@@ -469,7 +469,7 @@
         rolodexContact3.name = @"Veselnikov drugar 3P";
         NSMutableSet *avatars3 = [rolodexContact3 mutableSetValueForKey:@"avatars"];
         [avatars3 addObject:hopAvatar2];
-        [avatars1 addObject:hopAvatar2];
+        //[avatars1 addObject:hopAvatar2];
         
         rolodexContact3.identityProvider = identityProvider;
         

@@ -29,26 +29,13 @@
  
  */
 
-#import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
+#import "HOPImage.h"
+#import "HOPAvatar.h"
 
-@class HOPImage, HOPRolodexContact;
 
-@interface HOPAvatar : NSManagedObject
+@implementation HOPImage
 
-@property (nonatomic, retain) NSNumber * height;
-@property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSString * url;
-@property (nonatomic, retain) NSNumber * width;
-@property (nonatomic, retain) NSSet *rolodexContacts;
-@property (nonatomic, retain) HOPImage *avatarImage;
-@end
-
-@interface HOPAvatar (CoreDataGeneratedAccessors)
-
-- (void)addRolodexContactsObject:(HOPRolodexContact *)value;
-- (void)removeRolodexContactsObject:(HOPRolodexContact *)value;
-- (void)addRolodexContacts:(NSSet *)values;
-- (void)removeRolodexContacts:(NSSet *)values;
+@dynamic image;
+@dynamic avatar;
 
 @end

@@ -35,18 +35,25 @@
 #import "Constants.h"
 #import <OpenpeerSDK/HOPRolodexContact+External.h>
 #import <OpenpeerSDK/HOPModelManager.h>
+#import <OpenpeerSDK/HOPImage.h>
+#import <OpenpeerSDK/HOPAvatar+External.h>
 #import "OpenPeer.h"
 #import "ActivityIndicatorViewController.h"
 #import "MainViewController.h"
 #import "ContactTableViewCell.h"
+#import "IconDownloader.h"
 
 #define REMOTE_SESSION_ALERT_TAG 1
+#define AVATAR_WIDTH 31.0
+#define AVATAR_HEIGHT 31.0
+#define TABLE_CELL_HEIGHT 55.0
+
 @interface ContactsTableViewController ()
 
 - (void) prepareTableForRemoteSessionMode;
 
 @property (nonatomic,retain) NSMutableArray* listOfSelectedContacts;
-
+@property (nonatomic, strong) NSMutableDictionary *imageDownloadsInProgress;
 @end
 
 @implementation ContactsTableViewController
@@ -75,6 +82,8 @@
 {
     [super viewDidLoad];
     
+    self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
+    
     self.navigationController.navigationBar.hidden = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(prepareTableForRemoteSessionMode) name:notificationRemoteSessionModeChanged object:nil];
     
@@ -92,6 +101,12 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    
+    //Terminate all pending icon download connections
+    NSArray *allDownloads = [self.imageDownloadsInProgress allValues];
+    [allDownloads makeObjectsPerformSelector:@selector(cancelDownload)];
+    
+    [self.imageDownloadsInProgress removeAllObjects];
 }
 
 - (void) prepareTableForRemoteSessionMode
@@ -175,6 +190,16 @@
     
     [cell setContact:contact];
     
+    HOPAvatar* avatar = [contact getAvatarForWidth:[NSNumber numberWithFloat:AVATAR_WIDTH] height:[NSNumber numberWithFloat:AVATAR_HEIGHT]];
+    if (avatar)
+    {
+        UIImage* img = [avatar getImage];
+        if (!img)
+            [self startIconDownloadForIndexPath:indexPath];
+        else
+            cell.imageView.image = img;
+    }
+    
     if (contact.identityContact)
     {
         cell.userInteractionEnabled = YES;
@@ -191,7 +216,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 55.0;
+    return TABLE_CELL_HEIGHT;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -336,4 +361,32 @@
 	[self.contactsTableView endUpdates];
 }
 
+- (void)startIconDownloadForIndexPath:(NSIndexPath *)indexPath
+{
+    IconDownloader *iconDownloader = [self.imageDownloadsInProgress objectForKey:indexPath];
+    if (iconDownloader == nil)
+    {
+        iconDownloader = [[IconDownloader alloc] init];
+        HOPRolodexContact* contact = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        HOPAvatar* avatar = ((HOPAvatar*)contact.avatars.anyObject);
+        [iconDownloader setCompletionHandler:^(UIImage* downloadedImage){
+            
+            UITableViewCell *cell = [self.contactsTableView cellForRowAtIndexPath:indexPath];
+            
+            [avatar storeImage:downloadedImage];
+            
+            // Display the newly loaded image
+            cell.imageView.image = downloadedImage;
+            
+            [self.contactsTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            
+            // Remove the IconDownloader from the in progress list.
+            // This will result in it being deallocated.
+            [self.imageDownloadsInProgress removeObjectForKey:indexPath];
+            
+        }];
+        [self.imageDownloadsInProgress setObject:iconDownloader forKey:indexPath];
+        [iconDownloader startDownloadForURL:avatar.url];
+    }
+}
 @end
