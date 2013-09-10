@@ -40,11 +40,11 @@ NSString* const applicationURL = @"www.openpeer.org";
 //This value should be obtained from service provider. 
 NSString* const applicationIdSharedSecret = @"<copy-n-paste-shared-secret-from-service-provider>";
 
-NSString* const provisioningURI = @"provisioning-stable-dev.hookflash.me";//Not in use
+//NSString* const provisioningURI = @"provisioning-stable-dev.hookflash.me";//Not in use
 NSString* const outerFrameURL = @"https://app-javascript.hookflash.me/outer.html";
 NSString* const identityProviderDomain = @"idprovider-javascript.hookflash.me";
-NSString* const peerContactServiceDomain = @"unstable.hookflash.me";
-NSString* const contactsLoadingtServiceDomain = @"example-light.hookflash.me";
+//NSString* const peerContactServiceDomain = @"unstable.hookflash.me";//Not in use
+//NSString* const contactsLoadingtServiceDomain = @"example-light.hookflash.me";//Not in use
 NSString* const identityFederateBaseURI = @"identity://idprovider-javascript.hookflash.me/";
 NSString* const identityFacebookBaseURI = @"identity://facebook.com/";
 NSString* const identityLinkedInBaseURI = @"identity://linkedin.com/";
@@ -53,8 +53,6 @@ NSString* const grantOuterFrameURLUponReload = @"grantFinished";
 NSString* const lockBoxServiceDomain =  @"hcs-javascript.hookflash.me";
 
 NSString* const namespaceGrantServiceURL = @"https://app-javascript.hookflash.me/outernamespacegrant.html";
-
-NSString* const facebookContactsLoadingPage = @"fbconnections.html";
 
 NSString * const keyOpenPeerUser = @"keyOpenPeerUser";
 

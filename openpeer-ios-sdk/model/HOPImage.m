@@ -1,6 +1,6 @@
 /*
  
- Copyright (c) 2012, SMB Phone Inc.
+ Copyright (c) 2013, SMB Phone Inc.
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
@@ -29,18 +29,13 @@
  
  */
 
-#import <UIKit/UIKit.h>
-#import <CoreData/CoreData.h>
-#import "ContactTableViewCell.h"
+#import "HOPImage.h"
+#import "HOPAvatar.h"
 
-@interface ContactsTableViewController : UIViewController<UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource,NSFetchedResultsControllerDelegate>
 
-@property (nonatomic, weak) IBOutlet UITableView *contactsTableView;
-@property (nonatomic, weak) IBOutlet ContactTableViewCell *contactsTableViewCell;
-@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+@implementation HOPImage
 
-- (void) onContactsLoadingStarted;
-- (void) onContactsPeerFilesLoadingStarted;
-- (void) onContactsLoaded;
-- (void) onContactsLookupCheckStarted;
+@dynamic image;
+@dynamic avatar;
+
 @end

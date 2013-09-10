@@ -37,20 +37,18 @@ extern NSString* const applicationName;
 extern NSString* const applicationImageURL;
 extern NSString* const applicationURL;
 extern NSString* const applicationIdSharedSecret;
-extern NSString* const provisioningURI;
+//extern NSString* const provisioningURI;
 extern NSString* const outerFrameURL;
 extern NSString* const namespaceGrantServiceURL;
 extern NSString* const identityProviderDomain;
-extern NSString* const peerContactServiceDomain;
-extern NSString* const contactsLoadingtServiceDomain;
+//extern NSString* const peerContactServiceDomain;
+//extern NSString* const contactsLoadingtServiceDomain;
 extern NSString* const identityFederateBaseURI;
 extern NSString* const identityFacebookBaseURI;
 extern NSString* const identityLinkedInBaseURI;
 extern NSString* const grantOuterFrameURLUponReload;
-extern NSString* const grantServiceDomain;
+//extern NSString* const grantServiceDomain;
 extern NSString* const lockBoxServiceDomain;
-
-extern NSString* const facebookContactsLoadingPage;
 
 extern NSString * const keyOpenPeerUser;
 

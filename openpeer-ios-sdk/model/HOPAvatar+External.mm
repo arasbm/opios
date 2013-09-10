@@ -1,6 +1,6 @@
 /*
  
- Copyright (c) 2012, SMB Phone Inc.
+ Copyright (c) 2013, SMB Phone Inc.
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
@@ -29,18 +29,32 @@
  
  */
 
+#import "HOPAvatar+External.h"
+#import "HOPAvatar_Internal.h"
+#import "HOPImage.h"
+
+#import "HOPModelManager.h"
+
 #import <UIKit/UIKit.h>
-#import <CoreData/CoreData.h>
-#import "ContactTableViewCell.h"
 
-@interface ContactsTableViewController : UIViewController<UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource,NSFetchedResultsControllerDelegate>
+@implementation HOPAvatar (External)
 
-@property (nonatomic, weak) IBOutlet UITableView *contactsTableView;
-@property (nonatomic, weak) IBOutlet ContactTableViewCell *contactsTableViewCell;
-@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+- (UIImage*) getImage
+{
+    UIImage* ret = [UIImage imageWithData:((HOPImage*)self.avatarImage).image];
+    
+    return ret;
+}
 
-- (void) onContactsLoadingStarted;
-- (void) onContactsPeerFilesLoadingStarted;
-- (void) onContactsLoaded;
-- (void) onContactsLookupCheckStarted;
+- (void) storeImage:(UIImage*) inImage
+{
+    HOPImage* hopImage = (HOPImage*)[[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPImage"];
+    
+    
+    NSData *imageData = UIImagePNGRepresentation(inImage);
+    hopImage.image = imageData;
+    hopImage.avatar = self;
+    [[HOPModelManager sharedModelManager] saveContext];
+}
+
 @end
