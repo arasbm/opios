@@ -31,6 +31,7 @@
 
 #import "HOPModelManager.h"
 #import "HOPPublicPeerFile.h"
+#import "HOPRolodexContact.h"
 #import "HOPIdentityContact_Internal.h"
 #import "OpenPeerUtility.h"
 #import <openpeer/core/IHelper.h>
@@ -58,6 +59,12 @@
     self.weight = [NSNumber numberWithInt:inIdentityContact.mWeight];
     
     HOPRolodexContact* hopRolodexContact = [[HOPModelManager sharedModelManager] getRolodexContactByIdentityURI:[NSString stringWithCString:inIdentityContact.mIdentityURI encoding:NSUTF8StringEncoding]];
+    
+    if (!hopRolodexContact)
+    {
+        hopRolodexContact = (HOPRolodexContact*)[[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPRolodexContact"];
+        hopRolodexContact.identityURI = [NSString stringWithCString:inIdentityContact.mIdentityURI encoding:NSUTF8StringEncoding];
+    }
     
     self.rolodexContact = hopRolodexContact;
     

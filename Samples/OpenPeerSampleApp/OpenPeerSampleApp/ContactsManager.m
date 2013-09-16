@@ -244,7 +244,7 @@
  */
 - (void) loadContacts
 {
-    [[[OpenPeer sharedOpenPeer] mainViewController] showContactsTable];
+    [[[OpenPeer sharedOpenPeer] mainViewController] showTabBarController];
     
     [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoadingStarted];
     
