@@ -64,6 +64,7 @@
     {
         hopRolodexContact = (HOPRolodexContact*)[[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPRolodexContact"];
         hopRolodexContact.identityURI = [NSString stringWithCString:inIdentityContact.mIdentityURI encoding:NSUTF8StringEncoding];
+        hopRolodexContact.name = [OpenPeerUtility getContactIdFromURI:hopRolodexContact.identityURI];//[NSString stringWithCString:inIdentityContact.mName encoding:NSUTF8StringEncoding];
     }
     
     self.rolodexContact = hopRolodexContact;
@@ -83,6 +84,8 @@
         else
             return;
     }
+    publicPeerFile.peerFile = [NSString stringWithCString: IHelper::convertToString(IHelper::convertToElement(inIdentityContact.mPeerFilePublic)) encoding:NSUTF8StringEncoding];
+    publicPeerFile.peerURI = peerURI;
     self.peerFile = publicPeerFile;
 }
 

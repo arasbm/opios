@@ -194,7 +194,7 @@
         NSLog(@"Relogin failed");
     
     #warning REMOVE this is a test method
-    [[ContactsManager sharedContactsManager] testIdentityLookup];
+    //[[ContactsManager sharedContactsManager] testIdentityLookup];
 }
 
 /**
