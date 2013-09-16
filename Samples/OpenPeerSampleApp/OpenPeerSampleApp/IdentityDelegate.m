@@ -178,6 +178,7 @@
                     }
                     else
                     {
+                        HOPIdentityContact* homeIdentityContact = [identity getSelfIdentityContact];
                         homeUser = (HOPHomeUser*)[[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPHomeUser"];
                         homeUser.stableId = [[HOPAccount sharedAccount] getStableID];
                         homeUser.reloginInfo = [[HOPAccount sharedAccount] getReloginInformation];
