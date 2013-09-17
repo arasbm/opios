@@ -37,6 +37,7 @@
 #import <OpenpeerSDK/HOPModelManager.h>
 #import <OpenpeerSDK/HOPImage.h>
 #import <OpenpeerSDK/HOPAvatar+External.h>
+#import <OpenpeerSDK/HOPHomeUser.h>
 #import "OpenPeer.h"
 #import "ActivityIndicatorViewController.h"
 #import "MainViewController.h"
@@ -312,10 +313,19 @@
         return _fetchedResultsController;
     }
     
-	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"HOPRolodexContact" inManagedObjectContext:[[HOPModelManager sharedModelManager] managedObjectContext]];
+    [fetchRequest setEntity:entity];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"(associatedIdentityForHomeUser.homeUser.stableId MATCHES '%@')",[[HOPModelManager sharedModelManager] getLastLoggedInHomeUser].stableId]];
+    [fetchRequest setPredicate:predicate];
+
+    
+	/*NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 	NSEntityDescription *entity = [NSEntityDescription entityForName:@"HOPRolodexContact" inManagedObjectContext:[[HOPModelManager sharedModelManager] managedObjectContext]];
 	[fetchRequest setEntity:entity];
-	
+	*/
 	[fetchRequest setFetchBatchSize:20];
 	
 	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:NO];

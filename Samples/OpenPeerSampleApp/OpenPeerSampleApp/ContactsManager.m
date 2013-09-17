@@ -49,7 +49,7 @@
 
 #warning REMOVE this is a test method
 #import <OpenpeerSDK/HOPIdentityContact.h>
-#import <OpenpeerSDK/HOPIdentityProvider.h>
+#import <OpenpeerSDK/HOPAssociatedIdentity.h>
 #import <AddressBook/AddressBook.h>
 
 @interface ContactsManager ()
@@ -179,17 +179,17 @@
                                                 rolodexContact = (HOPRolodexContact*)managedObject;
                                                 NSString* identityName = @"AddressBook";
                                                 NSString* homeUserIdentityURI = [[[[HOPAccount sharedAccount] getAssociatedIdentities] objectAtIndex:0] getIdentityURI];
-                                                HOPIdentityProvider* iProvider = [[HOPModelManager sharedModelManager] getIdentityProviderByDomain:@"AddressBook" identityName:identityName homeUserIdentityURI: homeUserIdentityURI];
-                                                if (!iProvider)
+                                                HOPAssociatedIdentity* associatedIdentity = [[HOPModelManager sharedModelManager] getAssociatedIdentityByDomain:@"AddressBook" identityName:identityName homeUserIdentityURI: homeUserIdentityURI];
+                                                if (!associatedIdentity)
                                                 {
-                                                    iProvider = [NSEntityDescription insertNewObjectForEntityForName:@"HOPIdentityProvider" inManagedObjectContext:[[HOPModelManager sharedModelManager]managedObjectContext]];
+                                                    associatedIdentity = [NSEntityDescription insertNewObjectForEntityForName:@"HOPAssociatedIdentity" inManagedObjectContext:[[HOPModelManager sharedModelManager]managedObjectContext]];
                                                     
-                                                    iProvider.name = identityName;
-                                                    iProvider.domain = identityProviderDomain;
+                                                    associatedIdentity.name = identityName;
+                                                    associatedIdentity.domain = identityProviderDomain;
                                                     //iProvider.homeUserProfile = self;
                                                 }
                                                 
-                                                rolodexContact.identityProvider = iProvider;
+                                                rolodexContact.associatedIdentity = associatedIdentity;
                                                 rolodexContact.identityURI = phone;
                                                 rolodexContact.name = fullNameTemp;
                                                 [[HOPModelManager sharedModelManager] saveContext];
@@ -246,13 +246,11 @@
 {
     [[[OpenPeer sharedOpenPeer] mainViewController] showTabBarController];
     
-    [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoadingStarted];
-    
-    
     NSArray* associatedIdentities = [[HOPAccount sharedAccount] getAssociatedIdentities];
     for (HOPIdentity* identity in associatedIdentities)
     {
         [identity startRolodexDownload:nil];
+        //[[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoadingStarted];
     }
 }
 

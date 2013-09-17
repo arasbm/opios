@@ -114,16 +114,7 @@
         }
         return NO;
     }
-    //NOT IN USE
-    /*else
-    {
-        //If request doesn't contain JSON message, check for afterLoginCompleteURL string. In case it contains that string, user is logged and app should handle that event.
-        if ([requestString rangeOfString:afterLoginCompleteURL].length > 0)
-        {
-            [[LoginManager sharedLoginManager] onLoginRedirectURLReceived];
-            return NO;
-        }
-    }*/
+
     return YES;
 }
 

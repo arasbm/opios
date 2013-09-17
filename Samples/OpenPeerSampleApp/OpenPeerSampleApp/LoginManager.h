@@ -46,10 +46,7 @@
 - (void) login;
 - (void) logout;
 
-- (void) onLoginRedirectURLReceived;
-
 - (void) makeLoginWebViewVisible:(BOOL) isVisible;
-- (void) onIdentityLoginFinished:(HOPIdentity*) identity;
 - (void) onIdentityAssociationFinished:(HOPIdentity*) identity;
 
 - (void) onUserLoggedIn;
