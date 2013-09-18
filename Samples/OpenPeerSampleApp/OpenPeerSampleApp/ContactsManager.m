@@ -253,7 +253,7 @@
         //[[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoadingStarted];
     }
     
-    [self testIdentityLookup];
+    //[self testIdentityLookup];
 }
 
 - (void) refreshExisitngContacts

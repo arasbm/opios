@@ -203,9 +203,6 @@
     
     if (!reloginStarted)
         NSLog(@"Relogin failed");
-    
-    #warning REMOVE this is a test method
-    //[[ContactsManager sharedContactsManager] testIdentityLookup];
 }
 
 
@@ -269,7 +266,7 @@
  */
 - (void) onUserLoggedIn
 {
-    
+    //Wait till identity association is not completed
     if ([self.associatingIdentitiesDictionary count] == 0)
     {
         //Login finished. Remove activity indicator
@@ -291,18 +288,6 @@
                 [[HOPModelManager sharedModelManager] saveContext];
             }
         }
-        /*else
-        {
-            homeUser = (HOPHomeUser*)[[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPHomeUser"];
-            homeUser.stableId = [[HOPAccount sharedAccount] getStableID];
-            homeUser.reloginInfo = [[HOPAccount sharedAccount] getReloginInformation];
-            homeUser.loggedIn = [NSNumber numberWithBool: YES];
-            if (previousLoggedInHomeUser)
-                previousLoggedInHomeUser.loggedIn = NO;
-            
-            [[HOPModelManager sharedModelManager] saveContext];
-        }*/
-
 
         if (self.isLogin)
         {
@@ -312,23 +297,12 @@
             
             [alert show];
         }
-        else
-        {
-            //Start loading contacts.
-            [[ContactsManager sharedContactsManager] loadContacts];
-            //[[ContactsManager sharedContactsManager] refreshExisitngContacts];
-        }
+
+        //Start loading contacts.
+        [[ContactsManager sharedContactsManager] loadContacts];
     }
 }
 
-/**
- It passes JSON message from web view to core. This method is invoked from JS.
- @param message NSString JSON message
- */
-//- (void) notifyClient:(NSString*) message
-//{
-//    [self.loginIdentity handleMessageFromInnerBrowserWindowFrame:message];
-//}
 
 /**
  Retrieves info if an identity with specified URI is associated or not.
@@ -359,9 +333,9 @@
         self.isAssociation = YES;
         [[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
     }
-    else
-    {
-        [[ContactsManager sharedContactsManager] loadContacts];
-    }
+//    else
+//    {
+//        [[ContactsManager sharedContactsManager] loadContacts];
+//    }
 }
 @end
