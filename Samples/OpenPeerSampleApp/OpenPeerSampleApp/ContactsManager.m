@@ -252,6 +252,8 @@
         [identity startRolodexDownload:nil];
         //[[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoadingStarted];
     }
+    
+    [self testIdentityLookup];
 }
 
 - (void) refreshExisitngContacts
@@ -351,8 +353,8 @@
 - (void) testIdentityLookup
 {
     HOPRolodexContact* contact = (HOPRolodexContact*)[[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPRolodexContact"];
-    contact.identityURI = @"identity://idprovider-javascript.hookflash.me/Asda";
-    contact.name = @"Asda";
+    contact.identityURI = @"identity://idprovider-javascript.hookflash.me/Serb31";
+    contact.name = @"Serb30";
     NSArray* contacts = [NSArray arrayWithObject:contact];
     
     HOPIdentityLookup* identityLookup = [[HOPIdentityLookup alloc] initWithDelegate:(id<HOPIdentityLookupDelegate>)[[OpenPeer sharedOpenPeer] identityLookupDelegate] identityLookupInfos:contacts identityServiceDomain:identityProviderDomain];
