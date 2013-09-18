@@ -12,7 +12,7 @@
 #import <OpenpeerSDK/HOPRolodexContact.h>
 #import <OpenpeerSDK/HOPIdentityContact.h>
 #import <OpenpeerSDK/HOPPublicPeerFile.h>
-#import <OpenpeerSDK/HOPIdentityProvider.h>
+#import <OpenpeerSDK/HOPAssociatedIdentity.h>
 
 const CGFloat cellDefaultHeight = 50.0;
 const CGFloat headerDefaultHeight = 40.0;
@@ -114,12 +114,12 @@ typedef enum
             break;
             
         case USER_INFO_PEER_URI:
-            cell.textLabel.text = ((HOPRolodexContact*)((HOPIdentityProvider*)self.homeUser.associatedIdentities.anyObject).rolodexContacts.anyObject).identityContact.peerFile.peerURI;
+            cell.textLabel.text = ((HOPRolodexContact*)((HOPAssociatedIdentity*)self.homeUser.associatedIdentities.anyObject).rolodexContacts.anyObject).identityContact.peerFile.peerURI;
             break;
             
         case USER_INFO_IDENTITIES:
         {
-            HOPIdentityProvider* identityInfo = [[self.homeUser.associatedIdentities allObjects] objectAtIndex:indexPath.row];
+            HOPAssociatedIdentity* identityInfo = [[self.homeUser.associatedIdentities allObjects] objectAtIndex:indexPath.row];
             cell.textLabel.text = identityInfo.name;
             cell.detailTextLabel.lineBreakMode = UILineBreakModeCharacterWrap;
             cell.detailTextLabel.numberOfLines = 0;
@@ -152,7 +152,7 @@ typedef enum
         case USER_INFO_PEER_URI:
         {
             UIFont* cellFont = [UIFont boldSystemFontOfSize:17.0];
-            NSString* str = ((HOPRolodexContact*)((HOPIdentityProvider*)self.homeUser.associatedIdentities.anyObject).rolodexContacts.anyObject).identityContact.peerFile.peerURI;
+            NSString* str = ((HOPRolodexContact*)((HOPAssociatedIdentity*)self.homeUser.associatedIdentities.anyObject).rolodexContacts.anyObject).identityContact.peerFile.peerURI;
             CGSize labelSize = [str sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
             ret = labelSize.height > cellDefaultHeight ? labelSize.height : cellDefaultHeight;
         }
@@ -162,7 +162,7 @@ typedef enum
         {
             UIFont* cellFont = [UIFont boldSystemFontOfSize:17.0];
             UIFont* cellDetailFont = [UIFont boldSystemFontOfSize:14.0];
-            HOPIdentityProvider* identityInfo = [[self.homeUser.associatedIdentities allObjects] objectAtIndex:indexPath.row];
+            HOPAssociatedIdentity* identityInfo = [[self.homeUser.associatedIdentities allObjects] objectAtIndex:indexPath.row];
             
             CGSize labelSize = [identityInfo.name sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
             

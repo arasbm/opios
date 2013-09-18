@@ -75,29 +75,38 @@
     
     if (self)
     {
-        NSData* data = [[NSUserDefaults standardUserDefaults] objectForKey:keyOpenPeerUser];
-        if (data)
-        {
-            NSKeyedUnarchiver *aDecoder = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-            
-            self.deviceId = [aDecoder decodeObjectForKey:archiveDeviceId];
+        self.deviceId = [[NSUserDefaults standardUserDefaults] objectForKey:keyOpenPeerUser];
+        self.fullName = @"Veselko";
+//        if (data)
+//        {
+//            NSKeyedUnarchiver *aDecoder = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+//            
+//            self.deviceId = [aDecoder decodeObjectForKey:archiveDeviceId];
             //self.stableUniqueId = [aDecoder decodeObjectForKey:archiveStableUniqueId];
-            self.identityURI = [aDecoder decodeObjectForKey:archiveIdentityURI];
-            self.peerURI = [aDecoder decodeObjectForKey:archivePeerURI];
-            self.privatePeerFile = [aDecoder decodeObjectForKey:archivePrivatePeerFile];
-            self.privatePeerFileSecret = [aDecoder decodeObjectForKey:archivePrivatePeerFileSecret];
-            self.fullName = [aDecoder decodeObjectForKey:archivePeerFilePassword];
-            self.dictionaryIdentities = [aDecoder decodeObjectForKey:archiveAssociatedIdentities];
-            self.reloginInfo = [aDecoder decodeObjectForKey:archiveReloginInfo];
+//            self.identityURI = [aDecoder decodeObjectForKey:archiveIdentityURI];
+//            self.peerURI = [aDecoder decodeObjectForKey:archivePeerURI];
+//            self.privatePeerFile = [aDecoder decodeObjectForKey:archivePrivatePeerFile];
+//            self.privatePeerFileSecret = [aDecoder decodeObjectForKey:archivePrivatePeerFileSecret];
+//            self.fullName = [aDecoder decodeObjectForKey:archivePeerFilePassword];
+//            self.dictionaryIdentities = [aDecoder decodeObjectForKey:archiveAssociatedIdentities];
+//            self.reloginInfo = [aDecoder decodeObjectForKey:archiveReloginInfo];
             
-            [aDecoder finishDecoding];
-        }
+//            [aDecoder finishDecoding];
+//        }
         
         if ([self.deviceId length] == 0)
+        {
             self.deviceId = [Utility getGUIDstring];
+//            NSMutableData *data = [NSMutableData data];
+//            NSKeyedArchiver *aCoder = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+//            [aCoder encodeObject:self.deviceId forKey:archiveDeviceId];
+//            [aCoder finishEncoding];
+            
+            [[NSUserDefaults standardUserDefaults] setObject:self.deviceId forKey:keyOpenPeerUser];
+        }
         
-        if (!self.dictionaryIdentities)
-            self.dictionaryIdentities = [[NSMutableDictionary alloc] init];
+//        if (!self.dictionaryIdentities)
+//            self.dictionaryIdentities = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -105,14 +114,14 @@
 /**
  Saves user information on local device.
  */
-- (void) saveUserData
+/*- (void) saveUserData
 {
     //self.userId = [[HOPAccount sharedAccount] getUserID];
     //self.stableUniqueId = [[HOPContact getForSelf] getStableUniqueID];
-    self.peerURI = [[HOPContact getForSelf] getPeerURI];
-    self.privatePeerFile = [[HOPAccount sharedAccount] getPeerFilePrivate];
-    self.privatePeerFileSecret = [[HOPAccount sharedAccount] getPeerFilePrivateSecret];
-    self.reloginInfo = [[HOPAccount sharedAccount] getReloginInformation];
+//    self.peerURI = [[HOPContact getForSelf] getPeerURI];
+//    self.privatePeerFile = [[HOPAccount sharedAccount] getPeerFilePrivate];
+//    self.privatePeerFileSecret = [[HOPAccount sharedAccount] getPeerFilePrivateSecret];
+//    self.reloginInfo = [[HOPAccount sharedAccount] getReloginInformation];
     
     NSMutableData *data = [NSMutableData data];
     NSKeyedArchiver *aCoder = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
@@ -130,10 +139,11 @@
     
     [[NSUserDefaults standardUserDefaults] setObject:data forKey:keyOpenPeerUser];
 }
-
+*/
 /**
  deletes user information from local device.
  */
+/*
 - (void) deleteUserData
 {
     //self.userId = nil;
@@ -170,7 +180,7 @@
     [xmlWriter writeStartElement:profileXmlTagIdentities];
 
     //Temporary not in use
-/*
+ //
     for (NSString* key in [self.associatedIdentities allKeys])
     {
         [xmlWriter writeStartElement:profileXmlTagIdentityBundle];
@@ -185,12 +195,12 @@
         
         [xmlWriter writeEndElement];
     }
-*/
+ //
     [xmlWriter writeEndElement];
     
     [xmlWriter writeEndElement];
     
     ret = [NSString stringWithString: [xmlWriter toString]];
     return ret;
-}
+}*/
 @end

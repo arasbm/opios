@@ -31,7 +31,7 @@
 
 #import "HOPRolodexContact_Internal.h"
 #import "HOPAvatar_Internal.h"
-#import "HOPIdentityProvider.h"
+#import "HOPAssociatedIdentity.h"
 #import "HOPPublicPeerFile.h"
 #import "HOPIdentityContact.h"
 #import "HOPModelManager.h"
@@ -46,23 +46,23 @@
 @dynamic vProfileURL;
 @dynamic avatars;
 @dynamic identityContact;
-@dynamic identityProvider;
+@dynamic associatedIdentity;
 @dynamic readyForDeletion;
 
 - (void) updateWithCoreRolodexContact:(RolodexContact) inRolodexContact identityProviderDomain:(NSString*)identityProviderDomain homeUserIdentityURI:(NSString*)homeUserIdentityURI
 {
     NSString* identityName = [NSString stringWithCString:inRolodexContact.mIdentityProvider encoding:NSUTF8StringEncoding];
-    HOPIdentityProvider* iProvider = [[HOPModelManager sharedModelManager] getIdentityProviderByDomain:identityProviderDomain identityName:identityName homeUserIdentityURI:homeUserIdentityURI];
-    if (!iProvider)
+    HOPAssociatedIdentity* associated = [[HOPModelManager sharedModelManager] getAssociatedIdentityByDomain:identityProviderDomain identityName:identityName homeUserIdentityURI:homeUserIdentityURI];
+    if (!associated)
     {
-        iProvider = [NSEntityDescription insertNewObjectForEntityForName:@"HOPIdentityProvider" inManagedObjectContext:[[HOPModelManager sharedModelManager]managedObjectContext]];
+        associated = [NSEntityDescription insertNewObjectForEntityForName:@"HOPAssociatedIdentity" inManagedObjectContext:[[HOPModelManager sharedModelManager]managedObjectContext]];
         
-        iProvider.name = identityName;
-        iProvider.domain = identityProviderDomain;
-        iProvider.homeUserProfile = self; //This is set here because this method is called for the first time when is creating home user rolodex contact
+        associated.name = identityName;
+        associated.domain = identityProviderDomain;
+        associated.homeUserProfile = self; //This is set here because this method is called for the first time when is creating home user rolodex contact
     }
     
-    self.identityProvider = iProvider;
+    self.associatedIdentity = associated;
     self.identityURI = [NSString stringWithCString:inRolodexContact.mIdentityURI encoding:NSUTF8StringEncoding];
     self.name = [NSString stringWithCString:inRolodexContact.mName encoding:NSUTF8StringEncoding];
     self.profileURL = [NSString stringWithCString:inRolodexContact.mProfileURL encoding:NSUTF8StringEncoding];

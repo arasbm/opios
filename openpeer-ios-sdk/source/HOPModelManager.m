@@ -32,7 +32,7 @@
 #import "HOPModelManager.h"
 #import "HOPRolodexContact.h"
 #import "HOPIdentityContact.h"
-#import "HOPIdentityProvider.h"
+#import "HOPAssociatedIdentity.h"
 #import "HOPPublicPeerFile.h"
 #import "HOPAvatar.h"
 #import "HOPHomeUser.h"
@@ -253,12 +253,12 @@
 - (NSArray*) getAllRolodexContactForHomeUserIdentityURI:(NSString*) homeUserIdentityURI
 {
     NSArray* ret = nil;
-    NSArray* results = [self getResultsForEntity:@"HOPIdentityProvider" withPredicateString:[NSString stringWithFormat:@"(homeUserProfile.identityURI MATCHES '%@')",homeUserIdentityURI]];
+    NSArray* results = [self getResultsForEntity:@"HOPAssociatedIdentity" withPredicateString:[NSString stringWithFormat:@"(homeUserProfile.identityURI MATCHES '%@')",homeUserIdentityURI]];
     
     if([results count] > 0)
     {
-        HOPIdentityProvider* identityProvider = [results objectAtIndex:0];
-        ret = [identityProvider.rolodexContacts allObjects];
+        HOPAssociatedIdentity* associatedIdentity = [results objectAtIndex:0];
+        ret = [associatedIdentity.rolodexContacts allObjects];
     }
     return ret;
 }
@@ -270,11 +270,11 @@
     
     if (openPeerContacts)
     {
-        stringFormat = [NSString stringWithFormat:@"(identityContact != nil || identityContact.@count > 0 && identityProvider.homeUserProfile.identityURI MATCHES '%@')",homeUserIdentityURI];
+        stringFormat = [NSString stringWithFormat:@"(identityContact != nil || identityContact.@count > 0 && associatedIdentity.homeUserProfile.identityURI MATCHES '%@')",homeUserIdentityURI];
     }
     else
     {
-        stringFormat = [NSString stringWithFormat:@"(identityContact == nil || identityContact.@count == 0 && identityProvider.homeUserProfile.identityURI MATCHES '%@')",homeUserIdentityURI];
+        stringFormat = [NSString stringWithFormat:@"(identityContact == nil || identityContact.@count == 0 && associatedIdentity.homeUserProfile.identityURI MATCHES '%@')",homeUserIdentityURI];
     }
     
     ret = [self getResultsForEntity:@"HOPRolodexContact" withPredicateString:stringFormat];
@@ -310,11 +310,11 @@
     return ret;
 }
 
-- (HOPIdentityProvider *) getIdentityProviderByDomain:(NSString*) identityProviderDomain identityName:(NSString*) identityName homeUserIdentityURI:(NSString*) homeUserIdentityURI
+- (HOPAssociatedIdentity *) getAssociatedIdentityByDomain:(NSString*) identityProviderDomain identityName:(NSString*) identityName homeUserIdentityURI:(NSString*) homeUserIdentityURI
 {
-    HOPIdentityProvider* ret = nil;
+    HOPAssociatedIdentity* ret = nil;
     
-    NSArray* results = [self getResultsForEntity:@"HOPIdentityProvider" withPredicateString:[NSString stringWithFormat:@"(domain MATCHES '%@' AND name MATCHES '%@' AND homeUser.identityURI MATCHES '%@')", identityProviderDomain, identityName, homeUserIdentityURI]];
+    NSArray* results = [self getResultsForEntity:@"HOPAssociatedIdentity" withPredicateString:[NSString stringWithFormat:@"(domain MATCHES '%@' AND name MATCHES '%@' AND homeUser.identityURI MATCHES '%@')", identityProviderDomain, identityName, homeUserIdentityURI]];
     
     if([results count] > 0)
     {
@@ -324,9 +324,26 @@
     return ret;
 }
 
+- (HOPAssociatedIdentity*) getAssociatedIdentityBaseIdentityURI:(NSString*) baseIdentityURI homeUserStableId:(NSString*) homeUserStableId
+{
+    HOPAssociatedIdentity* ret = nil;
+    
+    if ([homeUserStableId length] > 0)
+    {
+        NSArray* results = [self getResultsForEntity:@"HOPAssociatedIdentity" withPredicateString:[NSString stringWithFormat:@"(baseIdentityURI MATCHES '%@' AND stableId MATCHES '%@')", baseIdentityURI, homeUserStableId]];
+        
+        if([results count] > 0)
+        {
+            ret = [results objectAtIndex:0];
+        }
+    }
+    
+    return ret;
+}
+
 - (NSArray*) getAllIdentitiesInfoForHomeUserIdentityURI:(NSString*) identityURI
 {
-    NSArray* ret = [self getResultsForEntity:@"HOPIdentityProvider" withPredicateString:[NSString stringWithFormat:@"(homeUser.identityURI MATCHES '%@')", identityURI]];
+    NSArray* ret = [self getResultsForEntity:@"HOPAssociatedIdentity" withPredicateString:[NSString stringWithFormat:@"(homeUserProfile.identityURI MATCHES '%@')", identityURI]];
     
     return ret;
 }
@@ -376,12 +393,12 @@
 - (void) deleteAllMarkedRolodexContactsForHomeUserIdentityURI:(NSString*) homeUserIdentityURI
 {
     NSArray* objectsForDeleteion = nil;
-    NSArray* results = [self getResultsForEntity:@"HOPIdentityProvider" withPredicateString:[NSString stringWithFormat:@"(ANY rolodexContacts.readyForDeletion == YES AND homeUserProfile.identityURI MATCHES '%@')",homeUserIdentityURI]];
+    NSArray* results = [self getResultsForEntity:@"HOPAssociatedIdentity" withPredicateString:[NSString stringWithFormat:@"(ANY rolodexContacts.readyForDeletion == YES AND homeUserProfile.identityURI MATCHES '%@')",homeUserIdentityURI]];
     
     if([results count] > 0)
     {
-        HOPIdentityProvider* identityProvider = [results objectAtIndex:0];
-        objectsForDeleteion = [identityProvider.rolodexContacts allObjects];
+        HOPAssociatedIdentity* associatedIdentity = [results objectAtIndex:0];
+        objectsForDeleteion = [associatedIdentity.rolodexContacts allObjects];
         for (NSManagedObject* objectToDelete in objectsForDeleteion)
         {
             [self deleteObject:objectToDelete];
@@ -392,14 +409,14 @@
 
 - (NSArray*) getAllRolodexContactsMarkedForDeletionForHomeUserIdentityURI:(NSString*) homeUserIdentityURI
 {
-     NSArray* ret = [self getResultsForEntity:@"HOPRolodexContact" withPredicateString:[NSString stringWithFormat:@"(ANY identityProvider.rolodexContacts.identityContact.rolodexContacts.readyForDeletion == YES AND identityProvider.rolodexContacts.identityContact.homeUserProfile.identityURI MATCHES '%@')",homeUserIdentityURI]];
+     NSArray* ret = [self getResultsForEntity:@"HOPRolodexContact" withPredicateString:[NSString stringWithFormat:@"(ANY associatedIdentity.rolodexContacts.identityContact.rolodexContacts.readyForDeletion == YES AND associatedIdentity.rolodexContacts.identityContact.homeUserProfile.identityURI MATCHES '%@')",homeUserIdentityURI]];
     
     return ret;
 }
 
 - (NSArray*) getRolodexContactsForRefreshByHomeUserIdentityURI:(NSString*) homeUserIdentityURI lastRefreshTime:(NSDate*) lastRefreshTime
 {
-    NSArray* ret = [self getResultsForEntity:@"HOPRolodexContact" withPredicateString:[NSString stringWithFormat:@"(identityProvider.homeUserProfile.identityURI MATCHES '%@' AND (ANY identityProvider.rolodexContacts.identityContact == nil OR ANY identityProvider.rolodexContacts.identityContact.lastUpdated < %@)",homeUserIdentityURI,lastRefreshTime]];
+    NSArray* ret = [self getResultsForEntity:@"HOPRolodexContact" withPredicateString:[NSString stringWithFormat:@"(associatedIdentity.homeUserProfile.identityURI MATCHES '%@' AND (ANY associatedIdentity.rolodexContacts.identityContact == nil OR ANY associatedIdentity.rolodexContacts.identityContact.lastUpdated < %@)",homeUserIdentityURI,lastRefreshTime]];
     
     return ret;
 }

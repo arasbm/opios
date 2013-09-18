@@ -37,7 +37,7 @@
 #import <OpenpeerSDK/HOPIdentityContact.h>
 #import <OpenpeerSDK/HOPModelManager.h>
 #import <OpenpeerSDK/HOPIdentityLookup.h>
-#import <OpenpeerSDK/HOPIdentityProvider.h>
+#import <OpenpeerSDK/HOPAssociatedIdentity.h>
 
 #import "LoginManager.h"
 #import "ContactsManager.h"
@@ -45,6 +45,7 @@
 #import "OpenPeerUser.h"
 #import "OpenPeer.h"
 #import "MainViewController.h"
+#import "ContactsTableViewController.h"
 #import "ActivityIndicatorViewController.h"
 
 @interface IdentityDelegate()
@@ -162,15 +163,17 @@
                 break;
                 
             case HOPIdentityStateReady:
-#warning TODO: Find better place to save relogin info
-                relogininfo = [[HOPAccount sharedAccount] getReloginInformation];
+                [[LoginManager sharedLoginManager] onIdentityAssociationFinished:identity];
+                /*relogininfo = [[HOPAccount sharedAccount] getReloginInformation];
+                
                 if ([relogininfo length] > 0)
                 {
+                    
                     NSLog(@"Relogin info: %@", relogininfo);
                     HOPHomeUser* previousLoggedInHomeUser = [[HOPModelManager sharedModelManager] getLastLoggedInHomeUser];
                     HOPHomeUser* homeUser = [[HOPModelManager sharedModelManager] getHomeUserByStableID:[[HOPAccount sharedAccount] getStableID]];
                     
-                    HOPIdentityProvider*  identityProvider = (HOPIdentityProvider*)[[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPIdentityProvider"];
+                    HOPAssociatedIdentity*  associatedIdentity = (HOPAssociatedIdentity*)[[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPAssociatedIdentity"];
                     
                     if (homeUser)
                     {
@@ -179,25 +182,25 @@
                             previousLoggedInHomeUser.loggedIn = NO;
                             homeUser.loggedIn = [NSNumber numberWithBool: YES];
                             HOPIdentityContact* homeIdentityContact = [identity getSelfIdentityContact];
-                            identityProvider.homeUser = homeUser;
-                            identityProvider.domain = [identity getIdentityProviderDomain];
-                            identityProvider.lastDownloadTime = [NSDate date];
-                            identityProvider.name = [identity getBaseIdentityURI];
-                            identityProvider.baseIdentityURI = [identity getBaseIdentityURI];
-                            homeIdentityContact.rolodexContact.identityProvider = identityProvider;
+                            associatedIdentity.homeUser = homeUser;
+                            associatedIdentity.domain = [identity getIdentityProviderDomain];
+                            associatedIdentity.lastDownloadTime = [NSDate date];
+                            associatedIdentity.name = [identity getBaseIdentityURI];
+                            associatedIdentity.baseIdentityURI = [identity getBaseIdentityURI];
+                            homeIdentityContact.rolodexContact.associatedIdentity = associatedIdentity;
                             [[HOPModelManager sharedModelManager] saveContext];
                         }
                     }
                     else
                     {
                         HOPIdentityContact* homeIdentityContact = [identity getSelfIdentityContact];
-                        identityProvider.domain = [identity getIdentityProviderDomain];
-                        identityProvider.lastDownloadTime = [NSDate date];
-                        identityProvider.name = [identity getBaseIdentityURI];
-                        identityProvider.baseIdentityURI = [identity getBaseIdentityURI];
-                        identityProvider.homeUserProfile = homeIdentityContact.rolodexContact;
+                        associatedIdentity.domain = [identity getIdentityProviderDomain];
+                        associatedIdentity.lastDownloadTime = [NSDate date];
+                        associatedIdentity.name = [identity getBaseIdentityURI];
+                        associatedIdentity.baseIdentityURI = [identity getBaseIdentityURI];
+                        associatedIdentity.homeUserProfile = homeIdentityContact.rolodexContact;
                         //homeIdentityContact.rolodexContact.identityProvider = identityProvider;
-                        identityProvider.homeUser = homeUser;
+                        associatedIdentity.homeUser = homeUser;
                         homeUser = (HOPHomeUser*)[[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPHomeUser"];
                         homeUser.stableId = [[HOPAccount sharedAccount] getStableID];
                         homeUser.reloginInfo = [[HOPAccount sharedAccount] getReloginInformation];
@@ -207,7 +210,8 @@
                         
                         [[HOPModelManager sharedModelManager] saveContext];
                     }
-                }
+                 
+                }*/
                 break;
                 
             case HOPIdentityStateShutdown:
@@ -243,6 +247,8 @@
 {
     if (identity)
     {
+        [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoaded];
+        
         BOOL flushAllRolodexContacts;
         NSString* downloadedVersion;
         NSArray* rolodexContacts;

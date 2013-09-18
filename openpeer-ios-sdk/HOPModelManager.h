@@ -37,7 +37,7 @@
 @class NSManagedObject;
 
 @class HOPRolodexContact;
-@class HOPIdentityProvider;
+@class HOPAssociatedIdentity;
 @class HOPIdentityContact;
 @class HOPPublicPeerFile;
 @class HOPHomeUser;
@@ -127,14 +127,21 @@
  @param identityProviderDomain NSString identity provider domain
  @param identityName NSString identity name (e.g. foo.com)
  @param homeUserIdentityURI NSString home user identity URI
- @return HOPIdentityProvider identity provider object
+ @return HOPAssociatedIdentity identity provider object
  */
-- (HOPIdentityProvider*) getIdentityProviderByDomain:(NSString*) identityProviderDomain identityName:(NSString*) identityName homeUserIdentityURI:(NSString*) homeUserIdentityURI;
+- (HOPAssociatedIdentity*) getAssociatedIdentityByDomain:(NSString*) identityProviderDomain identityName:(NSString*) identityName homeUserIdentityURI:(NSString*) homeUserIdentityURI;
 
+/**
+ Retrieves the identity provider object for spcified base identity uri and home user stable id.
+ @param baseIdentityURI NSString base identity uri
+ @param homeUserStableId NSString home user stable id
+ @return HOPAssociatedIdentity identity provider object
+ */
+- (HOPAssociatedIdentity*) getAssociatedIdentityBaseIdentityURI:(NSString*) baseIdentityURI homeUserStableId:(NSString*) homeUserStableId;
 /**
  Retrieves data about all home user associated identites.
  @param identityURI NSString home user identity URI
- @return NSArray array of HOPIdentityProvider objects
+ @return NSArray array of HOPAssociatedIdentity objects
  */
 - (NSArray*) getAllIdentitiesInfoForHomeUserIdentityURI:(NSString*) identityURI;
 

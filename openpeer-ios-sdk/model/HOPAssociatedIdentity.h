@@ -32,26 +32,24 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class HOPAssociatedIdentity, HOPAvatar, HOPIdentityContact;
+@class HOPHomeUser, HOPRolodexContact;
 
-@interface HOPRolodexContact : NSManagedObject
+@interface HOPAssociatedIdentity : NSManagedObject
 
-@property (nonatomic, retain) NSString * identityURI;
+@property (nonatomic, retain) NSString * baseIdentityURI;
+@property (nonatomic, retain) NSString * domain;
+@property (nonatomic, retain) NSDate * lastDownloadTime;
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSString * profileURL;
-@property (nonatomic, retain) NSNumber * readyForDeletion;
-@property (nonatomic, retain) NSString * vProfileURL;
-@property (nonatomic, retain) NSSet *avatars;
-@property (nonatomic, retain) HOPIdentityContact *identityContact;
-@property (nonatomic, retain) HOPAssociatedIdentity *associatedIdentity;
-@property (nonatomic, retain) HOPAssociatedIdentity *associatedIdentityForHomeUser;
+@property (nonatomic, retain) HOPHomeUser *homeUser;
+@property (nonatomic, retain) HOPRolodexContact *homeUserProfile;
+@property (nonatomic, retain) NSSet *rolodexContacts;
 @end
 
-@interface HOPRolodexContact (CoreDataGeneratedAccessors)
+@interface HOPAssociatedIdentity (CoreDataGeneratedAccessors)
 
-- (void)addAvatarsObject:(HOPAvatar *)value;
-- (void)removeAvatarsObject:(HOPAvatar *)value;
-- (void)addAvatars:(NSSet *)values;
-- (void)removeAvatars:(NSSet *)values;
+- (void)addRolodexContactsObject:(HOPRolodexContact *)value;
+- (void)removeRolodexContactsObject:(HOPRolodexContact *)value;
+- (void)addRolodexContacts:(NSSet *)values;
+- (void)removeRolodexContacts:(NSSet *)values;
 
 @end
