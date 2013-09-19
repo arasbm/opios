@@ -320,6 +320,11 @@ using namespace openpeer::core;
                 
                 HOPIdentity* identity = [[OpenPeerStorageManager sharedStorageManager] getIdentityForId:identityURI];
                 
+                if (!identity)
+                {
+                    identity = [[HOPIdentity alloc] initWithIdentityPtr:*it openPeerIdentityDelegate:boost::shared_ptr<OpenPeerIdentityDelegate>()];
+                    [[OpenPeerStorageManager sharedStorageManager] setIdentity:identity forId:identityURI];
+                }
                 if (identity)
                     [array addObject:identity];
             }
