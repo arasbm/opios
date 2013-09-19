@@ -267,7 +267,7 @@
 - (void) onUserLoggedIn
 {
     //Wait till identity association is not completed
-    if ([self.associatingIdentitiesDictionary count] == 0)
+    if ([[HOPAccount sharedAccount] getState].state == HOPAccountStateReady && [self.associatingIdentitiesDictionary count] == 0)
     {
         //Login finished. Remove activity indicator
         [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];

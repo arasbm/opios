@@ -121,7 +121,7 @@
 
 - (void) onContactsLoadingStarted
 {    
-    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Getting contacts from social provider ..." inView:self.view];
+    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Getting contacts ..." inView:self.view];
 }
 
 - (void) onContactsLookupCheckStarted

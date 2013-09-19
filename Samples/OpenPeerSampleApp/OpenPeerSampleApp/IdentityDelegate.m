@@ -245,6 +245,7 @@
 
 - (void)onIdentityRolodexContactsDownloaded:(HOPIdentity *)identity
 {
+    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
     if (identity)
     {
         [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoaded];

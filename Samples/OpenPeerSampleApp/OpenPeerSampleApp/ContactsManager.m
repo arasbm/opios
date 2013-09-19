@@ -250,7 +250,7 @@
     for (HOPIdentity* identity in associatedIdentities)
     {
         [identity startRolodexDownload:nil];
-        //[[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoadingStarted];
+        [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoadingStarted];
     }
     
     //[self testIdentityLookup];
