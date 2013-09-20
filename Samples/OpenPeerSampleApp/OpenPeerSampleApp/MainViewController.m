@@ -189,6 +189,7 @@
         case NEW_SESSION:
         case NEW_SESSION_WITH_CALL:
             sessionViewContorller = [[ActiveSessionViewController alloc] initWithSession:session];
+            sessionViewContorller.hidesBottomBarWhenPushed = YES;
             [self.sessionViewControllersDictionary setObject:sessionViewContorller forKey:sessionId];
             
             //[self.contactsNavigationController pushViewController:sessionViewContorller animated:YES];
