@@ -177,8 +177,9 @@
     
     SessionTransitionStates transition = [self determineViewControllerTransitionStateForSession:sessionId forIncomingCall:incomingCall forIncomingMessage:incomingMessage];
     
-    NSString* title = [[[session participantsArray] objectAtIndex:0] fullName];
+    NSString* title = [[[session participantsArray] objectAtIndex:0] name];
     
+    UINavigationController* navigationController = (UINavigationController*)[[self.tabBarController viewControllers] objectAtIndex:0];
     switch (transition)
     {
         case NEW_SESSION_SWITCH:
@@ -190,19 +191,22 @@
             sessionViewContorller = [[ActiveSessionViewController alloc] initWithSession:session];
             [self.sessionViewControllersDictionary setObject:sessionViewContorller forKey:sessionId];
             
-            [self.contactsNavigationController pushViewController:sessionViewContorller animated:YES];
-            [self.contactsNavigationController.navigationBar.topItem setTitle:title];
+            //[self.contactsNavigationController pushViewController:sessionViewContorller animated:YES];
+            //[self.contactsNavigationController.navigationBar.topItem setTitle:title];
+            [navigationController pushViewController:sessionViewContorller animated:YES];
+            [navigationController.navigationBar.topItem setTitle:title];
             break;
             
         case NEW_SESSION_WITH_CHAT:
             sessionViewContorller = [[ActiveSessionViewController alloc] initWithSession:session];
             [self.sessionViewControllersDictionary setObject:sessionViewContorller forKey:sessionId];
             
-            [self.contactsNavigationController pushViewController:sessionViewContorller animated:NO];
-            [self.contactsNavigationController.navigationBar.topItem setTitle:title];
+            //[self.contactsNavigationController pushViewController:sessionViewContorller animated:NO];
+            [navigationController pushViewController:sessionViewContorller animated:YES];
+            [navigationController.navigationBar.topItem setTitle:title];
             
-            [self.contactsNavigationController pushViewController:sessionViewContorller.chatViewController animated:YES];
-            
+            //[self.contactsNavigationController pushViewController:sessionViewContorller.chatViewController animated:YES];
+            [navigationController pushViewController:sessionViewContorller.chatViewController animated:YES];
             //[sessionViewContorller.chatViewController refreshViewWithData];
             break;
             
@@ -218,9 +222,13 @@
             
         case EXISITNG_SESSION_SWITCH:
             sessionViewContorller = [self.sessionViewControllersDictionary objectForKey:sessionId];
-            [self.contactsNavigationController popToRootViewControllerAnimated:NO];
-            [self.contactsNavigationController pushViewController:sessionViewContorller animated:YES];
-            [self.contactsNavigationController.navigationBar.topItem setTitle:title];
+//            [self.contactsNavigationController popToRootViewControllerAnimated:NO];
+//            [self.contactsNavigationController pushViewController:sessionViewContorller animated:YES];
+//            [self.contactsNavigationController.navigationBar.topItem setTitle:title];
+            
+            [navigationController popToRootViewControllerAnimated:NO];
+            [navigationController pushViewController:sessionViewContorller animated:YES];
+            [navigationController.navigationBar.topItem setTitle:title];
             break;
             
         case EXISTING_SESSION_REFRESH_NOT_VISIBLE_CHAT:

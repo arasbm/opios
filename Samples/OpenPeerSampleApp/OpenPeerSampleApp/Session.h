@@ -34,6 +34,7 @@
 @class HOPContact;
 @class HOPCall;
 @class HOPConversationThread;
+@class HOPRolodexContact;
 
 @interface Session : NSObject
 
@@ -43,6 +44,6 @@
 @property (assign) BOOL isRedial;
 @property (strong) NSMutableArray* messageArray;
 
-- (id) initWithContact:(HOPContact*) inContact conversationThread:(HOPConversationThread*) inConverationThread;
+- (id) initWithContact:(HOPRolodexContact*) inContact conversationThread:(HOPConversationThread*) inConverationThread;
 - (id) initWithContacts:(NSArray*) inContacts conversationThread:(HOPConversationThread*) inConverationThread;
 @end

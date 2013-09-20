@@ -175,6 +175,7 @@ ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
                     [ret addObject:hopIdentityContact];
                 }
             }
+            [[HOPModelManager sharedModelManager] saveContext];
         }
     }
     else

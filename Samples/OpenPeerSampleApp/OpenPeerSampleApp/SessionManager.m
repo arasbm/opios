@@ -96,7 +96,7 @@
  Creates a session for the selected contacts
  @param contact HOPContact Contact for which session will be created.
 */
-- (Session*)createSessionForContact:(HOPContact *)contact
+- (Session*)createSessionForContact:(HOPRolodexContact *)contact
 {
     Session* ret = nil;
     
@@ -117,7 +117,7 @@
         //Add list of all participants. Currently only one participant is added
         if (ret)
         {
-            NSArray* participants = [NSArray arrayWithObject:contact];
+            NSArray* participants = [NSArray arrayWithObject:[contact getCoreContact]];
             [conversationThread addContacts:participants];
         }
         
@@ -194,8 +194,8 @@
     if ([participants count] > 1)
     {
         //First contact is master and he will be remote session host
-        HOPContact* masterContact = [participants objectAtIndex:0];
-        HOPContact* slaveContact = [participants objectAtIndex:1];
+        HOPRolodexContact* masterContact = [participants objectAtIndex:0];
+        HOPRolodexContact* slaveContact = [participants objectAtIndex:1];
         
         //Create a session with the master contact, that will be used to send system message for creating a remote session
         sessionThatWillInitiateRemoteSession = [self createSessionForContact:masterContact];
@@ -235,7 +235,7 @@
  @param contacts HOPRolodexContact One of the participants.
  @return session with participant
 */
-- (Session*) getSessionForContact:(HOPContact*) contact
+- (Session*) getSessionForContact:(HOPRolodexContact*) contact
 {
     for (Session* session in [self.sessionsDictionary allValues])
     {
@@ -263,7 +263,7 @@
     {
         NSLog(@"Make call for sesison - making call");
         //Currently we are not supporting group conferences, so only one participant is possible
-        HOPContact* contact = [[inSession participantsArray] objectAtIndex:0];
+        HOPContact* contact = [[[inSession participantsArray] objectAtIndex:0] getCoreContact];
         
         //Place a audio or video call for chosen contact
         inSession.isRedial = isRedial;

@@ -231,7 +231,7 @@
             [tableView deselectRowAtIndexPath:indexPath animated:NO];
             self.contactsTableView.allowsMultipleSelection = NO;
             //If not, create a session for selecte contact
-            Session* session = [[SessionManager sharedSessionManager] createSessionForContact:[contact getCoreContact]];
+            Session* session = [[SessionManager sharedSessionManager] createSessionForContact:contact];
             
             [[[OpenPeer sharedOpenPeer] mainViewController] showSessionViewControllerForSession:session forIncomingCall:NO forIncomingMessage:NO];
         }
@@ -347,7 +347,7 @@
 			[self.contactsTableView  insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
 			break;
 		case NSFetchedResultsChangeUpdate:
-			[[self.contactsTableView cellForRowAtIndexPath:indexPath].textLabel setText:((HOPRolodexContact*)[[[self.fetchedResultsController sections] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]).name];
+			//[[self.contactsTableView cellForRowAtIndexPath:indexPath].textLabel setText:((HOPRolodexContact*)[[[self.fetchedResultsController sections] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]).name];
 			break;
 		case NSFetchedResultsChangeDelete:
 			[self.contactsTableView  deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];

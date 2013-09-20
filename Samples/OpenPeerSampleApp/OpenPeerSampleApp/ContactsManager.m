@@ -46,7 +46,7 @@
 #import <OpenpeerSDK/HOPAccount.h>
 #import <OpenpeerSDK/HOPModelManager.h>
 #import <OpenpeerSDK/HOPRolodexContact.h>
-
+#import <OpenpeerSDK/HOPHomeUser.h>
 #warning REMOVE this is a test method
 #import <OpenpeerSDK/HOPIdentityContact.h>
 #import <OpenpeerSDK/HOPAssociatedIdentity.h>
@@ -101,6 +101,7 @@
 #warning REMOVE this is a test method
 - (void) loadAddressBookContacts
 {
+    NSMutableArray* contactsForIdentityLookup = [[NSMutableArray alloc] init];
     ABAddressBookRef addressBook = NULL;
     __block BOOL accessGranted = NO;
     
@@ -108,6 +109,7 @@
     {
         // we're on iOS 6
         dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+        
         
         ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
             accessGranted = granted;
@@ -142,6 +144,7 @@
                     NSString* lastName = (NSString *)CFBridgingRelease(ABRecordCopyValue(person, kABPersonLastNameProperty));
                     NSString* fullNameTemp = @"";
                     
+                                        
                     if (firstName)
                     {
                         fullNameTemp = [firstName stringByAppendingString:@" "];
@@ -152,6 +155,47 @@
                         fullNameTemp= [fullNameTemp stringByAppendingString:lastName];
                     }
                     
+                    NSString* identityURI = nil;
+                    ABMultiValueRef social = ABRecordCopyValue(person, kABPersonSocialProfileProperty);
+                    if (social)
+                    {
+                        int numberOfSocialNetworks = ABMultiValueGetCount(social);
+                        for (CFIndex i = 0; i < numberOfSocialNetworks; i++)
+                        {
+                            NSDictionary *socialItem = (__bridge_transfer NSDictionary*)ABMultiValueCopyValueAtIndex(social, i);
+                            
+                            NSString* service = [socialItem objectForKey:(NSString *)kABPersonSocialProfileServiceKey];
+                            if ([service isEqualToString:@"Openpeer"])
+                            {
+                                NSString* username = [socialItem objectForKey:(NSString *)kABPersonSocialProfileUsernameKey];
+                                if ([username length] > 0)
+                                    identityURI = [NSString stringWithFormat:@"%@%@",identityFederateBaseURI,username];
+                            }
+                        }
+                    }
+
+                    if ([identityURI length] > 0)
+                    {
+                        HOPRolodexContact* rolodexContact = [[HOPModelManager sharedModelManager] getRolodexContactByIdentityURI:identityURI];
+                        if (!rolodexContact)
+                        {
+                            //Create a new menaged object for new rolodex contact
+                            NSManagedObject* managedObject = [[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPRolodexContact"];
+                            if ([managedObject isKindOfClass:[HOPRolodexContact class]])
+                            {
+                                rolodexContact = (HOPRolodexContact*)managedObject;
+                                HOPHomeUser* homeUser = [[HOPModelManager sharedModelManager] getLastLoggedInHomeUser];
+                                HOPAssociatedIdentity* associatedIdentity = [[HOPModelManager sharedModelManager] getAssociatedIdentityBaseIdentityURI:identityFederateBaseURI homeUserStableId:homeUser.stableId];
+                                rolodexContact.associatedIdentity = associatedIdentity;
+                                rolodexContact.identityURI = identityURI;
+                                rolodexContact.name = fullNameTemp;
+                                [[HOPModelManager sharedModelManager] saveContext];
+                            }
+                        }
+                        
+                        [contactsForIdentityLookup addObject:rolodexContact];
+                    }
+                    /*
                     ABMultiValueRef contactPhones = ABRecordCopyValue(person, kABPersonPhoneProperty);
                     if (contactPhones)
                     {
@@ -203,7 +247,7 @@
                         }
                         
                         CFRelease(contactPhones);
-                    }
+                    }*/
                     /*
                     //Emails
                     ABMultiValueRef contactEmails = ABRecordCopyValue(person, kABPersonEmailProperty);
@@ -238,12 +282,19 @@
             CFRelease(addressBookRef);
         }
     }
+    
+    HOPIdentityLookup* identityLookup = [[HOPIdentityLookup alloc] initWithDelegate:(id<HOPIdentityLookupDelegate>)[[OpenPeer sharedOpenPeer] identityLookupDelegate] identityLookupInfos:contactsForIdentityLookup identityServiceDomain:identityProviderDomain];
+    
+    if (identityLookup)
+        [self.identityLookupsArray addObject:identityLookup];
 }
 /**
  Initiates contacts loading procedure.
  */
 - (void) loadContacts
 {
+    [self loadAddressBookContacts];
+
     [[[OpenPeer sharedOpenPeer] mainViewController] showTabBarController];
     
     NSArray* associatedIdentities = [[HOPAccount sharedAccount] getAssociatedIdentities];

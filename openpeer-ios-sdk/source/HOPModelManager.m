@@ -330,7 +330,7 @@
     
     if ([homeUserStableId length] > 0)
     {
-        NSArray* results = [self getResultsForEntity:@"HOPAssociatedIdentity" withPredicateString:[NSString stringWithFormat:@"(baseIdentityURI MATCHES '%@' AND stableId MATCHES '%@')", baseIdentityURI, homeUserStableId]];
+        NSArray* results = [self getResultsForEntity:@"HOPAssociatedIdentity" withPredicateString:[NSString stringWithFormat:@"(baseIdentityURI MATCHES '%@' AND homeUser.stableId MATCHES '%@')", baseIdentityURI, homeUserStableId]];
         
         if([results count] > 0)
         {
