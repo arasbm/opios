@@ -269,6 +269,20 @@
     //Wait till identity association is not completed
     if ([[HOPAccount sharedAccount] getState].state == HOPAccountStateReady && [self.associatingIdentitiesDictionary count] == 0)
     {
+        NSArray* associatedIdentites = [[HOPAccount sharedAccount] getAssociatedIdentities];
+        for (HOPIdentity* identity in associatedIdentites)
+        {
+            BOOL b = NO;
+            if (![identity isDelegateAttached])
+            {
+                NSString* redirectAfterLoginCompleteURL = [NSString stringWithFormat:@"%@?reload=true",outerFrameURL];
+                
+                [identity attachDelegate:(id<HOPIdentityDelegate>)[[OpenPeer sharedOpenPeer] identityDelegate]  redirectionURL:redirectAfterLoginCompleteURL];
+            }
+            b = [identity isDelegateAttached];
+            b = YES;
+        }
+        
         //Login finished. Remove activity indicator
         [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
     
