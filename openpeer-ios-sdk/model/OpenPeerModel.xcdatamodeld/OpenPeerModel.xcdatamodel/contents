@@ -48,16 +48,16 @@
         <attribute name="profileURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="readyForDeletion" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="vProfileURL" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="associatedIdentity" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="HOPAssociatedIdentity" inverseName="homeUserProfile" inverseEntity="HOPAssociatedIdentity" syncable="YES"/>
+        <relationship name="associatedIdentity" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="HOPAssociatedIdentity" inverseName="rolodexContacts" inverseEntity="HOPAssociatedIdentity" syncable="YES"/>
         <relationship name="associatedIdentityForHomeUser" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="HOPAssociatedIdentity" inverseName="homeUserProfile" inverseEntity="HOPAssociatedIdentity" syncable="YES"/>
         <relationship name="avatars" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HOPAvatar" inverseName="rolodexContacts" inverseEntity="HOPAvatar" syncable="YES"/>
         <relationship name="identityContact" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="HOPIdentityContact" inverseName="rolodexContact" inverseEntity="HOPIdentityContact" syncable="YES"/>
     </entity>
     <elements>
+        <element name="HOPAssociatedIdentity" positionX="-162" positionY="234" width="126" height="148"/>
         <element name="HOPAvatar" positionX="97" positionY="36" width="128" height="133"/>
         <element name="HOPHomeUser" positionX="70" positionY="248" width="128" height="103"/>
         <element name="HOPIdentityContact" positionX="-380" positionY="-28" width="128" height="163"/>
-        <element name="HOPAssociatedIdentity" positionX="-162" positionY="234" width="126" height="148"/>
         <element name="HOPImage" positionX="279" positionY="45" width="128" height="73"/>
         <element name="HOPPublicPeerFile" positionX="-387" positionY="225" width="128" height="88"/>
         <element name="HOPRolodexContact" positionX="-155" positionY="-13" width="128" height="178"/>

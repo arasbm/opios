@@ -41,10 +41,10 @@
 @property (nonatomic, retain) NSString * profileURL;
 @property (nonatomic, retain) NSNumber * readyForDeletion;
 @property (nonatomic, retain) NSString * vProfileURL;
-@property (nonatomic, retain) NSSet *avatars;
-@property (nonatomic, retain) HOPIdentityContact *identityContact;
 @property (nonatomic, retain) HOPAssociatedIdentity *associatedIdentity;
 @property (nonatomic, retain) HOPAssociatedIdentity *associatedIdentityForHomeUser;
+@property (nonatomic, retain) NSSet *avatars;
+@property (nonatomic, retain) HOPIdentityContact *identityContact;
 @end
 
 @interface HOPRolodexContact (CoreDataGeneratedAccessors)

@@ -113,13 +113,16 @@ typedef enum
             cell.textLabel.text = self.homeUser.stableId;
             break;
             
-        case USER_INFO_PEER_URI:
-            cell.textLabel.text = ((HOPRolodexContact*)((HOPAssociatedIdentity*)self.homeUser.associatedIdentities.anyObject).rolodexContacts.anyObject).identityContact.peerFile.peerURI;
+        case USER_INFO_PEER_URI:cell.textLabel.lineBreakMode = UILineBreakModeCharacterWrap;
+            cell.textLabel.numberOfLines = 0;
+            cell.textLabel.text = ((HOPAssociatedIdentity*)self.homeUser.associatedIdentities.anyObject).homeUserProfile.identityContact.peerFile.peerURI;
             break;
             
         case USER_INFO_IDENTITIES:
         {
             HOPAssociatedIdentity* identityInfo = [[self.homeUser.associatedIdentities allObjects] objectAtIndex:indexPath.row];
+            cell.textLabel.lineBreakMode = UILineBreakModeCharacterWrap;
+            cell.textLabel.numberOfLines = 0;
             cell.textLabel.text = identityInfo.name;
             cell.detailTextLabel.lineBreakMode = UILineBreakModeCharacterWrap;
             cell.detailTextLabel.numberOfLines = 0;

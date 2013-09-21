@@ -115,7 +115,7 @@ using namespace openpeer::core;
     {
         ret = [[self alloc] initWithConversationThread:tempConversationThreadPtr];
     }
-    return ret;//[ret autorelease];
+    return ret;
 }
 
 - (NSString*) getThreadId
