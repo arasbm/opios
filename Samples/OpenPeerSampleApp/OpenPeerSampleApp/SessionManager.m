@@ -100,8 +100,8 @@
 {
     Session* ret = nil;
     
-    if (!contact)
-        return ret;
+    //if (!contact)
+    //    return ret;
     
     ret = [self getSessionForContact:contact];
     
@@ -110,21 +110,21 @@
         //NSLog(@"%@ is creating a session with %@", [[OpenPeerUser sharedOpenPeerUser] fullName],[contact name]);
         
         //Create a conversation thread
-        HOPConversationThread* conversationThread = [HOPConversationThread conversationThreadWithProfileBundle:nil];
+        //HOPConversationThread* conversationThread = [HOPConversationThread conversationThreadWithProfileBundle:nil];
         //Create a session with new conversation thread
-        ret = [[Session alloc] initWithContact:contact conversationThread:conversationThread];
+        ret = [[Session alloc] initWithContact:contact conversationThread:nil];
         
         //Add list of all participants. Currently only one participant is added
-        if (ret)
-        {
-            NSArray* participants = [NSArray arrayWithObject:contact];
-            [conversationThread addContacts:participants];
-        }
+//        if (ret)
+//        {
+//            NSArray* participants = [NSArray arrayWithObject:contact];
+//            [conversationThread addContacts:participants];
+//        }
         
         if (ret)
         {
             //Store session object in dictionary
-            [self.sessionsDictionary setObject:ret forKey:[conversationThread getThreadId]];
+            [self.sessionsDictionary setObject:ret forKey:@"[conversationThread getThreadId]"];
         }
     }
     
@@ -239,7 +239,7 @@
 {
     for (Session* session in [self.sessionsDictionary allValues])
     {
-        if ([session.participantsArray containsObject:contact])
+        //if ([session.participantsArray containsObject:contact])
             return session;
     }
     return nil;
@@ -263,11 +263,11 @@
     {
         NSLog(@"Make call for sesison - making call");
         //Currently we are not supporting group conferences, so only one participant is possible
-        HOPContact* contact = [[inSession participantsArray] objectAtIndex:0];
-        
-        //Place a audio or video call for chosen contact
-        inSession.isRedial = isRedial;
-        inSession.currentCall = [HOPCall placeCall:inSession.conversationThread toContact:contact includeAudio:YES includeVideo:includeVideo];
+//        HOPContact* contact = [[inSession participantsArray] objectAtIndex:0];
+//        
+//        //Place a audio or video call for chosen contact
+//        inSession.isRedial = isRedial;
+//        inSession.currentCall = [HOPCall placeCall:inSession.conversationThread toContact:contact includeAudio:YES includeVideo:includeVideo];
         [self setActiveCallSession:inSession callActive:YES];
     }
     else

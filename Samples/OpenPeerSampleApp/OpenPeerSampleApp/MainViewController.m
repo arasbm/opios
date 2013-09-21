@@ -50,12 +50,14 @@
 #import "MainViewController.h"
 #import "ChatViewController.h"
 #import "SettingsViewController.h"
+#import "SessionViewController.h"
 
 //Private methods
 @interface MainViewController ()
 
 - (void) removeAllSubViews;
 - (SessionTransitionStates) determineViewControllerTransitionStateForSession:(NSString*) sessionId forIncomingCall:(BOOL) incomingCall forIncomingMessage:(BOOL) incomingMessage;
+
 @end
 
 @implementation MainViewController
@@ -172,12 +174,28 @@
  */
 - (void) showSessionViewControllerForSession:(Session*) session forIncomingCall:(BOOL) incomingCall forIncomingMessage:(BOOL) incomingMessage
 {
-    ActiveSessionViewController* sessionViewContorller = nil;
-    NSString* sessionId = [[session conversationThread] getThreadId];
+//    SessionViewController* sessionViewController = [[SessionViewController alloc] initWithSession:session];
+//    sessionViewController.hidesBottomBarWhenPushed = YES;
+    
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [backButton setImage:[UIImage imageNamed:@"iPhone_back_button.png"] forState:UIControlStateNormal];
+    [backButton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
+    backButton.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
+    //sessionViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView: backButton];
+    
+//    NSString* keyK = @"sessionId";
+//    [self.sessionViewControllersDictionary setObject:sessionViewController forKey:keyK];
+//    [((UINavigationController*)[[self.tabBarController viewControllers] objectAtIndex:0]) pushViewController:sessionViewController animated:YES];
+//    [((UINavigationController*)[[self.tabBarController viewControllers] objectAtIndex:0]).navigationBar.topItem setTitle:@"title"];
+//    
+    
+    
+    SessionViewController* sessionViewController = nil;
+    NSString* sessionId = @"sessionId";//[[session conversationThread] getThreadId];
     
     SessionTransitionStates transition = [self determineViewControllerTransitionStateForSession:sessionId forIncomingCall:incomingCall forIncomingMessage:incomingMessage];
     
-    NSString* title = [[[session participantsArray] objectAtIndex:0] fullName];
+    NSString* title = @"title";//[[[session participantsArray] objectAtIndex:0] fullName];
     
     switch (transition)
     {
@@ -187,57 +205,63 @@
         }
         case NEW_SESSION:
         case NEW_SESSION_WITH_CALL:
-            sessionViewContorller = [[ActiveSessionViewController alloc] initWithSession:session];
-            [self.sessionViewControllersDictionary setObject:sessionViewContorller forKey:sessionId];
+            sessionViewController = [[SessionViewController alloc] initWithSession:session];
+            sessionViewController.hidesBottomBarWhenPushed = YES;
+            sessionViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView: backButton];
+            [self.sessionViewControllersDictionary setObject:sessionViewController forKey:sessionId];
             
-            [self.contactsNavigationController pushViewController:sessionViewContorller animated:YES];
-            [self.contactsNavigationController.navigationBar.topItem setTitle:title];
+            [((UINavigationController*)[[self.tabBarController viewControllers] objectAtIndex:0]) pushViewController:sessionViewController animated:YES];
+            [((UINavigationController*)[[self.tabBarController viewControllers] objectAtIndex:0]).navigationBar.topItem setTitle:@"title"];
             break;
             
         case NEW_SESSION_WITH_CHAT:
-            sessionViewContorller = [[ActiveSessionViewController alloc] initWithSession:session];
-            [self.sessionViewControllersDictionary setObject:sessionViewContorller forKey:sessionId];
+            sessionViewController = [[SessionViewController alloc] initWithSession:session];
+            sessionViewController.hidesBottomBarWhenPushed = YES;
+            sessionViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView: backButton];
+            [self.sessionViewControllersDictionary setObject:sessionViewController forKey:sessionId];
             
-            [self.contactsNavigationController pushViewController:sessionViewContorller animated:NO];
-            [self.contactsNavigationController.navigationBar.topItem setTitle:title];
-            
-            [self.contactsNavigationController pushViewController:sessionViewContorller.chatViewController animated:YES];
-            
+            [((UINavigationController*)[[self.tabBarController viewControllers] objectAtIndex:0]) pushViewController:sessionViewController animated:YES];
+            [((UINavigationController*)[[self.tabBarController viewControllers] objectAtIndex:0]).navigationBar.topItem setTitle:@"title"];
             //[sessionViewContorller.chatViewController refreshViewWithData];
             break;
             
         case NEW_SESSION_REFRESH_CHAT:
         {
-            sessionViewContorller = [[ActiveSessionViewController alloc] initWithSession:session];
-            [self.sessionViewControllersDictionary setObject:sessionViewContorller forKey:sessionId];
-            [sessionViewContorller.chatViewController refreshViewWithData];
+            sessionViewController = [[SessionViewController alloc] initWithSession:session];
+            sessionViewController.hidesBottomBarWhenPushed = YES;
+            sessionViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView: backButton];
+            [self.sessionViewControllersDictionary setObject:sessionViewController forKey:sessionId];
+            [sessionViewController.chatViewController refreshViewWithData];
             
             [self showNotification:[NSString stringWithFormat:@"New message from %@",title]];
         }
             break;
             
         case EXISITNG_SESSION_SWITCH:
-            sessionViewContorller = [self.sessionViewControllersDictionary objectForKey:sessionId];
+            sessionViewController = [self.sessionViewControllersDictionary objectForKey:sessionId];
             [self.contactsNavigationController popToRootViewControllerAnimated:NO];
-            [self.contactsNavigationController pushViewController:sessionViewContorller animated:YES];
-            [self.contactsNavigationController.navigationBar.topItem setTitle:title];
+            [((UINavigationController*)[[self.tabBarController viewControllers] objectAtIndex:0]) popToRootViewControllerAnimated:NO];
+            [((UINavigationController*)[[self.tabBarController viewControllers] objectAtIndex:0]) pushViewController:sessionViewController animated:YES];
+            [((UINavigationController*)[[self.tabBarController viewControllers] objectAtIndex:0]).navigationBar.topItem setTitle:@"title"];
             break;
             
         case EXISTING_SESSION_REFRESH_NOT_VISIBLE_CHAT:
             [self showNotification:[NSString stringWithFormat:@"New message from %@",title]];
         case EXISTING_SESSION_REFRESH_CHAT:
-            sessionViewContorller = [self.sessionViewControllersDictionary objectForKey:sessionId];
-            [sessionViewContorller.chatViewController refreshViewWithData];
+            sessionViewController = [self.sessionViewControllersDictionary objectForKey:sessionId];
+            [sessionViewController.chatViewController refreshViewWithData];
             break;
             
         case EXISTIG_SESSION_SHOW_CHAT:
-            sessionViewContorller = [self.sessionViewControllersDictionary objectForKey:sessionId];
-            if (self.contactsNavigationController.visibleViewController != sessionViewContorller)
+            sessionViewController = [self.sessionViewControllersDictionary objectForKey:sessionId];
+            if (self.contactsNavigationController.visibleViewController != sessionViewController)
             {
-                [self.contactsNavigationController popToRootViewControllerAnimated:NO];
-                [self.contactsNavigationController pushViewController:sessionViewContorller animated:NO];
+                //[self.contactsNavigationController popToRootViewControllerAnimated:NO];
+                //[self.contactsNavigationController pushViewController:sessionViewController animated:NO];
+                [((UINavigationController*)[[self.tabBarController viewControllers] objectAtIndex:0]) popToRootViewControllerAnimated:NO];
+                [((UINavigationController*)[[self.tabBarController viewControllers] objectAtIndex:0]) pushViewController:sessionViewController animated:YES];
             }
-            [self.contactsNavigationController pushViewController:sessionViewContorller.chatViewController animated:YES];
+            //[self.contactsNavigationController pushViewController:sessionViewController.chatViewController animated:YES];
             break;
             
         case INCOMING_CALL_WHILE_OTHER_INPROGRESS:
@@ -252,7 +276,7 @@
 
 - (SessionTransitionStates) determineViewControllerTransitionStateForSession:(NSString*) sessionId forIncomingCall:(BOOL) incomingCall forIncomingMessage:(BOOL) incomingMessage
 {
-    //If session view controller is laredy created for this session get it from dictionary
+    //If session view controller is alaredy created for this session get it from dictionary
     ActiveSessionViewController* sessionViewContorller = [self.sessionViewControllersDictionary objectForKey:sessionId];
     
     if (!sessionViewContorller)

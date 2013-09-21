@@ -356,4 +356,40 @@ static const short _base64DecodingTable[256] = {
     
     return ret;
 }
+
++ (NSString *)formatedMessageTimeStampForDate:(NSDate*) inDate
+{
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    
+    NSDateComponents *massageDayOfDate = [[NSCalendar currentCalendar] components:NSEraCalendarUnit|NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:inDate];
+    NSDateComponents *today = [[NSCalendar currentCalendar] components:NSEraCalendarUnit|NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:[NSDate date]];
+    if([today day] == [massageDayOfDate day] &&
+       [today month] == [massageDayOfDate month] &&
+       [today year] == [massageDayOfDate year] &&
+       [today era] == [massageDayOfDate era])
+    {
+        [df setDateFormat:@"hh:mm aa"];
+    }
+    else
+    {
+        [df setDateFormat:@"MM/dd/yyyy hh:mm aa"];
+    }
+    
+    return [df stringFromDate:inDate];
+}
+
++ (UIInterfaceOrientation) getCurrentOrientation
+{
+    UIInterfaceOrientation currentInterfaceOrientation;// = [[UIDevice currentDevice] orientation];
+    UIDeviceOrientation currentDeviceOrientation = [[UIDevice currentDevice] orientation];
+    
+    if(currentDeviceOrientation == 0 || currentDeviceOrientation  == 5 || currentDeviceOrientation == 6)
+        currentInterfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    else
+        currentInterfaceOrientation = (UIInterfaceOrientation) currentDeviceOrientation;
+    
+    return currentInterfaceOrientation;
+    
+    //return [[UIApplication sharedApplication] statusBarOrientation];
+}
 @end

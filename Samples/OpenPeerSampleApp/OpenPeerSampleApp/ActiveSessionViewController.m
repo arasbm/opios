@@ -79,10 +79,7 @@
 - (ChatViewController*) chatViewController
 {
     if (!_chatViewController)
-    {
-        _chatViewController = [[ChatViewController alloc] initWithNibName:@"ChatViewController" bundle:nil];
-        _chatViewController.session = self.session;
-    }
+        _chatViewController = [[ChatViewController alloc] initWithSession:self.session];
     
     return _chatViewController;
 }

@@ -44,4 +44,7 @@
 + (NSString*) getCallStateAsString:(HOPCallStates) callState;
 + (NSString*) getFunctionNameForRequest:(NSString*) requestString;
 + (NSString*) getParametersNameForRequest:(NSString*) requestString;
+
++ (NSString *)formatedMessageTimeStampForDate:(NSDate*) inDate;
++ (UIInterfaceOrientation) getCurrentOrientation;
 @end

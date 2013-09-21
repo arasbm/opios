@@ -40,7 +40,7 @@
     if (self)
     {
         self.participantsArray = [[NSMutableArray alloc] init];
-        [self.participantsArray addObject:inContact];
+        //[self.participantsArray addObject:inContact];
         self.messageArray = [[NSMutableArray alloc] init];
     }
     self.conversationThread = inConverationThread;

@@ -88,6 +88,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(prepareTableForRemoteSessionMode) name:notificationRemoteSessionModeChanged object:nil];
     
     self.contactsTableView.backgroundColor = [UIColor clearColor];
+    self.contactsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     NSError *error;
     if (![self.fetchedResultsController performFetch:&error])
     {
@@ -230,7 +232,7 @@
             [tableView deselectRowAtIndexPath:indexPath animated:NO];
             self.contactsTableView.allowsMultipleSelection = NO;
             //If not, create a session for selecte contact
-            Session* session = [[SessionManager sharedSessionManager] createSessionForContact:[contact getCoreContact]];
+            Session* session = [[SessionManager sharedSessionManager] createSessionForContact:nil];//[contact getCoreContact]];
             
             [[[OpenPeer sharedOpenPeer] mainViewController] showSessionViewControllerForSession:session forIncomingCall:NO forIncomingMessage:NO];
         }

@@ -40,7 +40,7 @@
     
     if (self)
     {
-        self.message = messageText;
+        self.text = messageText;
         self.contact = senderContact;
         self.date = [NSDate date];
     }

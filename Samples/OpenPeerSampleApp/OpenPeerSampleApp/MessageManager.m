@@ -172,12 +172,12 @@
     NSLog(@"Send message");
     
     //Currently it is not available group chat, so we can have only one message recipients
-    HOPRolodexContact* contact = [[inSession participantsArray] objectAtIndex:0];
-    //Create a message object
-    HOPMessage* hopMessage = [[HOPMessage alloc] initWithMessageId:[Utility getGUIDstring] andMessage:message andContact:[contact getCoreContact] andMessageType:messageTypeText andMessageDate:[NSDate date]];
-    //Send message
-    [inSession.conversationThread sendMessage:hopMessage];
-    
+//    HOPRolodexContact* contact = [[inSession participantsArray] objectAtIndex:0];
+//    //Create a message object
+//    HOPMessage* hopMessage = [[HOPMessage alloc] initWithMessageId:[Utility getGUIDstring] andMessage:message andContact:[contact getCoreContact] andMessageType:messageTypeText andMessageDate:[NSDate date]];
+//    //Send message
+//    [inSession.conversationThread sendMessage:hopMessage];
+//    
     Message* messageObj = [[Message alloc] initWithMessageText:message senderContact:nil];
     [inSession.messageArray addObject:messageObj];
 }
