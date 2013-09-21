@@ -124,7 +124,7 @@
         // we're on iOS 5 or older
         accessGranted = YES;
     }
-    
+
     // import local contacts
     if(accessGranted)
     {

@@ -42,9 +42,9 @@
 @dynamic profileURL;
 @dynamic readyForDeletion;
 @dynamic vProfileURL;
-@dynamic avatars;
-@dynamic identityContact;
 @dynamic associatedIdentity;
 @dynamic associatedIdentityForHomeUser;
+@dynamic avatars;
+@dynamic identityContact;
 
 @end

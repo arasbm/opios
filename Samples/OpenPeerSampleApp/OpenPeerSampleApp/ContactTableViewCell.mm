@@ -26,6 +26,7 @@
     
     self.username.textColor = [UIColor colorWithRed:112.0/255.0 green:116.0/255.0 blue:119.0/255.0 alpha:1.0];
 
+    self.username.lineBreakMode = NSLineBreakByTruncatingMiddle;
     self.username.text = _contact.identityURI;
     
     UIImage *img = nil;//[self.contact getAvatarImage];
