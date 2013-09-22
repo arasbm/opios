@@ -147,6 +147,7 @@ ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
     if(identityPtr)
     {
         boost::shared_ptr<OpenPeerIdentityDelegate> identityDelegatePtr = OpenPeerIdentityDelegate::create(inIdentityDelegate);
+        openPeerIdentityDelegatePtr = identityDelegatePtr;
         identityPtr->attachDelegate(identityDelegatePtr,[redirectionURL UTF8String]);
     }
     else

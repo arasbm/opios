@@ -37,6 +37,7 @@
 #import "HOPModelManager.h"
 #import "HOPContact.h"
 #import "OpenPeerStorageManager.h"
+#import "OpenPeerUtility.h"
 
 @implementation HOPRolodexContact
 
@@ -51,13 +52,14 @@
 
 - (void) updateWithCoreRolodexContact:(RolodexContact) inRolodexContact identityProviderDomain:(NSString*)identityProviderDomain homeUserIdentityURI:(NSString*)homeUserIdentityURI
 {
-    NSString* identityName = [NSString stringWithCString:inRolodexContact.mIdentityProvider encoding:NSUTF8StringEncoding];
-    HOPAssociatedIdentity* associated = [[HOPModelManager sharedModelManager] getAssociatedIdentityByDomain:identityProviderDomain identityName:identityName homeUserIdentityURI:homeUserIdentityURI];
+    NSString* baseIdentityURI = [OpenPeerUtility getBaseIdentityURIFromURI:homeUserIdentityURI];//[NSString stringWithCString:inRolodexContact.mIdentityProvider encoding:NSUTF8StringEncoding];
+    HOPAssociatedIdentity* associated = [[HOPModelManager sharedModelManager] getAssociatedIdentityByDomain:identityProviderDomain identityName:baseIdentityURI homeUserIdentityURI:homeUserIdentityURI];
     if (!associated)
     {
         associated = [NSEntityDescription insertNewObjectForEntityForName:@"HOPAssociatedIdentity" inManagedObjectContext:[[HOPModelManager sharedModelManager]managedObjectContext]];
         
-        associated.name = identityName;
+        associated.baseIdentityURI = baseIdentityURI;
+        associated.name = baseIdentityURI;
         associated.domain = identityProviderDomain;
         associated.homeUserProfile = self; //This is set here because this method is called for the first time when is creating home user rolodex contact
     }

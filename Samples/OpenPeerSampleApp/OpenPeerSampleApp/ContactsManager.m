@@ -293,18 +293,17 @@
  */
 - (void) loadContacts
 {
-    [self loadAddressBookContacts];
+    //[self loadAddressBookContacts];
 
     [[[OpenPeer sharedOpenPeer] mainViewController] showTabBarController];
     
-    NSArray* associatedIdentities = [[HOPAccount sharedAccount] getAssociatedIdentities];
+   /* NSArray* associatedIdentities = [[HOPAccount sharedAccount] getAssociatedIdentities];
     for (HOPIdentity* identity in associatedIdentities)
     {
         [identity startRolodexDownload:nil];
         [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoadingStarted];
-    }
+    }*/
     
-    //[self testIdentityLookup];
 }
 
 - (void) refreshExisitngContacts
@@ -350,11 +349,14 @@
         }
     }
     
-    if (refreshContacts)
+    dispatch_async(dispatch_get_main_queue(), ^
     {
-        [self refreshListOfContacts];
-        [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoaded];
-    }
+        if (refreshContacts)
+        {
+            [self refreshListOfContacts];
+            [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoaded];
+        }
+     });
     
     [self.identityLookupsArray removeObject:identityLookup];
 }
