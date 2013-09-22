@@ -314,7 +314,7 @@
 {
     HOPAssociatedIdentity* ret = nil;
     
-    NSArray* results = [self getResultsForEntity:@"HOPAssociatedIdentity" withPredicateString:[NSString stringWithFormat:@"(domain MATCHES '%@' AND name MATCHES '%@' AND homeUser.identityURI MATCHES '%@')", identityProviderDomain, identityName, homeUserIdentityURI]];
+    NSArray* results = [self getResultsForEntity:@"HOPAssociatedIdentity" withPredicateString:[NSString stringWithFormat:@"(domain MATCHES '%@' AND baseIdentityURI MATCHES '%@' AND homeUserProfile.identityURI MATCHES '%@')", identityProviderDomain, identityName, homeUserIdentityURI]];
     
     if([results count] > 0)
     {
@@ -409,7 +409,7 @@
 
 - (NSArray*) getAllRolodexContactsMarkedForDeletionForHomeUserIdentityURI:(NSString*) homeUserIdentityURI
 {
-     NSArray* ret = [self getResultsForEntity:@"HOPRolodexContact" withPredicateString:[NSString stringWithFormat:@"(ANY associatedIdentity.rolodexContacts.identityContact.rolodexContacts.readyForDeletion == YES AND associatedIdentity.rolodexContacts.identityContact.homeUserProfile.identityURI MATCHES '%@')",homeUserIdentityURI]];
+     NSArray* ret = [self getResultsForEntity:@"HOPRolodexContact" withPredicateString:[NSString stringWithFormat:@"(readyForDeletion == YES AND associatedIdentity.homeUserProfile.identityURI MATCHES '%@')",homeUserIdentityURI]];
     
     return ret;
 }
