@@ -297,12 +297,19 @@
 
     [[[OpenPeer sharedOpenPeer] mainViewController] showTabBarController];
     
-   /* NSArray* associatedIdentities = [[HOPAccount sharedAccount] getAssociatedIdentities];
+    NSArray* associatedIdentities = [[HOPAccount sharedAccount] getAssociatedIdentities];
     for (HOPIdentity* identity in associatedIdentities)
     {
-        [identity startRolodexDownload:nil];
-        [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoadingStarted];
-    }*/
+        if ([[identity getBaseIdentityURI] isEqualToString:identityFederateBaseURI])
+        {
+            [self loadAddressBookContacts];
+        }
+        else if ([[identity getBaseIdentityURI] isEqualToString:identityFacebookBaseURI])
+        {
+            [identity startRolodexDownload:nil];
+            [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoadingStarted];
+        }
+    }
     
 }
 
