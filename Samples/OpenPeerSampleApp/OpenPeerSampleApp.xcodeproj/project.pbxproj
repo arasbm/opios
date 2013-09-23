@@ -415,7 +415,7 @@
 			isa = PBXGroup;
 			children = (
 				870E0B70175C93BF00C93CC1 /* libOpenpeerSDK.a */,
-				87C9821217BE38C0002B947B /* OpenPeerDataModel.bundle */,
+				87C9821217BE38C0002B947B /* OpenpeerDataModel.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -715,10 +715,9 @@
 			remoteRef = 870E0B6F175C93BF00C93CC1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		87C9821217BE38C0002B947B /* OpenPeerDataModel.bundle */ = {
+		87C9821217BE38C0002B947B /* OpenpeerDataModel.bundle */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			name = OpenPeerDataModel.bundle;
 			path = OpenpeerDataModel.bundle;
 			remoteRef = 87C9821117BE38C0002B947B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
