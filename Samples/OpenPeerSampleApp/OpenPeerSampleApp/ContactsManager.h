@@ -37,24 +37,14 @@
 
 @interface ContactsManager : NSObject<UIWebViewDelegate>
 
-@property (nonatomic, strong) NSArray *contactArray;
-@property (nonatomic, strong) NSMutableDictionary *contactsDictionaryByProvider; //This is dictionary of dictionaries. Each provider has its own dictionary with contacts whose keys are contact provider id
-@property (nonatomic, strong) NSMutableDictionary *contactsDictionaryByIndentityURI;
-@property (nonatomic, strong) NSMutableDictionary *contactsDictionary;
-@property (nonatomic, strong) UIWebView *linkedinContactsWebView;
-
-@property (nonatomic, strong) NSMutableArray *identityLookupsArray;
+@property (strong) NSMutableArray *identityLookupsArray;
 
 + (id) sharedContactsManager;
 
-#warning REMOVE this is a test method
 - (void) loadAddressBookContacts;
 
 - (void) loadContacts;
 - (void) refreshExisitngContacts;
 - (void) identityLookupForContacts:(NSArray *)contacts identityServiceDomain:(NSString*) identityServiceDomain;
 - (void) updateContactsWithDataFromLookup:(HOPIdentityLookup*) identityLookup;
-
-#warning REMOVE this is a test method
-- (void) testIdentityLookup;
 @end

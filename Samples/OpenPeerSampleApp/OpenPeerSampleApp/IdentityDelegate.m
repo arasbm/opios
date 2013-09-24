@@ -117,7 +117,8 @@
             case HOPIdentityStateWaitingForBrowserWindowToBeLoaded:
                 //Login url is received. Remove activity indicator
                 [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
-                [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Opening login page ..." inView:[[[OpenPeer sharedOpenPeer] mainViewController] view]];
+                if ([[LoginManager sharedLoginManager] isLogin])
+                    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Opening login page ..." inView:[[[OpenPeer sharedOpenPeer] mainViewController] view]];
 
                 //Open identity login web page
                 [webLoginViewController openLoginUrl:outerFrameURL];
@@ -164,54 +165,6 @@
                 
             case HOPIdentityStateReady:
                 [[LoginManager sharedLoginManager] onIdentityAssociationFinished:identity];
-                /*relogininfo = [[HOPAccount sharedAccount] getReloginInformation];
-                
-                if ([relogininfo length] > 0)
-                {
-                    
-                    NSLog(@"Relogin info: %@", relogininfo);
-                    HOPHomeUser* previousLoggedInHomeUser = [[HOPModelManager sharedModelManager] getLastLoggedInHomeUser];
-                    HOPHomeUser* homeUser = [[HOPModelManager sharedModelManager] getHomeUserByStableID:[[HOPAccount sharedAccount] getStableID]];
-                    
-                    HOPAssociatedIdentity*  associatedIdentity = (HOPAssociatedIdentity*)[[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPAssociatedIdentity"];
-                    
-                    if (homeUser)
-                    {
-                        if (![homeUser.loggedIn boolValue])
-                        {
-                            previousLoggedInHomeUser.loggedIn = NO;
-                            homeUser.loggedIn = [NSNumber numberWithBool: YES];
-                            HOPIdentityContact* homeIdentityContact = [identity getSelfIdentityContact];
-                            associatedIdentity.homeUser = homeUser;
-                            associatedIdentity.domain = [identity getIdentityProviderDomain];
-                            associatedIdentity.lastDownloadTime = [NSDate date];
-                            associatedIdentity.name = [identity getBaseIdentityURI];
-                            associatedIdentity.baseIdentityURI = [identity getBaseIdentityURI];
-                            homeIdentityContact.rolodexContact.associatedIdentity = associatedIdentity;
-                            [[HOPModelManager sharedModelManager] saveContext];
-                        }
-                    }
-                    else
-                    {
-                        HOPIdentityContact* homeIdentityContact = [identity getSelfIdentityContact];
-                        associatedIdentity.domain = [identity getIdentityProviderDomain];
-                        associatedIdentity.lastDownloadTime = [NSDate date];
-                        associatedIdentity.name = [identity getBaseIdentityURI];
-                        associatedIdentity.baseIdentityURI = [identity getBaseIdentityURI];
-                        associatedIdentity.homeUserProfile = homeIdentityContact.rolodexContact;
-                        //homeIdentityContact.rolodexContact.identityProvider = identityProvider;
-                        associatedIdentity.homeUser = homeUser;
-                        homeUser = (HOPHomeUser*)[[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPHomeUser"];
-                        homeUser.stableId = [[HOPAccount sharedAccount] getStableID];
-                        homeUser.reloginInfo = [[HOPAccount sharedAccount] getReloginInformation];
-                        homeUser.loggedIn = [NSNumber numberWithBool: YES];
-                        if (previousLoggedInHomeUser)
-                            previousLoggedInHomeUser.loggedIn = NO;
-                        
-                        [[HOPModelManager sharedModelManager] saveContext];
-                    }
-                 
-                }*/
                 break;
                 
             case HOPIdentityStateShutdown:

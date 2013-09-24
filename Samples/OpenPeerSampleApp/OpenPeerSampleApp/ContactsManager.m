@@ -35,6 +35,7 @@
 
 #import "MainViewController.h"
 #import "ContactsTableViewController.h"
+#import "ActivityIndicatorViewController.h"
 #import "OpenPeer.h"
 #import "OpenPeerUser.h"
 #import "Constants.h"
@@ -47,7 +48,6 @@
 #import <OpenpeerSDK/HOPModelManager.h>
 #import <OpenpeerSDK/HOPRolodexContact.h>
 #import <OpenpeerSDK/HOPHomeUser.h>
-#warning REMOVE this is a test method
 #import <OpenpeerSDK/HOPIdentityContact.h>
 #import <OpenpeerSDK/HOPAssociatedIdentity.h>
 #import <AddressBook/AddressBook.h>
@@ -65,7 +65,6 @@
 
 @end
 @implementation ContactsManager
-@synthesize contactArray = _contactArray;
 
 /**
  Retrieves singleton object of the Contacts Manager.
@@ -90,15 +89,11 @@
     self = [super init];
     if (self)
     {
-        self.contactArray = [[NSMutableArray alloc] init];
-        self.contactsDictionaryByProvider = [[NSMutableDictionary alloc] init];
-        self.contactsDictionaryByIndentityURI = [[NSMutableDictionary alloc] init];
-        self.contactsDictionary = [[NSMutableDictionary alloc] init];
         self.identityLookupsArray = [[NSMutableArray alloc] init];
     }
     return self;
 }
-#warning REMOVE this is a test method
+
 - (void) loadAddressBookContacts
 {
     NSMutableArray* contactsForIdentityLookup = [[NSMutableArray alloc] init];
@@ -176,6 +171,8 @@
 
                     if ([identityURI length] > 0)
                     {
+                        //Execute core data manipulation on main thread to prevent app freezing. 
+                        dispatch_sync(dispatch_get_main_queue(), ^{
                         HOPRolodexContact* rolodexContact = [[HOPModelManager sharedModelManager] getRolodexContactByIdentityURI:identityURI];
                         if (!rolodexContact)
                         {
@@ -194,88 +191,8 @@
                         }
                         
                         [contactsForIdentityLookup addObject:rolodexContact];
+                        });
                     }
-                    /*
-                    ABMultiValueRef contactPhones = ABRecordCopyValue(person, kABPersonPhoneProperty);
-                    if (contactPhones)
-                    {
-                        int numberOfPhones = ABMultiValueGetCount(contactPhones);
-                        
-                        for (CFIndex i = 0; i < numberOfPhones; i++)
-                        {
-                            CFStringRef typeLabel = ABMultiValueCopyLabelAtIndex(contactPhones, i);
-                            if (typeLabel)
-                            {
-                                NSString* typeLabelLocalized = (NSString*)CFBridgingRelease(ABAddressBookCopyLocalizedLabel(typeLabel));
-                                if (typeLabelLocalized)
-                                {
-                                    NSString* phone = (NSString*)CFBridgingRelease(ABMultiValueCopyValueAtIndex(contactPhones, i));
-                                    
-                                    if (phone && phone.length > 0)
-                                    {
-                                        HOPRolodexContact* rolodexContact = [[HOPModelManager sharedModelManager] getRolodexContactByIdentityURI:phone];
-                                        if (!rolodexContact)
-                                        {
-                                            //Create a new menaged object for new rolodex contact
-                                            NSManagedObject* managedObject = [[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPRolodexContact"];
-                                            if ([managedObject isKindOfClass:[HOPRolodexContact class]])
-                                            {
-                                                rolodexContact = (HOPRolodexContact*)managedObject;
-                                                NSString* identityName = @"AddressBook";
-                                                NSString* homeUserIdentityURI = [[[[HOPAccount sharedAccount] getAssociatedIdentities] objectAtIndex:0] getIdentityURI];
-                                                HOPAssociatedIdentity* associatedIdentity = [[HOPModelManager sharedModelManager] getAssociatedIdentityByDomain:@"AddressBook" identityName:identityName homeUserIdentityURI: homeUserIdentityURI];
-                                                if (!associatedIdentity)
-                                                {
-                                                    associatedIdentity = [NSEntityDescription insertNewObjectForEntityForName:@"HOPAssociatedIdentity" inManagedObjectContext:[[HOPModelManager sharedModelManager]managedObjectContext]];
-                                                    
-                                                    associatedIdentity.name = identityName;
-                                                    associatedIdentity.domain = identityProviderDomain;
-                                                    //iProvider.homeUserProfile = self;
-                                                }
-                                                
-                                                rolodexContact.associatedIdentity = associatedIdentity;
-                                                rolodexContact.identityURI = phone;
-                                                rolodexContact.name = fullNameTemp;
-                                                [[HOPModelManager sharedModelManager] saveContext];
-                                            }
-                                        }
-                                        
-                                    }
-                                }
-                                CFRelease(typeLabel);
-                            }
-                        }
-                        
-                        CFRelease(contactPhones);
-                    }*/
-                    /*
-                    //Emails
-                    ABMultiValueRef contactEmails = ABRecordCopyValue(person, kABPersonEmailProperty);
-                    if (contactEmails)
-                    {
-                        int numberOfEmails = ABMultiValueGetCount(contactEmails);
-                        for (CFIndex i = 0; i < numberOfEmails; i++)
-                        {
-                            CFStringRef typeLabel = ABMultiValueCopyLabelAtIndex(contactEmails, i);
-                            if (typeLabel)
-                            {
-                                NSString* typeLabelLocalized = (__bridge NSString*)ABAddressBookCopyLocalizedLabel(typeLabel);
-                                if (typeLabelLocalized)
-                                {
-                                    NSString* email = (__bridge NSString*)ABMultiValueCopyValueAtIndex(contactEmails, i);
-                                    
-                                    if (email && email.length > 0)
-                                    {
-                                        
-                                    }
-                                }
-                                CFRelease(typeLabel);
-                            }
-                        }
-                        
-                        CFRelease(contactEmails);
-                    }*/
-
                 }
                 CFRelease(allPeopleRef);
             }
@@ -293,8 +210,6 @@
  */
 - (void) loadContacts
 {
-    //[self loadAddressBookContacts];
-
     [[[OpenPeer sharedOpenPeer] mainViewController] showTabBarController];
     
     NSArray* associatedIdentities = [[HOPAccount sharedAccount] getAssociatedIdentities];
@@ -302,7 +217,10 @@
     {
         if ([[identity getBaseIdentityURI] isEqualToString:identityFederateBaseURI])
         {
-            [self loadAddressBookContacts];
+            dispatch_queue_t taskQ = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+            dispatch_async(taskQ, ^{
+                [self loadAddressBookContacts];
+            });
         }
         else if ([[identity getBaseIdentityURI] isEqualToString:identityFacebookBaseURI])
         {
@@ -360,7 +278,6 @@
     {
         if (refreshContacts)
         {
-            [self refreshListOfContacts];
             [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoaded];
         }
      });
@@ -368,58 +285,4 @@
     [self.identityLookupsArray removeObject:identityLookup];
 }
 
-
-
-- (void) refreshListOfContacts
-{
-    NSArray* listOfContacts = [[NSArray alloc] init];
-    NSSet* setOfContacts = [[NSSet alloc] init];
-    
-    for (NSDictionary* dictionaryOfContacts in [self.contactsDictionaryByProvider allValues])
-    {
-        setOfContacts = [setOfContacts setByAddingObjectsFromArray:[dictionaryOfContacts allValues]];
-    }
-    
-    if ([setOfContacts count] > 0)
-    {
-        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
-                                                           initWithKey:@"fullName"
-                                                           ascending:YES];
-        
-        listOfContacts = [[setOfContacts allObjects]
-               sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-    }
-    
-    self.contactArray = listOfContacts;
-}
-
-- (void)setContactArray:(NSArray *)inContactArray
-{
-    @synchronized(self)
-    {
-        _contactArray = [NSArray arrayWithArray:inContactArray];
-    }
-}
-- (NSArray *)contactArray
-{
-    @synchronized(self)
-    {
-        return _contactArray;
-    }
-}
-
-#warning REMOVE this is a test method
-
-- (void) testIdentityLookup
-{
-    HOPRolodexContact* contact = (HOPRolodexContact*)[[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPRolodexContact"];
-    contact.identityURI = @"identity://idprovider-javascript.hookflash.me/Serb31";
-    contact.name = @"Serb30";
-    NSArray* contacts = [NSArray arrayWithObject:contact];
-    
-    HOPIdentityLookup* identityLookup = [[HOPIdentityLookup alloc] initWithDelegate:(id<HOPIdentityLookupDelegate>)[[OpenPeer sharedOpenPeer] identityLookupDelegate] identityLookupInfos:contacts identityServiceDomain:identityProviderDomain];
-    
-    if (identityLookup)
-        [self.identityLookupsArray addObject:identityLookup];
-}
 @end
