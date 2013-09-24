@@ -60,7 +60,7 @@
 
 @interface LoginManager ()
 
-@property (nonatomic) BOOL isLogin;
+
 @property (nonatomic) BOOL isAssociation;
 
 @property (strong, nonatomic) NSMutableDictionary* associatingIdentitiesDictionary;
@@ -143,10 +143,6 @@
     
     //Delete user data stored on device.
     //[[OpenPeerUser sharedOpenPeerUser] deleteUserData];
-    
-    //Remove all contacts
-    //[[[ContactsManager sharedContactsManager] contactArray] removeAllObjects];
-    [[[ContactsManager sharedContactsManager] contactsDictionaryByProvider] removeAllObjects];
     
     //Call to the SDK in order to shutdown Open Peer engine.
     [[HOPAccount sharedAccount] shutdown];
@@ -266,9 +262,14 @@
  */
 - (void) onUserLoggedIn
 {
+    NSLog(@"onUserLoggedIn");
     //Wait till identity association is not completed
     if ([[HOPAccount sharedAccount] getState].state == HOPAccountStateReady && [self.associatingIdentitiesDictionary count] == 0)
     {
+        NSLog(@"onUserLoggedIn - Ready");
+        //Login finished. Remove activity indicator
+        [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
+        
         NSArray* associatedIdentites = [[HOPAccount sharedAccount] getAssociatedIdentities];
         for (HOPIdentity* identity in associatedIdentites)
         {
@@ -279,9 +280,6 @@
                 [identity attachDelegate:(id<HOPIdentityDelegate>)[[OpenPeer sharedOpenPeer] identityDelegate]  redirectionURL:redirectAfterLoginCompleteURL];
             }
         }
-        
-        //Login finished. Remove activity indicator
-        [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
     
         //Check if it is logged in a new user
         HOPHomeUser* previousLoggedInHomeUser = [[HOPModelManager sharedModelManager] getLastLoggedInHomeUser];
@@ -344,9 +342,5 @@
         self.isAssociation = YES;
         [[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
     }
-//    else
-//    {
-//        [[ContactsManager sharedContactsManager] loadContacts];
-//    }
 }
 @end

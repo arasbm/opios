@@ -38,6 +38,7 @@
 @interface LoginManager : NSObject
 
 @property (nonatomic, strong) WebLoginViewController *webLoginViewController;
+@property (nonatomic) BOOL isLogin;
 
 + (id) sharedLoginManager;
 
