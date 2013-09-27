@@ -224,7 +224,7 @@
         }
         else if ([[identity getBaseIdentityURI] isEqualToString:identityFacebookBaseURI])
         {
-            //[identity startRolodexDownload:nil];
+            [identity startRolodexDownload:nil];
             [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoadingStarted];
         }
     }

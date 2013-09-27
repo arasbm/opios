@@ -245,7 +245,7 @@
 
 - (NSArray *) getRolodexContactsByPeerURI:(NSString*) peerURI
 {
-    NSArray* ret = [self getResultsForEntity:@"HOPRolodexContact" withPredicateString:[NSString stringWithFormat:@"(ANY identityContact.peerFile.peerURI MATCHES '%@')", peerURI]];
+    NSArray* ret = [self getResultsForEntity:@"HOPRolodexContact" withPredicateString:[NSString stringWithFormat:@"(identityContact.peerFile.peerURI MATCHES '%@')", peerURI]];
     
     return ret;
 }
