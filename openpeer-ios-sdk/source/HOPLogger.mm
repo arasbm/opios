@@ -153,7 +153,7 @@ void HOPLog(HOPLoggerLevels logLevel, NSString* format,...)
 
 + (void) installOutgoingTelnetLogger: (NSString*) serverToConnect colorizeOutput: (BOOL) colorizeOutput stringToSendUponConnection: (NSString*) stringToSendUponConnection
 {
-    NSString* str = stringToSendUponConnection ? stringToSendUponConnection : @"";
+    NSString* str = stringToSendUponConnection ? [stringToSendUponConnection stringByAppendingString:@"\n"] : @"";
     
     if ([serverToConnect length] > 0)
         ILogger::installOutgoingTelnetLogger([serverToConnect UTF8String], colorizeOutput,[str UTF8String]);

@@ -168,6 +168,20 @@ using namespace openpeer::core;
             if (!contactPtr->isSelf())
             {
                 HOPContact* tempContact = [[OpenPeerStorageManager sharedStorageManager] getContactForPeerURI:[NSString stringWithUTF8String:contactPtr->getPeerURI()]];
+                if (!tempContact)
+                {
+                    IPeerFilePublicPtr publicPtr =  contactPtr->getPeerFilePublic();
+                    if (publicPtr)
+                    {
+                        ElementPtr element = IHelper::convertToElement(publicPtr);
+                        if (element)
+                        {
+                            NSString* pulbicPeer = [NSString stringWithUTF8String:IHelper::convertToString(element)];
+                            if ([pulbicPeer length] > 0)
+                                tempContact = [[HOPContact alloc] initWithPeerFile:pulbicPeer];
+                        }
+                    }
+                }
                 [contactArray addObject:tempContact];
             }
         }

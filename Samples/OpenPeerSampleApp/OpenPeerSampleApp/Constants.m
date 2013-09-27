@@ -31,14 +31,17 @@
 
 #import "Constants.h"
 
-NSString* const applicationId = @"com.hookflash.OpenPeerSampleApp";
+//NSString* const applicationId = @"com.hookflash.OpenPeerSampleApp";
+#error PLEASE SET APPLICATION ID VALUE
+NSString* const applicationId = @"<-- insert application is here -->";
 NSString* const applicationName = @"OpenPeerSampleApp";
 NSString* const applicationImageURL = @"http://hookflash.com/wp-content/themes/CleanSpace/images/logo.png";
 NSString* const applicationURL = @"www.openpeer.org";
 
 //!!!!!!!!!!!!!!!!!!!! WARNING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//This value should be obtained from service provider. 
-NSString* const applicationIdSharedSecret = @"<copy-n-paste-shared-secret-from-service-provider>";
+//This value should be obtained from service provider.
+#error PLEASE SET SHARED SECRET VALUE
+NSString* const applicationIdSharedSecret = @"<-- insert shared secret here -->";
 
 //NSString* const provisioningURI = @"provisioning-stable-dev.hookflash.me";//Not in use
 NSString* const outerFrameURL = @"https://app-javascript.hookflash.me/outer.html";

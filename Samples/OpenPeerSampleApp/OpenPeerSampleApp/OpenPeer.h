@@ -51,6 +51,8 @@
 @property (nonatomic,strong) IdentityDelegate *identityDelegate;
 @property (nonatomic,strong) IdentityLookupDelegate *identityLookupDelegate;
 
+@property (nonatomic,strong) NSString *authorizedApplicationId;
+
 @property (nonatomic) BOOL isRemoteSessionActivationModeOn;
 @property (nonatomic) BOOL isFaceDetectionModeOn;
 @property (nonatomic) BOOL isRedialModeOn;

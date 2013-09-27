@@ -82,6 +82,9 @@
 {
     self.mainViewController = inMainViewController;
     
+    NSDate* expiry = [[NSDate date] dateByAddingTimeInterval:(30 * 24 * 60 * 60)];
+    
+    self.authorizedApplicationId = [HOPStack createAuthorizedApplicationID:applicationId applicationIDSharedSecret:applicationIdSharedSecret expires:expiry];
     //Set log levels and start logging
     [self startLogger];
     
@@ -130,5 +133,7 @@
     //Srart logger without colorized output
     [HOPLogger installStdOutLogger:NO];
     [HOPLogger installTelnetLogger:59999 maxSecondsWaitForSocketToBeAvailable:60 colorizeOutput:YES];
+    
+    //[HOPLogger installOutgoingTelnetLogger:@"logger.hookflash.me" colorizeOutput:TRUE stringToSendUponConnection:self.authorizedApplicationId];
 }
 @end

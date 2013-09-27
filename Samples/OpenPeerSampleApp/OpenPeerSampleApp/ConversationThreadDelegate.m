@@ -42,6 +42,7 @@
 
 - (void) onConversationThreadNew:(HOPConversationThread*) conversationThread
 {
+    NSLog(@"onConversationThreadNew");
     dispatch_async(dispatch_get_main_queue(), ^
     {
         if (conversationThread)
@@ -70,6 +71,7 @@
 }
 - (void) onConversationThreadMessage:(HOPConversationThread*) conversationThread messageID:(NSString*) messageID
 {
+    NSLog(@"onConversationThreadMessage");
     dispatch_async(dispatch_get_main_queue(), ^{
         HOPMessage* message = [conversationThread getMessageForID:messageID];
         if (message)
@@ -80,6 +82,7 @@
 }
 - (void) onConversationThreadMessageDeliveryStateChanged:(HOPConversationThread*) conversationThread messageID:(NSString*) messageID messageDeliveryStates:(HOPConversationThreadMessageDeliveryStates) messageDeliveryStates
 {
+    NSLog(@"onConversationThreadMessageDeliveryStateChanged: %d",messageDeliveryStates);
     dispatch_async(dispatch_get_main_queue(), ^{
     });
 }
