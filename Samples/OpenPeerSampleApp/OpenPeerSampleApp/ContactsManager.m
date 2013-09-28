@@ -224,8 +224,10 @@
         }
         else if ([[identity getBaseIdentityURI] isEqualToString:identityFacebookBaseURI])
         {
-            [identity startRolodexDownload:nil];
-            [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoadingStarted];
+            HOPHomeUser* homeUser = [[HOPModelManager sharedModelManager] getLastLoggedInHomeUser];
+            HOPAssociatedIdentity* associatedIdentity = [[HOPModelManager sharedModelManager] getAssociatedIdentityBaseIdentityURI:[identity getBaseIdentityURI] homeUserStableId:homeUser.stableId];
+            [identity startRolodexDownload:associatedIdentity.downloadedVersion];
+            //[[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoadingStarted];
         }
     }
     

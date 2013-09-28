@@ -201,6 +201,7 @@
 {
     if ([sender tag] == MAKE_CALL)
     {
+        [((UIButton*)sender) setSelected:YES];
         //Prepare view for video call
         [self prepareForCall:YES withVideo:YES];
         //Create a video call
@@ -208,6 +209,7 @@
     }
     else
     {
+        [((UIButton*)sender) setSelected:NO];
         //End video call
         [[SessionManager sharedSessionManager] endCallForSession:self.session];
     }
@@ -217,6 +219,7 @@
 {
     if ([((UIButton*)sender) tag] == MAKE_CALL)
     {
+        [((UIButton*)sender) setSelected:YES];
         //Prepare view for audio call
         [self prepareForCall:YES withVideo:NO];
         //Create a audio call
@@ -224,6 +227,7 @@
     }
     else
     {
+        [((UIButton*)sender) setSelected:NO];
         //End audio call
         [[SessionManager sharedSessionManager] endCallForSession:self.session];
     }
@@ -259,8 +263,8 @@
             self.voiceCallButton.enabled = NO;
             self.videoCallButton.enabled = YES;
             self.videoCallButton.tag = END_CALL;
-            [self.voiceCallButton setTitle:@"Audio" forState:UIControlStateNormal];
-            [self.videoCallButton setTitle:@"End Call" forState:UIControlStateNormal];
+            //[self.voiceCallButton setTitle:@"Audio" forState:UIControlStateNormal];
+            //[self.videoCallButton setTitle:@"End Call" forState:UIControlStateNormal];
             [self.view bringSubviewToFront:self.buttonsView];
             self.videoImageView.contentMode = UIViewContentModeScaleAspectFill;
             self.videoImageView.clipsToBounds = YES;
@@ -273,11 +277,11 @@
         {
             self.videoView.hidden = YES;
             self.videoCallButton.enabled = NO;
-            [self.voiceCallButton setBackgroundColor:[UIColor whiteColor]];
+            //[self.voiceCallButton setBackgroundColor:[UIColor whiteColor]];
             self.voiceCallButton.enabled = YES;
             self.voiceCallButton.tag = END_CALL;
-            [self.voiceCallButton setTitle:@"End Call" forState:UIControlStateNormal];
-            [self.videoCallButton setTitle:@"Video" forState:UIControlStateNormal];
+            //[self.voiceCallButton setTitle:@"End Call" forState:UIControlStateNormal];
+            //[self.videoCallButton setTitle:@"Video" forState:UIControlStateNormal];
         }
     }
     else //Update controller if call is not active
@@ -290,8 +294,8 @@
         self.voiceCallButton.enabled = YES;
         self.videoCallButton.tag = MAKE_CALL;
         self.voiceCallButton.tag = MAKE_CALL;
-        [self.voiceCallButton setTitle:@"Audio" forState:UIControlStateNormal];
-        [self.videoCallButton setTitle:@"Video" forState:UIControlStateNormal];
+        //[self.voiceCallButton setTitle:@"Audio" forState:UIControlStateNormal];
+        //[self.videoCallButton setTitle:@"Video" forState:UIControlStateNormal];
         
         [self prepareForFaceDetection:[[OpenPeer sharedOpenPeer] isFaceDetectionModeOn]];
     }
@@ -308,7 +312,7 @@
 
 - (void) updateCallState
 {
-    NSString *stateStr = [Utility getCallStateAsString:[self.session.currentCall getState]];
+    NSString *stateStr = [NSString stringWithFormat:@"%@ ...",[Utility getCallStateAsString:[self.session.currentCall getState]]];
     if ([stateStr length] > 0)
         [self.statusLabel setText:stateStr];
 }

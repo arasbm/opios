@@ -241,12 +241,14 @@
         
         HOPIdentityContact* homeIdentityContact = [identity getSelfIdentityContact];
         associatedIdentity.domain = [identity getIdentityProviderDomain];
-        associatedIdentity.lastDownloadTime = [NSDate date];
+        //associatedIdentity.downloadedVersion = @"";
         associatedIdentity.name = [identity getBaseIdentityURI];
         associatedIdentity.baseIdentityURI = [identity getBaseIdentityURI];
         associatedIdentity.homeUserProfile = homeIdentityContact.rolodexContact;
         associatedIdentity.homeUser = homeUser;
         homeIdentityContact.rolodexContact.associatedIdentityForHomeUser = associatedIdentity;
+        
+        //[homeUser addAssociatedIdentitiesObject:associatedIdentity];
         
         [[HOPModelManager sharedModelManager] saveContext];
         

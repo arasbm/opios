@@ -203,7 +203,7 @@
             [self.sessionViewControllersDictionary setObject:sessionViewContorller forKey:sessionId];
             
             //[self.contactsNavigationController pushViewController:sessionViewContorller animated:NO];
-            [navigationController pushViewController:sessionViewContorller animated:YES];
+            [navigationController pushViewController:sessionViewContorller animated:NO];
             [navigationController.navigationBar.topItem setTitle:title];
             
             //[self.contactsNavigationController pushViewController:sessionViewContorller.chatViewController animated:YES];
