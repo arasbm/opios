@@ -300,6 +300,9 @@
             }
         }
 
+        //Start loading contacts.
+        [[ContactsManager sharedContactsManager] loadContacts];
+        
         if (self.isLogin)
         {
             self.isLogin = NO;
@@ -308,9 +311,6 @@
             
             [alert show];
         }
-
-        //Start loading contacts.
-        [[ContactsManager sharedContactsManager] loadContacts];
     }
 }
 

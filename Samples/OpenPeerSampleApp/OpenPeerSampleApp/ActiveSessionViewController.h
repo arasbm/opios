@@ -51,7 +51,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *voiceCallButton;
 @property (nonatomic, weak) IBOutlet UIButton *videoCallButton;
 @property (nonatomic, weak) IBOutlet UIButton *messageButton;
-@property (weak, nonatomic) IBOutlet UIButton *recordingButton;
+//@property (weak, nonatomic) IBOutlet UIButton *recordingButton;
 
 @property (strong, nonatomic) ChatViewController *chatViewController;
 
@@ -64,7 +64,7 @@
 - (IBAction)actionVoiceCall:(id)sender;
 - (IBAction)actionDeclineCall:(id)sender;
 - (IBAction)actionAcceptCall:(id)sender;
-- (IBAction)actionRecordVideo:(id)sender;
+//- (IBAction)actionRecordVideo:(id)sender;
 
 - (void) prepareForCall:(BOOL) isCallSession withVideo:(BOOL) includeVideo;
 - (void) prepareForIncomingCall;

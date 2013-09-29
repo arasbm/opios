@@ -128,7 +128,7 @@
     }
     
     //In case face detection is turned on/off show or remove record button
-    [self stopVideoRecording:YES hideRecordButton:![[OpenPeer sharedOpenPeer] isFaceDetectionModeOn]];
+    //[self stopVideoRecording:YES hideRecordButton:![[OpenPeer sharedOpenPeer] isFaceDetectionModeOn]];
     
     [super viewDidAppear:animated];
 }
@@ -149,7 +149,7 @@
     [super didReceiveMemoryWarning];
 }
 
-- (IBAction)actionRecordVideo:(id)sender
+/*- (IBAction)actionRecordVideo:(id)sender
 {
     //If recording button is selected, start recording
     if (!self.recordingButton.selected)
@@ -163,7 +163,7 @@
         //Stop video recording
         [self stopVideoRecording:YES hideRecordButton:NO];
     }
-}
+}*/
 
 
 - (void) prepareForFaceDetection:(BOOL) toPrepare
@@ -201,7 +201,7 @@
 {
     if ([sender tag] == MAKE_CALL)
     {
-        [((UIButton*)sender) setSelected:YES];
+        //[((UIButton*)sender) setSelected:YES];
         //Prepare view for video call
         [self prepareForCall:YES withVideo:YES];
         //Create a video call
@@ -209,7 +209,7 @@
     }
     else
     {
-        [((UIButton*)sender) setSelected:NO];
+        //[((UIButton*)sender) setSelected:NO];
         //End video call
         [[SessionManager sharedSessionManager] endCallForSession:self.session];
     }
@@ -219,7 +219,7 @@
 {
     if ([((UIButton*)sender) tag] == MAKE_CALL)
     {
-        [((UIButton*)sender) setSelected:YES];
+        //[((UIButton*)sender) setSelected:YES];
         //Prepare view for audio call
         [self prepareForCall:YES withVideo:NO];
         //Create a audio call
@@ -227,7 +227,7 @@
     }
     else
     {
-        [((UIButton*)sender) setSelected:NO];
+        //[((UIButton*)sender) setSelected:NO];
         //End audio call
         [[SessionManager sharedSessionManager] endCallForSession:self.session];
     }
@@ -263,6 +263,9 @@
             self.voiceCallButton.enabled = NO;
             self.videoCallButton.enabled = YES;
             self.videoCallButton.tag = END_CALL;
+            [self.voiceCallButton setSelected:NO];
+            [self.videoCallButton setSelected:YES];
+            //self.recordingButton.hidden = NO;
             //[self.voiceCallButton setTitle:@"Audio" forState:UIControlStateNormal];
             //[self.videoCallButton setTitle:@"End Call" forState:UIControlStateNormal];
             [self.view bringSubviewToFront:self.buttonsView];
@@ -280,6 +283,8 @@
             //[self.voiceCallButton setBackgroundColor:[UIColor whiteColor]];
             self.voiceCallButton.enabled = YES;
             self.voiceCallButton.tag = END_CALL;
+            [self.voiceCallButton setSelected:YES];
+            [self.videoCallButton setSelected:NO];
             //[self.voiceCallButton setTitle:@"End Call" forState:UIControlStateNormal];
             //[self.videoCallButton setTitle:@"Video" forState:UIControlStateNormal];
         }
@@ -294,6 +299,9 @@
         self.voiceCallButton.enabled = YES;
         self.videoCallButton.tag = MAKE_CALL;
         self.voiceCallButton.tag = MAKE_CALL;
+        [self.voiceCallButton setSelected:NO];
+        [self.videoCallButton setSelected:NO];
+        //self.recordingButton.hidden = YES;
         //[self.voiceCallButton setTitle:@"Audio" forState:UIControlStateNormal];
         //[self.videoCallButton setTitle:@"Video" forState:UIControlStateNormal];
         
@@ -312,26 +320,26 @@
 
 - (void) updateCallState
 {
-    NSString *stateStr = [NSString stringWithFormat:@"%@ ...",[Utility getCallStateAsString:[self.session.currentCall getState]]];
+    NSString *stateStr = [Utility getCallStateAsString:[self.session.currentCall getState]];
     if ([stateStr length] > 0)
         [self.statusLabel setText:stateStr];
 }
 
 - (void)viewDidUnload {
     
-    [self setRecordingButton:nil];
+    //[self setRecordingButton:nil];
     [super viewDidUnload];
 }
 
 - (void) stopVideoRecording:(BOOL) stopRecording hideRecordButton:(BOOL) hideButton
 {
-    if (stopRecording && self.recordingButton.selected)
+    //if (stopRecording && self.recordingButton.selected)
     {
         //Stop video recording
         [[SessionManager sharedSessionManager] stopVideoRecording];
-        self.recordingButton.selected = NO;
+        //self.recordingButton.selected = NO;
     }
     
-    self.recordingButton.hidden = hideButton;
+    //self.recordingButton.hidden = hideButton;
 }
 @end
