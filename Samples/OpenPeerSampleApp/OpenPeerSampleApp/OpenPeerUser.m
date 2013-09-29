@@ -37,6 +37,10 @@
 //SDK
 #import <OpenpeerSDK/HOPAccount.h>
 #import <OpenpeerSDK/HOPContact.h>
+#import <OpenpeerSDK/HOPHomeUser.h>
+#import <OpenpeerSDK/HOPModelManager.h>
+#import <OpenpeerSDK/HOPAssociatedIdentity.h>
+#import <OpenpeerSDK/HOPRolodexContact.h>
 //Utility
 #import "XMLWriter.h"
 #import "Constants.h"
@@ -76,7 +80,6 @@
     if (self)
     {
         self.deviceId = [[NSUserDefaults standardUserDefaults] objectForKey:keyOpenPeerUser];
-        self.fullName = @"Veselko";
 //        if (data)
 //        {
 //            NSKeyedUnarchiver *aDecoder = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
@@ -111,6 +114,16 @@
     return self;
 }
 
+- (NSString*) fullName
+{
+    if ([_fullName length] == 0)
+    {
+        HOPHomeUser* homeUser = [[HOPModelManager sharedModelManager] getLastLoggedInHomeUser];
+        if (homeUser)
+            _fullName = ((HOPAssociatedIdentity*)[homeUser.associatedIdentities anyObject]).homeUserProfile.name;
+    }
+    return _fullName;
+}
 /**
  Saves user information on local device.
  */

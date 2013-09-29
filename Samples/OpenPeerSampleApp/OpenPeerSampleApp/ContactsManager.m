@@ -32,6 +32,7 @@
 #import "ContactsManager.h"
 #import "SessionManager.h"
 #import "MessageManager.h"
+#import "LoginManager.h"
 
 #import "MainViewController.h"
 #import "ContactsTableViewController.h"
@@ -212,6 +213,7 @@
 {
     [[[OpenPeer sharedOpenPeer] mainViewController] showTabBarController];
     
+    //For the first login and association it should be performed contacts download on just associated identity
     NSArray* associatedIdentities = [[HOPAccount sharedAccount] getAssociatedIdentities];
     for (HOPIdentity* identity in associatedIdentities)
     {
@@ -224,8 +226,15 @@
         }
         else if ([[identity getBaseIdentityURI] isEqualToString:identityFacebookBaseURI])
         {
-            [identity startRolodexDownload:nil];
-            [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoadingStarted];
+            HOPHomeUser* homeUser = [[HOPModelManager sharedModelManager] getLastLoggedInHomeUser];
+            HOPAssociatedIdentity* associatedIdentity = [[HOPModelManager sharedModelManager] getAssociatedIdentityBaseIdentityURI:[identity getBaseIdentityURI] homeUserStableId:homeUser.stableId];
+        
+            if ([[LoginManager sharedLoginManager] isLogin])
+            {
+                [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoadingStarted];
+            }
+            
+            [identity startRolodexDownload:associatedIdentity.downloadedVersion];
         }
     }
     

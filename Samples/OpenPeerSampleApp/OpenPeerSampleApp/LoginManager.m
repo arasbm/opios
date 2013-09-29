@@ -241,12 +241,14 @@
         
         HOPIdentityContact* homeIdentityContact = [identity getSelfIdentityContact];
         associatedIdentity.domain = [identity getIdentityProviderDomain];
-        associatedIdentity.lastDownloadTime = [NSDate date];
+        //associatedIdentity.downloadedVersion = @"";
         associatedIdentity.name = [identity getBaseIdentityURI];
         associatedIdentity.baseIdentityURI = [identity getBaseIdentityURI];
         associatedIdentity.homeUserProfile = homeIdentityContact.rolodexContact;
         associatedIdentity.homeUser = homeUser;
         homeIdentityContact.rolodexContact.associatedIdentityForHomeUser = associatedIdentity;
+        
+        //[homeUser addAssociatedIdentitiesObject:associatedIdentity];
         
         [[HOPModelManager sharedModelManager] saveContext];
         
@@ -298,6 +300,9 @@
             }
         }
 
+        //Start loading contacts.
+        [[ContactsManager sharedContactsManager] loadContacts];
+        
         if (self.isLogin)
         {
             self.isLogin = NO;
@@ -306,9 +311,6 @@
             
             [alert show];
         }
-
-        //Start loading contacts.
-        [[ContactsManager sharedContactsManager] loadContacts];
     }
 }
 

@@ -64,7 +64,7 @@
     {
         hopRolodexContact = (HOPRolodexContact*)[[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPRolodexContact"];
         hopRolodexContact.identityURI = [NSString stringWithCString:inIdentityContact.mIdentityURI encoding:NSUTF8StringEncoding];
-        hopRolodexContact.name = [OpenPeerUtility getContactIdFromURI:hopRolodexContact.identityURI];//[NSString stringWithCString:inIdentityContact.mName encoding:NSUTF8StringEncoding];
+        hopRolodexContact.name = [NSString stringWithCString:inIdentityContact.mName encoding:NSUTF8StringEncoding];//[OpenPeerUtility getContactIdFromURI:hopRolodexContact.identityURI];//[
     }
     
     self.rolodexContact = hopRolodexContact;

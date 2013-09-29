@@ -164,7 +164,8 @@
                 break;
                 
             case HOPIdentityStateReady:
-                [[LoginManager sharedLoginManager] onIdentityAssociationFinished:identity];
+                if ([[LoginManager sharedLoginManager] isLogin])
+                    [[LoginManager sharedLoginManager] onIdentityAssociationFinished:identity];
                 break;
                 
             case HOPIdentityStateShutdown:
@@ -198,37 +199,54 @@
 
 - (void)onIdentityRolodexContactsDownloaded:(HOPIdentity *)identity
 {
+    //Remove activity indicator
     [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
     if (identity)
     {
-        [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoaded];
+        HOPHomeUser* homeUser = [[HOPModelManager sharedModelManager] getLastLoggedInHomeUser];
+        HOPAssociatedIdentity* associatedIdentity = [[HOPModelManager sharedModelManager] getAssociatedIdentityBaseIdentityURI:[identity getBaseIdentityURI] homeUserStableId:homeUser.stableId];
+        //[[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoaded];
         
         BOOL flushAllRolodexContacts;
         NSString* downloadedVersion;
         NSArray* rolodexContacts;
         
+        //Get downloaded rolodex contacts
         BOOL rolodexContactsObtained = [identity getDownloadedRolodexContacts:&flushAllRolodexContacts outVersionDownloaded:&downloadedVersion outRolodexContacts:&rolodexContacts];
         
-        NSArray* allUserRolodexContacts = [[HOPModelManager sharedModelManager]getRolodexContactsForHomeUserIdentityURI:[identity getIdentityURI] openPeerContacts:NO];
+        if ([downloadedVersion length] > 0)
+            associatedIdentity.downloadedVersion = downloadedVersion;
         
+        
+        //Stop timer that is started when flushAllRolodexContacts is received
         [identity stopTimerForContactsDeletion];
         
         if (rolodexContactsObtained)
         {
+            //Unmark all received contacts, that were earlier set for deletion 
             [rolodexContacts setValue:[NSNumber numberWithBool:NO] forKey:@"readyForDeletion"];
-            [[ContactsManager sharedContactsManager] identityLookupForContacts:allUserRolodexContacts identityServiceDomain:[identity getIdentityProviderDomain]];
             
+            [[ContactsManager sharedContactsManager] identityLookupForContacts:rolodexContacts identityServiceDomain:[identity getIdentityProviderDomain]];
+            
+            //Check if there are more contacts marked for deletion
             NSArray* contactsToDelete = [[HOPModelManager sharedModelManager] getAllRolodexContactsMarkedForDeletionForHomeUserIdentityURI:[identity getIdentityURI]];
+            
+            //If there is more contacts for deletion start timer again. If update for marked contacts is not received before timer expire, delete all marked contacts
             if ([contactsToDelete count] > 0)
                 [identity startTimerForContactsDeletion];
+            
+            [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoaded];
         }
         else if (flushAllRolodexContacts)
         {
+            //Get all rolodex contacts that are alredy in the database
+            NSArray* allUserRolodexContacts = [[HOPModelManager sharedModelManager]getRolodexContactsForHomeUserIdentityURI:[identity getIdentityURI] openPeerContacts:NO];
+            
             [identity startTimerForContactsDeletion];
             [allUserRolodexContacts setValue:[NSNumber numberWithBool:YES] forKey:@"readyForDeletion"];
-            [[HOPModelManager sharedModelManager] saveContext];
+            //[[HOPModelManager sharedModelManager] saveContext];
         }
-
+        [[HOPModelManager sharedModelManager] saveContext];
     }
 }
 

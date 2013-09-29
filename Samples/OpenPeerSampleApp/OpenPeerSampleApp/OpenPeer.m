@@ -119,15 +119,15 @@
 {
     //For each system you can choose log level from HOPClientLogLevelNone (turned off) to HOPClientLogLevelTrace (most detail).
     [HOPLogger setLogLevel:HOPLoggerLevelTrace];
-    [HOPLogger setLogLevelbyName:@"openpeer_gui" level:HOPLoggerLevelBasic];
-    [HOPLogger setLogLevelbyName:@"openpeer" level:HOPLoggerLevelBasic];
-    [HOPLogger setLogLevelbyName:@"openpeer_services" level:HOPLoggerLevelTrace];
-    [HOPLogger setLogLevelbyName:@"openpeer_services_http" level:HOPLoggerLevelTrace];
-    [HOPLogger setLogLevelbyName:@"openpeer_core" level:HOPLoggerLevelTrace];
-    [HOPLogger setLogLevelbyName:@"openpeer_stack_message" level:HOPLoggerLevelTrace];
-    [HOPLogger setLogLevelbyName:@"openpeer_stack" level:HOPLoggerLevelTrace];
+    [HOPLogger setLogLevelbyName:@"openpeer_gui" level:HOPLoggerLevelNone];
+    [HOPLogger setLogLevelbyName:@"openpeer" level:HOPLoggerLevelNone];
+    [HOPLogger setLogLevelbyName:@"openpeer_services" level:HOPLoggerLevelNone];
+    [HOPLogger setLogLevelbyName:@"openpeer_services_http" level:HOPLoggerLevelNone];
+    [HOPLogger setLogLevelbyName:@"openpeer_core" level:HOPLoggerLevelNone];
+    [HOPLogger setLogLevelbyName:@"openpeer_stack_message" level:HOPLoggerLevelNone];
+    [HOPLogger setLogLevelbyName:@"openpeer_stack" level:HOPLoggerLevelNone];
     [HOPLogger setLogLevelbyName:@"openpeer_webrtc" level:HOPLoggerLevelBasic];
-    [HOPLogger setLogLevelbyName:@"zsLib" level:HOPLoggerLevelTrace];
+    [HOPLogger setLogLevelbyName:@"zsLib" level:HOPLoggerLevelNone];
     [HOPLogger setLogLevelbyName:@"openpeer_sdk" level:HOPLoggerLevelBasic];
     
     //Srart logger without colorized output

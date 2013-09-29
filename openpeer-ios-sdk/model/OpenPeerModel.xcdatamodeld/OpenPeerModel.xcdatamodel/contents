@@ -3,7 +3,7 @@
     <entity name="HOPAssociatedIdentity" representedClassName="HOPAssociatedIdentity" syncable="YES">
         <attribute name="baseIdentityURI" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="domain" attributeType="String" syncable="YES"/>
-        <attribute name="lastDownloadTime" attributeType="Date" syncable="YES"/>
+        <attribute name="downloadedVersion" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <relationship name="homeUser" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="HOPHomeUser" inverseName="associatedIdentities" inverseEntity="HOPHomeUser" syncable="YES"/>
         <relationship name="homeUserProfile" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="HOPRolodexContact" inverseName="associatedIdentityForHomeUser" inverseEntity="HOPRolodexContact" syncable="YES"/>
