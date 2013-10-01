@@ -478,8 +478,6 @@
 		8727281D166CBF9B0089CBB6 = {
 			isa = PBXGroup;
 			children = (
-				87E0FFB317BB8ADD00F30484 /* AddressBook.framework */,
-				871BC9A6179EECC400AEA4A6 /* CoreData.framework */,
 				872729CF166CDF530089CBB6 /* openpeer-ios-sdk.xcodeproj */,
 				87272832166CBF9B0089CBB6 /* OpenPeerSampleApp */,
 				8727282B166CBF9B0089CBB6 /* Frameworks */,
@@ -505,20 +503,22 @@
 				874ADDCB166E2B7B0095FE33 /* libboost_regex.a */,
 				874ADDCC166E2B7B0095FE33 /* libboost_thread.a */,
 				874ADDCD166E2B7C0095FE33 /* libcurl.a */,
-				87448B0417905FFC00E374EE /* QuartzCore.framework */,
-				87FF9891170EDB7D0017C627 /* CoreImage.framework */,
-				87FF988F170EDB6C0017C627 /* MobileCoreServices.framework */,
+				87E0FFB317BB8ADD00F30484 /* AddressBook.framework */,
 				87FF988D170EDB5C0017C627 /* AssetsLibrary.framework */,
 				874ADDBA166E14000095FE33 /* AudioToolbox.framework */,
-				874ADDBC166E14440095FE33 /* CoreMedia.framework */,
-				0024393B178F55BF00B79368 /* Security.framework */,
 				874ADDB8166E13970095FE33 /* AVFoundation.framework */,
-				874ADDB6166E13910095FE33 /* CoreVideo.framework */,
 				874ADDB4166E138A0095FE33 /* CoreAudio.framework */,
-				8727282C166CBF9B0089CBB6 /* UIKit.framework */,
-				8727282E166CBF9B0089CBB6 /* Foundation.framework */,
-				87570E45172ED183006E1C2F /* OpenpeerSDK.framework */,
+				871BC9A6179EECC400AEA4A6 /* CoreData.framework */,
 				87272830166CBF9B0089CBB6 /* CoreGraphics.framework */,
+				874ADDBC166E14440095FE33 /* CoreMedia.framework */,
+				874ADDB6166E13910095FE33 /* CoreVideo.framework */,
+				87FF9891170EDB7D0017C627 /* CoreImage.framework */,
+				8727282E166CBF9B0089CBB6 /* Foundation.framework */,
+				87FF988F170EDB6C0017C627 /* MobileCoreServices.framework */,
+				87448B0417905FFC00E374EE /* QuartzCore.framework */,
+				0024393B178F55BF00B79368 /* Security.framework */,
+				8727282C166CBF9B0089CBB6 /* UIKit.framework */,
+				87570E45172ED183006E1C2F /* OpenpeerSDK.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
