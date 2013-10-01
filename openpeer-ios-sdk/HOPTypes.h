@@ -129,7 +129,9 @@ typedef enum
     HOPLoggerLevelBasic,
     HOPLoggerLevelDetail,
     HOPLoggerLevelDebug,
-    HOPLoggerLevelTrace
+    HOPLoggerLevelTrace,
+    
+    HOPLoggerTotalNumberOfLevels
 } HOPLoggerLevels; //Replacing HOPClientLogSeverities
 
 #pragma mark - Client enums

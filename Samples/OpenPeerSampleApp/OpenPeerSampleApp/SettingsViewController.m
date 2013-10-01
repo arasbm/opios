@@ -7,6 +7,7 @@
 //
 
 #import "SettingsViewController.h"
+#import "LoggerSettingsViewController.h"
 #import "OpenPeer.h"
 #import "Constants.h"
 #import "InfoViewController.h"
@@ -16,9 +17,10 @@ typedef enum
 {
     SETTINGS_INFO_SECTION,
     SETTINGS_OPTIONS_SECTION,
+    SETTINGS_LOGGER_SECTION,
     SETTINGS_LOGOUT_SECTION,
     
-    SETTINGS_TOTAL_SECTIONS = 3
+    SETTINGS_TOTAL_SECTIONS
 }SettingsSections;
 
 typedef enum
@@ -79,6 +81,7 @@ typedef enum
             
         case SETTINGS_INFO_SECTION:
         case SETTINGS_LOGOUT_SECTION:
+        case SETTINGS_LOGGER_SECTION:
         default:
             ret = 1;
             break;
@@ -128,6 +131,10 @@ typedef enum
                 cell.textLabel.textAlignment = NSTextAlignmentCenter;
                 break;
                 
+            case SETTINGS_LOGGER_SECTION:
+                cell.textLabel.text = @"Logger settings";
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                break;
             default:
                 break;
         }
@@ -146,6 +153,15 @@ typedef enum
         {
             InfoViewController *infoViewController = [[InfoViewController alloc] initWithStyle:UITableViewStyleGrouped];
             infoViewController.title = @"User Info";
+            
+            [self.navigationController pushViewController:infoViewController animated:YES];
+        }
+            break;
+            
+        case SETTINGS_LOGGER_SECTION:
+        {
+            LoggerSettingsViewController *infoViewController = [[LoggerSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            infoViewController.title = @"Logger settings";
             
             [self.navigationController pushViewController:infoViewController animated:YES];
         }
@@ -184,8 +200,8 @@ typedef enum
         default:
             break;
     }
-
 }
+
 - (void) switchChanged:(UISwitch*) sender
 {
     switch (sender.tag)

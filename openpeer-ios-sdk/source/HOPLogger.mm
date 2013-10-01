@@ -209,5 +209,20 @@ void HOPLog(HOPLoggerLevels logLevel, NSString* format,...)
 }
 
 
-
++ (void) uninstallFileLogger
+{
+    ILogger::uninstallFileLogger();
+}
++ (void) uninstallTelnetLogger
+{
+    ILogger::uninstallTelnetLogger();
+}
++ (void) uninstallOutgoingTelnetLogger
+{
+    ILogger::uninstallOutgoingTelnetLogger();
+}
++ (void) uninstallDebuggerLogger
+{
+    ILogger::uninstallDebuggerLogger();
+}
 @end

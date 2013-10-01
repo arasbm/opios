@@ -143,4 +143,10 @@ SDK_EXTERN void HOPLog(HOPLoggerLevels logLevel, NSString* format,...);
  @returns String representation of call closed reason enum
  */
 + (void) log: (unsigned int) subsystemUniqueID severity: (HOPLoggerSeverities) severity level: (HOPLoggerLevels) level message: (NSString*) message function: (NSString*) function filePath: (NSString*) filePath lineNumber: (unsigned long) lineNumber;
+
++ (void) uninstallStdOutLogger;
++ (void) uninstallFileLogger;
++ (void) uninstallTelnetLogger;
++ (void) uninstallOutgoingTelnetLogger;
++ (void) uninstallDebuggerLogger;
 @end

@@ -128,6 +128,21 @@
     [HOPLogger setLogLevelbyName:@"openpeer_sdk" level:HOPLoggerLevelTrace];
 }
 
+- (void) setLogLevel:(HOPLoggerLevels) level
+{
+    [HOPLogger setLogLevel:level];
+    [HOPLogger setLogLevelbyName:@"openpeer_gui" level:level];
+    [HOPLogger setLogLevelbyName:@"openpeer" level:level];
+    [HOPLogger setLogLevelbyName:@"openpeer_services" level:level];
+    [HOPLogger setLogLevelbyName:@"openpeer_services_http" level:level];
+    [HOPLogger setLogLevelbyName:@"openpeer_core" level:level];
+    [HOPLogger setLogLevelbyName:@"openpeer_stack_message" level:level];
+    [HOPLogger setLogLevelbyName:@"openpeer_stack" level:level];
+    [HOPLogger setLogLevelbyName:@"openpeer_webrtc" level:level];
+    [HOPLogger setLogLevelbyName:@"zsLib" level:level];
+    [HOPLogger setLogLevelbyName:@"openpeer_sdk" level:level];
+}
+
 /**
  Sets log levels and starts the logger.
  */
