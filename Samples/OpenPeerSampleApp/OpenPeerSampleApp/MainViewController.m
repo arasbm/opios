@@ -53,9 +53,13 @@
 
 //Private methods
 @interface MainViewController ()
+@property (nonatomic) BOOL isLogerActivated;
 
 - (void) removeAllSubViews;
 - (SessionTransitionStates) determineViewControllerTransitionStateForSession:(NSString*) sessionId forIncomingCall:(BOOL) incomingCall forIncomingMessage:(BOOL) incomingMessage;
+
+- (void)threeTapGasture;
+
 @end
 
 @implementation MainViewController
@@ -66,6 +70,12 @@
     if (self)
     {
         self.sessionViewControllersDictionary = [[NSMutableDictionary alloc] init];
+        self.threeTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(threeTapGasture)];
+        self.threeTapGestureRecognizer.delegate = self;
+        self.threeTapGestureRecognizer.numberOfTapsRequired = 3;
+        self.threeTapGestureRecognizer.numberOfTouchesRequired = 2;
+        
+       self.isLogerActivated = NO;
     }
     return self;
 }
@@ -75,8 +85,18 @@
 {
     [super viewDidLoad];
 
+    if (self.threeTapGestureRecognizer)
+        [self.view addGestureRecognizer:self.threeTapGestureRecognizer];
 }
 
+-(void)viewDidUnload
+{
+    if (self.threeTapGestureRecognizer)
+    {
+        [self.view removeGestureRecognizer:self.threeTapGestureRecognizer];
+        self.threeTapGestureRecognizer = nil;
+    }
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -381,5 +401,24 @@
         // Once the animation is completed and the alpha has gone to 0.0, hide the view for good
         [labelNotification removeFromSuperview];
     }];
+}
+
+
+- (void)threeTapGasture
+{
+    NSString *msg;
+    if (!self.isLogerActivated)
+    {
+        [[OpenPeer sharedOpenPeer] startOutgoingLogger];
+        
+        self.isLogerActivated = YES;
+        msg = @"Activated!";
+    }
+    else
+    {
+        msg = @"Already activated";
+    }
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Openpeer" message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alertView show];
 }
 @end

@@ -60,5 +60,6 @@
 + (id) sharedOpenPeer;
 
 - (void) prepareWithMainViewController:(MainViewController*) inMainViewController;
-- (void) startLogger;
+- (void) startLocalLogger;
+- (void) startOutgoingLogger;
 @end

@@ -62,7 +62,7 @@ typedef  enum
     ERROR_CALL_ALREADY_IN_PROGRESS = 100
 }SessionTransitionStates;
 
-@interface MainViewController : UIViewController<UIActionSheetDelegate,UITabBarControllerDelegate>
+@interface MainViewController : UIViewController<UIActionSheetDelegate,UITabBarControllerDelegate,UIGestureRecognizerDelegate>
 
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, weak) IBOutlet UILabel *activityLabel;
@@ -75,10 +75,12 @@ typedef  enum
 
 @property (nonatomic, strong) NSMutableDictionary *sessionViewControllersDictionary;
 
+@property (nonatomic, strong) UITapGestureRecognizer *threeTapGestureRecognizer;
+
 - (void) showTabBarController;
 - (void) showLoginView;
 - (void) showWebLoginView:(WebLoginViewController*) webLoginViewController;
-- (void) showContactsTable;
+//- (void) showContactsTable;
 
 - (void) showSessionViewControllerForSession:(Session*) session forIncomingCall:(BOOL) incomingCall forIncomingMessage:(BOOL) incomingMessage;
 - (void) removeSessionViewControllerForSession:(NSString*) sessionId;

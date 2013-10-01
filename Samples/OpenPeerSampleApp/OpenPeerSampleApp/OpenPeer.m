@@ -54,7 +54,7 @@
 @interface OpenPeer ()
 
 - (void) createDelegates;
-
+- (void) setDefaultLogLevels;
 @end
 
 
@@ -86,13 +86,13 @@
     
     self.authorizedApplicationId = [HOPStack createAuthorizedApplicationID:applicationId applicationIDSharedSecret:applicationIdSharedSecret expires:expiry];
     //Set log levels and start logging
-    [self startLogger];
+    [self startLocalLogger];
     
     //Created all delegates required for openpeer stack initialization.
     [self createDelegates];
     
     //Init openpeer stack and set created delegates
-    [[HOPStack sharedStack] setupWithStackDelegate:self.stackDelegate mediaEngineDelegate:self.mediaEngineDelegate appID:applicationId appName:applicationName appImageURL:applicationImageURL appURL:applicationURL userAgent:[Utility getUserAgentName] deviceID:[[OpenPeerUser sharedOpenPeerUser] deviceId] deviceOs:[Utility getDeviceOs] system:[Utility getPlatform]];
+    [[HOPStack sharedStack] setupWithStackDelegate:self.stackDelegate mediaEngineDelegate:self.mediaEngineDelegate appID: self.authorizedApplicationId appName:applicationName appImageURL:applicationImageURL appURL:applicationURL userAgent:[Utility getUserAgentName] deviceID:[[OpenPeerUser sharedOpenPeerUser] deviceId] deviceOs:[Utility getDeviceOs] system:[Utility getPlatform]];
     
     //Start with login procedure and display login view
     [[LoginManager sharedLoginManager] login];
@@ -112,28 +112,38 @@
     self.identityLookupDelegate = [[IdentityLookupDelegate alloc] init];
 }
 
-/**
- Sets log levels and starts the logger.
- */
-- (void) startLogger
+- (void) setDefaultLogLevels
 {
     //For each system you can choose log level from HOPClientLogLevelNone (turned off) to HOPClientLogLevelTrace (most detail).
     [HOPLogger setLogLevel:HOPLoggerLevelTrace];
-    [HOPLogger setLogLevelbyName:@"openpeer_gui" level:HOPLoggerLevelNone];
-    [HOPLogger setLogLevelbyName:@"openpeer" level:HOPLoggerLevelNone];
-    [HOPLogger setLogLevelbyName:@"openpeer_services" level:HOPLoggerLevelNone];
-    [HOPLogger setLogLevelbyName:@"openpeer_services_http" level:HOPLoggerLevelNone];
-    [HOPLogger setLogLevelbyName:@"openpeer_core" level:HOPLoggerLevelNone];
-    [HOPLogger setLogLevelbyName:@"openpeer_stack_message" level:HOPLoggerLevelNone];
-    [HOPLogger setLogLevelbyName:@"openpeer_stack" level:HOPLoggerLevelNone];
+    [HOPLogger setLogLevelbyName:@"openpeer_gui" level:HOPLoggerLevelTrace];
+    [HOPLogger setLogLevelbyName:@"openpeer" level:HOPLoggerLevelTrace];
+    [HOPLogger setLogLevelbyName:@"openpeer_services" level:HOPLoggerLevelTrace];
+    [HOPLogger setLogLevelbyName:@"openpeer_services_http" level:HOPLoggerLevelTrace];
+    [HOPLogger setLogLevelbyName:@"openpeer_core" level:HOPLoggerLevelTrace];
+    [HOPLogger setLogLevelbyName:@"openpeer_stack_message" level:HOPLoggerLevelTrace];
+    [HOPLogger setLogLevelbyName:@"openpeer_stack" level:HOPLoggerLevelTrace];
     [HOPLogger setLogLevelbyName:@"openpeer_webrtc" level:HOPLoggerLevelBasic];
-    [HOPLogger setLogLevelbyName:@"zsLib" level:HOPLoggerLevelNone];
-    [HOPLogger setLogLevelbyName:@"openpeer_sdk" level:HOPLoggerLevelBasic];
+    [HOPLogger setLogLevelbyName:@"zsLib" level:HOPLoggerLevelTrace];
+    [HOPLogger setLogLevelbyName:@"openpeer_sdk" level:HOPLoggerLevelTrace];
+}
+
+/**
+ Sets log levels and starts the logger.
+ */
+- (void) startLocalLogger
+{
+    [self setDefaultLogLevels];
     
     //Srart logger without colorized output
     [HOPLogger installStdOutLogger:NO];
     [HOPLogger installTelnetLogger:59999 maxSecondsWaitForSocketToBeAvailable:60 colorizeOutput:YES];
+}
+
+- (void) startOutgoingLogger
+{
+    [self setDefaultLogLevels];
     
-    //[HOPLogger installOutgoingTelnetLogger:@"logger.hookflash.me" colorizeOutput:TRUE stringToSendUponConnection:self.authorizedApplicationId];
+    [HOPLogger installOutgoingTelnetLogger:@"logger.hookflash.me:8055" colorizeOutput:TRUE stringToSendUponConnection:self.authorizedApplicationId];
 }
 @end
