@@ -16,11 +16,20 @@ opios/Samples/                    - contains the Open Peer iOS Samples applicati
 
 How to build:
 
-1) Build boost, from your terminal:
+1) Extract pre-built boost libraries:
+
+pushd opios/libs/op/libs/boost/
+wget http://assets.hookflash.me/github.com-openpeer-opios/lib/10012013_0.8_boost-build-iOS-5.zip
+unzip 10012013_0.8_boost-build-iOS-5.zip
+popd
+
+
+NOTE: If you are running < XCode 5.0 you can build boost by from your terminal:
 
 pushd opios/libs/op/libs/boost/projects/gnu-make/
 ./build all
-popd 
+popd
+
 
 2) Build curl, from your terminal:
 
@@ -28,9 +37,11 @@ pushd opios/libs/op/libs/curl/
 ./build_ios.sh
 popd
 
+
 3) From X-code, load:
 
 opios/openpeer-ios-sdk (project/workspace)
+
 
 4) Select HOPSDK > iOS Device schema and then build
 
@@ -58,6 +69,7 @@ libresolve.dylib
 libz.dylib
 libxml2.dylib
 
+
 Exploring the dependency libraries:
 Core Projects/zsLib      - asynchronous communication library for C++
 Core Projects/udns       - C language DNS resolution library
@@ -66,6 +78,7 @@ Core Projects/hfservices - C++ Hookflash Open Peer communication services layer
 Core Projects/hfstack    – C++ Hookflash Open Peer stack
 Core Projects/hfcore     – C++ Hookflash Open Peer core API (works on the Open Peer stack)
 Core Projects/WebRTC     – iPhone port of the webRTC media stack
+
 
 Exploring the SDK:
 openpeer-ios-sdk/         - header files used to build Open Peer iOS applications
