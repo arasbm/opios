@@ -19,7 +19,7 @@ How to build:
 1) Extract pre-built boost libraries:
 
 pushd opios/libs/op/libs/boost/
-wget http://assets.hookflash.me/github.com-openpeer-opios/lib/10012013_0.8_boost-build-iOS-5.zip
+curl -O http://assets.hookflash.me/github.com-openpeer-opios/lib/10012013_0.8_boost-build-iOS-5.zip
 unzip 10012013_0.8_boost-build-iOS-5.zip
 popd
 
@@ -40,7 +40,7 @@ popd
 
 3) From X-code, load:
 
-opios/openpeer-ios-sdk (project/workspace)
+opios/openpeer-ios-sdk.xcodeproj (project/workspace)
 
 
 4) Select HOPSDK > iOS Device schema and then build
