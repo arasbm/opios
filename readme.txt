@@ -3,7 +3,7 @@ Thank you for downloading Hookflash's Open Peer iOS SDK.
 This release is a preliminary 1.0 release of the SDK and Hookflash will be publishing updates to the SDK in time, including various sample applications. For this release, no sample is yet provided.
 
 From your terminal, please clone the "opios" git repository:
-git clone --recursive https://github.com/openpeer/opios.git -b 20130408-javascript
+git clone --recursive https://github.com/openpeer/opios.git
 
 This repository will yield the iOS Object-C SDK, sample application and dependency librarys like the C++ open peer core, stack, media and libraries needed to support the underlying SDK.
 
