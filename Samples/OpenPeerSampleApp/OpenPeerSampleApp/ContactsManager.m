@@ -161,11 +161,11 @@
                             NSDictionary *socialItem = (__bridge_transfer NSDictionary*)ABMultiValueCopyValueAtIndex(social, i);
                             
                             NSString* service = [socialItem objectForKey:(NSString *)kABPersonSocialProfileServiceKey];
-                            if ([service isEqualToString:@"Openpeer"])
+                            if ([[service lowercaseString] isEqualToString:@"openpeer"])
                             {
                                 NSString* username = [socialItem objectForKey:(NSString *)kABPersonSocialProfileUsernameKey];
                                 if ([username length] > 0)
-                                    identityURI = [NSString stringWithFormat:@"%@%@",identityFederateBaseURI,username];
+                                    identityURI = [NSString stringWithFormat:@"%@%@",identityFederateBaseURI,[username lowercaseString]];
                             }
                         }
                     }

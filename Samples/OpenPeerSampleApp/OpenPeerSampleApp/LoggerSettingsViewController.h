@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LoggerSettingsViewController : UITableViewController<UIPickerViewDelegate,UIPickerViewDataSource>
+@interface LoggerSettingsViewController : UITableViewController<UIPickerViewDelegate,UIPickerViewDataSource,UITextFieldDelegate>
 
 @end

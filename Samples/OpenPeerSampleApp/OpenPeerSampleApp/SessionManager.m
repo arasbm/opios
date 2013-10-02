@@ -138,13 +138,17 @@
 */
 - (Session*) createSessionForContacts:(NSArray*) contacts andConversationThread:(HOPConversationThread*) inConversationThread
 {
+    Session* ret = nil;
     NSArray* rolodexContacts = [[HOPModelManager sharedModelManager] getRolodexContactsByPeerURI:[[contacts objectAtIndex:0] getPeerURI]];
-    NSLog(@"%@ initiating a session with %@", [[rolodexContacts objectAtIndex:0] name], [[OpenPeerUser sharedOpenPeerUser] fullName]);
-    Session* ret = [[Session alloc] initWithContacts:rolodexContacts conversationThread:inConversationThread];
-    
-    if (ret)
+    if ([rolodexContacts count] > 0)
     {
-        [self.sessionsDictionary setObject:ret forKey:[inConversationThread getThreadId]];
+        NSLog(@"%@ initiating a session with %@", [[rolodexContacts objectAtIndex:0] name], [[OpenPeerUser sharedOpenPeerUser] fullName]);
+        ret = [[Session alloc] initWithContacts:rolodexContacts conversationThread:inConversationThread];
+        
+        if (ret)
+        {
+            [self.sessionsDictionary setObject:ret forKey:[inConversationThread getThreadId]];
+        }
     }
     return ret;
 }

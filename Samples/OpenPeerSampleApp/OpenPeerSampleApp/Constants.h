@@ -95,3 +95,24 @@ extern NSString * const systemMessageRequest;
 
 //Notifications
 extern NSString * const notificationRemoteSessionModeChanged;
+
+//Settings
+extern NSString * const archiveRemoteSessionActivationMode;
+extern NSString * const archiveFaceDetectionMode;
+extern NSString * const archiveRedialMode;
+extern NSString * const archiveStdLogger;
+extern NSString * const archiveTelnetLogger;
+extern NSString * const archiveOutgoingTelnetLogger;
+extern NSString * const archiveModulesLogLevels;
+extern NSString * const moduleApplication;
+extern NSString * const moduleSDK;
+extern NSString * const moduleMedia;
+extern NSString * const moduleWebRTC;
+extern NSString * const moduleCore;
+extern NSString * const moduleStackMessage;
+extern NSString * const moduleStack;
+extern NSString * const moduleServices;
+extern NSString * const moduleServicesHttp;
+extern NSString * const moduleZsLib;
+
+

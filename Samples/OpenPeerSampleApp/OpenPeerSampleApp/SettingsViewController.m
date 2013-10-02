@@ -8,7 +8,7 @@
 
 #import "SettingsViewController.h"
 #import "LoggerSettingsViewController.h"
-#import "OpenPeer.h"
+#import "Settings.h"
 #import "Constants.h"
 #import "InfoViewController.h"
 #import "LoginManager.h"
@@ -104,12 +104,12 @@ typedef enum
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:switchCellIdentifier];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
-            switchView.tag = indexPath.row;
             cell.accessoryView = switchView;
             [switchView setOn:NO animated:NO];
             [switchView addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
         }
         
+        cell.tag = indexPath.row;
         [self setSwitchCellData:cell];
     }
     else
@@ -180,20 +180,20 @@ typedef enum
 {
     UISwitch* switcher = (UISwitch*) tableCell.accessoryView;
     
-    switch (switcher.tag)
+    switch (tableCell.tag)
     {
         case SETTINGS_REMOTE_SESSION_INIT:
-            switcher.selected = ((OpenPeer*)[OpenPeer sharedOpenPeer]).isRemoteSessionActivationModeOn;
+            [switcher setOn: [[Settings sharedSettings] isRemoteSessionActivationModeOn]];
             tableCell.textLabel.text = @"Remote Session Mode";
             break;
             
         case SETTINGS_FACE_DETECTION_MODE:
-            switcher.selected = ((OpenPeer*)[OpenPeer sharedOpenPeer]).isFaceDetectionModeOn;
+            [switcher setOn: [[Settings sharedSettings] isFaceDetectionModeOn]];
             tableCell.textLabel.text = @"Face Detection Mode";
             break;
             
         case SETTINGS_CALL_REDIAL:
-            switcher.selected = ((OpenPeer*)[OpenPeer sharedOpenPeer]).isRedialModeOn;
+            [switcher setOn: [[Settings sharedSettings] isRedialModeOn]];
             tableCell.textLabel.text = @"Redial Mode";
             break;
             
@@ -208,10 +208,10 @@ typedef enum
     {
         case SETTINGS_REMOTE_SESSION_INIT:
         {
-            ((OpenPeer*)[OpenPeer sharedOpenPeer]).isRemoteSessionActivationModeOn = [sender isOn];
+            [[Settings sharedSettings] enableRemoteSessionActivationMode: [sender isOn]];
             [[NSNotificationCenter defaultCenter] postNotificationName:notificationRemoteSessionModeChanged object:nil];
             
-            NSString* message = [[OpenPeer sharedOpenPeer] isRemoteSessionActivationModeOn] ? @"Remote session activation mode is turned ON. Please, select two openpeer contacts from your list and remote session will be created." : @"Remote session activation mode is turned OFF";
+            NSString* message = [sender isOn] ? @"Remote session activation mode is turned ON. Please, select two openpeer contacts from your list and remote session will be created." : @"Remote session activation mode is turned OFF";
             
             UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Remote session activation"
                                                                 message:message
@@ -224,9 +224,9 @@ typedef enum
             
         case SETTINGS_FACE_DETECTION_MODE:
         {
-            ((OpenPeer*)[OpenPeer sharedOpenPeer]).isFaceDetectionModeOn = [sender isOn];
+            [[Settings sharedSettings] enableFaceDetectionMode: [sender isOn]];
             
-            NSString* message = [[OpenPeer sharedOpenPeer] isFaceDetectionModeOn] ? @"Face detection mode is turned ON. Please, select contact from the list. Session will be created and face detection activated. As soon face is detected, video call will be started." : @"Face detection mode is turned OFF";
+            NSString* message = [sender isOn] ? @"Face detection mode is turned ON. Please, select contact from the list. Session will be created and face detection activated. As soon face is detected, video call will be started." : @"Face detection mode is turned OFF";
             
             UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Face detection"
                                                                 message:message
@@ -238,7 +238,7 @@ typedef enum
             break;
             
         case SETTINGS_CALL_REDIAL:
-            ((OpenPeer*)[OpenPeer sharedOpenPeer]).isRedialModeOn = [sender isOn];
+            [[Settings sharedSettings] enableRedialMode: [sender isOn]];
             break;
             
         default:

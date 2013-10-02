@@ -8,25 +8,21 @@
 
 #import "LoggerSettingsViewController.h"
 #import "OpenPeer.h"
+#import "Settings.h"
+#import "MainViewController.h"
+
 #import <OpenPeerSDK/HOPTypes.h>
 
 typedef enum
 {
-    LOGGER_STD_OUT,
-    LOGGER_TELNET,
-    LOGGER_OUTGOING_TELNET,
-    LOGGER_MODULES,
+    SECTION_LOGGER_STD_OUT = LOGGER_STD_OUT,
+    SECTION_LOGGER_TELNET = LOGGER_TELNET,
+    SECTION_LOGGER_OUTGOING_TELNET = LOGGER_OUTGOING_TELNET,
+    SECTION_LOGGER_MODULES,
     
     LOGGER_SETTINGS_TOTAL_SECTIONS
 }LoggerSettingsSections;
 
-
-typedef enum
-{
-    TELNET_ENABLE,
-    TELNET_SERVER_OR_PORT,
-    TELNET_COLOR
-}LoggerTelnetOptions;
 
 @interface LoggerSettingsViewController ()
 
@@ -66,25 +62,25 @@ typedef enum
 {
     UISwitch* switcher = (UISwitch*) tableCell.accessoryView;
     
-    switch (switcher.tag)
+    BOOL enabled =[[Settings sharedSettings] isLoggerEnabled:tableCell.tag];
+    [switcher setOn:enabled];
+    
+    switch (tableCell.tag)
     {
-        /*case LOGGER_STD_OUT:
-            switcher.selected = ((OpenPeer*)[OpenPeer sharedOpenPeer]).isLocalTelnetOn;
+        case SECTION_LOGGER_STD_OUT:
             tableCell.textLabel.text = @"Enable std::out logger";
             break;
             
-        case LOGGER_LOCAL:
-            switcher.selected = ((OpenPeer*)[OpenPeer sharedOpenPeer]).isLocalTelnetOn;
-            tableCell.textLabel.text = @"Local telnet logger";
+        case SECTION_LOGGER_TELNET:
+            tableCell.textLabel.text = @"Enable telnet logger";
             break;
             
-        case LOGGER_OUTGOING:
-            switcher.selected = ((OpenPeer*)[OpenPeer sharedOpenPeer]).isRemoteTelnetOn;
-            tableCell.textLabel.text = @"Remote telnet logger";
+        case SECTION_LOGGER_OUTGOING_TELNET:
+            tableCell.textLabel.text = @"Enable outgoing telnet logge";
             break;
             
         default:
-            break;*/
+            break;
     }
 }
 
@@ -101,16 +97,16 @@ typedef enum
     
     switch (section)
     {
-        case LOGGER_STD_OUT:
+        case SECTION_LOGGER_STD_OUT:
             ret = 1;
             break;
             
-        case LOGGER_TELNET:
-        case LOGGER_OUTGOING_TELNET:
-            ret = 3;
+        case SECTION_LOGGER_OUTGOING_TELNET:
+        case SECTION_LOGGER_TELNET:
+            ret = TOTAL_TELNET_OPTIONS;
             break;
            
-        case LOGGER_MODULES:
+        case SECTION_LOGGER_MODULES:
             ret = TOTAL_MODULES_NUMBER;
             break;
             
@@ -124,12 +120,12 @@ typedef enum
 {
     static NSString *cellIdentifier = @"regularCell";
     static NSString *switchCellIdentifier = @"switchCell";
-    
+    static NSString *textCellIdentifier = @"textCell";
     UITableViewCell *cell = nil;
     
     switch (indexPath.section)
     {
-        case LOGGER_STD_OUT:
+        case SECTION_LOGGER_STD_OUT:
         {
             cell = [tableView dequeueReusableCellWithIdentifier:switchCellIdentifier];
             if (!cell)
@@ -137,17 +133,17 @@ typedef enum
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:switchCellIdentifier];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
-                switchView.tag = indexPath.row;
                 cell.accessoryView = switchView;
                 [switchView setOn:NO animated:NO];
                 [switchView addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
             }
             
+            cell.tag = indexPath.section;
             [self setSwitchCellData:cell];
         }
             break;
-        case LOGGER_TELNET:
-        case LOGGER_OUTGOING_TELNET:
+        case SECTION_LOGGER_TELNET:
+        case SECTION_LOGGER_OUTGOING_TELNET:
         {
             switch (indexPath.row)
             {
@@ -159,25 +155,79 @@ typedef enum
                         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:switchCellIdentifier];
                         cell.selectionStyle = UITableViewCellSelectionStyleNone;
                         UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
-                        switchView.tag = indexPath.row;
                         cell.accessoryView = switchView;
                         [switchView setOn:NO animated:NO];
                         [switchView addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
                     }
-                    
+                    cell.tag = indexPath.section;
                     [self setSwitchCellData:cell];
                 }
                     break;
                     
                 case TELNET_SERVER_OR_PORT:
                 {
+                    UITextField* textField = nil;
+                    cell = [tableView dequeueReusableCellWithIdentifier:textCellIdentifier];
+                    if (!cell)
+                    {
+                        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:textCellIdentifier];
+                        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                        textField = [[UITextField alloc] initWithFrame:CGRectMake(150, 10, 150, 30)];
+                        textField.delegate = self;
+                        textField.adjustsFontSizeToFitWidth = YES;
+                        
+                        textField.borderStyle = UITextBorderStyleRoundedRect;
+                        textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+                        [cell.contentView addSubview: textField];
+                    }
+                    
+                    if (!textField)
+                    {
+                        for (id object in cell.subviews)
+                        {
+                            if ([object isKindOfClass:[UITextField class]])
+                                textField = (UITextField*) object;
+                        }
+                    }
+                    textField.tag = indexPath.section;
+                    cell.textLabel.text = indexPath.section == SECTION_LOGGER_TELNET ? @"Listen on port:" : @"Server:";
+                    [cell.contentView sendSubviewToBack:cell.textLabel];
+                    
+                    UIFont* font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0];
+                    CGSize size = [cell.textLabel.text sizeWithFont:font];
+                    CGRect rect = textField.frame;
+                    
+                    rect.origin.y = fabsf((cell.frame.size.height - textField.frame.size.height)/2.0);
+                    rect.origin.x = size.width + 12.0;
+                    rect.size.width = cell.contentView.frame.size.width - rect.origin.x - 30.0;
+                    textField.frame = rect;
+                    
+                    NSString* server = [[Settings sharedSettings] getServerPortForLogger:indexPath.section];
+                    if ([server length] > 0)
+                        textField.text = server;
+                    else
+                        textField.placeholder = indexPath.section == SECTION_LOGGER_TELNET ? @"port number" : @"server address";
+                        
                     
                 }
                     break;
                     
                 case TELNET_COLOR:
                 {
+                    cell = [tableView dequeueReusableCellWithIdentifier:switchCellIdentifier];
+                    if (!cell)
+                    {
+                        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:switchCellIdentifier];
+                        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                        UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
+                        switchView.tag = indexPath.section;
+                        cell.accessoryView = switchView;
+                        [switchView setOn:NO animated:NO];
+                        [switchView addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
+                    }
                     
+                    [((UISwitch*)cell.accessoryView) setOn:[[Settings sharedSettings] isColorizedOutputForLogger:indexPath.section]];
+                    cell.textLabel.text = @"Colorize output";
                 }
                     break;
             }
@@ -186,43 +236,61 @@ typedef enum
             break;
             
             
-        /*case LOGGER_LEVEL:
+        case SECTION_LOGGER_MODULES:
         {
             cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
             
             if (!cell)
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-            cell.textLabel.text = @"User info";
+            
+            HOPLoggerLevels level = [[Settings sharedSettings] getLoggerLevelForAppModule:indexPath.row];
+            NSString* titleStr = [[Settings sharedSettings] getStringForModule:indexPath.row];
+            cell.textLabel.text = [titleStr stringByAppendingString:[NSString stringWithFormat:@": %@",[[Settings sharedSettings] getStringForLogLevel:level]]];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-            break;*/
+            break;
     }
     
     return cell;
 }
 
+- (void) showPicker:(NSIndexPath *)indexPath
+{
+    UIActionSheet *menu = [[UIActionSheet alloc] initWithTitle:@"Log Levels"
+                                                      delegate:nil
+                                             cancelButtonTitle:@"Done"
+                                        destructiveButtonTitle:nil
+                                             otherButtonTitles:nil];
+    // Add the picker
+    UIPickerView* pickerView = [[UIPickerView alloc] init];
+    pickerView.tag = indexPath.row;
+    pickerView.delegate = self;
+    pickerView.dataSource = self;
+    pickerView.showsSelectionIndicator = YES;
+    [menu addSubview:pickerView];
+    [menu showFromTabBar:[[OpenPeer sharedOpenPeer] mainViewController].tabBarController.tabBar];
+    [menu setBounds:CGRectMake(0, 0, 320, 485)];
+    
+    CGRect rect = pickerView.frame;
+    rect.origin.y = 100.0;//menu.bounds.size.height - rect.size.height;
+    pickerView.frame = rect;
+    
+    NSInteger row = [[Settings sharedSettings] getLoggerLevelForAppModule:indexPath.row];
+    [pickerView selectRow:row inComponent:0 animated:YES];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == SECTION_LOGGER_MODULES)
+    {
+        [self showPicker:indexPath];
+    }
+}
+
 - (void) switchChanged:(UISwitch*) sender
 {
-    /*switch (sender.tag)
-    {
-        case LOGGER_LOCAL:
-        {
-            ((OpenPeer*)[OpenPeer sharedOpenPeer]).isLocalTelnetOn = [sender isOn];
-            [[OpenPeer sharedOpenPeer] startLocalLogger];
-        }
-            break;
-            
-        case LOGGER_OUTGOING:
-        {
-            ((OpenPeer*)[OpenPeer sharedOpenPeer]).isRemoteTelnetOn = [sender isOn];
-            [[OpenPeer sharedOpenPeer] startOutgoingLogger];
-        }
-            break;
-
-            
-        default:
-            break;
-    }*/
+    [[Settings sharedSettings] enable:[sender isOn] looger:sender.tag];
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)thePickerView
@@ -237,37 +305,18 @@ typedef enum
 
 - (NSString *)pickerView:(UIPickerView *)thePickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    switch (row)
-    {
-        case HOPLoggerLevelNone:
-            return @"None";
-            break;
-            
-        case HOPLoggerLevelBasic:
-            return @"Basic";
-            break;
-            
-        case HOPLoggerLevelDetail:
-            return @"Detail";
-            break;
-            
-        case HOPLoggerLevelDebug:
-            return @"Debug";
-            break;
-            
-        case HOPLoggerLevelTrace:
-            return @"Trace";
-            break;
-            
-        default:
-            break;
-    }
-    return @"";
+    return [[Settings sharedSettings] getStringForLogLevel:row];
 }
 
 - (void)pickerView:(UIPickerView *)thePickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
+    [[Settings sharedSettings] setLoggerLevel:row forAppModule:thePickerView.tag];
+    //[thePickerView removeFromSuperview];
+}
 
-    
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if ([textField.text length] > 0)
+        [[Settings sharedSettings] setServerOrPort:textField.text logger:textField.tag];
 }
 @end

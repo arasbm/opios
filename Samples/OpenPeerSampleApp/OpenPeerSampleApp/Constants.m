@@ -31,7 +31,6 @@
 
 #import "Constants.h"
 
-//NSString* const applicationId = @"com.hookflash.OpenPeerSampleApp";
 #error PLEASE SET APPLICATION ID VALUE (THEN REMOVE THIS LINE)
 NSString* const applicationId = @"<-- insert application ID here (e.g. com.domain.appName) -->";
 
@@ -108,3 +107,23 @@ NSString * const TagText            = @"text";
 NSString * const systemMessageRequest = @"?";
 
 NSString * const notificationRemoteSessionModeChanged = @"notificationRemoteSessionModeChanged";
+
+NSString * const archiveRemoteSessionActivationMode = @"archiveRemoteSessionActivationMode";
+NSString * const archiveFaceDetectionMode = @"archiveFaceDetectionMode";
+NSString * const archiveRedialMode = @"archiveRedialMode";
+
+NSString * const archiveStdLogger = @"archiveStdLogger";
+NSString * const archiveTelnetLogger = @"archiveTelnetLogger";
+NSString * const archiveOutgoingTelnetLogger = @"archiveOutgoingTelnetLogger";
+NSString * const archiveModulesLogLevels = @"archiveModulesLogLevels";
+
+NSString * const moduleApplication = @"openpeer_application";
+NSString * const moduleSDK = @"openpeer_sdk";
+NSString * const moduleMedia = @"openpeer_media";
+NSString * const moduleWebRTC = @"openpeer_webrtc";
+NSString * const moduleCore = @"openpeer_core";
+NSString * const moduleStackMessage = @"openpeer_stack_message";
+NSString * const moduleStack = @"openpeer_stack";
+NSString * const moduleServices = @"openpeer_services";
+NSString * const moduleServicesHttp = @"openpeer_services_http";
+NSString * const moduleZsLib = @"zsLib";

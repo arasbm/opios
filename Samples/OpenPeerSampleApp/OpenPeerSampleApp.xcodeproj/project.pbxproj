@@ -49,6 +49,7 @@
 		8722A67F17D35AB3002A3BB6 /* chat_indicator_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 8722A67C17D35AB3002A3BB6 /* chat_indicator_blue.png */; };
 		8722A68017D35AB3002A3BB6 /* audio_indicator_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 8722A67D17D35AB3002A3BB6 /* audio_indicator_blue.png */; };
 		8722A69717D375E4002A3BB6 /* avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 8722A69617D375E4002A3BB6 /* avatar.png */; };
+		8723F8E917FC99EE003C8802 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 8723F8E817FC99EE003C8802 /* Settings.m */; };
 		8727282D166CBF9B0089CBB6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8727282C166CBF9B0089CBB6 /* UIKit.framework */; };
 		8727282F166CBF9B0089CBB6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8727282E166CBF9B0089CBB6 /* Foundation.framework */; };
 		87272831166CBF9B0089CBB6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87272830166CBF9B0089CBB6 /* CoreGraphics.framework */; };
@@ -202,6 +203,8 @@
 		8722A67C17D35AB3002A3BB6 /* chat_indicator_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_indicator_blue.png; sourceTree = "<group>"; };
 		8722A67D17D35AB3002A3BB6 /* audio_indicator_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = audio_indicator_blue.png; sourceTree = "<group>"; };
 		8722A69617D375E4002A3BB6 /* avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = avatar.png; sourceTree = "<group>"; };
+		8723F8E717FC99EE003C8802 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
+		8723F8E817FC99EE003C8802 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
 		87272828166CBF9B0089CBB6 /* OpenPeerSampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenPeerSampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8727282C166CBF9B0089CBB6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8727282E166CBF9B0089CBB6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -426,6 +429,8 @@
 		8712BE8517D8CC9900665F42 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				8723F8E717FC99EE003C8802 /* Settings.h */,
+				8723F8E817FC99EE003C8802 /* Settings.m */,
 				8712BE8617D8CCAD00665F42 /* SettingsViewController.m */,
 				8712BE8717D8CCAD00665F42 /* SettingsViewController.h */,
 				8712BE8817D8CCAD00665F42 /* InfoViewController.m */,
@@ -809,6 +814,7 @@
 				875CD7E5167A14960037396B /* Session.m in Sources */,
 				874FF90116806D0F00B0A7A0 /* Constants.m in Sources */,
 				87421DA3168274BB00699479 /* ActiveSessionViewController.m in Sources */,
+				8723F8E917FC99EE003C8802 /* Settings.m in Sources */,
 				870F337F168376450090A97F /* ActivityIndicatorViewController.m in Sources */,
 				876CBCBB16F20A88004D542B /* IdentityDelegate.m in Sources */,
 				87FC39F71709BB39002030D1 /* MessageManager.m in Sources */,

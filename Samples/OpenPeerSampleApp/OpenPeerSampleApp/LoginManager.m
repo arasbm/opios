@@ -303,14 +303,15 @@
         //Start loading contacts.
         [[ContactsManager sharedContactsManager] loadContacts];
         
-        if (self.isLogin)
+        //Not yet ready for association
+        /*if (self.isLogin)
         {
             self.isLogin = NO;
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Identity association" message:@"Do you want to associate another social account" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
             
             [alert show];
-        }
+        }*/
     }
 }
 

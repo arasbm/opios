@@ -58,7 +58,7 @@
 - (void) removeAllSubViews;
 - (SessionTransitionStates) determineViewControllerTransitionStateForSession:(NSString*) sessionId forIncomingCall:(BOOL) incomingCall forIncomingMessage:(BOOL) incomingMessage;
 
-- (void)threeTapGasture;
+//- (void)threeTapGasture;
 
 @end
 
@@ -70,12 +70,12 @@
     if (self)
     {
         self.sessionViewControllersDictionary = [[NSMutableDictionary alloc] init];
-        self.threeTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(threeTapGasture)];
+        /*self.threeTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(threeTapGasture)];
         self.threeTapGestureRecognizer.delegate = self;
         self.threeTapGestureRecognizer.numberOfTapsRequired = 3;
         self.threeTapGestureRecognizer.numberOfTouchesRequired = 2;
         
-       self.isLogerActivated = NO;
+       self.isLogerActivated = NO;*/
     }
     return self;
 }
@@ -404,12 +404,12 @@
 }
 
 
-- (void)threeTapGasture
+/*- (void)threeTapGasture
 {
     NSString *msg;
     if (!self.isLogerActivated)
     {
-        [[OpenPeer sharedOpenPeer] startOutgoingLogger];
+        [[OpenPeer sharedOpenPeer] startOutgoingTelnetLogger:YES];
         
         self.isLogerActivated = YES;
         msg = @"Activated!";
@@ -420,5 +420,5 @@
     }
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Openpeer" message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alertView show];
-}
+}*/
 @end
