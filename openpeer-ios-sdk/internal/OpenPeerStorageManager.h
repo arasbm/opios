@@ -31,7 +31,9 @@
 
 
 #import <Foundation/Foundation.h>
-#import <hookflash/hookflashTypes.h>
+#import <openpeer/core/types.h>
+#import <zsLib/types.h>
+
 //#import "OpenPeerCallDelegate.h"
 //#import "OpenPeerStackDelegate.h"
 //#import "OpenPeerConversationThreadDelegate.h"
@@ -41,6 +43,10 @@
 @class HOPConversationThread;
 @class HOPContact;
 @class HOPProvisioningAccount;
+@class HOPIdentity;
+@class HOPIdentityLookup;
+
+using namespace zsLib;
 
 @interface OpenPeerStorageManager : NSObject
 {
@@ -49,6 +55,9 @@
     NSMutableDictionary* _dictionaryContacts;
     NSMutableDictionary* _dictionaryContactsWithUserId;
     NSMutableDictionary* _dictionaryProvisioningAccount;
+    NSMutableDictionary* _dictionaryIdentities;
+    NSMutableDictionary* _dictionaryIdentityLookups;
+    NSMutableDictionary* _dictionaryContactPeerFilePublicLookup;
 }
 + (id)sharedStorageManager;
 
@@ -56,15 +65,20 @@
 - (void) setCall:(HOPCall*) call forId:(NSString*) callId;
 
 - (HOPConversationThread*) getConversationThreadForId:(NSString*) threadId;
+- (NSArray*) getConversationThreads;
 - (void) setConversationThread:(HOPConversationThread*) conversationThread forId:(NSString*) threadId;
 
-- (HOPContact*) getContactForId:(NSString*) contactId;
-- (void) setContact:(HOPContact*) contact forId:(NSString*) contactId;
-//This will be in use till we move to new provisioning
-- (HOPContact*) getContactForUserId:(NSString*) userId;
-- (void) setContact:(HOPContact*) contact withContactId:(NSString*) contactId andUserId:(NSString*) userId;
+- (HOPContact*) getContactForPeerURI:(NSString*) peerURI;
+- (void) setContact:(HOPContact*) contact forPeerURI:(NSString*) contactId;
 
 - (HOPProvisioningAccount*) getProvisioningAccountForUserId:(NSString*) userId;
 - (void) setCProvisioningAccount:(HOPProvisioningAccount*) account forUserId:(NSString*) userId;
+
+- (HOPIdentity*) getIdentityForId:(NSString*) identityId;
+- (NSArray*) getIdentities;
+- (void) setIdentity:(HOPIdentity*) identity forId:(NSString*) identityId;
+
+- (HOPIdentityLookup*) getIdentityLookupForPUID:(PUID) puid;
+- (void) setIdentityLookup:(HOPIdentityLookup*) lookup forPUID:(PUID) puid;
 
 @end

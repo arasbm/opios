@@ -34,6 +34,7 @@
 
 @class HOPConversationThread;
 @class HOPContact;
+@class HOPRolodexContact;
 
 @interface HOPCall : NSObject
 
@@ -43,27 +44,26 @@
  @param toContact HOPContact Remote contact
  @param includeAudio BOOL YES if call should include audio
  @param includeVideo BOOL YES if call should include video
- @returns HOPCall object if conversation thread is created sucessfully, otherwise nil
+ @returns HOPCall object if ICallPtr object is created sucessfully, otherwise nil
  */
 + (id) placeCall:(HOPConversationThread*) conversationThread toContact:(HOPContact*) toContact includeAudio:(BOOL) includeAudio includeVideo:(BOOL) includeVideo;
-
-//- (id) initCall:(HOPConversationThread*) conversationThread toContact:(HOPContact*) toContact includeAudio:(BOOL) includeAudio includeVideo:(BOOL) includeVideo;
-
-
+- (id) init __attribute__((unavailable("Use static placeCall:toContact:includeAudio:includeVideo method to create a call object.")));
 
 /**
  Converts call state enum to string
  @param state HOPCallStates Call state enum
  @returns String representation of call state
  */
-+ (NSString*) stateToString: (HOPCallStates) state;
++ (NSString*) stateToString: (HOPCallStates) state __attribute__((deprecated("use method stringForCallState instead")));
++ (NSString*) stringForCallState:(HOPCallStates) state;
 
 /**
  Converts call closed reason enum to string
  @param reason HOPCallClosedReasons Call closed reason enum
  @returns String representation of call closed reason enum
  */
-+ (NSString*) reasonToString: (HOPCallClosedReasons) reason;
++ (NSString*) reasonToString: (HOPCallClosedReasons) reason __attribute__((deprecated("use method stringForClosingReason instead")));
++ (NSString*) stringForClosingReason:(HOPCallClosedReasons) reason;
 
 /**
  Retrieves call ID
@@ -144,7 +144,6 @@
 
 /**
  Answer incoming call.
- @returns NSDate representation of call closed time
  */
 - (void) answer;
 

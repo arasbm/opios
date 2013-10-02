@@ -40,34 +40,52 @@
 typedef enum
 {
     DEMO_REMOTE_SESSION_INIT,
-    DEMO_CHECK_AVAILABILITY,
     DEMO_FACE_DETECTION_MODE,
-    DEMO_CALL_REDIAL
+    DEMO_CALL_REDIAL,
+    DEMO_LOGGED_USER_INFO
 } DemoOptions;
 
-@interface MainViewController : UIViewController<UIActionSheetDelegate>
+typedef  enum
+{
+    NEW_SESSION,
+    NEW_SESSION_WITH_CALL,
+    NEW_SESSION_WITH_CHAT,
+    NEW_SESSION_REFRESH_CHAT,
+    NEW_SESSION_SWITCH,
+    EXISTING_SESSION,
+    EXISITNG_SESSION_SWITCH,
+    EXISTING_SESSION_REFRESH_CHAT,
+    EXISTING_SESSION_REFRESH_NOT_VISIBLE_CHAT,
+    EXISTIG_SESSION_SHOW_CHAT,
+    INCOMING_CALL_WHILE_OTHER_INPROGRESS,
+    
+    ERROR_CALL_ALREADY_IN_PROGRESS = 100
+}SessionTransitionStates;
+
+@interface MainViewController : UIViewController<UIActionSheetDelegate,UITabBarControllerDelegate,UIGestureRecognizerDelegate>
 
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, weak) IBOutlet UILabel *activityLabel;
 @property (nonatomic, weak) IBOutlet UIView *activityView;
 
-
 @property (nonatomic, strong) LoginViewController *loginViewController;
-@property (nonatomic, strong) WebLoginViewController *webLoginViewController;
 @property (nonatomic, strong) ContactsTableViewController *contactsTableViewController;
+@property (nonatomic, strong) UITabBarController *tabBarController;
 @property (nonatomic, strong) UINavigationController *contactsNavigationController;
 
 @property (nonatomic, strong) NSMutableDictionary *sessionViewControllersDictionary;
 
-- (void) showLoginView;
-- (void) showWebLoginView:(NSString*) url;
-- (void) showContactsTable;
+@property (nonatomic, strong) UITapGestureRecognizer *threeTapGestureRecognizer;
 
-//- (void) showSessionViewControllerForSession:(Session*) session;
-- (void) showSessionViewControllerForSession:(Session*) session forIncomingCall:(BOOL) incomingCall;
+- (void) showTabBarController;
+- (void) showLoginView;
+- (void) showWebLoginView:(WebLoginViewController*) webLoginViewController;
+//- (void) showContactsTable;
+
+- (void) showSessionViewControllerForSession:(Session*) session forIncomingCall:(BOOL) incomingCall forIncomingMessage:(BOOL) incomingMessage;
 - (void) removeSessionViewControllerForSession:(NSString*) sessionId;
+- (void) updateSessionViewControllerId:(NSString*) oldSessionId newSesionId:(NSString*) newSesionId;
 
 - (void) showIncominCallForSession:(Session*) session;
-
-- (void) prepareForViewCallSession:(Session*) session withVideo:(BOOL) withVideo;
+- (void) showNotification:(NSString*) message;
 @end

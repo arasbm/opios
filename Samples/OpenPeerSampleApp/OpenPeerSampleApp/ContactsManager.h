@@ -32,25 +32,19 @@
 #import <Foundation/Foundation.h>
 #import <OpenpeerSDK/HOPProtocols.h>
 
-@class Contact;
+@class HOPIdentityLookup;
+@class HOPRolodexContact;
 
-@interface ContactsManager : NSObject<UIWebViewDelegate,HOPProvisioningAccountIdentityLookupQueryDelegate,HOPProvisioningAccountPeerFileLookupQueryDelegate>
+@interface ContactsManager : NSObject<UIWebViewDelegate>
 
-@property (nonatomic, strong) NSMutableArray *contactArray;
-@property (nonatomic, strong) NSMutableDictionary *contactsDictionaryByProvider; //This is dictionary of dictionaries. Each provider has its own dictionary with contacts whose keys are contact provider id
-@property (nonatomic, strong) NSMutableDictionary *contactsDictionaryByUserId;
-@property (nonatomic, strong) UIWebView *socialContactsWebView;
+@property (strong) NSMutableArray *identityLookupsArray;
 
 + (id) sharedContactsManager;
 
+- (void) loadAddressBookContacts;
+
 - (void) loadContacts;
-
-- (void)contactsLookupQuery:(NSArray *)contacts;
-- (void)peerFileLookupQuery:(NSArray *)contacts;
-
-- (Contact*) getContactForIdentities:(NSArray*) identities;
-- (Contact*) getContactForUserId:(NSString*) userId;
-
-- (void) checkAvailability;
-- (void) onCheckAvailabilityResponseReceivedForContact:(Contact*) contact withListOfUserIds:(NSString*) userIds;
+- (void) refreshExisitngContacts;
+- (void) identityLookupForContacts:(NSArray *)contacts identityServiceDomain:(NSString*) identityServiceDomain;
+- (void) updateContactsWithDataFromLookup:(HOPIdentityLookup*) identityLookup;
 @end

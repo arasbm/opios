@@ -35,15 +35,21 @@
 
 #import "Constants.h"
 #import "Session.h"
-#import "Contact.h"
 #import "Utility.h"
+#import "Message.h"
+#import "OpenPeer.h"
+#import "MainViewController.h"
 
 #import "XMLWriter.h"
 #import "RXMLElement.h"
 
-#import <OpenpeerSDK/HOPContact.h>
+#import <OpenpeerSDK/HOPRolodexContact+External.h>
+#import <OpenpeerSDK/HOPIdentityContact.h>
+#import <OpenpeerSDK/HOPPublicPeerFile.h>
 #import <OpenpeerSDK/HOPMessage.h>
 #import <OpenpeerSDK/HOPConversationThread.h>
+#import <OpenpeerSDK/HOPContact.h>
+#import <OpenpeerSDK/HOPModelManager.h>
 
 @implementation MessageManager
 
@@ -61,7 +67,7 @@
     return _sharedObject;
 }
 
-- (HOPMessage*) createSystemMessageWithType:(SystemMessageTypes) type andText:(NSString*) text andRecipient:(HOPContact*) contact
+- (HOPMessage*) createSystemMessageWithType:(SystemMessageTypes) type andText:(NSString*) text andRecipient:(HOPRolodexContact*) contact
 {
     HOPMessage* hopMessage = nil;
     XMLWriter *xmlWriter = [[XMLWriter alloc] init];
@@ -88,7 +94,7 @@
     
     if (messageBody)
     {
-        hopMessage = [[HOPMessage alloc] initWithMessageId:[Utility getGUIDstring] andMessage:messageBody andContact:contact andMessageType:messageTypeSystem andMessageDate:[NSDate date]];
+        hopMessage = [[HOPMessage alloc] initWithMessageId:[Utility getGUIDstring] andMessage:messageBody andContact:[contact getCoreContact] andMessageType:messageTypeSystem andMessageDate:[NSDate date]];
     }
     
     return hopMessage;
@@ -98,35 +104,22 @@
 {
     NSString *messageText = @"";
     int counter = 0;
-    for (HOPContact* contact in peers)
+    for (HOPRolodexContact* contact in peers)
     {
         if (counter == 0 || counter == ([peers count] - 1) )
-            messageText = [messageText stringByAppendingString:[contact getUserID]];
+            messageText = [messageText stringByAppendingString:contact.identityContact.peerFile.peerURI];
         else
-            messageText = [messageText stringByAppendingFormat:@"%@,",[contact getUserID]];
+            messageText = [messageText stringByAppendingFormat:@"%@,",contact.identityContact.peerFile.peerURI];
         
     }
     
-    HOPMessage* hopMessage = [self createSystemMessageWithType:SystemMessage_EstablishSessionBetweenTwoPeers andText:messageText andRecipient:[[[inSession participantsArray] objectAtIndex:0] hopContact]];
+    HOPMessage* hopMessage = [self createSystemMessageWithType:SystemMessage_EstablishSessionBetweenTwoPeers andText:messageText andRecipient:[[inSession participantsArray] objectAtIndex:0]];
     [inSession.conversationThread sendMessage:hopMessage];
 }
 
 - (void) sendSystemMessageToCallAgainForSession:(Session*) inSession
 {
-    HOPMessage* hopMessage = [self createSystemMessageWithType:SystemMessage_CallAgain andText:systemMessageRequest andRecipient:[[[inSession participantsArray] objectAtIndex:0] hopContact]];
-    [inSession.conversationThread sendMessage:hopMessage];
-}
-
-- (void) sendSystemMessageToCheckAvailabilityForSession:(Session*) inSession
-{
-    HOPMessage* hopMessage = [self createSystemMessageWithType:SystemMessage_IsContactAvailable andText:systemMessageRequest andRecipient:[[[inSession participantsArray] objectAtIndex:0] hopContact]];
-    [inSession.conversationThread sendMessage:hopMessage];
-}
-
-
-- (void) sendSystemMessageToCheckAvailabilityResponseForSession:(Session*) inSession message:(NSString*) message
-{
-    HOPMessage* hopMessage = [self createSystemMessageWithType:SystemMessage_IsContactAvailable_Response andText:message andRecipient:[[[inSession participantsArray] objectAtIndex:0] hopContact]];
+    HOPMessage* hopMessage = [self createSystemMessageWithType:SystemMessage_CallAgain andText:systemMessageRequest andRecipient:[[inSession participantsArray] objectAtIndex:0]];
     [inSession.conversationThread sendMessage:hopMessage];
 }
 
@@ -144,21 +137,21 @@
                 case SystemMessage_EstablishSessionBetweenTwoPeers:
                 {
                     if ([messageText length] > 0)
-                    [[SessionManager sharedSessionManager] createSessionInitiatedFromSession:inSession forContactUserIds:messageText];
+                    [[SessionManager sharedSessionManager] createSessionInitiatedFromSession:inSession forContactPeerURIs:messageText];
                 }
                 break;
                     
                 case SystemMessage_IsContactAvailable:
                 {
-                    [[SessionManager sharedSessionManager] onAvailabilityCheckReceivedForSession:inSession];
+                    
                 }
                 break;
                     
                 case SystemMessage_IsContactAvailable_Response:
                 {
-                    [[ContactsManager sharedContactsManager] onCheckAvailabilityResponseReceivedForContact:[inSession.participantsArray objectAtIndex:0] withListOfUserIds:messageText];
+                    
                 }
-                    break;
+                break;
                     
                 case SystemMessage_CallAgain:
                 {
@@ -170,6 +163,51 @@
                     break;
             }
         }
+    }
+}
+
+
+- (void) sendMessage:(NSString*) message forSession:(Session*) inSession
+{
+    NSLog(@"Send message");
+    
+    //Currently it is not available group chat, so we can have only one message recipients
+    HOPRolodexContact* contact = [[inSession participantsArray] objectAtIndex:0];
+    //Create a message object
+    HOPMessage* hopMessage = [[HOPMessage alloc] initWithMessageId:[Utility getGUIDstring] andMessage:message andContact:[contact getCoreContact] andMessageType:messageTypeText andMessageDate:[NSDate date]];
+    //Send message
+    [inSession.conversationThread sendMessage:hopMessage];
+    
+    Message* messageObj = [[Message alloc] initWithMessageText:message senderContact:nil];
+    [inSession.messageArray addObject:messageObj];
+}
+
+/**
+ Handles received message. For text message just display alert view, and for the system message perform appropriate action.
+ @param message HOPMessage Message
+ @param sessionId NSString Session id of session for which message is received.
+ */
+- (void) onMessageReceived:(HOPMessage*) message forSessionId:(NSString*) sessionId
+{
+    NSLog(@"Message received");
+    
+    if ([sessionId length] == 0)
+        return;
+    
+    Session* session = [[SessionManager sharedSessionManager] getSessionForSessionId:sessionId];
+    
+    if ([message.type isEqualToString:messageTypeText])
+    {
+        HOPRolodexContact* contact  = [[[HOPModelManager sharedModelManager] getRolodexContactsByPeerURI:[message.contact getPeerURI]] objectAtIndex:0];
+        Message* messageObj = [[Message alloc] initWithMessageText:message.text senderContact:contact];
+        [session.messageArray addObject:messageObj];
+        //If session view controller with message sender is not yet shown, show it
+        [[[OpenPeer sharedOpenPeer] mainViewController] showSessionViewControllerForSession:session forIncomingCall:NO forIncomingMessage:YES];
+        
+    }
+    else
+    {
+        [self parseSystemMessage:message forSession:session];
     }
 }
 @end

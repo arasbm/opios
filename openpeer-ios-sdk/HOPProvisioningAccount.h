@@ -139,7 +139,8 @@
  @param knownIdentities NSArray Known identities of the current user. In case there is no known identities, array should be empty.
  @returns HOPProvisioningAccount object if provisioning account is created sucessfully
  */
-- (BOOL) firstTimeLoginWithProvisioningAccountDelegate: (id<HOPProvisioningAccountDelegate>) provisioningAccountDelegate provisioningURI: (NSString*) provisioningURI deviceToken: (NSString*) deviceToken name: (NSString*) name knownIdentities: (NSArray*) knownIdentities;
+//+ (id) provisioningAccountForFirstTimeLogin: (HOPStack*) stack provisioningAccountDelegate: (id<HOPProvisioningAccountDelegate>) provisioningAccountDelegate openpeerAccountDelegate: (id<HOPAccountDelegate>) openpeerAccountDelegate provisioningURI: (NSString*) provisioningURI deviceToken: (NSString*) deviceToken name: (NSString*) name knownIdentities: (NSArray*) knownIdentities;
+- (BOOL) firstTimeLogin: (HOPStack*) stack provisioningAccountDelegate: (id<HOPProvisioningAccountDelegate>) provisioningAccountDelegate openpeerAccountDelegate: (id<HOPAccountDelegate>) openpeerAccountDelegate provisioningURI: (NSString*) provisioningURI deviceToken: (NSString*) deviceToken name: (NSString*) name knownIdentities: (NSArray*) knownIdentities;
 
 /**
  Creation of account. This procedure should be called in case there is no private peer file stored on device, and the user is logging in using social network identity (Facebook, LinkedIn...).

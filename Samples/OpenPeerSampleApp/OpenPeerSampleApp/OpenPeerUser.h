@@ -34,21 +34,21 @@
 @interface OpenPeerUser : NSObject
 
 @property (nonatomic, strong) NSString* fullName;
-@property (nonatomic, strong) NSString* userId;
-@property (nonatomic, strong) NSString* contactId;
-@property (nonatomic, strong) NSString *accountSalt;
-@property (nonatomic, strong) NSString *passwordNonce;
-@property (nonatomic, strong) NSString *peerFilePassword;
-@property (nonatomic, strong) NSString *privatePeerFile;
-@property (nonatomic, strong) NSNumber *providerKey;
-@property (nonatomic, strong) NSString *contactProviderId;
-@property (nonatomic, assign) BOOL legacyLogin;
-@property (nonatomic) NSTimeInterval lastProfileUpdateTimestamp;
+@property (nonatomic, strong) NSString* deviceId;
+//@property (nonatomic, strong) NSString* stableUniqueId;
+//@property (nonatomic, strong) NSString* identityURI;
+//@property (nonatomic, strong) NSString* peerURI;
+//@property (nonatomic, strong) NSString *privatePeerFile;
+//@property (nonatomic, strong) NSString *reloginInfo;
+//@property (nonatomic, strong) NSData *privatePeerFileSecret;
+
+//@property (nonatomic, strong) NSMutableDictionary *dictionaryIdentities;
 
 + (id) sharedOpenPeerUser;
 
-- (void) saveUserData;
-- (void) deleteUserData;
-- (NSString*) createProfileBundle;
+//- (void) saveUserData;
+//- (void) deleteUserData;
+//- (void) addIdentityURI:(NSString*) inIdentityURI forBaseIdentityURI:(NSString*) inBaseIdentity;
+//- (NSString*) createProfileBundle;
 
 @end

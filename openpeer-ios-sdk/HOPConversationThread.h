@@ -33,9 +33,11 @@
 #import "HOPTypes.h"
 
 @class HOPContact;
+@class HOPRolodexContact;
 @class HOPMessage;
+@class HOPAccount;
 
-//HOP_NOTICE: We don't need this to expose till we have group conversation
+//HOP_NOTICE: Don't expose this till group conversations are not enabled
 @interface ContactInfo
 {
   HOPContact* mContact;
@@ -47,27 +49,42 @@
 @interface HOPConversationThread : NSObject
 
 /**
- Retrieves string representation of the message delivery state.
- @param state HOPConversationThreadMessageDeliveryStates Message delivery state to convert to string
- @returns String representation of message delivery state
- */
-+ (NSString*) deliveryStateToString: (HOPConversationThreadMessageDeliveryStates) state;
-
-/**
- Retrieves string representation of the contact state.
- @param state HOPConversationThreadContactStates Contact state to convert to string
- @returns String representation of contact state
- */
-+ (NSString*) stateToString: (HOPConversationThreadContactStates) state;
-
-/**
  Creation of new conversation thread.
  @param account HOPAccount Account which owns the conversation thread
  @param profileBundleEl NSString Profile bundle
  @returns HOPConversationThread object if core conversation thread object is created
  */
 + (id) conversationThreadWithProfileBundle:(NSString*) profileBundle;
-//- (id) initWithProfileBundle:(NSString*) profileBundle;
+
+/**
+ Retrieves list of all created conversation threads.
+ @returns NSArray List of HOPConversationThread objects
+ */
++ (NSArray*) getConversationThreadsForAccount;
+
+/**
+ Retrieves conversation thread object for specific thread id
+ @param threadID NSString Id of disered conversation thread.
+ @returns HOPConversationThread Conversation thread object
+ */
++ (HOPConversationThread*) getConversationThreadForID:(NSString*) threadID;
+
+/**
+ Retrieves string representation of the message delivery state.
+ @param state HOPConversationThreadMessageDeliveryStates Message delivery state to convert to string
+ @returns String representation of message delivery state
+ */
++ (NSString*) deliveryStateToString: (HOPConversationThreadMessageDeliveryStates) state __attribute__((deprecated("use method stringForMessageDeliveryState instead")));
++ (NSString*) stringForMessageDeliveryState:(HOPConversationThreadMessageDeliveryStates) state;
+
+/**
+ Retrieves string representation of the contact state.
+ @param state HOPConversationThreadContactStates Contact state to convert to string
+ @returns String representation of contact state
+ */
++ (NSString*) stateToString: (HOPConversationThreadContactStates) state __attribute__((deprecated("use method stringForContactState instead")));
++ (NSString*) stringForContactState:(HOPConversationThreadContactStates) state;
+
 
 /**
  Retrieves conversation thread ID.
@@ -80,6 +97,12 @@
  @returns YES if self is host, NO if not
  */
 - (BOOL) amIHost;
+
+/**
+ Retrieves the associated account object.
+ @returns HOPAccount account object
+ */
+- (HOPAccount*) getAssociatedAccount;
 
 /**
  Retrieves the array of contacts participating in current conversation thread.
@@ -108,7 +131,7 @@
 - (void) addContacts: (NSArray*) contacts;
 
 /**
- Removes array of contacts from conversation thread.
+ Removes an array of contacts from conversation thread.
  @param contacts NSArray Array of contacts to be removed from conversation thread
  */
 - (void) removeContacts: (NSArray*) contacts;

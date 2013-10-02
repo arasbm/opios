@@ -29,13 +29,13 @@
  
  */
 
-#import "Contact.h"
 #import <OpenpeerSDK/HOPTypes.h>
 #import <OpenpeerSDK/HOPIdentity.h>
+#import <OpenpeerSDK/HOPContact.h>
 
-@implementation Contact
+@implementation YContact
 
-- (id) initWithFullName:(NSString*) inFullName profession:(NSString*) inProfession avatarUrl:(NSString*) inAvatarUrl identityProvider:(HOPProvisioningAccountIdentityTypes) identityProvider identityContactId:(NSString*) identityContactId
+- (id) initWithFullName:(NSString*) inFullName profession:(NSString*) inProfession avatarUrl:(NSString*) inAvatarUrl identityProvider:(NSString*) identityBaseURI identityContactId:(NSString*) identityContactId
 {
     self = [super init];
     if (self)
@@ -43,16 +43,11 @@
         self.fullName = inFullName;
         self.profession = inProfession;
         self.avatarUrl = inAvatarUrl;
-        self.identities = [[NSMutableArray alloc] init];
+        self.dictionaryIdentities = [[NSMutableDictionary alloc] init];
         self.listOfContactsInCallSession = [[NSMutableArray alloc] init];
         
         if ([identityContactId length] > 0)
-        {
-            HOPIdentity* identity = [[HOPIdentity alloc] init];
-            identity.identityType = identityProvider;
-            identity.identityId = identityContactId;
-            [self.identities addObject:identity];
-        }
+            [self.dictionaryIdentities setObject:identityContactId forKey:identityBaseURI];
     }
     return self;
 }

@@ -31,20 +31,43 @@
 
 #import <Foundation/Foundation.h>
 
-//Provisioning URI
-extern NSString* const provisioningURI;
+//Login contants
+extern NSString* const applicationId;
+extern NSString* const applicationName;
+extern NSString* const applicationImageURL;
+extern NSString* const applicationURL;
+extern NSString* const applicationIdSharedSecret;
+//extern NSString* const provisioningURI;
+extern NSString* const outerFrameURL;
+extern NSString* const namespaceGrantServiceURL;
+extern NSString* const identityProviderDomain;
+//extern NSString* const peerContactServiceDomain;
+//extern NSString* const contactsLoadingtServiceDomain;
+extern NSString* const identityFederateBaseURI;
+extern NSString* const identityFacebookBaseURI;
+extern NSString* const identityLinkedInBaseURI;
+extern NSString* const grantOuterFrameURLUponReload;
+//extern NSString* const grantServiceDomain;
+extern NSString* const lockBoxServiceDomain;
 
 extern NSString * const keyOpenPeerUser;
 
 //User defaults keys
-extern NSString * const archiveUserId;
+extern NSString * const archiveDeviceId;
+extern NSString * const archiveStableUniqueId;
+extern NSString * const archiveIdentityURI;
+extern NSString * const archivePeerURI;
+extern NSString * const archiveFullname;
 extern NSString * const archiveContactId;
 extern NSString * const archiveAccountSalt;
 extern NSString * const archivePasswordNonce;
 extern NSString * const archivePrivatePeerFile;
+extern NSString * const archivePrivatePeerFileSecret;
 extern NSString * const archivePeerFilePassword;
+extern NSString * const archiveAssociatedIdentities;
 extern NSString * const archiveLastProfileUpdateTimestamp;
-extern NSString * const archiveLegacyLogin;
+extern NSString * const archiveReloginInfo;
+
 //Contact Profile xml tags
 extern NSString* const profileXmlTagProfile;
 extern NSString* const profileXmlTagName;
@@ -72,3 +95,24 @@ extern NSString * const systemMessageRequest;
 
 //Notifications
 extern NSString * const notificationRemoteSessionModeChanged;
+
+//Settings
+extern NSString * const archiveRemoteSessionActivationMode;
+extern NSString * const archiveFaceDetectionMode;
+extern NSString * const archiveRedialMode;
+extern NSString * const archiveStdLogger;
+extern NSString * const archiveTelnetLogger;
+extern NSString * const archiveOutgoingTelnetLogger;
+extern NSString * const archiveModulesLogLevels;
+extern NSString * const moduleApplication;
+extern NSString * const moduleSDK;
+extern NSString * const moduleMedia;
+extern NSString * const moduleWebRTC;
+extern NSString * const moduleCore;
+extern NSString * const moduleStackMessage;
+extern NSString * const moduleStack;
+extern NSString * const moduleServices;
+extern NSString * const moduleServicesHttp;
+extern NSString * const moduleZsLib;
+
+

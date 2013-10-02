@@ -30,11 +30,12 @@
  */
 
 
-#import <hookflash/hookflashTypes.h>
+#import <openpeer/core/types.h>
 
 #import "HOPConversationThread.h"
 
-using namespace hookflash;
+using namespace openpeer;
+using namespace openpeer::core;
 
 @interface HOPConversationThread ()
 {
@@ -43,4 +44,6 @@ using namespace hookflash;
 
 - (id) initWithConversationThread:(IConversationThreadPtr) inConversationThreadPtr;
 - (IConversationThreadPtr) getConversationThreadPtr;
+
+- (String) log:(NSString*) message;
 @end

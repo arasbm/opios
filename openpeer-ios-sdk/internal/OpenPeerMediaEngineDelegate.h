@@ -31,11 +31,12 @@
 
 
 #import <Foundation/Foundation.h>
-#include <hookflash/hookflashTypes.h>
-#include <hookflash/IMediaEngine.h>
+#include <openpeer/core/types.h>
+#include <openpeer/core/IMediaEngine.h>
 #import "HOPProtocols.h"
 
-using namespace hookflash;
+using namespace openpeer;
+using namespace openpeer::core;
 
 class OpenPeerMediaEngineDelegate : public IMediaEngineDelegate
 {

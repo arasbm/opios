@@ -32,20 +32,26 @@
 #import "ContactsManager.h"
 #import "SessionManager.h"
 #import "MessageManager.h"
+#import "LoginManager.h"
 
 #import "MainViewController.h"
 #import "ContactsTableViewController.h"
 #import "ActivityIndicatorViewController.h"
 #import "OpenPeer.h"
 #import "OpenPeerUser.h"
-#import "Contact.h"
+#import "Constants.h"
+#import "Utility.h"
 #import "SBJsonParser.h"
-#import <OpenpeerSDK/HOPProvisioningAccount.h>
-#import <OpenpeerSDK/HOPProvisioningAccountIdentityLookupQuery.h>
+#import <OpenpeerSDK/HOPIdentityLookup.h>
+#import <OpenpeerSDK/HOPIdentityLookupInfo.h>
 #import <OpenpeerSDK/HOPIdentity.h>
-#import <OpenpeerSDK/HOPContact.h>
-#import <OpenpeerSDK/HOPLookupProfileInfo.h>
-#import <OpenpeerSDK/HOPProvisioningAccountPeerFileLookupQuery.h>
+#import <OpenpeerSDK/HOPAccount.h>
+#import <OpenpeerSDK/HOPModelManager.h>
+#import <OpenpeerSDK/HOPRolodexContact.h>
+#import <OpenpeerSDK/HOPHomeUser.h>
+#import <OpenpeerSDK/HOPIdentityContact.h>
+#import <OpenpeerSDK/HOPAssociatedIdentity.h>
+#import <AddressBook/AddressBook.h>
 
 @interface ContactsManager ()
 {
@@ -84,372 +90,208 @@
     self = [super init];
     if (self)
     {
-        keyJSONContacLastName = @"firstName";
-        keyJSONContactFirstName = @"lastName";
-        keyJSONContactId          = @"id";
-        keyJSONContactProfession  = @"headline";
-        keyJSONContactPictureURL  = @"pictureUrl";
-        keyJSONContactFullName    = @"fullName";
-        
-        self.socialContactsWebView = [[UIWebView alloc] init];
-        self.socialContactsWebView.delegate = self;
-        
-        self.contactArray = [[NSMutableArray alloc] init];
-        self.contactsDictionaryByProvider = [[NSMutableDictionary alloc] init];
-		self.contactsDictionaryByUserId = [[NSMutableDictionary alloc] init];
+        self.identityLookupsArray = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
+- (void) loadAddressBookContacts
+{
+    NSMutableArray* contactsForIdentityLookup = [[NSMutableArray alloc] init];
+    ABAddressBookRef addressBook = NULL;
+    __block BOOL accessGranted = NO;
+    
+    if (ABAddressBookRequestAccessWithCompletion != NULL)
+    {
+        // we're on iOS 6
+        dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+        
+        
+        ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
+            accessGranted = granted;
+            dispatch_semaphore_signal(sema);
+        });
+        
+        dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+        dispatch_release(sema);
+    }
+    else
+    {
+        // we're on iOS 5 or older
+        accessGranted = YES;
+    }
+
+    // import local contacts
+    if(accessGranted)
+    {
+        ABAddressBookRef addressBookRef = ABAddressBookCreate();
+        if (addressBookRef)
+        {
+            CFArrayRef allPeopleRef = ABAddressBookCopyArrayOfAllPeople(addressBookRef);
+            if (allPeopleRef)
+            {
+                CFIndex nPeople = ABAddressBookGetPersonCount(addressBookRef);
+                
+                for (int z = 0; z < nPeople; z++)
+                {
+                    ABRecordRef person =  CFArrayGetValueAtIndex(allPeopleRef, z);
+                    
+                    NSString* firstName = (NSString *)CFBridgingRelease(ABRecordCopyValue(person, kABPersonFirstNameProperty));
+                    NSString* lastName = (NSString *)CFBridgingRelease(ABRecordCopyValue(person, kABPersonLastNameProperty));
+                    NSString* fullNameTemp = @"";
+                    
+                                        
+                    if (firstName)
+                    {
+                        fullNameTemp = [firstName stringByAppendingString:@" "];
+                    }
+                    
+                    if (lastName)
+                    {
+                        fullNameTemp= [fullNameTemp stringByAppendingString:lastName];
+                    }
+                    
+                    NSString* identityURI = nil;
+                    ABMultiValueRef social = ABRecordCopyValue(person, kABPersonSocialProfileProperty);
+                    if (social)
+                    {
+                        int numberOfSocialNetworks = ABMultiValueGetCount(social);
+                        for (CFIndex i = 0; i < numberOfSocialNetworks; i++)
+                        {
+                            NSDictionary *socialItem = (__bridge_transfer NSDictionary*)ABMultiValueCopyValueAtIndex(social, i);
+                            
+                            NSString* service = [socialItem objectForKey:(NSString *)kABPersonSocialProfileServiceKey];
+                            if ([[service lowercaseString] isEqualToString:@"openpeer"])
+                            {
+                                NSString* username = [socialItem objectForKey:(NSString *)kABPersonSocialProfileUsernameKey];
+                                if ([username length] > 0)
+                                    identityURI = [NSString stringWithFormat:@"%@%@",identityFederateBaseURI,[username lowercaseString]];
+                            }
+                        }
+                    }
+
+                    if ([identityURI length] > 0)
+                    {
+                        //Execute core data manipulation on main thread to prevent app freezing. 
+                        dispatch_sync(dispatch_get_main_queue(), ^{
+                        HOPRolodexContact* rolodexContact = [[HOPModelManager sharedModelManager] getRolodexContactByIdentityURI:identityURI];
+                        if (!rolodexContact)
+                        {
+                            //Create a new menaged object for new rolodex contact
+                            NSManagedObject* managedObject = [[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPRolodexContact"];
+                            if ([managedObject isKindOfClass:[HOPRolodexContact class]])
+                            {
+                                rolodexContact = (HOPRolodexContact*)managedObject;
+                                HOPHomeUser* homeUser = [[HOPModelManager sharedModelManager] getLastLoggedInHomeUser];
+                                HOPAssociatedIdentity* associatedIdentity = [[HOPModelManager sharedModelManager] getAssociatedIdentityBaseIdentityURI:identityFederateBaseURI homeUserStableId:homeUser.stableId];
+                                rolodexContact.associatedIdentity = associatedIdentity;
+                                rolodexContact.identityURI = identityURI;
+                                rolodexContact.name = fullNameTemp;
+                                [[HOPModelManager sharedModelManager] saveContext];
+                            }
+                        }
+                        
+                        [contactsForIdentityLookup addObject:rolodexContact];
+                        });
+                    }
+                }
+                CFRelease(allPeopleRef);
+            }
+            CFRelease(addressBookRef);
+        }
+    }
+    
+    HOPIdentityLookup* identityLookup = [[HOPIdentityLookup alloc] initWithDelegate:(id<HOPIdentityLookupDelegate>)[[OpenPeer sharedOpenPeer] identityLookupDelegate] identityLookupInfos:contactsForIdentityLookup identityServiceDomain:identityProviderDomain];
+    
+    if (identityLookup)
+        [self.identityLookupsArray addObject:identityLookup];
+}
 /**
  Initiates contacts loading procedure.
  */
 - (void) loadContacts
 {
-    [[[OpenPeer sharedOpenPeer] mainViewController] showContactsTable];
+    [[[OpenPeer sharedOpenPeer] mainViewController] showTabBarController];
     
-    if (![[OpenPeerUser sharedOpenPeerUser] legacyLogin])
+    //For the first login and association it should be performed contacts download on just associated identity
+    NSArray* associatedIdentities = [[HOPAccount sharedAccount] getAssociatedIdentities];
+    for (HOPIdentity* identity in associatedIdentities)
     {
-        [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoadingStarted];
+        if ([[identity getBaseIdentityURI] isEqualToString:identityFederateBaseURI])
+        {
+            dispatch_queue_t taskQ = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+            dispatch_async(taskQ, ^{
+                [self loadAddressBookContacts];
+            });
+        }
+        else if ([[identity getBaseIdentityURI] isEqualToString:identityFacebookBaseURI])
+        {
+            HOPHomeUser* homeUser = [[HOPModelManager sharedModelManager] getLastLoggedInHomeUser];
+            HOPAssociatedIdentity* associatedIdentity = [[HOPModelManager sharedModelManager] getAssociatedIdentityBaseIdentityURI:[identity getBaseIdentityURI] homeUserStableId:homeUser.stableId];
         
-        NSString* urlAddress = [NSString stringWithFormat:@"http://%@/%@", @"provisioning-stable-dev.hookflash.me", @"/api_web_res/fbconnections.html"];
-        
-        NSURL *url = [NSURL URLWithString:urlAddress];
-        
-        //URL Requst Object
-        NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-        
-        //Load the request in the UIWebView.
-        [self.socialContactsWebView loadRequest:requestObj];
+            if ([[LoginManager sharedLoginManager] isLogin])
+            {
+                [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoadingStarted];
+            }
+            
+            [identity startRolodexDownload:associatedIdentity.downloadedVersion];
+        }
     }
-    else
-    {
-        //If it is legasy login, then load local contacts
-    }
+    
 }
 
-/**
- Web view which will perform contacts loading procedure.
- */
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+- (void) refreshExisitngContacts
 {
-    NSString *requestString = [[request URL] absoluteString];
-    if ([requestString hasPrefix:@"hookflash-js-frame:"]) {
-        
-        NSArray *components = [requestString componentsSeparatedByString:@":"];
-        
-        NSString *function = (NSString*)[components objectAtIndex:1];
-        
-        requestString = [requestString stringByReplacingOccurrencesOfString:function withString:@""];
-        requestString = [requestString stringByReplacingOccurrencesOfString:(NSString*)[components objectAtIndex:0] withString:@""];
-        requestString = [requestString stringByReplacingCharactersInRange:NSMakeRange(0, 2) withString:@""];
-        
-        NSString *params = [requestString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        
-        NSString *functionNameSelector = [NSString stringWithFormat:@"%@:", function];
-        //Execute JSON parsing in function read from requestString.
-        [self performSelector:NSSelectorFromString(functionNameSelector) withObject:params];
-        return NO;
-    }
-    return YES;
-}
-
-/**
- Parse JSON to get the profile for logged user.
- @param input NSString JSON input for processing.
- */
-- (void)proccessMyProfile:(NSString*)input
-{
-    SBJsonParser *jsonParser = [[SBJsonParser alloc] init];
-    NSDictionary *result = [jsonParser objectWithString:input];
-
-    NSString *fullName = [[NSString stringWithFormat:@"%@ %@", [result objectForKey:keyJSONContactFirstName], [result objectForKey:keyJSONContacLastName]] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    if ([fullName length] > 0)
-        [[OpenPeerUser sharedOpenPeerUser] setFullName:fullName];
+    NSArray* associatedIdentities = [[HOPAccount sharedAccount] getAssociatedIdentities];
     
-    //[[[OpenPeer sharedOpenPeer] mainViewController].contactsNavigationController.navigationBar.topItem setTitle:[NSString stringWithFormat:@"%@ Contacts",fullName]];
-    
-    NSNumber* providerKey = [NSNumber numberWithInt:HOPProvisioningAccountIdentityTypeLinkedInID];
-    if (providerKey)
-        [[OpenPeerUser sharedOpenPeerUser] setProviderKey:providerKey];
-    
-    NSString* cotnactProviderId = [result objectForKey:keyJSONContactId];
-    if ([cotnactProviderId length] > 0)
-        [[OpenPeerUser sharedOpenPeerUser] setContactProviderId:cotnactProviderId];
-    
-        
-    NSString *jsMethodName = @"getAllConnections()";
-    NSNumber *lastUpdateTimestamp = 0;//[[StorageManager storageManager] getLastUpdateTimestamp];
-    if ([lastUpdateTimestamp intValue] != 0)
+    for (HOPIdentity* identity in associatedIdentities)
     {
-        jsMethodName = [NSString stringWithFormat:@"getNewConnections(%@)", [lastUpdateTimestamp stringValue]];
-    }
-    
-    [self.socialContactsWebView performSelectorOnMainThread:@selector(stringByEvaluatingJavaScriptFromString:) withObject:jsMethodName waitUntilDone:NO];
-}
-
-/**
- Process connections.
- @param input NSString JSON input for processing.
- */
-- (void)proccessConnections:(NSString*)input
-{
-    //Parse JSON to get the contacts
-    SBJsonParser *jsonParser = [[SBJsonParser alloc] init];
-    NSArray *result = [jsonParser objectWithString:input];
-
-    NSNumber* providerKey = [NSNumber numberWithInt:HOPProvisioningAccountIdentityTypeLinkedInID];
-    NSMutableDictionary* contacts = [[NSMutableDictionary alloc] init];
-    
-    for (NSDictionary* dict in result)
-    {
-       NSString* providerContactId = [dict objectForKey:keyJSONContactId];
-       
-       if (providerContactId)
-       {
-           NSString *fullName = [[NSString stringWithFormat:@"%@ %@", [dict objectForKey:keyJSONContactFirstName], [dict objectForKey:keyJSONContacLastName]] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-           if (fullName)
-           {
-               NSString* profession = [dict objectForKey:keyJSONContactProfession];
-               NSString *avatarUrl = [dict objectForKey:keyJSONContactPictureURL];
-               
-               Contact* contact = [[Contact alloc] initWithFullName:fullName profession:profession avatarUrl:avatarUrl identityProvider:HOPProvisioningAccountIdentityTypeLinkedInID identityContactId:providerContactId];
+        NSArray* rolodexContactsForRefresh = [[HOPModelManager sharedModelManager] getRolodexContactsForRefreshByHomeUserIdentityURI:[identity getIdentityURI] lastRefreshTime:[NSDate date]];
         
-               [self.contactArray addObject:contact];
-               [contacts setObject:contact forKey:providerContactId];
-           }
-       }
+        if ([rolodexContactsForRefresh count] > 0)
+            [self identityLookupForContacts:rolodexContactsForRefresh identityServiceDomain:[identity getIdentityProviderDomain]];
     }
-    [self.contactsDictionaryByProvider setObject:contacts forKey:providerKey];
-    
-    
-    [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoaded];
-    
-    [self contactsLookupQuery:self.contactArray];
-    [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLookupCheckStarted];
 }
 
 /**
  Check contact identites against openpeer database.
  @param contacts NSArray List of contacts.
  */
-- (void)contactsLookupQuery:(NSArray *)contacts
+- (void) identityLookupForContacts:(NSArray *)contacts identityServiceDomain:(NSString*) identityServiceDomain
 {
-    NSMutableArray* identities = [[NSMutableArray alloc] init];
+    HOPIdentityLookup* identityLookup = [[HOPIdentityLookup alloc] initWithDelegate:(id<HOPIdentityLookupDelegate>)[[OpenPeer sharedOpenPeer] identityLookupDelegate] identityLookupInfos:contacts identityServiceDomain:identityServiceDomain];
     
-    
-    for (Contact* contact in self.contactArray)
-    {
-        //Add all associated contact identities
-        for (HOPIdentity* identity in contact.identities)
-        {
-            [identities addObject:identity];
-        }
-        
-    }
-    
-    [[HOPProvisioningAccount sharedProvisioningAccount] identityLookup:self identities:identities];
+    if (identityLookup)
+        [self.identityLookupsArray addObject:identityLookup];
 }
 
 /**
- Does JSON response parsing to get user facebook profile.
- @param input NSString JSON input for processing.
+ Handles response received from lookup server. 
  */
-- (void)proccessMyFBProfile:(NSString*)input
+-(void)updateContactsWithDataFromLookup:(HOPIdentityLookup *)identityLookup
 {
-    SBJsonParser *jsonParser = [[SBJsonParser alloc] init];
-    NSDictionary *result = [jsonParser objectWithString:input];
-
-    NSString *fullName = [[result objectForKey:keyJSONContactFullName] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    if ([fullName length] > 0)
-        [[OpenPeerUser sharedOpenPeerUser] setFullName:fullName];
-    
-    //Provider key for Facebook 
-    NSNumber* providerKey = [NSNumber numberWithInt:HOPProvisioningAccountIdentityTypeFacebookID];
-    if (providerKey)
-        [[OpenPeerUser sharedOpenPeerUser] setProviderKey:providerKey];
-    
-    //User facebook id
-    NSString* cotnactProviderId = [result objectForKey:keyJSONContactId];
-    if ([cotnactProviderId length] > 0)
-        [[OpenPeerUser sharedOpenPeerUser] setContactProviderId:cotnactProviderId];
-}
-
-/**
- Does JSON response parsing to get the list of facebook contacts 
- @param input NSString JSON input for processing.
- */
-- (void)proccessFbFriends:(NSString*)input
-{
-    //Parse JSON to get the contacts
-    SBJsonParser *jsonParser = [[SBJsonParser alloc] init];
-    NSArray *result = [jsonParser objectWithString:input];
-
-    //Provider key for Facebook
-    NSNumber* providerKey = [NSNumber numberWithInt:HOPProvisioningAccountIdentityTypeFacebookID];
-    NSMutableDictionary* contacts = [[NSMutableDictionary alloc] init];
-    
-    for (NSDictionary* dict in result)
+    BOOL refreshContacts = NO;
+    NSError* error;
+    if ([identityLookup isComplete:&error])
     {
-        //Get contact facebook id
-        NSString* providerContactId = [dict objectForKey:keyJSONContactId];
-        
-        if (providerContactId)
+        HOPIdentityLookupResult* result = [identityLookup getLookupResult];
+        if ([result wasSuccessful])
         {
-            //Get contact fullname
-            NSString *fullName = [[NSString stringWithFormat:@"%@", [dict objectForKey:@"fullName"] ] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            if (fullName)
-            {
-                //Get avatar url
-                NSString *avatarUrl = [dict objectForKey:keyJSONContactPictureURL];
-                
-                //HOP_TODO: Try to get contact for identites, or create it
-                Contact* contact = [[Contact alloc] initWithFullName:fullName profession:@"" avatarUrl:avatarUrl identityProvider:HOPProvisioningAccountIdentityTypeFacebookID identityContactId:providerContactId];
-                
-                [self.contactArray addObject:contact];
-                [contacts setObject:contact forKey:providerContactId];
-            }
+            NSArray* identityContacts = [identityLookup getUpdatedIdentities];
+            
+            refreshContacts = [identityContacts count] > 0 ? YES : NO;
         }
     }
-    [self.contactsDictionaryByProvider setObject:contacts forKey:providerKey];
     
-    
-    [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoaded];
-    
-    [self contactsLookupQuery:self.contactArray];
-    [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLookupCheckStarted];
-}
-
-/**
- Send request to get the peer files for specified list of contacts
- @param contacts NSArray List of contacts.
- */
-- (void)peerFileLookupQuery:(NSArray *)contacts
-{
-    NSMutableArray* hopContacts = [[NSMutableArray alloc] init];
-    
-    //Create list of hopContact objects
-    for (Contact* contact in self.contactArray)
+    dispatch_async(dispatch_get_main_queue(), ^
     {
-        if (contact.hopContact)
-            [hopContacts addObject:contact.hopContact];
-    }
-    
-    if ([hopContacts count] > 0)
-    {
-        [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsPeerFilesLoadingStarted];
-        
-        //Ask for peer files for passed contacts
-        [[HOPProvisioningAccount sharedProvisioningAccount] peerFileLookup:self contacts:hopContacts];
-    }
-}
-
-/**
- Retrieves contact for passed list of identities.
- @param identities NSArray List of identities.
- @return Contact with specified identities.
- */
-- (Contact*) getContactForIdentities:(NSArray*) identities
-{
-    Contact* contact = nil;
-    for (HOPIdentity* identity in identities)
-    {
-        contact = [[self.contactsDictionaryByProvider objectForKey:[NSNumber numberWithInt:identity.identityType]] objectForKey:identity.identityId];
-        if (contact)
-            break;
-    }
-    
-    return contact;
-}
-
-/**
- Retrieves contact for specific user id
- @param userId NSArray User id.
- @return Contact with specified user id.
- */
-- (Contact*) getContactForUserId:(NSString*) userId
-{
-    return [self.contactsDictionaryByUserId objectForKey:userId];
-}
-/**
- For each contact in the list create a session and send system message to check if contact is available for call.
- */
-- (void) checkAvailability
-{
-    for (Contact* contact in self.contactArray)
-    {
-        if ([[contact.hopContact getPeerFile] length] > 0)
+        if (refreshContacts)
         {
-            Session* session = [[SessionManager sharedSessionManager] createSessionForContact:contact];
-            [[MessageManager sharedMessageManager] sendSystemMessageToCheckAvailabilityForSession:session];
+            [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoaded];
         }
-    }
+     });
+    
+    [self.identityLookupsArray removeObject:identityLookup];
 }
-/**
- Handles response on availability check system message
- @param contact Contact that responed to system message.
- @param userIds list of contact user ids, that are on call with specified contact
- */
-- (void) onCheckAvailabilityResponseReceivedForContact:(Contact*) contact withListOfUserIds:(NSString*) userIds
-{
-    NSArray* listOfUserIds = [userIds componentsSeparatedByString:@","];
-    if ([userIds length] > 0 && [listOfUserIds count] > 0)
-    {
-        for (NSString* userId in listOfUserIds)
-        {
-            Contact* contactInSesion = [self getContactForUserId:userId];
-            if (contactInSesion)
-                [contact.listOfContactsInCallSession addObject:contactInSesion];
-        }
-    }
-    else
-    {
-        [contact.listOfContactsInCallSession removeAllObjects];
-    }
-    [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoaded];
-}
-
-#pragma mark - HOPProvisioningAccountIdentityLookupQueryDelegate
-- (void) onAccountIdentityLookupQueryComplete:(HOPProvisioningAccountIdentityLookupQuery*) query
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if([query isComplete])
-        {
-            if ([query didSucceed])
-            {
-                for(HOPContact* hopContact in [query getContacts])
-                {
-                    Contact* contact = [self getContactForIdentities:[hopContact getIdentities]];
-                    contact.hopContact = hopContact;
-                    [self.contactsDictionaryByUserId setObject:contact forKey:[hopContact getUserID]];
-                }
-                
-                [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoaded];
-                
-                [self peerFileLookupQuery:self.contactArray];
-            }
-            else
-            {
-                [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
-                UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Server lookup error!"
-                                                                    message:@"Please, try again later."
-                                                                   delegate:self
-                                                          cancelButtonTitle:@"Ok"
-                                                          otherButtonTitles:nil];
-                [alertView show];
-            }
-        }
-    });
-}
-
-
-#pragma mark - HOPProvisioningAccountPeerFileLookupQueryDelegate
-- (void) onAccountPeerFileLookupQueryComplete:(HOPProvisioningAccountPeerFileLookupQuery*) query
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoaded];
-    });
-}
-
 
 @end

@@ -32,17 +32,17 @@
 
 #import <Foundation/Foundation.h>
 
-#include <hookflash/hookflashTypes.h>
-#include <hookflash/IContact.h>
-#include <hookflash/IConversationThread.h>
+#include <openpeer/core/types.h>
+#include <openpeer/core/IContact.h>
+#include <openpeer/core/IConversationThread.h>
 #import "HOPProtocols.h"
 
 
-using namespace hookflash;
+using namespace openpeer;
+using namespace openpeer::core;
 
 /**
  Wrapper class for conversation thread.
- @author Sergej Jovanovic sergej@hookflash.com
  */
 class OpenPeerConversationThreadDelegate : public IConversationThreadDelegate
 {

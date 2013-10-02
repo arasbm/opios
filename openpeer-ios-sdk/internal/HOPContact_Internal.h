@@ -31,9 +31,10 @@
 
 
 #import "HOPContact.h"
-#import <hookflash/hookflashTypes.h>
+#import <openpeer/core/types.h>
 
-using namespace hookflash;
+using namespace openpeer;
+using namespace openpeer::core;
 
 @interface HOPContact ()
 {
@@ -48,5 +49,6 @@ using namespace hookflash;
 
 - (id) initWithCoreContact:(IContactPtr) inContactPtr;
 - (IContactPtr) getContactPtr;
-- (void) createCoreContactWithPeerFile:(NSString*) peerFile;
+
+- (String) log:(NSString*) message;
 @end

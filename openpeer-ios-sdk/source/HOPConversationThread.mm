@@ -30,38 +30,59 @@
  */
 
 
-#import <hookflash/IConversationThread.h>
-#import <hookflash/IContact.h>
-#import <hookflash/IXML.h>
+#import <openpeer/core/IConversationThread.h>
+#import <openpeer/core/IContact.h>
+#import <openpeer/core/IHelper.h>
 
 #import "HOPConversationThread_Internal.h"
-#import "HOPConversationThread.h"
 #import "HOPContact_Internal.h"
-#import "HOPContact.h"
-#import "OpenPeerUtility.h"
-#import "HOPProvisioningAccount.h"
-#import "HOPProvisioningAccount_Internal.h"
+#import "HOPAccount_Internal.h"
 #import "HOPMessage.h"
 
 #import "OpenPeerStorageManager.h"
+#import "OpenPeerUtility.h"
 
-using namespace hookflash;
+
+ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
+
+using namespace openpeer;
+using namespace openpeer::core;
 
 @implementation HOPConversationThread
 
++ (NSArray*) getConversationThreadsForAccount
+{
+    return [[OpenPeerStorageManager sharedStorageManager] getConversationThreads];
+}
+
++ (HOPConversationThread*) getConversationThreadForID:(NSString*) threadID
+{
+    HOPConversationThread* ret = nil;
+    if (threadID)
+        ret =[[OpenPeerStorageManager sharedStorageManager] getConversationThreadForId:threadID];
+    return ret;
+}
+
 + (NSString*) deliveryStateToString: (HOPConversationThreadMessageDeliveryStates) state
+{
+    return [NSString stringWithUTF8String: IConversationThread::toString((IConversationThread::MessageDeliveryStates) state)];
+}
++ (NSString*) stringForMessageDeliveryState:(HOPConversationThreadMessageDeliveryStates) state
 {
     return [NSString stringWithUTF8String: IConversationThread::toString((IConversationThread::MessageDeliveryStates) state)];
 }
 
 + (NSString*) stateToString: (HOPConversationThreadContactStates) state
 {
-    return [NSString stringWithUTF8String: IConversationThread::toString((hookflash::IConversationThread::ContactStates) state)];
+    return [NSString stringWithUTF8String: IConversationThread::toString((IConversationThread::ContactStates) state)];
+}
++ (NSString*) stringForContactState:(HOPConversationThreadContactStates) state
+{
+    return [NSString stringWithUTF8String: IConversationThread::toString((IConversationThread::ContactStates) state)];
 }
 
 - (id)init
 {
-    [self release];
     [NSException raise:NSInvalidArgumentException format:@"Don't use init for object creation. Use class method conversationThreadWithProfileBundle."];
     return nil;
 }
@@ -84,39 +105,18 @@ using namespace hookflash;
     zsLib::XML::ElementPtr elementPtr;
     
     if ([profileBundle length] > 0)
-        elementPtr = IXML::createFromString([profileBundle UTF8String]);
+        elementPtr = IHelper::createElement([profileBundle UTF8String]);
     else
         elementPtr = zsLib::XML::ElementPtr();
     
-    IConversationThreadPtr tempConversationThreadPtr = IConversationThread::create([[HOPProvisioningAccount sharedProvisioningAccount] getOpenpeerAccountPtr], elementPtr);
+    IConversationThreadPtr tempConversationThreadPtr = IConversationThread::create([[HOPAccount sharedAccount] getAccountPtr], elementPtr);
     
     if (tempConversationThreadPtr)
     {
         ret = [[self alloc] initWithConversationThread:tempConversationThreadPtr];
     }
-    return [ret autorelease];
+    return ret;
 }
-
-/*- (id) initWithProfileBundle:(NSString*) profileBundle
-{
-    self = [super init];
-    if (self)
-    {
-        zsLib::XML::ElementPtr elementPtr;
-        if ([profileBundle length] > 0)
-            elementPtr = IXML::createFromString([profileBundle UTF8String]);
-        else
-            elementPtr = zsLib::XML::ElementPtr();
-        
-        conversationThreadPtr = IConversationThread::create([[[HOPProvisioningAccount sharedProvisioningAccount] getOpenPeerAccount] getAccountPtr], elementPtr);
-        if (!conversationThreadPtr)
-        {
-            [self release];
-            return nil;
-        }
-    }
-    return self;
-}*/
 
 - (NSString*) getThreadId
 {
@@ -128,7 +128,8 @@ using namespace hookflash;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer conversation thread pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid conversation thread object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid conversation thread object!"];
     }
     return threadId;
 }
@@ -142,9 +143,15 @@ using namespace hookflash;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer conversation thread pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid conversation thread object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid conversation thread object!"];
     }
     return ret;
+}
+
+- (HOPAccount*) getAssociatedAccount
+{
+    return [HOPAccount sharedAccount];
 }
 
 - (NSArray*) getContacts
@@ -153,26 +160,39 @@ using namespace hookflash;
     if (conversationThreadPtr)
     {
         contactArray = [[NSMutableArray alloc] init];
-        IConversationThread::ContactList contactList;
-        conversationThreadPtr->getContacts(contactList);
+        ContactListPtr contactList = conversationThreadPtr->getContacts();
         
-        for (IConversationThread::ContactList::iterator contact = contactList.begin(); contact != contactList.end(); ++contact)
+        for (ContactList::iterator contact = contactList->begin(); contact != contactList->end(); ++contact)
         {
             IContactPtr contactPtr = *contact;
             if (!contactPtr->isSelf())
             {
-                HOPContact* tempContact = [[OpenPeerStorageManager sharedStorageManager] getContactForId:[NSString stringWithUTF8String:contactPtr->getContactID()]];
+                HOPContact* tempContact = [[OpenPeerStorageManager sharedStorageManager] getContactForPeerURI:[NSString stringWithUTF8String:contactPtr->getPeerURI()]];
+                if (!tempContact)
+                {
+                    IPeerFilePublicPtr publicPtr =  contactPtr->getPeerFilePublic();
+                    if (publicPtr)
+                    {
+                        ElementPtr element = IHelper::convertToElement(publicPtr);
+                        if (element)
+                        {
+                            NSString* pulbicPeer = [NSString stringWithUTF8String:IHelper::convertToString(element)];
+                            if ([pulbicPeer length] > 0)
+                                tempContact = [[HOPContact alloc] initWithPeerFile:pulbicPeer];
+                        }
+                    }
+                }
                 [contactArray addObject:tempContact];
             }
         }
-        
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer conversation thread pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid conversation thread object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid conversation thread object!"];
     }
     
-    return [contactArray autorelease];
+    return contactArray;
 }
 
 - (NSString*) getProfileBundle: (HOPContact*) contact
@@ -180,11 +200,12 @@ using namespace hookflash;
     NSString* ret = nil;
     if (conversationThreadPtr)
     {
-        ret = [NSString stringWithUTF8String:IXML::convertToString(conversationThreadPtr->getProfileBundle([contact getContactPtr]))];
+        ret = [NSString stringWithUTF8String:IHelper::convertToString(conversationThreadPtr->getProfileBundle([contact getContactPtr]))];
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer conversation thread pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid conversation thread object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid conversation thread object!"];
     }
     return ret;
 }
@@ -198,7 +219,8 @@ using namespace hookflash;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer conversation thread pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid conversation thread object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid conversation thread object!"];
     }
     
     return ret;
@@ -210,21 +232,23 @@ using namespace hookflash;
     {
         if ([contacts count] > 0)
         {
-            IConversationThread::ContactInfoList contactList;
+            ContactProfileInfoList contactList;
             for (HOPContact* contact in contacts)
             {
-                hookflash::IConversationThread::ContactInfo contactInfo;
+                ContactProfileInfo contactInfo;
                 contactInfo.mContact = [contact getContactPtr];
                 contactInfo.mProfileBundleEl = zsLib::XML::ElementPtr();
                 
                 contactList.push_back(contactInfo);
             }
+
             conversationThreadPtr->addContacts(contactList);
         }
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer conversation thread pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid conversation thread object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid conversation thread object!"];
     }
 }
 
@@ -234,7 +258,7 @@ using namespace hookflash;
     {
         if ([contacts count] > 0)
         {
-            IConversationThread::ContactList contactList;
+            ContactList contactList;
             for (HOPContact* contact in contacts)
             {
                 contactList.push_back([contact getContactPtr]);
@@ -244,7 +268,8 @@ using namespace hookflash;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer conversation thread pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid conversation thread object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid conversation thread object!"];
     }
 
 }
@@ -257,7 +282,8 @@ using namespace hookflash;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer conversation thread pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid conversation thread object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid conversation thread object!"];
     }
 }
 
@@ -269,7 +295,8 @@ using namespace hookflash;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer conversation thread pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid conversation thread object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid conversation thread object!"];
     }
 }
 
@@ -289,19 +316,19 @@ using namespace hookflash;
         {
             hopMessage = [[HOPMessage alloc] init];
             
-            hopMessage.contact = [[OpenPeerStorageManager sharedStorageManager] getContactForId:[NSString stringWithUTF8String:fromContact->getContactID()]];
+            hopMessage.contact = [[OpenPeerStorageManager sharedStorageManager] getContactForPeerURI:[NSString stringWithUTF8String:fromContact->getPeerURI()]];
             hopMessage.type = [NSString stringWithUTF8String:messageType];
             hopMessage.text = [NSString stringWithUTF8String:message];
             hopMessage.date = [OpenPeerUtility convertPosixTimeToDate:messageTime];
         }
-        
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer conversation thread pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid conversation thread object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid conversation thread object!"];
     }
 
-    return [hopMessage autorelease];
+    return hopMessage;
 }
 - (BOOL) getMessage: (NSString*) messageID outFrom:(HOPContact**) outFrom outMessageType:(NSString**) outMessageType outMessage:(NSString**) outMessage outTime:(NSDate**) outTime
 {
@@ -317,7 +344,7 @@ using namespace hookflash;
         
         if (fromContact && messageType && message)
         {
-            *outFrom = [[OpenPeerStorageManager sharedStorageManager] getContactForId:[NSString stringWithUTF8String:fromContact->getContactID()]];
+            *outFrom = [[OpenPeerStorageManager sharedStorageManager] getContactForPeerURI:[NSString stringWithUTF8String:fromContact->getPeerURI()]];
             *outMessageType = [NSString stringWithUTF8String:messageType];
             *outMessage = [NSString stringWithUTF8String:message];
             *outTime = [OpenPeerUtility convertPosixTimeToDate:messageTime];
@@ -327,7 +354,8 @@ using namespace hookflash;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer conversation thread pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid conversation thread object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid conversation thread object!"];
     }
     return ret;
 }
@@ -335,7 +363,7 @@ using namespace hookflash;
 - (BOOL) getMessageDeliveryState: (NSString*) messageID outDeliveryState:(HOPConversationThreadMessageDeliveryStates*) outDeliveryState
 {
     BOOL ret = NO;
-    hookflash::IConversationThread::MessageDeliveryStates tmpState;
+    IConversationThread::MessageDeliveryStates tmpState;
 
     if(conversationThreadPtr)
     {
@@ -347,14 +375,28 @@ using namespace hookflash;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer conversation thread pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid conversation thread object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid conversation thread object!"];
     }
     return ret;
+}
+
+- (NSString *)description
+{
+    return [NSString stringWithUTF8String: IConversationThread::toDebugString([self getConversationThreadPtr],NO)];
 }
 
 #pragma mark - Internal methods
 - (IConversationThreadPtr) getConversationThreadPtr
 {
     return conversationThreadPtr;
+}
+
+- (String) log:(NSString*) message
+{
+    if (conversationThreadPtr)
+        return String("HOPConversationThread [") + string(conversationThreadPtr->getID()) + "] " + [message UTF8String];
+    else
+        return String("HOPConversationThread: ") + [message UTF8String];
 }
 @end

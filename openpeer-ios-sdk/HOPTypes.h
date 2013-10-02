@@ -90,106 +90,49 @@ typedef enum
 typedef enum 
 {
     HOPAccountStatePending,
+    HOPAccountPendingPeerFilesGeneration,
+    HOPAccountWaitingForAssociationToIdentity,
+    HOPAccountWaitingForBrowserWindowToBeLoaded,
+    HOPAccountWaitingForBrowserWindowToBeMadeVisible,
+    HOPAccountWaitingForBrowserWindowToClose,
     HOPAccountStateReady,
     HOPAccountStateShuttingDown,
     HOPAccountStateShutdown,
 } HOPAccountStates;
 
-/**
- Enumerator to represent the openpeer account errors.
- */
-//typedef enum 
-//{
-//    HOPAccountErrorNone,
-//    
-//    HOPAccountErrorInternalError,
-//    
-//    HOPAccountErrorBootstrappedNetworkFailed,
-//    HOPAccountErrorStackFailed,
-//    HOPAccountErrorCallTransportFailed,
-//} HOPAccountErrors;
-
-#pragma mark - HOPProvisioningAccount enums
-typedef enum 
-{
-    HOPProvisioningAccountStateNone,
-    HOPProvisioningAccountStatePending,
-    HOPProvisioningAccountStatePendingAuthorizationPIN,
-    HOPProvisioningAccountStatePendingOAuthLogin,
-    HOPProvisioningAccountStateReady,
-    HOPProvisioningAccountStateShuttingDown,
-    HOPProvisioningAccountStateShutdown
-} HOPProvisioningAccountStates;
-
-typedef enum 
-{
-    HOPProvisioningAccountErrorCodeNone,
-    HOPProvisioningAccountErrorCodeServerCommunicationError,
-    HOPProvisioningAccountErrorCodePasswordFailure,
-    HOPProvisioningAccountErrorCodeOAuthFailure,
-    HOPProvisioningAccountErrorCodeOAuthUserRejection,
-    HOPProvisioningAccountErrorCodeAuthorizationPINIncorrect,
-    HOPProvisioningAccountErrorCodeAuthorizationPINTooManyAttempts,
-    HOPProvisioningAccountErrorCodeAuthorizationPINTooManyAttemptsTryAgainLater,
-    HOPProvisioningAccountErrorCodeOpenPeerAccountFailure,
-    HOPProvisioningAccountErrorCodeInternalFailure,
-    //openpeer account enums
-    HOPProvisioningAccountErrorCodeBootstrappedNetworkFailed,
-    HOPProvisioningAccountErrorCodeStackFailed,
-    HOPProvisioningAccountErrorCodeCallTransportFailed,
-} HOPProvisioningAccountErrorCodes;
-
-typedef enum 
-{
-    HOPProvisioningAccountIdentityValidationStateNone,
-    
-    HOPProvisioningAccountIdentityValidationStateOptional,
-    HOPProvisioningAccountIdentityValidationStateRequired,
-    HOPProvisioningAccountIdentityValidationStatePending,
-    HOPProvisioningAccountIdentityValidationStateCompleted
-} HOPProvisioningAccountIdentityValidationStates;
-
-typedef enum 
-{
-    HOPProvisioningAccountIdentityValidationResultCodeSuccess,
-    HOPProvisioningAccountIdentityValidationResultCodeServerCommunicationError,
-    HOPProvisioningAccountIdentityValidationResultCodePINIncorrectTryAgain,
-    HOPProvisioningAccountIdentityValidationResultCodePINIncorrectTooManyTimes,
-    HOPProvisioningAccountIdentityValidationResultCodeTooManyPINFailuresTryAgainLater
-} HOPProvisioningAccountIdentityValidationResultCode;
-
+#pragma mark - HOPIdentity enums
 typedef enum
 {
-    HOPProvisioningAccountIdentityTypeNone,
-    
-    HOPProvisioningAccountIdentityTypeEmail,
-    HOPProvisioningAccountIdentityTypePhoneNumber,
-    HOPProvisioningAccountIdentityTypeLinkedInID,
-    HOPProvisioningAccountIdentityTypeFacebookID,
-    HOPProvisioningAccountIdentityTypeFacebookUsername,
-    HOPProvisioningAccountIdentityTypeTwitterID,
-    HOPProvisioningAccountIdentityTypeTwitterUsername,
-    
-    HOPProvisioningAccountIdentityTypeAddressBook
-} HOPProvisioningAccountIdentityTypes;
+    HOPIdentityStatePending,
+    HOPIdentityStatePendingAssociation,
+    HOPIdentityStateWaitingAttachmentOfDelegate,
+    HOPIdentityStateWaitingForBrowserWindowToBeLoaded,
+    HOPIdentityStateWaitingForBrowserWindowToBeMadeVisible,
+    HOPIdentityStateWaitingForBrowserWindowToClose,
+    HOPIdentityStateReady,
+    HOPIdentityStateShutdown
+} HOPIdentityStates;
+
 
 #pragma mark - HOPClientLog enums
 typedef enum
 {
-    HOPClientLogSeverityInformational,
-    HOPClientLogSeverityWarning,
-    HOPClientLogSeverityError,
-    HOPClientLogSeverityFatal
-} HOPClientLogSeverities;
+    HOPLoggerSeverityInformational,
+    HOPLoggerSeverityWarning,
+    HOPLoggerSeverityError,
+    HOPLoggerSeverityFatal
+} HOPLoggerSeverities; //Replacing HOPClientLogSeverities
 
 typedef enum
 {
-    HOPClientLogLevelNone,
-    HOPClientLogLevelBasic,
-    HOPClientLogLevelDetail,
-    HOPClientLogLevelDebug,
-    HOPClientLogLevelTrace
-} HOPClientLogLevels;
+    HOPLoggerLevelNone,
+    HOPLoggerLevelBasic,
+    HOPLoggerLevelDetail,
+    HOPLoggerLevelDebug,
+    HOPLoggerLevelTrace,
+    
+    HOPLoggerTotalNumberOfLevels
+} HOPLoggerLevels; //Replacing HOPClientLogSeverities
 
 #pragma mark - Client enums
 typedef enum 

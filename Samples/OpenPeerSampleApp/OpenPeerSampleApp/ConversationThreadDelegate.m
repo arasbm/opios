@@ -32,34 +32,30 @@
 #import "ConversationThreadDelegate.h"
 #import "SessionManager.h"
 #import "ContactsManager.h"
+#import "MessageManager.h"
+
 #import <OpenpeerSDK/HOPConversationThread.h>
 #import <OpenpeerSDK/HOPContact.h>
+#import <OpenpeerSDK/HOPRolodexContact.h>
 
 @implementation ConversationThreadDelegate
 
 - (void) onConversationThreadNew:(HOPConversationThread*) conversationThread
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
+    NSLog(@"onConversationThreadNew");
+    dispatch_async(dispatch_get_main_queue(), ^
+    {
         if (conversationThread)
         {
-            NSMutableArray* contacts = [[NSMutableArray alloc] init];
             NSArray* participants = [conversationThread getContacts];
-            for (HOPContact* hopContact in participants)
+            
+            if ([participants count] > 0)
             {
-                if (![hopContact isSelf])
+                if (![[SessionManager sharedSessionManager] proceedWithExistingSessionForContact:[participants objectAtIndex:0] newConversationThread:conversationThread])
                 {
-                    //In case profile bundle is required you can get it this way
-                    NSString* profile = [conversationThread getProfileBundle:hopContact];
-                    //Here you can parse element to identifier contact who initiated communication. This is necessary in case contact is in the list, but it is not marked as openpeer user.
-                    Contact* contact = [[ContactsManager sharedContactsManager] getContactForIdentities:[hopContact getIdentities]];
-                    
-                    if (contact)
-                        [contacts addObject:contact];
-                    
+                    [[SessionManager sharedSessionManager] createSessionForContacts:participants andConversationThread:conversationThread];
                 }
             }
-            
-            [[SessionManager sharedSessionManager] createSessionForContacts:contacts andConversationThread:conversationThread];
         }
     });
 }
@@ -75,16 +71,18 @@
 }
 - (void) onConversationThreadMessage:(HOPConversationThread*) conversationThread messageID:(NSString*) messageID
 {
+    NSLog(@"onConversationThreadMessage");
     dispatch_async(dispatch_get_main_queue(), ^{
         HOPMessage* message = [conversationThread getMessageForID:messageID];
         if (message)
         {
-            [[SessionManager sharedSessionManager] onMessageReceived:message forSessionId:[conversationThread getThreadId]];
+            [[MessageManager sharedMessageManager] onMessageReceived:message forSessionId:[conversationThread getThreadId]];
         }
     });
 }
 - (void) onConversationThreadMessageDeliveryStateChanged:(HOPConversationThread*) conversationThread messageID:(NSString*) messageID messageDeliveryStates:(HOPConversationThreadMessageDeliveryStates) messageDeliveryStates
 {
+    NSLog(@"onConversationThreadMessageDeliveryStateChanged: %d",messageDeliveryStates);
     dispatch_async(dispatch_get_main_queue(), ^{
     });
 }

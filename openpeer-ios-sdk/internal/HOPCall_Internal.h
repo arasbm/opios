@@ -31,9 +31,10 @@
 
 
 #import "HOPCall.h"
-#import <hookflash/hookflashTypes.h>
+#import <openpeer/core/types.h>
 
-using namespace hookflash;
+using namespace openpeer;
+using namespace openpeer::core;
 
 @interface HOPCall ()
 {
@@ -43,4 +44,5 @@ using namespace hookflash;
 - (id) initWithCallPtr:(ICallPtr) inCallPtr;
 - (ICallPtr) getCallPtr;
 
+- (String) log:(NSString*) message;
 @end

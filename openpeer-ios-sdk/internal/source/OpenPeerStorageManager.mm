@@ -47,7 +47,7 @@
     static dispatch_once_t pred = 0;
     __strong static id _sharedObject = nil;
     dispatch_once(&pred, ^{
-        _sharedObject = [[self alloc] init]; // or some other init method
+        _sharedObject = [[self alloc] init];
         if (_sharedObject)
             [_sharedObject initSingleton];
     });
@@ -60,16 +60,9 @@
     _dictionaryContacts = [[NSMutableDictionary alloc] init];
     _dictionaryContactsWithUserId = [[NSMutableDictionary alloc] init];
     _dictionaryConversationThreads = [[NSMutableDictionary alloc] init];
-}
-
-
-- (void)dealloc
-{
-    [_dictionaryCalls release];
-    [_dictionaryContacts release];
-    [_dictionaryContactsWithUserId release];
-    
-    [super dealloc];
+    _dictionaryIdentities = [[NSMutableDictionary alloc] init];
+    _dictionaryIdentityLookups = [[NSMutableDictionary alloc] init];
+    _dictionaryContactPeerFilePublicLookup = [[NSMutableDictionary alloc] init];
 }
 
 
@@ -96,36 +89,26 @@
     return conversationThread;
 }
 
+- (NSArray*) getConversationThreads
+{
+    return [_dictionaryConversationThreads allValues];
+}
 - (void) setConversationThread:(HOPConversationThread*) conversationThread forId:(NSString*) threadId
 {
     [_dictionaryConversationThreads setObject:conversationThread forKey:threadId];
 }
 
-- (HOPContact*) getContactForId:(NSString*) contactId
+- (HOPContact*) getContactForPeerURI:(NSString*) peerURI
 {
     HOPContact* contact = nil;
     
-    contact = [_dictionaryContacts objectForKey:contactId];
+    contact = [_dictionaryContacts objectForKey:peerURI];
     
     return contact;
 }
-- (void) setContact:(HOPContact*) contact forId:(NSString*) contactId
+- (void) setContact:(HOPContact*) contact forPeerURI:(NSString*) peerURI
 {
-    [_dictionaryContacts setObject:contact forKey:contactId];
-}
-
-- (HOPContact*) getContactForUserId:(NSString*) userId
-{
-    HOPContact* contact = nil;
-    
-    contact = [_dictionaryContactsWithUserId objectForKey:userId];
-    
-    return contact;
-}
-- (void) setContact:(HOPContact*) contact withContactId:(NSString*) contactId andUserId:(NSString*) userId
-{
-    [self setContact:contact forId:contactId];
-    [_dictionaryContactsWithUserId setObject:contact forKey:userId];
+    [_dictionaryContacts setObject:contact forKey:peerURI];
 }
 
 
@@ -141,6 +124,33 @@
 - (void) setCProvisioningAccount:(HOPProvisioningAccount*) account forUserId:(NSString*) userId
 {
     [_dictionaryProvisioningAccount setObject:account forKey:userId];
+}
+
+- (HOPIdentity*) getIdentityForId:(NSString*) identityId
+{
+    HOPIdentity* identity = nil;
+    
+    identity = [_dictionaryIdentities objectForKey:identityId];
+    
+    return identity;
+}
+- (NSArray*) getIdentities
+{
+    return [_dictionaryIdentities allValues];
+}
+
+- (void) setIdentity:(HOPIdentity*) identity forId:(NSString*) identityId
+{
+    [_dictionaryIdentities setObject:identity forKey:identityId];
+}
+
+- (HOPIdentityLookup*) getIdentityLookupForPUID:(PUID) puid
+{
+    return [_dictionaryIdentityLookups objectForKey:[NSNumber numberWithInt:puid]];
+}
+- (void) setIdentityLookup:(HOPIdentityLookup*) lookup forPUID:(PUID) puid
+{
+    [_dictionaryIdentityLookups setObject:lookup forKey:[NSNumber numberWithInt:puid]];
 }
 
 @end

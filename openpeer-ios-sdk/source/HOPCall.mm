@@ -30,49 +30,28 @@
  */
 
 
-#import <hookflash/ICall.h>
-#import <hookflash/IConversationThread.h>
-#import <hookflash/IContact.h>
+#import <openpeer/core/ICall.h>
+#import <openpeer/core/IConversationThread.h>
+#import <openpeer/core/IContact.h>
 
 #import "HOPCall_Internal.h"
 #import "OpenPeerUtility.h"
 #import "HOPConversationThread_Internal.h"
 #import "HOPContact_Internal.h"
+#import "HOPRolodexContact_Internal.h"
 #import "OpenPeerStorageManager.h"
-#import "HOPProvisioningAccount_Internal.h"
 
 #import "HOPCall.h"
+#import "HOPContact.h"
+#import "HOPModelManager.h"
 
+ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
 
-
-using namespace hookflash;
+using namespace openpeer;
+using namespace openpeer::core;
 
 @implementation HOPCall
 
-/*- (id) initCall:(HOPConversationThread*) conversationThread toContact:(HOPContact*) toContact includeAudio:(BOOL) includeAudio includeVideo:(BOOL) includeVideo
-{
-    self = [super init];
-    if (self)
-    {
-        if (conversationThread != nil && toContact != nil)
-        {
-            callPtr = ICall::placeCall([conversationThread getConversationThreadPtr], [toContact getContactPtr], includeAudio, includeVideo);
-        }
-        else
-        {
-            [NSException raise:NSInvalidArgumentException format:@"Invalid input arguments"];
-        }
-    }
-    
-    return self;
-}*/
-
-- (id)init
-{
-    [self release];
-    [NSException raise:NSInvalidArgumentException format:@"Don't use init for object creation. Use class method placeCall."];
-    return nil;
-}
 
 - (id) initWithCallPtr:(ICallPtr) inCallPtr
 {
@@ -89,25 +68,39 @@ using namespace hookflash;
     HOPCall* ret = nil;
     if (conversationThread != nil && toContact != nil)
     {
+        //Create the core call object and start placing call procedure
         ICallPtr tempCallPtr = ICall::placeCall([conversationThread getConversationThreadPtr], [toContact getContactPtr], includeAudio, includeVideo);
         
         if (tempCallPtr)
         {
+            //If core call object is create, create HOPCall object
             ret = [[self alloc] initWithCallPtr:tempCallPtr];
             [[OpenPeerStorageManager sharedStorageManager] setCall:ret forId:[NSString stringWithUTF8String:tempCallPtr->getCallID()]];
         }
+        else
+        {
+            ZS_LOG_ERROR(Debug, "Call object is not created!");
+        }
     }
-    return [ret autorelease];
+    return ret;
 }
 
 + (NSString*) stateToString: (HOPCallStates) state
 {
-    return [NSString stringWithUTF8String: ICall::toString((hookflash::ICall::CallStates) state)];
+    return [NSString stringWithUTF8String: ICall::toString((ICall::CallStates) state)];
+}
++ (NSString*) stringForCallState:(HOPCallStates) state
+{
+    return [NSString stringWithUTF8String: ICall::toString((ICall::CallStates) state)];
 }
 
 + (NSString*) reasonToString: (HOPCallClosedReasons) reason
 {
-    return [NSString stringWithUTF8String: ICall::toString((hookflash::ICall::CallClosedReasons) reason)];
+    return [NSString stringWithUTF8String: ICall::toString((ICall::CallClosedReasons) reason)];
+}
++ (NSString*) stringForClosingReason:(HOPCallClosedReasons) reason
+{
+    return [NSString stringWithUTF8String: ICall::toString((ICall::CallClosedReasons) reason)];
 }
 
 - (NSString*) getCallID
@@ -119,7 +112,8 @@ using namespace hookflash;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call pointer!"];
     }
     return callId;
 }
@@ -134,10 +128,15 @@ using namespace hookflash;
         {
             hopConversationThread = [[OpenPeerStorageManager sharedStorageManager] getConversationThreadForId:[NSString stringWithUTF8String:conversationThreaPtr->getThreadID()]];
         }
+        else
+        {
+            ZS_LOG_ERROR(Debug, [self log:@"Invalid conversation thread object!"]);
+        }
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call pointer!"];
     }
     
     return hopConversationThread;
@@ -145,48 +144,50 @@ using namespace hookflash;
 
 - (HOPContact*) getCaller
 {
-    HOPContact* hopContact = nil;
+    HOPContact* ret = nil;
     if(callPtr)
     {
         IContactPtr contactPtr = callPtr->getCaller();
         if (contactPtr)
         {
-            NSString* contactID = [NSString stringWithUTF8String:contactPtr->getContactID()];
-            hopContact = [[OpenPeerStorageManager sharedStorageManager] getContactForId:contactID];
-            if (!hopContact)
-            {
-                hopContact = [[[[HOPProvisioningAccount sharedProvisioningAccount] getSelfContact] getContactID] isEqualToString:contactID] ? [[HOPProvisioningAccount sharedProvisioningAccount] getSelfContact] : nil;
-            }
+            NSString* peerURI = [NSString stringWithUTF8String:contactPtr->getPeerURI()];
+            ret = [[OpenPeerStorageManager sharedStorageManager] getContactForPeerURI:peerURI];
+        }
+        else
+        {
+            ZS_LOG_ERROR(Debug, [self log:@"Invalid caller contact object!"]);
         }
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call object!"];
     }
-    return hopContact;
+    return ret;
 }
 
 - (HOPContact*) getCallee
 {
-    HOPContact* hopContact = nil;
+    HOPContact* ret = nil;
     if(callPtr)
     {
         IContactPtr contactPtr = callPtr->getCallee();
         if (contactPtr)
         {
-            NSString* contactID = [NSString stringWithUTF8String:contactPtr->getContactID()];
-            hopContact = [[OpenPeerStorageManager sharedStorageManager] getContactForId:contactID];
-            if (!hopContact)
-            {
-                hopContact = [[[[HOPProvisioningAccount sharedProvisioningAccount] getSelfContact] getContactID] isEqualToString:contactID] ? [[HOPProvisioningAccount sharedProvisioningAccount] getSelfContact] : nil;
-            }
+            NSString* peerURI = [NSString stringWithUTF8String:contactPtr->getPeerURI()];
+            ret = [[OpenPeerStorageManager sharedStorageManager] getContactForPeerURI:peerURI];
+        }
+        else
+        {
+            ZS_LOG_ERROR(Debug, [self log:@"Invalid callee contact object!"]);
         }
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call object!"];
     }
-    return hopContact;
+    return ret;
 }
 
 - (BOOL) hasAudio
@@ -198,7 +199,8 @@ using namespace hookflash;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call object!"];
     }
     
     return ret;
@@ -213,7 +215,8 @@ using namespace hookflash;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call object!"];
     }
     
     return ret;
@@ -228,7 +231,8 @@ using namespace hookflash;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call object!"];
     }
     
     return hopCallStates;
@@ -244,7 +248,8 @@ using namespace hookflash;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call object!"];
     }
     
     return hopCallClosedReasons;
@@ -261,7 +266,8 @@ using namespace hookflash;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call object!"];
     }
     return date;
 }
@@ -276,7 +282,8 @@ using namespace hookflash;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call object!"];
     }
     return date;
 }
@@ -291,7 +298,8 @@ using namespace hookflash;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call object!"];
     }
     return date;
 }
@@ -307,7 +315,8 @@ using namespace hookflash;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call object!"];
     }
     return date;
 }
@@ -320,7 +329,8 @@ using namespace hookflash;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call object!"];
     }
 }
 
@@ -332,7 +342,8 @@ using namespace hookflash;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call object!"];
     }
 }
 
@@ -345,7 +356,8 @@ using namespace hookflash;
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call object!"];
     }
 }
 
@@ -354,17 +366,31 @@ using namespace hookflash;
 {
     if(callPtr)
     {
-        callPtr->hangup((hookflash::ICall::CallClosedReasons)reason);
+        callPtr->hangup((ICall::CallClosedReasons)reason);
     }
     else
     {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer call pointer!"];
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid call object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid call object!"];
     }
+}
+
+-(NSString *)description
+{
+    return [NSString stringWithUTF8String: ICall::toDebugString([self getCallPtr],NO)];
 }
 
 #pragma mark - Internal methods
 - (ICallPtr) getCallPtr
 {
     return callPtr;
+}
+
+- (String) log:(NSString*) message
+{
+    if (callPtr)
+        return String("HOPCall [") + string(callPtr->getID()) + "] " + [message UTF8String];
+    else
+        return String("HOPCall: ") + [message UTF8String];
 }
 @end

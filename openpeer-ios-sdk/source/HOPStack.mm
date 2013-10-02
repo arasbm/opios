@@ -30,13 +30,16 @@
  */
 
 
-#import <hookflash/IStack.h>
+#import <openpeer/core/IStack.h>
+#import <zsLib/Log.h>
 
 #import "HOPStack_Internal.h"
 #import "OpenPeerStorageManager.h"
+#import "OpenPeerUtility.h"
 
 #import "HOPStack.h"
 
+ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
 
 @implementation HOPStack
 
@@ -45,168 +48,79 @@
     static dispatch_once_t pred = 0;
     __strong static id _sharedObject = nil;
     dispatch_once(&pred, ^{
-        _sharedObject = [[self alloc] init]; // or some other init method
+        _sharedObject = [[self alloc] init];
     });
     return _sharedObject;
 }
 
-- (BOOL) initStackDelegate:(id<HOPStackDelegate>) stackDelegate mediaEngineDelegate:(id<HOPMediaEngineDelegate>) mediaEngineDelegate conversationThreadDelegate:(id<HOPConversationThreadDelegate>) conversationThreadDelegate callDelegate:(id<HOPCallDelegate>) callDelegate userAgent:(NSString*) userAgent deviceOs:(NSString*) deviceOs platform:(NSString*) platform
+- (void) setupWithStackDelegate:(id<HOPStackDelegate>) stackDelegate mediaEngineDelegate:(id<HOPMediaEngineDelegate>) mediaEngineDelegate appID:(NSString*) appID appName:(NSString*) appName appImageURL:(NSString*) appImageURL appURL:(NSString*) appURL userAgent:(NSString*) userAgent deviceID:(NSString*) deviceID deviceOs:(NSString*) deviceOs system:(NSString*) system
 {
-    BOOL initiated = NO;
-    
     //Check if delegates are nil
-    if (!stackDelegate || !mediaEngineDelegate || !conversationThreadDelegate || !callDelegate)
-        return initiated;
-    
-    //Check if other arguments are valid
-    if ( ([userAgent length] == 0 ) || ([deviceOs length] == 0 ) || ([platform length] == 0 ) )
-        return initiated;
-    
-    //Create delegates wrappers and init them with delegates created by user
-    BOOL delegatesCreated = [self createLocalDelegates:stackDelegate mediaEngineDelegate:mediaEngineDelegate conversationThreadDelegate:conversationThreadDelegate callDelegate:callDelegate];
-    
-    if (delegatesCreated)
+    if (!stackDelegate || !mediaEngineDelegate)
     {
-        //Create client
-        IClient::setup();
-        clientPtr = IClient::singleton();
-        
-        //Create stack
-        stackPtr = IStack::create(openPeerStackDelegatePtr,openPeerMediaEngineDelegatePtr,openPeerConversationThreadDelegatePtr,openPeerCallDelegatePtr, [@"ID" UTF8String], [userAgent UTF8String], [deviceOs UTF8String], [platform UTF8String]);
-        
-        if (stackPtr && clientPtr)
-            initiated = YES;
+        ZS_LOG_ERROR(Debug, [self log:@"Passed invalid delegate."]);
+        [NSException raise:NSInvalidArgumentException format:@"Passed invalid delegate!"];
     }
     
-    return initiated;
+    //Check if other parameters are valid
+    if ( ([userAgent length] == 0 ) || ([deviceOs length] == 0 ) || ([system length] == 0 ) || ([deviceID length] == 0))
+    {
+        ZS_LOG_ERROR(Debug, [self log:@"Passed invalid system information."]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid system information!"];
+    }
+    
+    [self createLocalDelegates:stackDelegate mediaEngineDelegate:mediaEngineDelegate];
+    
+    IStack::singleton()->setup(openPeerStackDelegatePtr, openPeerMediaEngineDelegatePtr, [appID UTF8String], [appName UTF8String], [appImageURL UTF8String], [appURL UTF8String], [userAgent UTF8String], [deviceID UTF8String], [deviceOs UTF8String], [system UTF8String]);
 }
 
 - (void) shutdown
 {
-    stackPtr->startShutdown();
-    clientPtr->finalizeShutdown();
+    IStack::singleton()->shutdown();
     [self deleteLocalDelegates];
 }
 
-- (BOOL) createLocalDelegates:(id<HOPStackDelegate>) stackDelegate mediaEngineDelegate:(id<HOPMediaEngineDelegate>) mediaEngineDelegate conversationThreadDelegate:(id<HOPConversationThreadDelegate>) conversationThreadDelegate callDelegate:(id<HOPCallDelegate>) callDelegate
+#warning "createAuthorizedApplicationID SHOULD BE USED ONLY DURING DEVELOPMENT. AN AUTHORIZED APPLICATION ID SHOULD BE GENERATED FROM  A SERVER AND GIVEN TO THE APPLICATION."
++ (NSString*) createAuthorizedApplicationID:(NSString*) applicationID applicationIDSharedSecret:(NSString*) applicationIDSharedSecret expires:(NSDate*) expires
+{
+    NSString* ret = nil;
+    
+    NSLog(@"!!!!!!!!!!!!!!!!!!!! WARNING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!/n THIS SHOULD BE USED ONLY DURING DEVELOPMENT. AN AUTHORIZED APPLICATION ID SHOULD BE GENERATED FROM  A SERVER AND GIVEN TO THE APPLICATION");
+    
+    if ([applicationID length] > 0 && [applicationIDSharedSecret length] > 0)
+    {
+        String authorizedApplicationID = IStack::createAuthorizedApplicationID([applicationID UTF8String], [applicationIDSharedSecret UTF8String], boost::posix_time::from_time_t([expires timeIntervalSince1970]));
+        if (authorizedApplicationID)
+        {
+            ret = [NSString stringWithUTF8String:authorizedApplicationID];
+        }
+    }
+    
+    return ret;
+}
+
+#pragma mark - Internal methods
+- (void) createLocalDelegates:(id<HOPStackDelegate>) stackDelegate mediaEngineDelegate:(id<HOPMediaEngineDelegate>) mediaEngineDelegate 
 {
     openPeerStackDelegatePtr = OpenPeerStackDelegate::create(stackDelegate);
-    openPeerCallDelegatePtr = OpenPeerCallDelegate::create(callDelegate);
-    openPeerConversationThreadDelegatePtr = OpenPeerConversationThreadDelegate::create(conversationThreadDelegate);
     openPeerMediaEngineDelegatePtr = OpenPeerMediaEngineDelegate::create(mediaEngineDelegate);
-    
-    return YES;
 }
 
 - (void) deleteLocalDelegates
 {
     openPeerStackDelegatePtr.reset();
     openPeerMediaEngineDelegatePtr.reset();
-    openPeerConversationThreadDelegatePtr.reset();
-    openPeerCallDelegatePtr.reset();
-}
-
-#pragma mark - IClient methods wrapper
-
-+ (void) setup
-{
-    IClient::setup();
-}
-
-- (void) processMessagePutInGUIQueue
-{
-    if(clientPtr)
-    {
-        clientPtr->processMessagePutInGUIQueue();
-    }
-    else
-    {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer client pointer!"];
-    }
-}
-
-- (void) finalizeShutdown
-{
-    if(clientPtr)
-    {
-        clientPtr->finalizeShutdown();
-    }
-    else
-    {
-        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer client pointer!"];
-    }
-}
-
-+ (void) installStdOutLogger: (BOOL) colorizeOutput
-{
-    IClient::installStdOutLogger(colorizeOutput);
-}
-
-+ (void) installFileLogger: (NSString*) filename colorizeOutput: (BOOL) colorizeOutput
-{
-    IClient::installFileLogger([filename UTF8String], colorizeOutput);
-}
-
-+ (void) installTelnetLogger: (unsigned short) listenPort maxSecondsWaitForSocketToBeAvailable:(unsigned long) maxSecondsWaitForSocketToBeAvailable colorizeOutput: (BOOL) colorizeOutput
-{
-    IClient::installTelnetLogger(listenPort, maxSecondsWaitForSocketToBeAvailable, colorizeOutput);
-}
-
-+ (void) installOutgoingTelnetLogger: (NSString*) serverToConnect colorizeOutput: (BOOL) colorizeOutput stringToSendUponConnection: (NSString*) stringToSendUponConnection
-{
-    IClient::installOutgoingTelnetLogger([serverToConnect UTF8String], colorizeOutput);
-}
-
-+ (void) installWindowsDebuggerLogger
-{
-    IClient::installWindowsDebuggerLogger();
-}
-
-+ (void) installCustomLogger: (id<HOPStackDelegate>) delegate
-{
-    IClient::installCustomLogger();
-}
-
-+ (unsigned int) getGUISubsystemUniqueID
-{
-    return IClient::getGUISubsystemUniqueID();
-}
-
-+ (HOPClientLogLevels) getLogLevel: (unsigned int) subsystemUniqueID
-{
-    return (HOPClientLogLevels) IClient::getLogLevel(subsystemUniqueID);
-}
-
-+ (void) setLogLevel: (HOPClientLogLevels) level
-{
-    IClient::setLogLevel((IClient::Log::Level) level);
-}
-
-+ (void) setLogLevelByID: (unsigned long) subsystemUniqueID level: (HOPClientLogLevels) level
-{
-    IClient::setLogLevel((zsLib::PTRNUMBER)subsystemUniqueID, (IClient::Log::Level) level);
-}
-
-+ (void) setLogLevelbyName: (NSString*) subsystemName level: (HOPClientLogLevels) level
-{
-    IClient::setLogLevel([subsystemName UTF8String], (IClient::Log::Level) level);
-}
-
-+ (void) log: (unsigned int) subsystemUniqueID severity: (HOPClientLogSeverities) severity level: (HOPClientLogLevels) level message: (NSString*) message function: (NSString*) function filePath: (NSString*) filePath lineNumber: (unsigned long) lineNumber
-{
-    IClient::log((zsLib::PTRNUMBER) subsystemUniqueID, (IClient::Log::Severity) severity, (IClient::Log::Level) level, [message UTF8String], [function UTF8String], [filePath UTF8String], lineNumber);
 }
 
 
-#pragma mark - Internal methods
 - (IStackPtr) getStackPtr
 {
-    return stackPtr;
+    return IStack::singleton();
 }
 
-- (IClientPtr) getClientPtr
+- (String) log:(NSString*) message
 {
-    return clientPtr;
+    return String("HOPStack: ") + [message UTF8String];
 }
 @end
 

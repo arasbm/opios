@@ -31,6 +31,41 @@
 
 
 #import "OpenPeerUtility.h"
+#import <zsLib/Log.h>
+#include <zsLib/helpers.h>
+
+ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
+
+void OpenPeerLog(HOPLoggerLevels logLevel, NSString* format,...)
+{
+    va_list argumentList;
+    va_start(argumentList, format);
+    NSString *fullString = [[NSString alloc] initWithFormat:format arguments:argumentList];
+    va_end(argumentList);
+    
+    switch (logLevel)
+    {
+        case HOPLoggerLevelBasic:
+            ZS_LOG_BASIC(zsLib::String("SDK: ") + [fullString UTF8String]);
+            break;
+            
+        case HOPLoggerLevelDetail:
+            ZS_LOG_DETAIL(zsLib::String("SDK: ") + [fullString UTF8String]);
+            break;
+            
+        case HOPLoggerLevelDebug:
+            ZS_LOG_DEBUG(zsLib::String("SDK: ") + [fullString UTF8String]);
+            break;
+            
+        case HOPLoggerLevelTrace:
+            ZS_LOG_TRACE(zsLib::String("SDK: ") + [fullString UTF8String]);
+            break;
+        
+        case HOPLoggerLevelNone:
+        default:
+            break;
+    }
+}
 
 @implementation OpenPeerUtility
 
@@ -39,5 +74,51 @@
     boost::posix_time::ptime epoch(boost::gregorian::date(1970,1,1) );
     const boost::posix_time::time_duration::sec_type x((time - epoch).total_seconds() );
     return[NSDate dateWithTimeIntervalSince1970:x];
+}
+
++ (NSString*) getBaseIdentityURIFromURI:(NSString*) identityURI
+{
+    NSString* ret = @"";
+    NSArray* identityParts = [identityURI componentsSeparatedByString:@"/"];
+    if ([identityParts count] > 3)
+    {
+        int maxCount = [identityParts count] - 1;
+        for (int i = 0; i < maxCount; i++)
+        {
+            ret = [ret stringByAppendingFormat:@"%@/",[identityParts objectAtIndex:i]];
+        }
+    }
+    return ret;
+}
+
++ (NSString*) getContactIdFromURI:(NSString*) identityURI
+{
+    {
+        NSString* ret = @"";
+        NSArray* identityParts = [identityURI componentsSeparatedByString:@"/"];
+        if ([identityParts count] > 3)
+        {
+            int index = [identityParts count] - 1;
+            ret = [identityParts objectAtIndex:index];
+        }
+        return ret;
+    }
+}
+
++ (BOOL) isBaseIdentityURI:(NSString*) identityURI
+{
+    BOOL ret = YES;
+    NSArray* identityParts = [identityURI componentsSeparatedByString:@"/"];
+    if ([identityParts count] > 3)
+    {
+        int index = [identityParts count] - 1;
+        ret = [[identityParts objectAtIndex:index] length] == 0;
+    }
+    return ret;
+}
+
+static void OpenPeerLog(NSString* format,...)
+{
+    
 }
 @end

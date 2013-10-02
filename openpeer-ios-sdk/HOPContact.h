@@ -37,35 +37,20 @@
 
 @interface HOPContact : NSObject
 
+- (id) init __attribute__((unavailable("Don't use init for HOPContact object creation. Use class method contactWithPeerFile.")));
 
 /**
- Contact initialization method
- @param publicPeerFile NSString Public peer file of the contact that will be created (self or remote)
- @returns Ponter to the created contact object
- */
-//+ (id) contactWithPeerFile:(NSString*) publicPeerFile userId:(NSString*) inUserId contactId:(NSString*) inContactId;
-
-/**
- Contact init method used for creating HOPContact object when contact data (userId, contactId and peerFile) are stored locally
+ Contact initializer used when the contact's data (stableUniqueId and peerFile) are stored locally
  @param publicPeerFile NSString Public peer file of the contact that will be created (self or remote). This is passed if peer file is sored locally. Otherwise it is nil
- @param inUserId user Id string stored locally (initialy is received for identity lookup). This argument is mandatory.
- @param inContactId contact Id string stored locally (initialy is received for identity lookup). This argument is mandatory.
  @returns Ponter to the created contact object
  */
-- (id) initWithPeerFile:(NSString*) publicPeerFile userId:(NSString*) inUserId contactId:(NSString*) inContactId;
-
-
-/**
- Retrieves contact ID from the contact object
- @returns NSString representation of contact ID
- */
-- (NSString*) getContactID;
+- (id) initWithPeerFile:(NSString*) publicPeerFile;
 
 /**
- Return user ID 
- @returns NSString representation of user ID
+ Returns HOPContact object for logged in user
+ @returns HOPContact object
  */
-- (NSString*) getUserID;
++ (HOPContact*) getForSelf;
 
 /**
  Check if contact object is self contact
@@ -74,59 +59,21 @@
 - (BOOL) isSelf;
 
 /**
- Retrieves contact type
- @returns Contact type enum
+ Retrieves peer URI from the contact object
+ @returns NSString representation of peer URI
  */
-- (HOPContactTypes) getContactType;
-
-/**
- Check if contact is editable
- @returns YES if contact is editable, NO if isn't
- */
-- (BOOL) isEditable;
-
-/**
- Check if public XML is editable
- @returns YES if public XML is editable, NO if isn't
- */
-- (BOOL) isPublicXMLEditable;
-
-/**
- Retrieves public XML for the contact object
- @returns NSString representation of public XML
- */
-- (NSString*) getPublicXML;
-
-/**
- Retrieves private XML for the contact object
- @returns NSString representation of private XML
- */
-- (NSString*) getPrivateXML;
-
-/**
- Updates contact profile with provided information
- @param publicXML NSString Pointer to the information in public XML
- @param privateXML NSString Pointer to the information in public XML
- @returns YES if update succeed, NO if it fails
- */
-- (BOOL) updateProfile:(NSString*) publicXML privateXML:(NSString*) privateXML;
-
-/**
- Retrieves contact profile version
- @returns Contact profile version number
- */
-- (unsigned long) getProfileVersion;
+- (NSString*) getPeerURI;
 
 
 /**
- Retrieves contact peer file
- @returns Contact peer file
+ Retrieves account object of logged user
+ @returns HOPAccount account object
  */
-- (NSString*) getPeerFile;
+- (HOPAccount*) getAssociatedAccount;
 
 /**
- Retrieves associated identities for contact
- @returns List of contact associated identities
+ Retrieves contact location id received from external method
+ @returns HOPAccount account object
  */
-- (NSArray*) getIdentities;
+- (void) hintAboutLocation:(NSString*) contactsLocationID;
 @end

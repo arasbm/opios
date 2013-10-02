@@ -32,24 +32,28 @@
 #import <UIKit/UIKit.h>
 
 @class Session;
+@class ChatViewController;
+
 @interface ActiveSessionViewController : UIViewController
 
-@property (nonatomic, retain) Session* session;
+@property (nonatomic, strong) Session* session;
 
-@property (weak, nonatomic) IBOutlet UIView *videoView;
-@property (weak, nonatomic) IBOutlet UIView *callStatusView;
-@property (weak, nonatomic) IBOutlet UIView *buttonsView;
-@property (weak, nonatomic) IBOutlet UIView *incomingCallView;
-@property (weak, nonatomic) IBOutlet UIImageView *videoImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *videoPreviewImageView;
+@property (nonatomic, weak) IBOutlet UIView *videoView;
+@property (nonatomic, weak) IBOutlet UIView *callStatusView;
+@property (nonatomic, weak) IBOutlet UIView *buttonsView;
+@property (nonatomic, weak) IBOutlet UIView *incomingCallView;
+@property (nonatomic, weak) IBOutlet UIImageView *videoImageView;
+@property (nonatomic, weak) IBOutlet UIImageView *videoPreviewImageView;
 
 
-@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+@property (nonatomic, weak) IBOutlet UILabel *statusLabel;
 
-@property (weak, nonatomic) IBOutlet UIButton *voiceCallButton;
-@property (weak, nonatomic) IBOutlet UIButton *videoCallButton;
-@property (weak, nonatomic) IBOutlet UIButton *messageButton;
-@property (weak, nonatomic) IBOutlet UIButton *recordingButton;
+@property (nonatomic, weak) IBOutlet UIButton *voiceCallButton;
+@property (nonatomic, weak) IBOutlet UIButton *videoCallButton;
+@property (nonatomic, weak) IBOutlet UIButton *messageButton;
+//@property (weak, nonatomic) IBOutlet UIButton *recordingButton;
+
+@property (strong, nonatomic) ChatViewController *chatViewController;
 
 @property (assign) BOOL isIncomingCall;
 
@@ -60,7 +64,7 @@
 - (IBAction)actionVoiceCall:(id)sender;
 - (IBAction)actionDeclineCall:(id)sender;
 - (IBAction)actionAcceptCall:(id)sender;
-- (IBAction)actionRecordVideo:(id)sender;
+//- (IBAction)actionRecordVideo:(id)sender;
 
 - (void) prepareForCall:(BOOL) isCallSession withVideo:(BOOL) includeVideo;
 - (void) prepareForIncomingCall;

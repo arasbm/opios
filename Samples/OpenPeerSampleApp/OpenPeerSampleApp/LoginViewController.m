@@ -32,11 +32,12 @@
 #import "LoginViewController.h"
 #import "MainViewController.h"
 #import "LoginManager.h"
-#import "EmailLoginViewController.h"
+#import "Constants.h"
 
 @interface LoginViewController ()
-
-@property (nonatomic, strong) EmailLoginViewController* emailLoginViewController;
+@property (weak, nonatomic) IBOutlet UIButton *buttonLinkedIn;
+@property (weak, nonatomic) IBOutlet UIButton *buttonFacebook;
+@property (weak, nonatomic) IBOutlet UIButton *buttonFederated;
 @end
 
 @implementation LoginViewController
@@ -54,7 +55,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
+    UIImage* buttonBackgroundImage = [[UIImage imageNamed:@"iPhone_blue_button.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(20.0, 5.0, 20.0, 5.0)];
+    [self.buttonLinkedIn setBackgroundImage:buttonBackgroundImage forState:UIControlStateNormal];
+    [self.buttonFacebook setBackgroundImage:buttonBackgroundImage forState:UIControlStateNormal];
+    [self.buttonFederated setBackgroundImage:buttonBackgroundImage forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning
@@ -65,17 +70,30 @@
 
 - (IBAction)actionLoginWithFacebook:(id)sender
 {
-    [[LoginManager sharedLoginManager] startLoginWithSocialProvider:HOPProvisioningAccountIdentityTypeFacebookID];
+    [[LoginManager sharedLoginManager] startLoginUsingIdentityURI:identityFacebookBaseURI];
 }
 
-- (IBAction)actionLoginWithEmail:(id)sender
+- (IBAction)actionLoginWithLinkedIn:(id)sender
 {
-    self.emailLoginViewController = [[EmailLoginViewController alloc] initWithNibName:@"EmailLoginViewController" bundle:nil];
-    
-    [self.emailLoginViewController.view setFrame:self.view.bounds];
-    [self.view addSubview:self.emailLoginViewController.view];
-    
+    [[LoginManager sharedLoginManager] startLoginUsingIdentityURI:identityLinkedInBaseURI];
 }
 
+- (IBAction)actionLoginFederated:(id)sender
+{
+    [[LoginManager sharedLoginManager] startLoginUsingIdentityURI:identityFederateBaseURI];
+}
 
+- (void)viewDidUnload {
+    [self setButtonLinkedIn:nil];
+    [self setButtonFacebook:nil];
+    [super viewDidUnload];
+}
+
+- (void) prepareForLogin
+{
+    self.buttonLinkedIn.hidden = [[LoginManager sharedLoginManager] isAssociatedIdentity:identityLinkedInBaseURI];
+    self.buttonLinkedIn.enabled = !self.buttonLinkedIn.hidden;
+    self.buttonFacebook.hidden = [[LoginManager sharedLoginManager] isAssociatedIdentity:identityFacebookBaseURI];
+    self.buttonFacebook.enabled = !self.buttonFacebook.hidden;
+}
 @end

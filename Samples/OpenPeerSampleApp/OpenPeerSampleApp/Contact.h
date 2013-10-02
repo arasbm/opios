@@ -31,10 +31,10 @@
  
 #import <Foundation/Foundation.h>
 #import <OpenpeerSDK/HOPTypes.h>
+#import <OpenpeerSDK/HOPContact.h>
 
-@class HOPContact;
 
-@interface Contact : NSObject
+@interface YContact : HOPContact
 
 @property (strong) NSString* fullName;
 @property (strong) NSString* profession;
@@ -46,8 +46,8 @@
 @property (nonatomic, strong) NSString *contactId;
 @property (nonatomic, assign) long lastProfileUpdateTimestamp;
 
-@property (strong) NSMutableArray* identities;
+@property (strong) NSMutableDictionary* dictionaryIdentities;
 @property (strong) NSMutableArray* listOfContactsInCallSession;
 
-- (id) initWithFullName:(NSString*) inFullName profession:(NSString*) inProfession avatarUrl:(NSString*) inAvatarUrl identityProvider:(HOPProvisioningAccountIdentityTypes) identityProvider identityContactId:(NSString*) identityContactId;
+- (id) initWithFullName:(NSString*) inFullName profession:(NSString*) inProfession avatarUrl:(NSString*) inAvatarUrl identityProvider:(NSString*) identityBaseURI identityContactId:(NSString*) identityContactId;
 @end

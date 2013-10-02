@@ -33,8 +33,14 @@
 #import <Foundation/Foundation.h>
 
 #import "OpenPeerUser.h"
+#import "Utility.h"
 //SDK
-#import <OpenpeerSDK/HOPProvisioningAccount.h>
+#import <OpenpeerSDK/HOPAccount.h>
+#import <OpenpeerSDK/HOPContact.h>
+#import <OpenpeerSDK/HOPHomeUser.h>
+#import <OpenpeerSDK/HOPModelManager.h>
+#import <OpenpeerSDK/HOPAssociatedIdentity.h>
+#import <OpenpeerSDK/HOPRolodexContact.h>
 //Utility
 #import "XMLWriter.h"
 #import "Constants.h"
@@ -73,68 +79,96 @@
     
     if (self)
     {
-        NSData* data = [[NSUserDefaults standardUserDefaults] objectForKey:keyOpenPeerUser];
-        if (data)
+        self.deviceId = [[NSUserDefaults standardUserDefaults] objectForKey:keyOpenPeerUser];
+//        if (data)
+//        {
+//            NSKeyedUnarchiver *aDecoder = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+//            
+//            self.deviceId = [aDecoder decodeObjectForKey:archiveDeviceId];
+            //self.stableUniqueId = [aDecoder decodeObjectForKey:archiveStableUniqueId];
+//            self.identityURI = [aDecoder decodeObjectForKey:archiveIdentityURI];
+//            self.peerURI = [aDecoder decodeObjectForKey:archivePeerURI];
+//            self.privatePeerFile = [aDecoder decodeObjectForKey:archivePrivatePeerFile];
+//            self.privatePeerFileSecret = [aDecoder decodeObjectForKey:archivePrivatePeerFileSecret];
+//            self.fullName = [aDecoder decodeObjectForKey:archivePeerFilePassword];
+//            self.dictionaryIdentities = [aDecoder decodeObjectForKey:archiveAssociatedIdentities];
+//            self.reloginInfo = [aDecoder decodeObjectForKey:archiveReloginInfo];
+            
+//            [aDecoder finishDecoding];
+//        }
+        
+        if ([self.deviceId length] == 0)
         {
-            NSKeyedUnarchiver *aDecoder = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+            self.deviceId = [Utility getGUIDstring];
+//            NSMutableData *data = [NSMutableData data];
+//            NSKeyedArchiver *aCoder = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+//            [aCoder encodeObject:self.deviceId forKey:archiveDeviceId];
+//            [aCoder finishEncoding];
             
-            self.userId = [aDecoder decodeObjectForKey:archiveUserId];
-            self.contactId = [aDecoder decodeObjectForKey:archiveContactId];
-            self.accountSalt = [aDecoder decodeObjectForKey:archiveAccountSalt];
-            self.passwordNonce = [aDecoder decodeObjectForKey:archivePasswordNonce];
-            self.privatePeerFile = [aDecoder decodeObjectForKey:archivePrivatePeerFile];
-            self.peerFilePassword = [aDecoder decodeObjectForKey:archivePeerFilePassword];
-            self.lastProfileUpdateTimestamp = [aDecoder decodeDoubleForKey:archiveLastProfileUpdateTimestamp];
-            self.legacyLogin = [aDecoder decodeBoolForKey:archiveLegacyLogin];
-            
-            [aDecoder finishDecoding];
+            [[NSUserDefaults standardUserDefaults] setObject:self.deviceId forKey:keyOpenPeerUser];
         }
+        
+//        if (!self.dictionaryIdentities)
+//            self.dictionaryIdentities = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
 
+- (NSString*) fullName
+{
+    if ([_fullName length] == 0)
+    {
+        HOPHomeUser* homeUser = [[HOPModelManager sharedModelManager] getLastLoggedInHomeUser];
+        if (homeUser)
+            _fullName = ((HOPAssociatedIdentity*)[homeUser.associatedIdentities anyObject]).homeUserProfile.name;
+    }
+    return _fullName;
+}
 /**
  Saves user information on local device.
  */
-- (void) saveUserData
+/*- (void) saveUserData
 {
-    self.userId = [[HOPProvisioningAccount sharedProvisioningAccount] getUserID];
-    self.contactId = [[HOPProvisioningAccount sharedProvisioningAccount] getContactID];
-    self.accountSalt = [[HOPProvisioningAccount sharedProvisioningAccount] getAccountSalt];
-    self.passwordNonce = [[HOPProvisioningAccount sharedProvisioningAccount] getPasswordNonce];
-    self.privatePeerFile = [[HOPProvisioningAccount sharedProvisioningAccount] getPrivatePeerFile];
-    self.peerFilePassword = [[HOPProvisioningAccount sharedProvisioningAccount] getPassword];
-    self.lastProfileUpdateTimestamp = [[HOPProvisioningAccount sharedProvisioningAccount] getLastProfileUpdatedTime];
+    //self.userId = [[HOPAccount sharedAccount] getUserID];
+    //self.stableUniqueId = [[HOPContact getForSelf] getStableUniqueID];
+//    self.peerURI = [[HOPContact getForSelf] getPeerURI];
+//    self.privatePeerFile = [[HOPAccount sharedAccount] getPeerFilePrivate];
+//    self.privatePeerFileSecret = [[HOPAccount sharedAccount] getPeerFilePrivateSecret];
+//    self.reloginInfo = [[HOPAccount sharedAccount] getReloginInformation];
     
     NSMutableData *data = [NSMutableData data];
     NSKeyedArchiver *aCoder = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-    [aCoder encodeObject:self.userId forKey:archiveUserId];
-    [aCoder encodeObject:self.contactId forKey:archiveContactId];
-    [aCoder encodeObject:self.accountSalt forKey:archiveAccountSalt];
-    [aCoder encodeObject:self.passwordNonce forKey:archivePasswordNonce];
+    [aCoder encodeObject:self.deviceId forKey:archiveDeviceId];
+    [aCoder encodeObject:self.stableUniqueId forKey:archiveStableUniqueId];
+    [aCoder encodeObject:self.identityURI forKey:archiveIdentityURI];
+    [aCoder encodeObject:self.peerURI forKey:archivePeerURI];
+    [aCoder encodeObject:self.fullName forKey:archivePasswordNonce];
     [aCoder encodeObject:self.privatePeerFile forKey:archivePrivatePeerFile];
-    [aCoder encodeObject:self.peerFilePassword forKey:archivePeerFilePassword];
-    [aCoder encodeDouble:self.lastProfileUpdateTimestamp forKey:archiveLastProfileUpdateTimestamp];
-    [aCoder encodeBool:self.legacyLogin forKey:archiveLegacyLogin];
+    [aCoder encodeObject:self.privatePeerFileSecret forKey:archivePrivatePeerFileSecret];
+    [aCoder encodeObject:self.dictionaryIdentities forKey:archiveAssociatedIdentities];
+    [aCoder encodeObject:self.reloginInfo forKey:archiveReloginInfo];
+    
     [aCoder finishEncoding];
     
     [[NSUserDefaults standardUserDefaults] setObject:data forKey:keyOpenPeerUser];
 }
-
+*/
 /**
  deletes user information from local device.
  */
+/*
 - (void) deleteUserData
 {
-    self.userId = nil;
-    self.contactId = nil;
-    self.accountSalt = nil;
-    self.passwordNonce = nil;
+    //self.userId = nil;
     self.privatePeerFile = nil;
-    self.peerFilePassword = nil;
-    self.lastProfileUpdateTimestamp = 0;
+    self.privatePeerFileSecret = nil;
     
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:keyOpenPeerUser];
+}
+
+- (void) addIdentityURI:(NSString*) inIdentityURI forBaseIdentityURI:(NSString*) inBaseIdentity
+{
+    [self.dictionaryIdentities setObject:inIdentityURI forKey:inBaseIdentity];
 }
 
 - (NSString*) createProfileBundle
@@ -148,33 +182,38 @@
     [xmlWriter writeCharacters:self.fullName];
     [xmlWriter writeEndElement];
     
-    [xmlWriter writeStartElement:profileXmlTagContactID];
-    [xmlWriter writeCharacters:self.contactId];
-    [xmlWriter writeEndElement];
+//    [xmlWriter writeStartElement:profileXmlTagContactID];
+//    [xmlWriter writeCharacters:self.contactId];
+//    [xmlWriter writeEndElement];
     
-    [xmlWriter writeStartElement:profileXmlTagUserID];
-    [xmlWriter writeCharacters:self.userId];
-    [xmlWriter writeEndElement];
+//    [xmlWriter writeStartElement:profileXmlTagUserID];
+//    [xmlWriter writeCharacters:self.userId];
+//    [xmlWriter writeEndElement];
     
     [xmlWriter writeStartElement:profileXmlTagIdentities];
-        
+
+    //Temporary not in use
+ //
+    for (NSString* key in [self.associatedIdentities allKeys])
+    {
         [xmlWriter writeStartElement:profileXmlTagIdentityBundle];
         
-        [xmlWriter writeStartElement:profileXmlTagIdentity];
-        [xmlWriter writeCharacters:[self.providerKey stringValue]];
-        [xmlWriter writeEndElement];
+            [xmlWriter writeStartElement:profileXmlTagIdentity];
+            [xmlWriter writeCharacters:key];
+            [xmlWriter writeEndElement];
+            
+            [xmlWriter writeStartElement:profileXmlTagSocialId];
+            [xmlWriter writeCharacters:[self.associatedIdentities objectForKey:key]];
+            [xmlWriter writeEndElement];
         
-        [xmlWriter writeStartElement:profileXmlTagSocialId];
-        [xmlWriter writeCharacters:self.contactProviderId];
         [xmlWriter writeEndElement];
-        
-        [xmlWriter writeEndElement];
-
+    }
+ //
     [xmlWriter writeEndElement];
     
     [xmlWriter writeEndElement];
     
     ret = [NSString stringWithString: [xmlWriter toString]];
     return ret;
-}
+}*/
 @end

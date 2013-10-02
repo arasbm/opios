@@ -31,16 +31,19 @@
 
 
 #import "HOPContact.h"
-#import <hookflash/IContact.h>
+#import "HOPAccount_Internal.h"
+#import <openpeer/core/IContact.h>
+#import <openpeer/core/IAccount.h>
+#import <openpeer/core/IHelper.h>
 #import "HOPContact_Internal.h"
-#import "HOPProvisioningAccount.h"
-#import "HOPProvisioningAccount_Internal.h"
+#import "OpenPeerStorageManager.h"
+
+ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
 
 @implementation HOPContact
 
 - (id)init
 {
-    [self release];
     [NSException raise:NSInvalidArgumentException format:@"Don't use init for object creation. Use class method contactWithPeerFile."];
     return nil;
 }
@@ -51,90 +54,56 @@
     if (self)
     {
         coreContactPtr = inContactPtr;
-    }
-    return self;
-}
-
-- (id) initWithPeerFile:(NSString*) publicPeerFile userId:(NSString*) inUserId contactId:(NSString*) inContactId
-{
-    self = [super init];
-    if (self)
-    {
-        if ([inUserId length] > 0 && [inContactId length] > 0)
-        {
-            self.userId = inUserId;
-            self.contactId = inContactId;
-            if ([publicPeerFile length] > 0)
-            {
-                IContactPtr tempCoreContactPtr = IContact::createFromPeerFilePublic([[HOPProvisioningAccount sharedProvisioningAccount] getOpenpeerAccountPtr], [publicPeerFile UTF8String]);
-                
-                if (tempCoreContactPtr)
-                {
-                    self.peerFile = publicPeerFile;
-                    coreContactPtr = tempCoreContactPtr;
-                }
-            }
-            self.identitiesDictionary = [[[NSMutableDictionary alloc] init] autorelease];
-        }
+        NSString* peerURI = [NSString stringWithCString:coreContactPtr->getPeerURI() encoding:NSUTF8StringEncoding];
+        //If there is no stable id, then there is no valid openpeer contact, so stop creation of HOPContact
+        if ([peerURI length] > 0)
+            [[OpenPeerStorageManager sharedStorageManager] setContact:self forPeerURI:peerURI];
         else
-        {
-            [self release];
-            self = nil;
-        }
+            return nil;
     }
+    
     return self;
 }
 
-//+ (id) contactWithPeerFile:(NSString*) publicPeerFile
-//{
-//    HOPContact* ret = nil;
-//    
-//    if ([publicPeerFile length] > 0)
-//    {
-//        IContactPtr tempCoreContactPtr = IContact::createFromPeerFilePublic([[HOPProvisioningAccount sharedProvisioningAccount] getOpenpeerAccountPtr], [publicPeerFile UTF8String]);
-//        
-//        if (tempCoreContactPtr)
-//        {
-//            ret = [[self alloc] initWithCoreContact:tempCoreContactPtr];
-//        }
-//    }
-//    return [ret autorelease];
-//}
-
-/*- (id) initWithPeerFile:(NSString*) publicPeerFile
+- (id) initWithPeerFile:(NSString*) publicPeerFile
 {
     self = [super init];
+    
     if (self)
     {
         if ([publicPeerFile length] > 0)
         {
-            coreContactPtr = IContact::createFromPeerFilePublic([[[HOPProvisioningAccount sharedProvisioningAccount] getOpenPeerAccount] getAccountPtr], [publicPeerFile UTF8String]);
+            ElementPtr publicPeerXml = IHelper::createElement([publicPeerFile UTF8String]);
+            IPeerFilePublicPtr publicPeer = IHelper::createPeerFilePublic(publicPeerXml);
+            
+            IContactPtr tempCoreContactPtr = IContact::createFromPeerFilePublic([[HOPAccount sharedAccount] getAccountPtr], publicPeer);
+                
+                if (tempCoreContactPtr)
+                {
+                    coreContactPtr = tempCoreContactPtr;
+                    [[OpenPeerStorageManager sharedStorageManager] setContact:self forPeerURI:[self getPeerURI]];
+                }
         }
-        if (!coreContactPtr)
+        else
         {
-            [self release];
+            self = nil;
         }
     }
-    return  self;
-}*/
 
-- (NSString*) getContactID
-{
-    if(coreContactPtr)
-    {
-        if (!self.contactId)
-            self.contactId = [NSString stringWithUTF8String: coreContactPtr->getContactID()];
-    }
-//    else
-//    {
-//        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer contact pointer!"];
-//    }
-    return self.contactId;
+    return self;
 }
 
-- (NSString*) getUserID
+
++ (HOPContact*) getForSelf
 {
-    return self.userId;
+    HOPContact* ret = nil;
+    
+    IContactPtr selfContact = IContact::getForSelf([[HOPAccount sharedAccount] getAccountPtr]);
+    ret = [[OpenPeerStorageManager sharedStorageManager] getContactForPeerURI:[NSString stringWithCString:selfContact->getPeerURI() encoding:NSUTF8StringEncoding]];
+    if (!ret)
+        ret = [[HOPContact alloc] initWithCoreContact:selfContact];
+    
+    return ret;
 }
 
 - (BOOL) isSelf
@@ -145,147 +114,73 @@
     {
         ret = coreContactPtr->isSelf();
     }
-//    else
-//    {
-//        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer contact pointer!"];
-//    }
-    return ret;
-}
-
-- (HOPContactTypes) getContactType
-{
-    HOPContactTypes ret = HOPContactTypeOpenPeer;
-  
-    if(coreContactPtr)
+    else
     {
-        ret = (HOPContactTypes) coreContactPtr->getContactType();
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid contact object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid contact object!"];
     }
-//    else
-//    {
-//        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer contact pointer!"];
-//    }
+    
     return ret;
 }
 
-- (BOOL) isEditable
+- (NSString*) getPeerURI
 {
-    BOOL ret = NO;
+    NSString* ret = nil;
     
     if (coreContactPtr)
     {
-        ret = coreContactPtr->isEditable();
+        ret = [NSString stringWithCString:coreContactPtr->getPeerURI() encoding:NSUTF8StringEncoding];
     }
-//    else
-//    {
-//        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer contact pointer!"];
-//    }
+    else
+    {
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid contact object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid contact object!"];
+    }
     return ret;
 }
 
-- (BOOL) isPublicXMLEditable
+
+- (HOPAccount*) getAssociatedAccount
 {
-    BOOL ret = NO;
-    
+    return [HOPAccount sharedAccount];
+}
+
+- (void) hintAboutLocation:(NSString*) contactsLocationID
+{
     if (coreContactPtr)
     {
-        ret = coreContactPtr->isPublicXMLEditable();
-    }
-//    else
-//    {
-//        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer contact pointer!"];
-//    }
-    return ret;
-}
-
-- (NSString*) getPublicXML
-{
-    NSString* ret = nil;
-  
-    if(coreContactPtr)
-    {
-        ret = [NSString stringWithUTF8String: coreContactPtr->getPublicXML()];
-    }
-//    else
-//    {
-//        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer contact pointer!"];
-//    }
-    return ret;
-}
-
-
-- (NSString*) getPrivateXML
-{
-    NSString* ret = nil;
-  
-    if(coreContactPtr)
-    {
-        ret = [NSString stringWithUTF8String: coreContactPtr->getPrivateXML()];
-    }
-//    else
-//    {
-//        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer contact pointer!"];
-//    }
-    return ret;
-}
-
-
-- (BOOL) updateProfile:(NSString*) publicXML privateXML:(NSString*) privateXML
-{
-    BOOL ret = NO;
-  
-    if (coreContactPtr)
-    {
-        ret = coreContactPtr->updateProfile([publicXML UTF8String], [privateXML UTF8String]);
-    }
-//    else
-//    {
-//        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer contact pointer!"];
-//    }
-    return ret;
-}
-
-
-- (unsigned long) getProfileVersion
-{
-    unsigned long ret = 0;
-     
-    if (coreContactPtr)
-    {
-        ret = coreContactPtr->getProfileVersion();
-    }
-//    else
-//    {
-//        [NSException raise:NSInvalidArgumentException format:@"Invalid OpenPeer contact pointer!"];
-//    }
-    return ret;
-}
-
-- (NSArray*) getIdentities
-{
-    return [self.identitiesDictionary allValues];
-}
-
-- (NSString*) getPeerFile
-{
-    return self.peerFile;
-}
-
-- (void) createCoreContactWithPeerFile:(NSString*) inPeerFile
-{
-    if ([inPeerFile length] > 0)
-    {
-        self.peerFile = inPeerFile;
-        IContactPtr tempCoreContactPtr = IContact::createFromPeerFilePublic([[HOPProvisioningAccount sharedProvisioningAccount] getOpenpeerAccountPtr], [inPeerFile UTF8String]);
-        
-        if (tempCoreContactPtr)
+        if ([contactsLocationID length] > 0)
+            coreContactPtr->hintAboutLocation([contactsLocationID UTF8String]);
+        else
         {
-            coreContactPtr = tempCoreContactPtr;
+            ZS_LOG_ERROR(Debug, [self log:@"nvalid contacts location ID!"]);
+            [NSException raise:NSInvalidArgumentException format:@"Invalid contacts location ID!"];
         }
     }
+    else
+    {
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid contact object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid contact object!"];
+    }
 }
+
+-(NSString *)description
+{
+    return [NSString stringWithUTF8String: IContact::toDebugString([self getContactPtr],NO)];
+}
+
+
 #pragma mark - Internal methods
 - (IContactPtr) getContactPtr
 {
     return coreContactPtr;
+}
+
+- (String) log:(NSString*) message
+{
+    if (coreContactPtr)
+        return String("HOPContact [") + string(coreContactPtr->getID()) + "] " + [message UTF8String];
+    else
+        return String("HOPContact: ") + [message UTF8String];
 }
 @end

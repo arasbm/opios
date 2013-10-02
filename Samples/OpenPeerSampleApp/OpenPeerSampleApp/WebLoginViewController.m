@@ -33,9 +33,15 @@
 #import "LoginManager.h"
 #import "OpenPeer.h"
 #import "ActivityIndicatorViewController.h"
+#import "Constants.h"
+#import "Utility.h"
+#import <OpenpeerSDK/HOPIdentity.h>
+#import <OpenpeerSDK/HOPAccount.h>
 
-@interface WebLoginViewController ()
+@interface WebLoginViewController()
 
+@property (nonatomic) BOOL outerFrameInitialised;
+@property (nonatomic, weak) id coreObject;
 @end
 
 @implementation WebLoginViewController
@@ -44,7 +50,23 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        self.outerFrameInitialised = NO;
+    }
+    return self;
+}
+
+- (id)init
+{
+    self = [self initWithCoreObject:nil];
+    return self;
+}
+
+- (id) initWithCoreObject:(id) inCoreObject
+{
+    self = [self initWithNibName:@"WebLoginViewController" bundle:nil];
+    if (self)
+    {
+        self.coreObject = inCoreObject;
     }
     return self;
 }
@@ -57,27 +79,42 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void) openLoginUrl:(NSString*) url
 {
     [self.loginWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
-    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Opening login page ..." inView:self.view];
+}
+
+- (void) passMessageToJS:(NSString*) message
+{
+    NSLog(@"\n\n\n++++++++++\n\n\n Message to JS: \n %@ \n\n\n++++++++++\n\n\n",message);
+    [self.loginWebView stringByEvaluatingJavaScriptFromString:message];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    NSString* urlString = [[request URL] relativeString];
-    if ([urlString rangeOfString:@"created"].length > 0)
+    NSString *requestString = [[request URL] absoluteString];
+    NSLog(@"Login process - web request: %@", requestString);
+    
+    //Check if request contains JSON message for core
+    if ([requestString hasPrefix:@"https://datapass.hookflash.me/?method="] || [requestString hasPrefix:@"http://datapass.hookflash.me/?method="])
     {
-        [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Login ..." inView:self.view];
-        urlString = [urlString substringFromIndex:[urlString rangeOfString:@"created"].location];
+        NSString *function = [Utility getFunctionNameForRequest:requestString];
+        NSString *params = [Utility getParametersNameForRequest:requestString];
+
+        params = [params stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         
-        [[LoginManager sharedLoginManager] onCredentialProviderResponseReceived:urlString];
-        
+        if ([function length] > 0 && [params length] > 0)
+        {
+            NSString *functionNameSelector = [NSString stringWithFormat:@"%@:", function];
+            //Execute JSON parsing in function read from requestString.
+            if ([self respondsToSelector:NSSelectorFromString(functionNameSelector)])
+                [self performSelector:NSSelectorFromString(functionNameSelector) withObject:params];
+        }
         return NO;
     }
+
     return YES;
 }
 
@@ -86,10 +123,58 @@
 
 }
 
+
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    //Login page is opened, so remove the activity indicator
-    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
+    NSString *requestString = [[[webView request] URL] absoluteString];
+    if (!self.outerFrameInitialised && [requestString isEqualToString:outerFrameURL])
+    {
+        self.outerFrameInitialised = YES;
+        //[[LoginManager sharedLoginManager] onOuterFrameLoaded];
+        [self onOuterFrameLoaded];
+    }
+    else if (!self.outerFrameInitialised && [requestString isEqualToString:namespaceGrantServiceURL])
+    {
+      self.outerFrameInitialised = YES;
+      //[[LoginManager sharedLoginManager] onOuterFrameLoaded];
+      [self onOuterFrameLoaded];
+    }
 }
 
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    NSLog(@"UIWebView _ERROR_ : %@",[error localizedDescription]);
+}
+
+
+- (void)notifyClient:(NSString *)message
+{
+    NSLog(@"\n\n\n++++++++++\n\n\n Message from JS: \n %@ \n\n\n++++++++++\n\n\n",message);
+    
+    if ([self.coreObject isKindOfClass:[HOPIdentity class]])
+    {
+        [(HOPIdentity*)self.coreObject handleMessageFromInnerBrowserWindowFrame:message];
+    }
+    else if ([self.coreObject isKindOfClass:[HOPAccount class]])
+    {
+        [(HOPAccount*)self.coreObject handleMessageFromInnerBrowserWindowFrame:message];
+    }
+}
+
+- (void)onOuterFrameLoaded
+{
+    NSString* jsMethod = nil;
+    
+    if ([self.coreObject isKindOfClass:[HOPIdentity class]])
+    {
+        jsMethod = [NSString stringWithFormat:@"initInnerFrame(\'%@\')",[(HOPIdentity*)self.coreObject getInnerBrowserWindowFrameURL]];
+    }
+    else if ([self.coreObject isKindOfClass:[HOPAccount class]])
+    {
+        jsMethod = [NSString stringWithFormat:@"initInnerFrame(\'%@\')",[(HOPAccount*)self.coreObject getInnerBrowserWindowFrameURL]];
+    }
+    
+    if (jsMethod)
+        [self passMessageToJS:jsMethod];
+}
 @end

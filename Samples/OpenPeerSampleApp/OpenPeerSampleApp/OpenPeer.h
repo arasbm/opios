@@ -30,13 +30,33 @@
  */
 
 #import <Foundation/Foundation.h>
+#import <OpenPeerSDK/HOPTypes.h>
+#import "Settings.h"
 
 @class CallDelegate;
 @class StackDelegate;
 @class MediaEngineDelegate;
 @class ConversationThreadDelegate;
-@class ProvisioningAccountDelegate;
+@class AccountDelegate;
 @class MainViewController;
+@class IdentityDelegate;
+@class IdentityLookupDelegate;
+
+typedef enum
+{
+    OPENPEER_APPLICATION,
+    OPENPEER_SDK,
+    OPENPEER_MEDIA,
+    OPENPEER_WEBRTC,
+    OPENPEER_CORE,
+    OPENPEER_STACK_MESSAGE,
+    OPENPEER_STACK,
+    OPENPEER_SERVICES,
+    OPENPEER_SERVICES_HTTP,
+    ZSLIB,
+    
+    TOTAL_MODULES_NUMBER
+}OpenPeerModuls;
 
 @interface OpenPeer : NSObject
 
@@ -44,14 +64,29 @@
 @property (nonatomic,strong) StackDelegate *stackDelegate;
 @property (nonatomic,strong) MediaEngineDelegate *mediaEngineDelegate;
 @property (nonatomic,strong) ConversationThreadDelegate *conversationThreadDelegate;
-@property (nonatomic,strong) ProvisioningAccountDelegate *provisioningAccountDelegate;
+@property (nonatomic,strong) AccountDelegate *accountDelegate;
 @property (nonatomic,strong) MainViewController *mainViewController;
+@property (nonatomic,strong) IdentityDelegate *identityDelegate;
+@property (nonatomic,strong) IdentityLookupDelegate *identityLookupDelegate;
+
+@property (nonatomic,strong) NSString *authorizedApplicationId;
 
 @property (nonatomic) BOOL isRemoteSessionActivationModeOn;
 @property (nonatomic) BOOL isFaceDetectionModeOn;
 @property (nonatomic) BOOL isRedialModeOn;
+
+@property (nonatomic) BOOL isLocalTelnetOn;
+@property (nonatomic) BOOL isRemoteTelnetOn;
+
 + (id) sharedOpenPeer;
 
 - (void) prepareWithMainViewController:(MainViewController*) inMainViewController;
-- (void) startLogger;
+- (void) setLogLevels;
+- (void) startStdLogger:(BOOL) start;
+- (void) startTelnetLogger:(BOOL) start;
+- (void) startOutgoingTelnetLogger:(BOOL) start;
+
+- (void) start:(BOOL) start looger:(LoggerTypes) type;
+
+- (void) setLogLevel:(HOPLoggerLevels) level;
 @end

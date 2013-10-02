@@ -31,11 +31,10 @@
 
 #import "MainViewController.h"
 #import "OpenPeer.h"
+#import "OpenPeerUser.h"
 #import "Constants.h"
-
 //SDK
 #import <OpenpeerSDK/HOPConversationThread.h>
-#import <OpenpeerSDK/HOPContact.h>
 //Managers
 #import "SessionManager.h"
 #import "LoginManager.h"
@@ -43,19 +42,23 @@
 #import "MessageManager.h"
 //Model
 #import "Session.h"
-#import "Contact.h"
 //View controllers
 #import "LoginViewController.h"
 #import "WebLoginViewController.h"
 #import "ContactsTableViewController.h"
 #import "ActiveSessionViewController.h"
 #import "MainViewController.h"
+#import "ChatViewController.h"
+#import "SettingsViewController.h"
 
 //Private methods
 @interface MainViewController ()
+@property (nonatomic) BOOL isLogerActivated;
 
 - (void) removeAllSubViews;
-- (void) actionDemo;
+- (SessionTransitionStates) determineViewControllerTransitionStateForSession:(NSString*) sessionId forIncomingCall:(BOOL) incomingCall forIncomingMessage:(BOOL) incomingMessage;
+
+//- (void)threeTapGasture;
 
 @end
 
@@ -67,6 +70,12 @@
     if (self)
     {
         self.sessionViewControllersDictionary = [[NSMutableDictionary alloc] init];
+        /*self.threeTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(threeTapGasture)];
+        self.threeTapGestureRecognizer.delegate = self;
+        self.threeTapGestureRecognizer.numberOfTapsRequired = 3;
+        self.threeTapGestureRecognizer.numberOfTouchesRequired = 2;
+        
+       self.isLogerActivated = NO;*/
     }
     return self;
 }
@@ -75,8 +84,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    if (self.threeTapGestureRecognizer)
+        [self.view addGestureRecognizer:self.threeTapGestureRecognizer];
 }
 
+-(void)viewDidUnload
+{
+    if (self.threeTapGestureRecognizer)
+    {
+        [self.view removeGestureRecognizer:self.threeTapGestureRecognizer];
+        self.threeTapGestureRecognizer = nil;
+    }
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -90,26 +110,44 @@
 }
 
 
-/**
- Show Demo menu
- */
-- (void)actionDemo
+- (void) showTabBarController
 {
-    NSString* remoteSessionTitle = ![[OpenPeer sharedOpenPeer] isRemoteSessionActivationModeOn] ? @"Remote Session - Turn On" : @"Remote Session - Turn Off";
-    NSString* faceDectionTitle = ![[OpenPeer sharedOpenPeer] isFaceDetectionModeOn] ? @"Face Detection - Turn On" : @"Face Detection - Turn Off";
+    [self removeAllSubViews];
     
-    NSString* redialTitle = ![[OpenPeer sharedOpenPeer] isRedialModeOn] ? @"Redial - Turn On" : @"Redial - Turn Off";
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"iPhone_top_bar_background.png"] forBarMetrics:UIBarMetricsDefault];
     
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Demo options"
-                                                       delegate:self
-                                              cancelButtonTitle:@"Cancel"
-                                         destructiveButtonTitle:nil
-                                              otherButtonTitles:remoteSessionTitle, @"Check availability", faceDectionTitle, redialTitle,nil];
-    [sheet setActionSheetStyle:UIActionSheetStyleAutomatic];
+    if (!self.tabBarController)
+    {
+        self.contactsTableViewController = nil;
+        
+        //Contacts tab
+        self.contactsTableViewController = [[ContactsTableViewController alloc] initWithNibName:@"ContactsTableViewController" bundle:nil];
+        self.contactsTableViewController.title = @"Contacts";
+        self.tabBarItem.title = @"CONTACTS";
+        
+        [self.contactsTableViewController.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"iPhone_tabBar_contacts_active.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"iPhone_tabBar_contacts_inactive.png"]];
+        
+        UINavigationController *contactsNavigationController = [[UINavigationController alloc] initWithRootViewController:self.contactsTableViewController];
+        
+        //Settings tab
+        SettingsViewController* settingsViewController = [[SettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        settingsViewController.title = @"Settings";
+        self.tabBarItem.title = @"SETTINGS";
+            
+        [settingsViewController.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"iPhone_tabBar_settings_active_Icon.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"iPhone_tabBar_settings_inactive_Icon.png"]];
+        
+        UINavigationController *settingsNavigationController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
+        
+        //Tab
+        self.tabBarController = [[UITabBarController alloc] init];
+        self.tabBarController.delegate = self;
+        self.tabBarController.viewControllers = [NSArray arrayWithObjects:contactsNavigationController, settingsNavigationController, nil];
+        
+        self.tabBarController.view.frame = self.view.bounds;
+        [self.tabBarController.tabBar setBackgroundImage:[UIImage imageNamed:@"iPhone_tabBar_bkgd.png"]];
+    }
     
-    [sheet setAlpha:0.9];
-    
-    [sheet showFromBarButtonItem:self.contactsTableViewController.navigationItem.leftBarButtonItem animated:YES];
+    [self.view addSubview:self.tabBarController.view];
 }
 
 #pragma mark - Login views
@@ -121,9 +159,13 @@
     if (!self.loginViewController)
     {
         self.loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+        [self.loginViewController.view setFrame:self.view.bounds];
     }
     
     [self removeAllSubViews];
+    self.tabBarController = nil;
+    
+    [self.loginViewController prepareForLogin];
     [self.view addSubview:self.loginViewController.view];
 }
 
@@ -131,82 +173,188 @@
  Show web view with opened login page.
  @param url NSString Login page url.
 */
-- (void) showWebLoginView:(NSString*) url
+- (void) showWebLoginView:(WebLoginViewController*) webLoginViewController
 {
-    if (!self.webLoginViewController)
-        self.webLoginViewController = [[WebLoginViewController alloc] initWithNibName:@"WebLoginViewController" bundle:nil];
-    
-    if (url)
+    if (webLoginViewController)
     {
-        [self removeAllSubViews];
-        [self.view addSubview:self.webLoginViewController.view];
-        [self.webLoginViewController openLoginUrl:url];
+        //[self removeAllSubViews];
+        [self.view addSubview:webLoginViewController.view];
     }
 }
 
-#pragma mark - Contacts views
-/**
- Show table with list of contacts.
- */
-- (void)showContactsTable
-{
-    [self removeAllSubViews];
-    
-    if (!self.contactsTableViewController)
-        self.contactsTableViewController = [[ContactsTableViewController alloc] initWithNibName:@"ContactsTableViewController" bundle:nil];
-    
-    if (!self.contactsNavigationController)
-    {
-        self.contactsNavigationController = [[UINavigationController alloc] initWithRootViewController:self.contactsTableViewController];
-        [self.contactsNavigationController.navigationBar.topItem setTitle:@"Contacts"];
-        // Add logout button in navigation bar
-        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
-                                                                      style:UIBarButtonItemStyleBordered
-                                                                     target:[LoginManager sharedLoginManager]
-                                                                     action:@selector(logout)];
-        self.contactsTableViewController.navigationItem.rightBarButtonItem = barButton;
-        
-        //Create Demo options button
-        UIBarButtonItem *barButtonLeft = [[UIBarButtonItem alloc] initWithTitle:@"Demo"
-                                                                      style:UIBarButtonItemStyleBordered
-                                                                     target:self
-                                                                     action:@selector(actionDemo)];
-        self.contactsTableViewController.navigationItem.leftBarButtonItem = barButtonLeft;
-    }
-    
-    [self presentViewController:self.contactsNavigationController animated:NO completion:nil];
-}
 
 #pragma mark - Session view
 /**
  Show session view.
  @param session Session which needs to be displyed
  @param incomingCall BOOL - Yes if it is session with incoming call, otherwise NO
+ @param incomingMessage BOOL - Yes if it is session with incoming message, otherwise NO
  */
-- (void) showSessionViewControllerForSession:(Session*) session forIncomingCall:(BOOL) incomingCall
+- (void) showSessionViewControllerForSession:(Session*) session forIncomingCall:(BOOL) incomingCall forIncomingMessage:(BOOL) incomingMessage
 {
+    ActiveSessionViewController* sessionViewContorller = nil;
     NSString* sessionId = [[session conversationThread] getThreadId];
     
-    //If session view controller is laredy created for this session get it from dictionary 
-    ActiveSessionViewController* sessionViewContorller = [self.sessionViewControllersDictionary objectForKey:sessionId];
+    SessionTransitionStates transition = [self determineViewControllerTransitionStateForSession:sessionId forIncomingCall:incomingCall forIncomingMessage:incomingMessage];
     
-    //If session view controller doesn't exist, create a new one
-    if (!sessionViewContorller)
+    NSString* title = [[[session participantsArray] objectAtIndex:0] name];
+    
+    UINavigationController* navigationController = (UINavigationController*)[[self.tabBarController viewControllers] objectAtIndex:0];
+    switch (transition)
     {
-        sessionViewContorller = [[ActiveSessionViewController alloc] initWithSession:session];
-        [self.sessionViewControllersDictionary setObject:sessionViewContorller forKey:sessionId];
-    }
-    
-    sessionViewContorller.isIncomingCall = incomingCall;
-    
-    //Set title, and push session view conntroller
-    if (sessionViewContorller.parentViewController == nil)
-    {
-        NSString* title = [[[session participantsArray] objectAtIndex:0] fullName];
-        [self.contactsNavigationController pushViewController:sessionViewContorller animated:NO];
-        [self.contactsNavigationController.navigationBar.topItem setTitle:title];
+        case NEW_SESSION_SWITCH:
+        {
+            [navigationController popToRootViewControllerAnimated:NO];
+        }
+        case NEW_SESSION:
+        case NEW_SESSION_WITH_CALL:
+            sessionViewContorller = [[ActiveSessionViewController alloc] initWithSession:session];
+            sessionViewContorller.hidesBottomBarWhenPushed = YES;
+            [self.sessionViewControllersDictionary setObject:sessionViewContorller forKey:sessionId];
+            
+            //[self.contactsNavigationController pushViewController:sessionViewContorller animated:YES];
+            //[self.contactsNavigationController.navigationBar.topItem setTitle:title];
+            [navigationController pushViewController:sessionViewContorller animated:YES];
+            [navigationController.navigationBar.topItem setTitle:title];
+            break;
+            
+        case NEW_SESSION_WITH_CHAT:
+            sessionViewContorller = [[ActiveSessionViewController alloc] initWithSession:session];
+            sessionViewContorller.hidesBottomBarWhenPushed = YES;
+            [self.sessionViewControllersDictionary setObject:sessionViewContorller forKey:sessionId];
+            
+            //[self.contactsNavigationController pushViewController:sessionViewContorller animated:NO];
+            [navigationController pushViewController:sessionViewContorller animated:NO];
+            [navigationController.navigationBar.topItem setTitle:title];
+            
+            //[self.contactsNavigationController pushViewController:sessionViewContorller.chatViewController animated:YES];
+            [navigationController pushViewController:sessionViewContorller.chatViewController animated:YES];
+            //[sessionViewContorller.chatViewController refreshViewWithData];
+            break;
+            
+        case NEW_SESSION_REFRESH_CHAT:
+        {
+            sessionViewContorller = [[ActiveSessionViewController alloc] initWithSession:session];
+            [self.sessionViewControllersDictionary setObject:sessionViewContorller forKey:sessionId];
+            [sessionViewContorller.chatViewController refreshViewWithData];
+            
+            [self showNotification:[NSString stringWithFormat:@"New message from %@",title]];
+        }
+            break;
+            
+        case EXISITNG_SESSION_SWITCH:
+            sessionViewContorller = [self.sessionViewControllersDictionary objectForKey:sessionId];
+//            [self.contactsNavigationController popToRootViewControllerAnimated:NO];
+//            [self.contactsNavigationController pushViewController:sessionViewContorller animated:YES];
+//            [self.contactsNavigationController.navigationBar.topItem setTitle:title];
+            
+            [navigationController popToRootViewControllerAnimated:NO];
+            [navigationController pushViewController:sessionViewContorller animated:YES];
+            [navigationController.navigationBar.topItem setTitle:title];
+            break;
+            
+        case EXISTING_SESSION_REFRESH_NOT_VISIBLE_CHAT:
+            [self showNotification:[NSString stringWithFormat:@"New message from %@",title]];
+        case EXISTING_SESSION_REFRESH_CHAT:
+            sessionViewContorller = [self.sessionViewControllersDictionary objectForKey:sessionId];
+            [sessionViewContorller.chatViewController refreshViewWithData];
+            break;
+            
+        case EXISTIG_SESSION_SHOW_CHAT:
+            sessionViewContorller = [self.sessionViewControllersDictionary objectForKey:sessionId];
+            if (navigationController.visibleViewController != sessionViewContorller)
+            {
+                [navigationController popToRootViewControllerAnimated:NO];
+                [navigationController pushViewController:sessionViewContorller animated:NO];
+            }
+            [navigationController pushViewController:sessionViewContorller.chatViewController animated:YES];
+            break;
+            
+        case INCOMING_CALL_WHILE_OTHER_INPROGRESS:
+            [self showNotification:[NSString stringWithFormat:@"%@ is trying to reach you.",title]];
+            break;
+            
+        case EXISTING_SESSION:
+        default:
+            break;
     }
 }
+
+- (SessionTransitionStates) determineViewControllerTransitionStateForSession:(NSString*) sessionId forIncomingCall:(BOOL) incomingCall forIncomingMessage:(BOOL) incomingMessage
+{
+    //If session view controller is laredy created for this session get it from dictionary
+    ActiveSessionViewController* sessionViewContorller = [self.sessionViewControllersDictionary objectForKey:sessionId];
+    UINavigationController* navigationController = (UINavigationController*)[[self.tabBarController viewControllers] objectAtIndex:0];
+    
+    if (!sessionViewContorller)
+    {
+        if (incomingCall)
+        {
+            if ([[SessionManager sharedSessionManager] isCallInProgress])
+                return INCOMING_CALL_WHILE_OTHER_INPROGRESS; //Cannot have two active calls at once
+            else
+            {
+                if (navigationController.visibleViewController && ![navigationController.visibleViewController isKindOfClass:[ContactsTableViewController class]])
+                    return NEW_SESSION_SWITCH; //Incoming call has priority over chat session, so switch from currently active session to new with incoming call
+                else
+                    return NEW_SESSION_WITH_CALL; //Create and show a new session with incomming call
+            }
+            
+        }
+        else if (incomingMessage)
+        {
+            if (navigationController.visibleViewController && ![navigationController.visibleViewController isKindOfClass:[ContactsTableViewController class]])
+                return NEW_SESSION_REFRESH_CHAT; //Create a new session and update chat, but don't switch from existing session
+            else
+                return NEW_SESSION_WITH_CHAT; //Create and show a new session with incomming message
+        }
+        else
+            return NEW_SESSION; //Create and show a new session
+        
+    }
+    else
+    {
+        if (incomingCall)
+        {
+            if ([[SessionManager sharedSessionManager] isCallInProgress])
+                return ERROR_CALL_ALREADY_IN_PROGRESS; //Cannot have two active calls at once
+            else
+            {
+                if (navigationController.visibleViewController == sessionViewContorller)
+                    return EXISTING_SESSION; //Incoming call for currenlty displayed session so don't change anything
+                else
+                    return EXISITNG_SESSION_SWITCH; //Incoming call for session that is not displayed at the moment so swith to that session
+            }
+        }
+        else if (incomingMessage)
+        {
+            if (navigationController.visibleViewController == sessionViewContorller)
+            {
+                if ([[SessionManager sharedSessionManager] isCallInProgress])
+                    return EXISTING_SESSION_REFRESH_CHAT; //Incoming message for session with active call. Just refresh list of messages but don't display chat view
+                else
+                    return EXISTIG_SESSION_SHOW_CHAT; //Show chat for currently displayed session
+            }
+            else if (navigationController.visibleViewController == sessionViewContorller.chatViewController)
+            {
+                return EXISTING_SESSION_REFRESH_CHAT; //Already displayed chat view, so just refresh messages
+            }
+            else if ([navigationController.visibleViewController isKindOfClass:[ContactsTableViewController class]])
+            {
+                return EXISTIG_SESSION_SHOW_CHAT; //Move from the contacts list to the chat view for session
+            }
+            else
+            {
+                return EXISTING_SESSION_REFRESH_NOT_VISIBLE_CHAT; //Move from the contacts list to the chat view for session
+            }
+        }
+        else
+        {
+            return EXISITNG_SESSION_SWITCH; //Switch to exisitng session
+        }
+    }
+}
+
 
 /**
  Remove specific session view controller from the dictionary.
@@ -217,6 +365,12 @@
     [self.sessionViewControllersDictionary removeObjectForKey:sessionId];
 }
 
+- (void) updateSessionViewControllerId:(NSString*) oldSessionId newSesionId:(NSString*) newSesionId
+{
+    ActiveSessionViewController* svc = [self.sessionViewControllersDictionary objectForKey:oldSessionId];
+    [self removeSessionViewControllerForSession:oldSessionId];
+    [self.sessionViewControllersDictionary setObject:svc forKey:newSesionId];
+}
 /**
  Prepare specific session vire controller for incoming call
  @param session Session with incomming call
@@ -227,65 +381,44 @@
     [sessionViewContorller prepareForIncomingCall];
 }
 
-#pragma mark - UIActionSheet Delegate Methods
-/**
- Handling choosed Demo option
- */
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+
+
+- (void) showNotification:(NSString*) message
 {
-    switch (buttonIndex)
+    UINavigationController* navigationController = (UINavigationController*)[[self.tabBarController viewControllers] objectAtIndex:0];
+    
+    UILabel* labelNotification = [[UILabel alloc] initWithFrame:CGRectMake(5.0, 20.0, self.view.frame.size.width - 10.0, 40.0)];
+    labelNotification.text = message;//[NSString stringWithFormat:@"New message from %@",contactName];
+    labelNotification.textAlignment = NSTextAlignmentCenter;
+    labelNotification.textColor = [UIColor whiteColor];
+    labelNotification.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.7];
+    [navigationController.visibleViewController.view addSubview:labelNotification];
+    
+    [UIView animateWithDuration:0.5 delay:2.0 options:0 animations:^{
+        // Animate the alpha value of your imageView from 1.0 to 0.0 here
+        labelNotification.alpha = 0.0f;
+    } completion:^(BOOL finished) {
+        // Once the animation is completed and the alpha has gone to 0.0, hide the view for good
+        [labelNotification removeFromSuperview];
+    }];
+}
+
+
+/*- (void)threeTapGasture
+{
+    NSString *msg;
+    if (!self.isLogerActivated)
     {
-        case DEMO_REMOTE_SESSION_INIT:
-        {
-            ((OpenPeer*)[OpenPeer sharedOpenPeer]).isRemoteSessionActivationModeOn = ![[OpenPeer sharedOpenPeer] isRemoteSessionActivationModeOn];
-            [[NSNotificationCenter defaultCenter] postNotificationName:notificationRemoteSessionModeChanged object:nil];
-            
-            NSString* message = [[OpenPeer sharedOpenPeer] isRemoteSessionActivationModeOn] ? @"Remote session activation mode is turned ON. Please, select two openpeer contacts from your list and remote session will be created." : @"Remote session activation mode is turned OFF";
-            
-            UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Remote session activation"
-                                                                 message:message
-                                                                delegate:self
-                                                       cancelButtonTitle:@"Ok"
-                                                       otherButtonTitles:nil];
-            [alertView show];
-        }
-        break;
-            
-        case DEMO_CHECK_AVAILABILITY:
-        {
-            [[ContactsManager sharedContactsManager] checkAvailability];
-        }
-        break;
-            
-        case DEMO_FACE_DETECTION_MODE:
-        {
-            ((OpenPeer*)[OpenPeer sharedOpenPeer]).isFaceDetectionModeOn = ![[OpenPeer sharedOpenPeer] isFaceDetectionModeOn];
-            
-            NSString* message = [[OpenPeer sharedOpenPeer] isFaceDetectionModeOn] ? @"Face detection mode is turned ON. Please, select contact from the list. Session will be created and face detection activated. As soon face is detected, video call will be started." : @"Face detection mode is turned OFF";
-            
-            UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Face detection"
-                                                                 message:message
-                                                                delegate:self
-                                                       cancelButtonTitle:@"Ok"
-                                                       otherButtonTitles:nil];
-            [alertView show];
-        }
-        break;
-            
-        case DEMO_CALL_REDIAL:
-            ((OpenPeer*)[OpenPeer sharedOpenPeer]).isRedialModeOn = ![[OpenPeer sharedOpenPeer] isRedialModeOn];
-            break;
+        [[OpenPeer sharedOpenPeer] startOutgoingTelnetLogger:YES];
         
-        default:
-            
-        break;
+        self.isLogerActivated = YES;
+        msg = @"Activated!";
     }
-
-}
-
-- (void) prepareForViewCallSession:(Session*) session withVideo:(BOOL) withVideo
-{
-    ActiveSessionViewController* sessionViewContorller = [self.sessionViewControllersDictionary objectForKey:[[session conversationThread] getThreadId]];
-    [sessionViewContorller prepareForCall:YES withVideo:withVideo];
-}
+    else
+    {
+        msg = @"Already activated";
+    }
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Openpeer" message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alertView show];
+}*/
 @end

@@ -38,15 +38,14 @@
 @protocol HOPStackDelegate <NSObject>
 
 @optional
-- (void) onShutdownReady;
+- (void) onStackShutdown;
+@end
 
-//IClientDelegate method wrapper
-- (void) onMessagePutInGUIQueue;
+@protocol HOPLoggerDelegate <NSObject>
 
-//IClientLogDelegate method wrapper
+@optional
 - (void) onNewSubsystem:(unsigned short) subsystemUniqueID subsystemName:(NSString*) subsystemName;
-- (void) onLog:(unsigned short) subsystemUniqueID subsystemName:(NSString*)subsystemName severity:(HOPClientLogSeverities) severity level:(HOPClientLogLevels) level message:(NSString*) message function:(NSString*) function filePath:(NSString*) filePath lineNumber:(unsigned long) lineNumber;
-
+- (void) onLog:(unsigned short) subsystemUniqueID subsystemName:(NSString*)subsystemName severity:(HOPLoggerSeverities) severity level:(HOPLoggerLevels) level message:(NSString*) message function:(NSString*) function filePath:(NSString*) filePath lineNumber:(unsigned long) lineNumber;
 @end
 
 
@@ -56,44 +55,34 @@
 - (void) onMediaEngineAudioRouteChanged:(HOPMediaEngineOutputAudioRoutes) audioRoute;
 - (void) onMediaEngineFaceDetected;
 - (void) onMediaEngineVideoCaptureRecordStopped;
-
 @end
 
-#pragma mark - Provisioning account for future use delegate
+
 @class HOPAccount;
 
 @protocol HOPAccountDelegate <NSObject>
 
 @required
-- (void) onAccountStateChanged:(HOPAccount*) account accountState:(HOPAccountStates) accountState;
+- (void) account:(HOPAccount*) account stateChanged:(HOPAccountStates) accountState;
+- (void) onAccountAssociatedIdentitiesChanged:(HOPAccount*) account;
+- (void) onAccountPendingMessageForInnerBrowserWindowFrame:(HOPAccount*) account;
 @end
 
 
 @class HOPCall;
 
 @protocol HOPCallDelegate <NSObject>
+
 @required
 - (void) onCallStateChanged:(HOPCall*) call callState:(HOPCallStates) callState;
-
-
 @end
 
 
-//@protocol HOPClientDelegate <NSObject>
-//@optional
-//- (void) onMessagePutInGUIQueue;
-//@end
-//
-//
-//@protocol HOPClientLogDelegate <NSObject>
-//@optional
-//- (void) onNewSubsystem:(unsigned short) subsystemUniqueID subsystemName:(NSString*) subsystemName;
-//- (void) onLog:(unsigned short) subsystemUniqueID subsystemName:(NSString*)subsystemName severity:(HOPClientLogSeverities) severity level:(HOPClientLogLevels) level message:(NSString*) message function:(NSString*) function filePath:(NSString*) filePath lineNumber:(unsigned long) lineNumber;
-//@end
-
 @class HOPConversationThread;
 @class HOPContact;
+
 @protocol HOPConversationThreadDelegate <NSObject>
+
 @required
 - (void) onConversationThreadNew:(HOPConversationThread*) conversationThread;
 - (void) onConversationThreadContactsChanged:(HOPConversationThread*) conversationThread;
@@ -103,52 +92,33 @@
 - (void) onConversationThreadPushMessage:(HOPConversationThread*) conversationThread messageID:(NSString*) messageID contact:(HOPContact*) contact;
 @end
 
-@class HOPProvisioningAccountIdentityLookupQuery;
-@protocol HOPProvisioningAccountIdentityLookupQueryDelegate <NSObject>
+
+@class HOPIdentity;
+
+@protocol HOPIdentityDelegate <NSObject>
 @required
-- (void) onAccountIdentityLookupQueryComplete:(HOPProvisioningAccountIdentityLookupQuery*) query;
-//- (void) onAccountIdentityLookupQueryComplete:(NSArray*) listOfCoreContacts;
-@end
+- (void) identity:(HOPIdentity*) identity stateChanged:(HOPIdentityStates) state;
 
-@class HOPProvisioningAccountPeerFileLookupQuery;
-@protocol HOPProvisioningAccountPeerFileLookupQueryDelegate <NSObject>
-@required
-- (void) onAccountPeerFileLookupQueryComplete:(HOPProvisioningAccountPeerFileLookupQuery*) query;
+- (void) onIdentityPendingMessageForInnerBrowserWindowFrame:(HOPIdentity*) identity;
 
-@end
-
-@class HOPAccountPush;
-@protocol HOPAPNSDelegate <NSObject>
-@required
-- (void) onAccountPushComplete:(HOPAccountPush*) pushObject;
-
-@end
-
-@class HOPAccountOAuthIdentityAssociation;
-@protocol HOPProvisioningAccountOAuthIdentityAssociationDelegate <NSObject>
-
-- (void) onAccountOAuthIdentityAssociationProviderURLReady:(HOPAccountOAuthIdentityAssociation*) association;
-- (void) onAccountOAuthIdentityAssociationComplete:(HOPAccountOAuthIdentityAssociation*) association;
-
-@end
-
-@class HOPProvisioningAccount;
-
-@protocol HOPProvisioningAccountDelegate <NSObject>
-
-- (void) onProvisioningAccountStateChanged:(HOPProvisioningAccount*) account accountStates:(HOPProvisioningAccountStates) state;
-
-- (void) onProvisioningAccountError:(HOPProvisioningAccount*) account errorCodes:(HOPProvisioningAccountErrorCodes) error;
-
-- (void) onProvisioningAccountProfileChanged:(HOPProvisioningAccount*) account;
-
-- (void) onProvisioningAccountIdentityValidationResult:(HOPProvisioningAccount*) account identity:(id) identity result:(HOPProvisioningAccountIdentityValidationResultCode) result;
-
-@end
-
-@protocol HOPFaceDetectionDelegate <NSObject>
-
-- (void) onFaceDetected;
-
+- (void) onIdentityRolodexContactsDownloaded:(HOPIdentity*) identity;
 @end
 #endif
+
+@class HOPIdentityLookup;
+
+@protocol HOPIdentityLookupDelegate <NSObject>
+
+- (void) onIdentityLookupCompleted:(HOPIdentityLookup*) lookup;
+
+@end
+
+@class HOPCache;
+
+@protocol HOPCacheDelegate <NSObject>
+
+- (NSString*) fetchCookieWithPath:(NSString*) cookieNamePath;
+- (void) storeCookie:(NSString*) cookie cookieNamePath:(NSString*) cookieNamePath expireTime:(NSDate*) expireTime;
+- (void) clearCookieWithPath:(NSString*) cookieNamePath;
+
+@end

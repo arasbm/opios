@@ -30,6 +30,7 @@
  */
  
 #import "ActivityIndicatorViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface ActivityIndicatorViewController ()
 
@@ -61,6 +62,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.view.layer.cornerRadius = 5;
+    self.view.layer.masksToBounds = YES;
 }
 
 - (void)didReceiveMemoryWarning

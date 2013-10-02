@@ -31,9 +31,10 @@
 
 #import <Foundation/Foundation.h>
 
-@class Contact;
+@class HOPContact;
 @class HOPCall;
 @class HOPConversationThread;
+@class HOPRolodexContact;
 
 @interface Session : NSObject
 
@@ -41,7 +42,8 @@
 @property (strong) HOPConversationThread* conversationThread;
 @property (strong) HOPCall* currentCall;
 @property (assign) BOOL isRedial;
+@property (strong) NSMutableArray* messageArray;
 
-- (id) initWithContact:(Contact*) inContact conversationThread:(HOPConversationThread*) inConverationThread;
+- (id) initWithContact:(HOPRolodexContact*) inContact conversationThread:(HOPConversationThread*) inConverationThread;
 - (id) initWithContacts:(NSArray*) inContacts conversationThread:(HOPConversationThread*) inConverationThread;
 @end

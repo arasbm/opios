@@ -31,21 +31,57 @@
 
 #import "Constants.h"
 
-//Provisioning URI
-NSString* const provisioningURI = @"provisioning-stable-dev.hookflash.me";
+#error PLEASE SET APPLICATION ID VALUE (THEN REMOVE THIS LINE)
+NSString* const applicationId = @"<-- insert application ID here (e.g. com.domain.appName) -->";
+
+NSString* const applicationName = @"OpenPeerSampleApp";
+NSString* const applicationImageURL = @"http://hookflash.com/wp-content/themes/CleanSpace/images/logo.png";
+NSString* const applicationURL = @"www.openpeer.org";
+
+//!!!!!!!!!!!!!!!!!!!! WARNING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//This value should be obtained from service provider.
+#error PLEASE SET SHARED SECRET VALUE (THEN REMOVE THIS LINE)
+NSString* const applicationIdSharedSecret = @"<-- insert shared secret here -->";
+// ------------------- !!! WARNING !!! -------------------
+// Setting the application shared secret in the client is not recommended.
+// Instead, the recommended solution is for your client download an authorized
+// application ID from your own server using whatever method you determine is
+// most appropriate.
+// ------------------- !!! WARNING !!! -------------------
+
+//NSString* const provisioningURI = @"provisioning-stable-dev.hookflash.me";//Not in use
+NSString* const outerFrameURL = @"https://app-javascript.hookflash.me/outer.html";
+NSString* const identityProviderDomain = @"idprovider-javascript.hookflash.me";
+//NSString* const peerContactServiceDomain = @"unstable.hookflash.me";//Not in use
+//NSString* const contactsLoadingtServiceDomain = @"example-light.hookflash.me";//Not in use
+NSString* const identityFederateBaseURI = @"identity://idprovider-javascript.hookflash.me/";
+NSString* const identityFacebookBaseURI = @"identity://facebook.com/";
+NSString* const identityLinkedInBaseURI = @"identity://linkedin.com/";
+NSString* const grantOuterFrameURLUponReload = @"grantFinished";
+//NSString* const grantServiceDomain = @"hcs-javascript.hookflash.me";
+NSString* const lockBoxServiceDomain =  @"hcs-javascript.hookflash.me";
+
+NSString* const namespaceGrantServiceURL = @"https://app-javascript.hookflash.me/outernamespacegrant.html";
 
 NSString * const keyOpenPeerUser = @"keyOpenPeerUser";
 
 //User defaults keys
 
-NSString * const archiveUserId = @"archiveUserId";
+NSString * const archiveDeviceId = @"archiveDeviceId";
+NSString * const archiveStableUniqueId = @"archiveStableUniqueId";
+NSString * const archiveIdentityURI = @"archiveIdentityURI";
+NSString * const archivePeerURI = @"archivePeerURI";
+NSString * const archiveFullname = @"archiveFullname";
 NSString * const archiveContactId = @"archiveContactId";
 NSString * const archiveAccountSalt = @"archiveAccountSalt";
 NSString * const archivePasswordNonce = @"archivePasswordNonce";
 NSString * const archivePrivatePeerFile = @"archivePrivatePeerFile";
+NSString * const archivePrivatePeerFileSecret = @"archivePrivatePeerFileSecret";
 NSString * const archivePeerFilePassword = @"archivePeerFilePassword";
+NSString * const archiveAssociatedIdentities = @"archiveAssociatedIdentities";
 NSString * const archiveLastProfileUpdateTimestamp = @"archiveLastProfileUpdateTimestamp";
-NSString * const archiveLegacyLogin = @"archiveLegacyLogin";
+NSString * const archiveReloginInfo = @"archiveReloginInfo";
+
 //Contact Profile xml tags
 NSString* const profileXmlTagProfile = @"profile";
 NSString* const profileXmlTagName = @"name";
@@ -71,3 +107,23 @@ NSString * const TagText            = @"text";
 NSString * const systemMessageRequest = @"?";
 
 NSString * const notificationRemoteSessionModeChanged = @"notificationRemoteSessionModeChanged";
+
+NSString * const archiveRemoteSessionActivationMode = @"archiveRemoteSessionActivationMode";
+NSString * const archiveFaceDetectionMode = @"archiveFaceDetectionMode";
+NSString * const archiveRedialMode = @"archiveRedialMode";
+
+NSString * const archiveStdLogger = @"archiveStdLogger";
+NSString * const archiveTelnetLogger = @"archiveTelnetLogger";
+NSString * const archiveOutgoingTelnetLogger = @"archiveOutgoingTelnetLogger";
+NSString * const archiveModulesLogLevels = @"archiveModulesLogLevels";
+
+NSString * const moduleApplication = @"openpeer_application";
+NSString * const moduleSDK = @"openpeer_sdk";
+NSString * const moduleMedia = @"openpeer_media";
+NSString * const moduleWebRTC = @"openpeer_webrtc";
+NSString * const moduleCore = @"openpeer_core";
+NSString * const moduleStackMessage = @"openpeer_stack_message";
+NSString * const moduleStack = @"openpeer_stack";
+NSString * const moduleServices = @"openpeer_services";
+NSString * const moduleServicesHttp = @"openpeer_services_http";
+NSString * const moduleZsLib = @"zsLib";

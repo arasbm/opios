@@ -32,8 +32,11 @@
 #import "OpenPeer.h"
 #import "OpenPeerUser.h"
 #import "Utility.h"
+#import "Constants.h"
+
 //SDK
 #import "OpenpeerSDK/HOPStack.h"
+#import "OpenpeerSDK/HOPLogger.h"
 //Managers
 #import "LoginManager.h"
 //Delegates
@@ -41,7 +44,10 @@
 #import "MediaEngineDelegate.h"
 #import "ConversationThreadDelegate.h"
 #import "CallDelegate.h"
-#import "ProvisioningAccountDelegate.h"
+#import "AccountDelegate.h"
+#import "IdentityDelegate.h"
+#import "IdentityLookupDelegate.h"
+
 //View controllers
 #import "MainViewController.h"
 
@@ -49,7 +55,7 @@
 @interface OpenPeer ()
 
 - (void) createDelegates;
-
+- (void) setLogLevels;
 @end
 
 
@@ -70,25 +76,27 @@
 }
 
 /**
- Method used initialization of open peer stack. After initialization succeeds, login screen is showed.
+ Initializes the open peer stack. After initialization succeeds, login screen is displayed, or user relogin started.
  @param inMainViewController MainViewController Input main view controller.
  */
 - (void) prepareWithMainViewController:(MainViewController *)inMainViewController
 {
     self.mainViewController = inMainViewController;
     
-    [self startLogger];
+    NSDate* expiry = [[NSDate date] dateByAddingTimeInterval:(30 * 24 * 60 * 60)];
+    
+    self.authorizedApplicationId = [HOPStack createAuthorizedApplicationID:applicationId applicationIDSharedSecret:applicationIdSharedSecret expires:expiry];
+    //Set log levels and start logging
+    [self startAllSelectedLoggers];
+    
     //Created all delegates required for openpeer stack initialization.
     [self createDelegates];
-
-    //Init openpeer stack and set created delegates
-    BOOL prepared = [[HOPStack sharedStack] initStackDelegate:self.stackDelegate mediaEngineDelegate:self.mediaEngineDelegate conversationThreadDelegate:self.conversationThreadDelegate callDelegate:self.callDelegate userAgent:[Utility getUserAgentName] deviceOs:[Utility getDeviceOs] platform:[Utility getPlatform]];
     
-    //If openpeer stack is created, start with login procedure and display login view
-    if (prepared)
-    {
-        [[LoginManager sharedLoginManager] login];
-    }
+    //Init openpeer stack and set created delegates
+    [[HOPStack sharedStack] setupWithStackDelegate:self.stackDelegate mediaEngineDelegate:self.mediaEngineDelegate appID: self.authorizedApplicationId appName:applicationName appImageURL:applicationImageURL appURL:applicationURL userAgent:[Utility getUserAgentName] deviceID:[[OpenPeerUser sharedOpenPeerUser] deviceId] deviceOs:[Utility getDeviceOs] system:[Utility getPlatform]];
+    
+    //Start with login procedure and display login view
+    [[LoginManager sharedLoginManager] login];
 }
 
 /**
@@ -100,25 +108,126 @@
     self.mediaEngineDelegate = [[MediaEngineDelegate alloc] init];
     self.conversationThreadDelegate = [[ConversationThreadDelegate alloc] init];
     self.callDelegate = [[CallDelegate alloc] init];
-    self.provisioningAccountDelegate = [[ProvisioningAccountDelegate alloc] init];
+    self.accountDelegate = [[AccountDelegate alloc] init];
+    self.identityDelegate = [[IdentityDelegate alloc] init];
+    self.identityLookupDelegate = [[IdentityLookupDelegate alloc] init];
+}
+
+- (void) setLogLevels
+{
+    //For each system you can choose log level from HOPClientLogLevelNone (turned off) to HOPClientLogLevelTrace (most detail).
+    [HOPLogger setLogLevel:HOPLoggerLevelTrace];
+    [HOPLogger setLogLevelbyName:moduleApplication level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleApplication]];
+    [HOPLogger setLogLevelbyName:moduleServices level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleServices]];
+    [HOPLogger setLogLevelbyName:moduleServicesHttp level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleServicesHttp]];
+    [HOPLogger setLogLevelbyName:moduleCore level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleCore]];
+    [HOPLogger setLogLevelbyName:moduleStackMessage level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleStackMessage]];
+    [HOPLogger setLogLevelbyName:moduleStack level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleStack]];
+    [HOPLogger setLogLevelbyName:moduleWebRTC level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleWebRTC]];
+    [HOPLogger setLogLevelbyName:moduleZsLib level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleZsLib]];
+    [HOPLogger setLogLevelbyName:moduleSDK level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleSDK]];
+    [HOPLogger setLogLevelbyName:moduleMedia level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleMedia]];
+}
+
+- (void) setLogLevel:(HOPLoggerLevels) level
+{
+    [HOPLogger setLogLevel:level];
+    [HOPLogger setLogLevelbyName:moduleApplication level:level];
+    [HOPLogger setLogLevelbyName:moduleServices level:level];
+    [HOPLogger setLogLevelbyName:moduleServicesHttp level:level];
+    [HOPLogger setLogLevelbyName:moduleCore level:level];
+    [HOPLogger setLogLevelbyName:moduleStackMessage level:level];
+    [HOPLogger setLogLevelbyName:moduleStack level:level];
+    [HOPLogger setLogLevelbyName:moduleWebRTC level:level];
+    [HOPLogger setLogLevelbyName:moduleZsLib level:level];
+    [HOPLogger setLogLevelbyName:moduleSDK level:level];
+    [HOPLogger setLogLevelbyName:moduleMedia level:level];
+}
+
+- (void) startStdLogger:(BOOL) start
+{
+    if (start)
+    {
+        [self setLogLevels];
+        [HOPLogger installStdOutLogger:[[Settings sharedSettings] isLoggerEnabled:LOGGER_STD_OUT]];
+    }
+    
+//    else
+//        [HOPLogger uninstallStdOutLogger];
 }
 
 /**
- Method used for setting log levels and starting logger.
+ Sets log levels and starts the logger.
  */
-- (void) startLogger
+- (void) startTelnetLogger:(BOOL) start
 {
-    //For each system you can choose log level from HOPClientLogLevelNone (turned off) to HOPClientLogLevelTrace (most detail).
-    [HOPStack setLogLevel:HOPClientLogLevelTrace];
-    [HOPStack setLogLevelbyName:@"hookflash_gui" level:HOPClientLogLevelNone];
-    [HOPStack setLogLevelbyName:@"hookflash" level:HOPClientLogLevelNone];
-    [HOPStack setLogLevelbyName:@"hookflash_services" level:HOPClientLogLevelTrace];
-    [HOPStack setLogLevelbyName:@"zsLib" level:HOPClientLogLevelTrace];
-    [HOPStack setLogLevelbyName:@"hookflash_services_http" level:HOPClientLogLevelTrace];
-    [HOPStack setLogLevelbyName:@"hookflash_stack_message" level:HOPClientLogLevelTrace];
-    [HOPStack setLogLevelbyName:@"hookflash_stack" level:HOPClientLogLevelTrace];
-    [HOPStack setLogLevelbyName:@"hookflash_webrtc" level:HOPClientLogLevelNone];
+    //[self setDefaultLogLevels];
+    
+    if (start)
+    {
+        [self setLogLevels];
+        NSString* port =[[Settings sharedSettings] getServerPortForLogger:LOGGER_TELNET];
+        BOOL colorized = [[Settings sharedSettings] isColorizedOutputForLogger:LOGGER_TELNET];
+        if ([port length] > 0)
+            [HOPLogger installTelnetLogger:59999 maxSecondsWaitForSocketToBeAvailable:60 colorizeOutput:colorized];
+    }
+    else
+    {
+//        [HOPLogger uninstallTelnetLogger];
+    }
+    
     //Srart logger without colorized output
-    [HOPStack installStdOutLogger:NO];
+    //[HOPLogger installStdOutLogger:NO];
+    //[HOPLogger installTelnetLogger:59999 maxSecondsWaitForSocketToBeAvailable:60 colorizeOutput:YES];
+}
+
+- (void) startOutgoingTelnetLogger:(BOOL) start
+{
+    //if ([[Settings sharedSettings] isLoggerEnabled:LOGGER_OUTGOING_TELNET])
+    if (start)
+    {
+        [self setLogLevels];
+        NSString* server =[[Settings sharedSettings] getServerPortForLogger:LOGGER_OUTGOING_TELNET];
+        BOOL colorized = [[Settings sharedSettings] isColorizedOutputForLogger:LOGGER_OUTGOING_TELNET];
+        if ([server length] > 0)
+            [HOPLogger installOutgoingTelnetLogger:server colorizeOutput:colorized stringToSendUponConnection:self.authorizedApplicationId];
+    }
+    else
+    {
+//        [HOPLogger uninstallOutgoingTelnetLogger];
+    }
+    //[self setDefaultLogLevels];
+    
+    //[HOPLogger installOutgoingTelnetLogger:@"logger.hookflash.me:8055" colorizeOutput:TRUE stringToSendUponConnection:self.authorizedApplicationId];
+}
+
+- (void) startAllSelectedLoggers
+{
+    [self startStdLogger:[[Settings sharedSettings] isLoggerEnabled:LOGGER_STD_OUT]];
+    [self startTelnetLogger:[[Settings sharedSettings] isLoggerEnabled:LOGGER_TELNET]];
+    [self startOutgoingTelnetLogger:[[Settings sharedSettings] isLoggerEnabled:LOGGER_OUTGOING_TELNET]];
+}
+
+
+- (void) start:(BOOL) start looger:(LoggerTypes) type
+{
+    switch (type)
+    {
+        case LOGGER_STD_OUT:
+            [self startStdLogger:start];
+            break;
+            
+        case LOGGER_TELNET:
+            [self startTelnetLogger:start];
+            break;
+            
+        case LOGGER_OUTGOING_TELNET:
+            [self startOutgoingTelnetLogger:start];
+            break;
+            
+        default:
+            break;
+    }
+
 }
 @end

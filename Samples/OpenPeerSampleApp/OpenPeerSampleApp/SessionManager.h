@@ -32,42 +32,45 @@
 #import <Foundation/Foundation.h>
 #import <OpenpeerSDK/HOPProtocols.h>
 
-@class Contact;
 @class Session;
 @class HOPConversationThread;
 @class HOPMessage;
-
+@class HOPContact;
+@class HOPRolodexContact;
 
 @interface SessionManager : NSObject
 
-@property (retain) NSMutableDictionary* sessionsDictionary;
+@property (strong) NSMutableDictionary* sessionsDictionary;
 @property (assign) Session* lastEndedCallSession;
 @property (nonatomic, assign) Session* sessionWithFaceDetectionOn;
 
 + (id) sharedSessionManager;
 
-- (Session*) createSessionForContact:(Contact*) contact;
+- (Session*) createSessionForContact:(HOPRolodexContact*) contact;
 - (Session*) createSessionForContacts:(NSArray*) contacts andConversationThread:(HOPConversationThread*) inConversationThread;
-- (Session*) createSessionInitiatedFromSession:(Session*) inSession forContactUserIds:(NSString*) userIds;
+- (Session*) createSessionInitiatedFromSession:(Session*) inSession forContactPeerURIs:(NSString*) peerURIs;
 - (Session*) createRemoteSessionForContacts:(NSArray*) participants;
-- (Session*) getSessionForContact:(Contact*) contact;
-- (void) endSession:(Session*) session;
+- (Session*) proceedWithExistingSessionForContact:(HOPContact*) contact newConversationThread:(HOPConversationThread*) inConversationThread;
+- (Session*) getSessionForContact:(HOPRolodexContact*) contact;
+- (Session*) getSessionForSessionId:(NSString*) sessionId;
+
 
 - (void) makeCallForSession:(Session*) inSession includeVideo:(BOOL) includeVideo isRedial:(BOOL) isRedial;
 - (void) answerCallForSession:(Session*) inSession;
 - (void) endCallForSession:(Session*) inSession;
 
-- (void) handleIncomingCall:(HOPCall*) call forSession:(Session*) inSession;
+- (void) onCallPreparing:(HOPCall*) call;
+- (void) onCallIncoming:(HOPCall*) call;
+- (void) onCallOpened:(HOPCall*) call;
+- (void) onCallClosing:(HOPCall*) call;
 
-- (void) sendMessage:(NSString*) message forSession:(Session*) inSession;
-- (void) onMessageReceived:(HOPMessage*) message forSessionId:(NSString*) sessionId;
-
-- (void) onAvailabilityCheckReceivedForSession:(Session*) inSession;
 - (void) redialCallForSession:(Session*) inSession;
 
-- (void) onCallEnded:(Session*) inSession;
+- (void) onCallEnded:(HOPCall*) call;
 - (void) onFaceDetected;
 
 - (void) startVideoRecording;
 - (void) stopVideoRecording;
+
+- (BOOL) isCallInProgress;
 @end

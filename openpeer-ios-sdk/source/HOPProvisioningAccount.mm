@@ -30,20 +30,20 @@
  */
 
 
-#import <hookflash/provisioning/IAccount.h>
-#import <hookflash/IAccount.h>
-#import <hookflash/IXML.h>
-#include <zsLib/zsHelpers.h>
+#import <hookflash/core/IAccount.h>
+//#import <hookflash/IAccount.h>
+#import <hookflash/core/IHelper.h>
+#include <zsLib/Helpers.h>
 
-#import "HOPProvisioningAccountOAuthIdentityAssociation_Internal.h"
-#import "OpenPeerProvisioningAccountOAuthIdentityAssociationDelegate.h"
-#import "HOPProvisioningAccountPeerFileLookupQuery_Internal.h"
-#import "HOPProvisioningAccountIdentityLookupQuery_Internal.h"
-#import "OpenPeerAccountIdentityLookupQueryDelegate.h"
-#import "OpenPeerAccountPeerFileLookupQueryDelegate.h"
-#import "OpenPeerAPNSDelegate.h"
-#import "HOPProvisioningAccountPush.h"
-#import "HOPProvisioningAccountPush_Internal.h"
+//#import "HOPProvisioningAccountOAuthIdentityAssociation_Internal.h"
+//#import "OpenPeerProvisioningAccountOAuthIdentityAssociationDelegate.h"
+//#import "HOPProvisioningAccountPeerFileLookupQuery_Internal.h"
+//#import "HOPProvisioningAccountIdentityLookupQuery_Internal.h"
+//#import "OpenPeerAccountIdentityLookupQueryDelegate.h"
+//#import "OpenPeerAccountPeerFileLookupQueryDelegate.h"
+//#import "OpenPeerAPNSDelegate.h"
+//#import "HOPProvisioningAccountPush.h"
+//#import "HOPProvisioningAccountPush_Internal.h"
 #import "HOPProvisioningAccount_Internal.h"
 #import "HOPProvisioningAccount.h"
 #import "HOPStack_Internal.h"
@@ -278,16 +278,16 @@
     return [ret autorelease];
 }
 */
-- (BOOL) firstTimeLoginWithProvisioningAccountDelegate:(id<HOPProvisioningAccountDelegate>) provisioningAccountDelegate provisioningURI: (NSString*) provisioningURI deviceToken: (NSString*) deviceToken name: (NSString*) name knownIdentities: (NSArray*) knownIdentities
+- (BOOL) firstTimeLogin: (HOPStack*) stack provisioningAccountDelegate: (id<HOPProvisioningAccountDelegate>) provisioningAccountDelegate openpeerAccountDelegate: (id<HOPAccountDelegate>) openpeerAccountDelegate provisioningURI: (NSString*) provisioningURI deviceToken: (NSString*) deviceToken name: (NSString*) name knownIdentities: (NSArray*) knownIdentities
 {
     BOOL passedWithoutErrors = NO;
     
     @synchronized(self)
     {
-        if (!provisioningAccountDelegate)
+        if (!stack || !provisioningAccountDelegate || !openpeerAccountDelegate)
             return passedWithoutErrors;
         
-        if ( ([provisioningURI length] == 0 ) || !deviceToken || ([name length] == 0 ) || ([knownIdentities count] == 0) )
+        if ( ([provisioningURI length] == 0 ) || ([deviceToken length] == 0 ) || ([name length] == 0 ) || ([knownIdentities count] == 0) )
             return passedWithoutErrors;
         
         if (provisioningAccountPtr)
@@ -315,7 +315,7 @@
                 identities.push_back(info);
             }
             
-            provisioningAccountPtr = provisioning::IAccount::firstTimeLogin([[HOPStack sharedStack] getStackPtr], openpeerProvisioningAccountDelegatePtr, openpeerProvisioningAccountDelegatePtr, [provisioningURI UTF8String], [deviceToken UTF8String], [name UTF8String], identities);
+            provisioningAccountPtr = provisioning::IAccount::firstTimeLogin([stack getStackPtr], openpeerProvisioningAccountDelegatePtr, openpeerProvisioningAccountDelegatePtr, [provisioningURI UTF8String], [deviceToken UTF8String], [name UTF8String], identities);
             
             if (provisioningAccountPtr)
                 passedWithoutErrors = YES;

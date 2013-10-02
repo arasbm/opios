@@ -32,24 +32,26 @@
 
 #import "HOPMediaEngine_Internal.h"
 #import "HOPMediaEngine.h"
-#import <hookflash/IMediaEngine.h>
+#import <openpeer/core/IMediaEngine.h>
+
+ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
+
+using namespace openpeer::core;
 
 @interface HOPMediaEngine()
 
 @end
-
-
 @implementation HOPMediaEngine
 
 + (NSString*) cameraTypeToString: (HOPMediaEngineCameraTypes) type
 {
-  return [NSString stringWithUTF8String: IMediaEngine::toString((hookflash::IMediaEngine::CameraTypes) type)];
+  return [NSString stringWithUTF8String: IMediaEngine::toString((IMediaEngine::CameraTypes) type)];
 }
 
 
 + (NSString*) audioRouteToString: (HOPMediaEngineOutputAudioRoutes) route
 {
-  return [NSString stringWithUTF8String: IMediaEngine::toString((hookflash::IMediaEngine::OutputAudioRoutes) route)];
+  return [NSString stringWithUTF8String: IMediaEngine::toString((IMediaEngine::OutputAudioRoutes) route)];
 }
 
 + (id)sharedInstance
@@ -57,7 +59,7 @@
     static dispatch_once_t pred = 0;
     __strong static id _sharedObject = nil;
     dispatch_once(&pred, ^{
-        _sharedObject = [[self alloc] init]; // or some other init method
+        _sharedObject = [[self alloc] init]; 
     });
     return _sharedObject;
 }
@@ -96,7 +98,7 @@
 - (HOPMediaEngineVideoOrientations) getDefaultVideoOrientation
 {
     HOPMediaEngineVideoOrientations ret = HOPMediaEngineVideoOrientationLandscapeLeft;
-  
+    
     if(mediaEnginePtr)
     {
         ret = (HOPMediaEngineVideoOrientations)mediaEnginePtr->getDefaultVideoOrientation();
@@ -121,7 +123,7 @@
 - (HOPMediaEngineVideoOrientations) getRecordVideoOrientation
 {
     HOPMediaEngineVideoOrientations ret = HOPMediaEngineVideoOrientationLandscapeLeft;
-  
+    
     if(mediaEnginePtr)
     {
         ret = (HOPMediaEngineVideoOrientations)mediaEnginePtr->getRecordVideoOrientation();
@@ -132,11 +134,12 @@
     }
     return ret;
 }
+
 - (void) setCaptureRenderView: (UIImageView*) renderView
 {
     if(mediaEnginePtr)
     {
-        mediaEnginePtr->setCaptureRenderView((void*) renderView);
+        mediaEnginePtr->setCaptureRenderView((__bridge void*) renderView);
     }
     else
     {
@@ -148,7 +151,7 @@
 {
     if(mediaEnginePtr)
     {
-        mediaEnginePtr->setChannelRenderView((void*) renderView);
+        mediaEnginePtr->setChannelRenderView((__bridge void*) renderView);
     }
     else
     {
@@ -310,7 +313,7 @@
 {
     if(mediaEnginePtr)
     {
-        mediaEnginePtr->setCameraType((hookflash::IMediaEngine::CameraTypes)type);
+        mediaEnginePtr->setCameraType((IMediaEngine::CameraTypes)type);
     }
     else
     {
@@ -320,7 +323,7 @@
 
 - (int) getVideoTransportStatistics: (HOPMediaEngineRtpRtcpStatistics*) stat
 {
-    hookflash::IMediaEngine::RtpRtcpStatistics coreStat;
+    IMediaEngine::RtpRtcpStatistics coreStat;
     int ret = 0;
 
     if(mediaEnginePtr)
@@ -346,7 +349,7 @@
 
 - (int) getVoiceTransportStatistics: (HOPMediaEngineRtpRtcpStatistics*) stat
 {
-    hookflash::IMediaEngine::RtpRtcpStatistics coreStat;
+    IMediaEngine::RtpRtcpStatistics coreStat;
     int ret = 0;
 
     if(mediaEnginePtr)
@@ -482,10 +485,14 @@
     [self stopVideoCapture];
 }
 
-
 #pragma mark - Internal methods
 - (IMediaEnginePtr) getMediaEnginePtr
 {
     return mediaEnginePtr;
+}
+
+- (String) log:(NSString*) message
+{
+    return String("HOPMediaEngine: ") + [message UTF8String];
 }
 @end
