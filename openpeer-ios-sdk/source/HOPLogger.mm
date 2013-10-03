@@ -208,6 +208,10 @@ void HOPLog(HOPLoggerLevels logLevel, NSString* format,...)
     ILogger::log((zsLib::PTRNUMBER) subsystemUniqueID, (ILogger::Severity) severity, (ILogger::Level) level, [strMessage UTF8String], [strFunction UTF8String], [strFilePath UTF8String], lineNumber);
 }
 
++ (void) uninstallStdOutLogger
+{
+    ILogger::uninstallStdOutLogger();
+}
 
 + (void) uninstallFileLogger
 {

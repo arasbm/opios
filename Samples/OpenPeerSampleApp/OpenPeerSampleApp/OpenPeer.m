@@ -51,6 +51,8 @@
 //View controllers
 #import "MainViewController.h"
 
+
+
 //Private methods
 @interface OpenPeer ()
 
@@ -116,7 +118,7 @@
 - (void) setLogLevels
 {
     //For each system you can choose log level from HOPClientLogLevelNone (turned off) to HOPClientLogLevelTrace (most detail).
-    [HOPLogger setLogLevel:HOPLoggerLevelTrace];
+    //[HOPLogger setLogLevel:HOPLoggerLevelTrace];
     [HOPLogger setLogLevelbyName:moduleApplication level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleApplication]];
     [HOPLogger setLogLevelbyName:moduleServices level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleServices]];
     [HOPLogger setLogLevelbyName:moduleServicesHttp level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleServicesHttp]];
@@ -151,9 +153,8 @@
         [self setLogLevels];
         [HOPLogger installStdOutLogger:[[Settings sharedSettings] isLoggerEnabled:LOGGER_STD_OUT]];
     }
-    
-//    else
-//        [HOPLogger uninstallStdOutLogger];
+    else
+        [HOPLogger uninstallStdOutLogger];
 }
 
 /**
@@ -161,8 +162,6 @@
  */
 - (void) startTelnetLogger:(BOOL) start
 {
-    //[self setDefaultLogLevels];
-    
     if (start)
     {
         [self setLogLevels];
@@ -173,17 +172,12 @@
     }
     else
     {
-//        [HOPLogger uninstallTelnetLogger];
+        [HOPLogger uninstallTelnetLogger];
     }
-    
-    //Srart logger without colorized output
-    //[HOPLogger installStdOutLogger:NO];
-    //[HOPLogger installTelnetLogger:59999 maxSecondsWaitForSocketToBeAvailable:60 colorizeOutput:YES];
 }
 
 - (void) startOutgoingTelnetLogger:(BOOL) start
 {
-    //if ([[Settings sharedSettings] isLoggerEnabled:LOGGER_OUTGOING_TELNET])
     if (start)
     {
         [self setLogLevels];
@@ -194,11 +188,8 @@
     }
     else
     {
-//        [HOPLogger uninstallOutgoingTelnetLogger];
+        [HOPLogger uninstallOutgoingTelnetLogger];
     }
-    //[self setDefaultLogLevels];
-    
-    //[HOPLogger installOutgoingTelnetLogger:@"logger.hookflash.me:8055" colorizeOutput:TRUE stringToSendUponConnection:self.authorizedApplicationId];
 }
 
 - (void) startAllSelectedLoggers

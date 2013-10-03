@@ -306,43 +306,43 @@
     switch (module)
     {
         case MODULE_APPLICATION:
-            ret = @"moduleApplication";
+            ret = moduleApplication;
             break;
             
         case MODEULE_SDK:
-            ret = @"moduleSDK";
+            ret = moduleSDK;
             break;
             
         case MODULE_MEDIA:
-            ret = @"moduleMedia";
+            ret = moduleMedia;
             break;
             
         case MODULE_WEBRTC:
-            ret = @"moduleWebRTC";
+            ret = moduleWebRTC;
             break;
             
         case MODULE_CORE:
-            ret = @"moduleCore";
+            ret = moduleCore;
             break;
             
         case MODULE_STACK_MESSAGE:
-            ret = @"moduleStackMessage";
+            ret = moduleStackMessage;
             break;
             
         case MODULE_STACK:
-            ret = @"moduleStack";
+            ret = moduleStack;
             break;
             
         case MODULE_SERVICES:
-            ret = @"moduleServices";
+            ret = moduleServices;
             break;
             
         case MODULE_SERVICES_HTTP:
-            ret = @"moduleServicesHttp";
+            ret = moduleServicesHttp;
             break;
             
         case MODULE_ZSLIB:
-            ret = @"moduleZsLib";
+            ret = moduleZsLib;
             break;
             
             default:

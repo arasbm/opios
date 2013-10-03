@@ -29,6 +29,7 @@ typedef enum
 @property (strong, nonatomic) UIPickerView *pickerView;
 
 - (void) switchChanged:(UISwitch*) sender;
+- (void) switchColorChanged:(UISwitch*) sender;
 
 @end
 
@@ -220,12 +221,14 @@ typedef enum
                         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:switchCellIdentifier];
                         cell.selectionStyle = UITableViewCellSelectionStyleNone;
                         UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
-                        switchView.tag = indexPath.section;
+                        
                         cell.accessoryView = switchView;
                         [switchView setOn:NO animated:NO];
-                        [switchView addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
+                        [switchView addTarget:self action:@selector(switchColorChanged:) forControlEvents:UIControlEventValueChanged];
                     }
                     
+                    
+                    ((UISwitch*)cell.accessoryView).tag = indexPath.section;
                     [((UISwitch*)cell.accessoryView) setOn:[[Settings sharedSettings] isColorizedOutputForLogger:indexPath.section]];
                     cell.textLabel.text = @"Colorize output";
                 }
@@ -291,6 +294,11 @@ typedef enum
 - (void) switchChanged:(UISwitch*) sender
 {
     [[Settings sharedSettings] enable:[sender isOn] looger:sender.tag];
+}
+
+- (void) switchColorChanged:(UISwitch*) sender
+{
+    [[Settings sharedSettings] setColorizedOutput:[sender isOn] logger:sender.tag];
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)thePickerView

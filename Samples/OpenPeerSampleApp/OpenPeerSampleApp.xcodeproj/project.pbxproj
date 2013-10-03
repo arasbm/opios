@@ -44,7 +44,7 @@
 		8719AB1217CE2C60007E991B /* audio_call_incoming_accept_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 8719AB1017CE2C60007E991B /* audio_call_incoming_accept_button.png */; };
 		871BC9A7179EECC400AEA4A6 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 871BC9A6179EECC400AEA4A6 /* CoreData.framework */; };
 		8722A67317CF7FAE002A3BB6 /* ContactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8722A67017CF7FAD002A3BB6 /* ContactTableViewCell.xib */; };
-		8722A67417CF7FAE002A3BB6 /* ContactTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8722A67117CF7FAD002A3BB6 /* ContactTableViewCell.mm */; };
+		8722A67417CF7FAE002A3BB6 /* ContactTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8722A67117CF7FAD002A3BB6 /* ContactTableViewCell.m */; };
 		8722A67E17D35AB3002A3BB6 /* video_indicator_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 8722A67B17D35AB3002A3BB6 /* video_indicator_blue.png */; };
 		8722A67F17D35AB3002A3BB6 /* chat_indicator_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 8722A67C17D35AB3002A3BB6 /* chat_indicator_blue.png */; };
 		8722A68017D35AB3002A3BB6 /* audio_indicator_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 8722A67D17D35AB3002A3BB6 /* audio_indicator_blue.png */; };
@@ -73,6 +73,7 @@
 		874AD9DB166CEB530095FE33 /* ConversationThreadDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 874AD9DA166CEB530095FE33 /* ConversationThreadDelegate.m */; };
 		874AD9DE166CEB780095FE33 /* CallDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 874AD9DD166CEB780095FE33 /* CallDelegate.m */; };
 		874AD9E5166D4C900095FE33 /* OpenPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 874AD9E4166D4C900095FE33 /* OpenPeer.m */; };
+		874FE10E17FD7FF0007A791B /* AppLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 874FE10D17FD7FF0007A791B /* AppLog.m */; };
 		874FF90116806D0F00B0A7A0 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 874FF90016806D0F00B0A7A0 /* Constants.m */; };
 		87570E46172ED183006E1C2F /* OpenpeerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87570E45172ED183006E1C2F /* OpenpeerSDK.framework */; };
 		875CD7E2167A14810037396B /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 875CD7E1167A14810037396B /* SessionManager.m */; };
@@ -93,7 +94,7 @@
 		87EE6070166F667C002C5FA3 /* WebLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87EE606F166F667B002C5FA3 /* WebLoginViewController.xib */; };
 		87F09EE2171EBB1B0045F6A6 /* ChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87F09EDD171EBB1A0045F6A6 /* ChatViewController.xib */; };
 		87F09EE3171EBB1B0045F6A6 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F09EDE171EBB1A0045F6A6 /* ChatViewController.m */; };
-		87F09EE4171EBB1B0045F6A6 /* ChatMessageCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 87F09EE0171EBB1B0045F6A6 /* ChatMessageCell.mm */; };
+		87F09EE4171EBB1B0045F6A6 /* ChatMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F09EE0171EBB1B0045F6A6 /* ChatMessageCell.m */; };
 		87F09EE7171EBB2A0045F6A6 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F09EE5171EBB2A0045F6A6 /* Message.m */; };
 		87F11AF017C2854700CFE85D /* OpenPeerDataModel.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 87098FDC17C23997007C9093 /* OpenPeerDataModel.bundle */; };
 		87F24B5F166FF0C900A5389F /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F24B5E166FF0C900A5389F /* Utility.m */; };
@@ -197,7 +198,7 @@
 		8719AB1017CE2C60007E991B /* audio_call_incoming_accept_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = audio_call_incoming_accept_button.png; sourceTree = "<group>"; };
 		871BC9A6179EECC400AEA4A6 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		8722A67017CF7FAD002A3BB6 /* ContactTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactTableViewCell.xib; sourceTree = "<group>"; };
-		8722A67117CF7FAD002A3BB6 /* ContactTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ContactTableViewCell.mm; sourceTree = "<group>"; };
+		8722A67117CF7FAD002A3BB6 /* ContactTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactTableViewCell.m; sourceTree = "<group>"; };
 		8722A67217CF7FAD002A3BB6 /* ContactTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactTableViewCell.h; sourceTree = "<group>"; };
 		8722A67B17D35AB3002A3BB6 /* video_indicator_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video_indicator_blue.png; sourceTree = "<group>"; };
 		8722A67C17D35AB3002A3BB6 /* chat_indicator_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_indicator_blue.png; sourceTree = "<group>"; };
@@ -253,6 +254,8 @@
 		874ADDCB166E2B7B0095FE33 /* libboost_regex.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_regex.a; path = ../../libs/op/libs/boost/staging/iPhoneOS/lib/libboost_regex.a; sourceTree = SOURCE_ROOT; };
 		874ADDCC166E2B7B0095FE33 /* libboost_thread.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_thread.a; path = ../../libs/op/libs/boost/staging/iPhoneOS/lib/libboost_thread.a; sourceTree = SOURCE_ROOT; };
 		874ADDCD166E2B7C0095FE33 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../libs/op/libs/curl/staging/libcurl.a; sourceTree = SOURCE_ROOT; };
+		874FE10D17FD7FF0007A791B /* AppLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppLog.m; sourceTree = "<group>"; };
+		874FE11117FD8DA9007A791B /* AppLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppLog.h; sourceTree = "<group>"; };
 		874FF8FF16806D0F00B0A7A0 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		874FF90016806D0F00B0A7A0 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		87570E45172ED183006E1C2F /* OpenpeerSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenpeerSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -278,7 +281,7 @@
 		87F09EDD171EBB1A0045F6A6 /* ChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatViewController.xib; sourceTree = "<group>"; };
 		87F09EDE171EBB1A0045F6A6 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
 		87F09EDF171EBB1A0045F6A6 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
-		87F09EE0171EBB1B0045F6A6 /* ChatMessageCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ChatMessageCell.mm; sourceTree = "<group>"; };
+		87F09EE0171EBB1B0045F6A6 /* ChatMessageCell.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = ChatMessageCell.m; sourceTree = "<group>"; };
 		87F09EE1171EBB1B0045F6A6 /* ChatMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMessageCell.h; sourceTree = "<group>"; };
 		87F09EE5171EBB2A0045F6A6 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		87F09EE6171EBB2A0045F6A6 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
@@ -355,6 +358,7 @@
 		870C5E181672345A00A3AA4F /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				874FE11117FD8DA9007A791B /* AppLog.h */,
 				87D72EC017DDEEB000DEB37E /* IconDownloader.m */,
 				87D72EC117DDEEB000DEB37E /* IconDownloader.h */,
 				87FC39F91709BD8C002030D1 /* XMLWriter */,
@@ -367,6 +371,7 @@
 				870F337C168376450090A97F /* ActivityIndicatorViewController.h */,
 				870F337D168376450090A97F /* ActivityIndicatorViewController.m */,
 				870F337E168376450090A97F /* ActivityIndicatorViewController.xib */,
+				874FE10D17FD7FF0007A791B /* AppLog.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -390,7 +395,7 @@
 			isa = PBXGroup;
 			children = (
 				8722A67017CF7FAD002A3BB6 /* ContactTableViewCell.xib */,
-				8722A67117CF7FAD002A3BB6 /* ContactTableViewCell.mm */,
+				8722A67117CF7FAD002A3BB6 /* ContactTableViewCell.m */,
 				8722A67217CF7FAD002A3BB6 /* ContactTableViewCell.h */,
 				87F24B60167003F300A5389F /* ContactsManager.h */,
 				87F24B61167003F300A5389F /* ContactsManager.m */,
@@ -600,7 +605,7 @@
 				87F09EDD171EBB1A0045F6A6 /* ChatViewController.xib */,
 				87F09EDE171EBB1A0045F6A6 /* ChatViewController.m */,
 				87F09EDF171EBB1A0045F6A6 /* ChatViewController.h */,
-				87F09EE0171EBB1B0045F6A6 /* ChatMessageCell.mm */,
+				87F09EE0171EBB1B0045F6A6 /* ChatMessageCell.m */,
 				87F09EE1171EBB1B0045F6A6 /* ChatMessageCell.h */,
 				875CD7E0167A14810037396B /* SessionManager.h */,
 				875CD7E1167A14810037396B /* SessionManager.m */,
@@ -795,6 +800,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				87272839166CBF9B0089CBB6 /* main.m in Sources */,
+				874FE10E17FD7FF0007A791B /* AppLog.m in Sources */,
 				8727283D166CBF9B0089CBB6 /* AppDelegate.m in Sources */,
 				87272850166CC1810089CBB6 /* MainViewController.m in Sources */,
 				87272855166CC2640089CBB6 /* LoginViewController.m in Sources */,
@@ -831,11 +837,11 @@
 				87FC3A1F1709BD8D002030D1 /* SBJsonWriter.m in Sources */,
 				87FC3A201709BD8D002030D1 /* RXMLElement.m in Sources */,
 				87F09EE3171EBB1B0045F6A6 /* ChatViewController.m in Sources */,
-				87F09EE4171EBB1B0045F6A6 /* ChatMessageCell.mm in Sources */,
+				87F09EE4171EBB1B0045F6A6 /* ChatMessageCell.m in Sources */,
 				87F09EE7171EBB2A0045F6A6 /* Message.m in Sources */,
 				87E3CCE7172A814F00084D2F /* IdentityLookupDelegate.m in Sources */,
 				87D91B2A17687EFD00E46B66 /* CacheDelegate.m in Sources */,
-				8722A67417CF7FAE002A3BB6 /* ContactTableViewCell.mm in Sources */,
+				8722A67417CF7FAE002A3BB6 /* ContactTableViewCell.m in Sources */,
 				8712BE8A17D8CCAD00665F42 /* SettingsViewController.m in Sources */,
 				879D7B9717FB1224008C78E2 /* LoggerSettingsViewController.m in Sources */,
 				8712BE8B17D8CCAD00665F42 /* InfoViewController.m in Sources */,
