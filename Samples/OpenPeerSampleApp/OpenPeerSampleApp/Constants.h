@@ -97,6 +97,9 @@ extern NSString * const systemMessageRequest;
 extern NSString * const notificationRemoteSessionModeChanged;
 
 //Settings
+extern NSString * const defaultTelnetPort;
+extern NSString * const defaultOutgoingTelnetServer;
+
 extern NSString * const archiveRemoteSessionActivationMode;
 extern NSString * const archiveFaceDetectionMode;
 extern NSString * const archiveRedialMode;

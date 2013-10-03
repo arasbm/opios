@@ -253,43 +253,43 @@
     switch (module)
     {
         case MODULE_APPLICATION:
-            ret = @"Open Peer Sample Application";
+            ret = @"Application";
             break;
             
         case MODEULE_SDK:
-            ret = @"Open Peer SDK (iOS)";
+            ret = @"SDK (iOS)";
             break;
 
         case MODULE_MEDIA:
-            ret = @"Open Peer SDK (media)";
+            ret = @"SDK (media)";
             break;
 
         case MODULE_WEBRTC:
-            ret = @"Open Peer SDK (webRTC)";
+            ret = @"SDK (webRTC)";
             break;
 
         case MODULE_CORE:
-            ret = @"Open Peer SDK (core)";
+            ret = @"SDK (core)";
             break;
 
         case MODULE_STACK_MESSAGE:
-            ret = @"Open Peer SDK (messages)";
+            ret = @"SDK (messages)";
             break;
 
         case MODULE_STACK:
-            ret = @"Open Peer SDK (stack)";
+            ret = @"SDK (stack)";
             break;
 
         case MODULE_SERVICES:
-            ret = @"Open Peer SDK (services)";
+            ret = @"SDK (services)";
             break;
 
         case MODULE_SERVICES_HTTP:
-            ret = @"Open Peer SDK (HTTP)";
+            ret = @"SDK (HTTP)";
             break;
 
         case MODULE_ZSLIB:
-            ret = @"Open Peer SDK (zsLib)";
+            ret = @"SDK (zsLib)";
             break;
             
             default:

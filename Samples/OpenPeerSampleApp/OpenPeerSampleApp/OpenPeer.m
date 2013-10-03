@@ -151,7 +151,7 @@
     if (start)
     {
         [self setLogLevels];
-        [HOPLogger installStdOutLogger:[[Settings sharedSettings] isLoggerEnabled:LOGGER_STD_OUT]];
+        [HOPLogger installStdOutLogger:NO];
     }
     else
         [HOPLogger uninstallStdOutLogger];

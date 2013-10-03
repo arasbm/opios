@@ -356,4 +356,14 @@ static const short _base64DecodingTable[256] = {
     
     return ret;
 }
+
++ (UIBarButtonItem*) createNavigationBackButtonForTarget:(id) target
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:@"iPhone_back_button.png"] forState:UIControlStateNormal];
+    [button addTarget:target action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
+    button.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
+    UIBarButtonItem* backButon = [[UIBarButtonItem alloc] initWithCustomView: button];
+    return backButon;
+}
 @end

@@ -108,6 +108,9 @@ NSString * const systemMessageRequest = @"?";
 
 NSString * const notificationRemoteSessionModeChanged = @"notificationRemoteSessionModeChanged";
 
+NSString * const defaultTelnetPort = @"59999";
+NSString * const defaultOutgoingTelnetServer = @"tcp.logger.hookflash.me:8055";
+
 NSString * const archiveRemoteSessionActivationMode = @"archiveRemoteSessionActivationMode";
 NSString * const archiveFaceDetectionMode = @"archiveFaceDetectionMode";
 NSString * const archiveRedialMode = @"archiveRedialMode";

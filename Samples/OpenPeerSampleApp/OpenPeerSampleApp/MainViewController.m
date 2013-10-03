@@ -33,6 +33,7 @@
 #import "OpenPeer.h"
 #import "OpenPeerUser.h"
 #import "Constants.h"
+#import "Utility.h"
 //SDK
 #import <OpenpeerSDK/HOPConversationThread.h>
 //Managers
@@ -159,7 +160,6 @@
     if (!self.loginViewController)
     {
         self.loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-        [self.loginViewController.view setFrame:self.view.bounds];
     }
     
     [self removeAllSubViews];
@@ -167,6 +167,7 @@
     
     [self.loginViewController prepareForLogin];
     [self.view addSubview:self.loginViewController.view];
+    [self.loginViewController.view setFrame:self.view.bounds];
 }
 
 /**

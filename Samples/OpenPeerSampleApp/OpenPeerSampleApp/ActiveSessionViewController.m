@@ -116,7 +116,7 @@
         //This is just used for opening session view controller so we can reset it to default state
         self.isIncomingCall = NO;
     }
-    
+    self.navigationItem.leftBarButtonItem = [Utility createNavigationBackButtonForTarget:self.navigationController];
 }
 
 -(void)viewDidAppear:(BOOL)animated

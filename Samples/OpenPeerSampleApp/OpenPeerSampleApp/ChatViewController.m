@@ -32,6 +32,7 @@
 #import "ChatViewController.h"
 #import <UIKit/UIKit.h>
 
+#import "Utility.h"
 #import "MessageManager.h"
 #import "Message.h"
 #import "Session.h"
@@ -146,6 +147,8 @@
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
     tapGesture.numberOfTapsRequired = 1;
     [chatTableView addGestureRecognizer:tapGesture];
+    
+    self.navigationItem.leftBarButtonItem = [Utility createNavigationBackButtonForTarget:self.navigationController];
 }
 
 - (void)viewDidUnload

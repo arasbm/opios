@@ -44,4 +44,5 @@
 + (NSString*) getCallStateAsString:(HOPCallStates) callState;
 + (NSString*) getFunctionNameForRequest:(NSString*) requestString;
 + (NSString*) getParametersNameForRequest:(NSString*) requestString;
++ (UIBarButtonItem*) createNavigationBackButtonForTarget:(id) target;
 @end

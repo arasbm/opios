@@ -9,8 +9,9 @@
 #import "LoggerSettingsViewController.h"
 #import "OpenPeer.h"
 #import "Settings.h"
+#import "Constants.h"
 #import "MainViewController.h"
-
+#import "Utility.h"
 #import <OpenPeerSDK/HOPTypes.h>
 
 typedef enum
@@ -51,6 +52,8 @@ typedef enum
     self.pickerView = [[UIPickerView alloc] init];
     self.pickerView.delegate = self;
     self.pickerView.dataSource = self;
+    
+    self.navigationItem.leftBarButtonItem = [Utility createNavigationBackButtonForTarget:self.navigationController];
 }
 
 - (void)didReceiveMemoryWarning
@@ -207,7 +210,7 @@ typedef enum
                     if ([server length] > 0)
                         textField.text = server;
                     else
-                        textField.placeholder = indexPath.section == SECTION_LOGGER_TELNET ? @"port number" : @"server address";
+                        textField.text = indexPath.section == SECTION_LOGGER_TELNET ? defaultTelnetPort : defaultOutgoingTelnetServer;
                         
                     
                 }
@@ -319,7 +322,10 @@ typedef enum
 - (void)pickerView:(UIPickerView *)thePickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     [[Settings sharedSettings] setLoggerLevel:row forAppModule:thePickerView.tag];
-    //[thePickerView removeFromSuperview];
+    NSIndexPath* path = [NSIndexPath indexPathForRow:thePickerView.tag inSection:SECTION_LOGGER_MODULES];
+    [self.tableView beginUpdates];
+    [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView endUpdates];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
