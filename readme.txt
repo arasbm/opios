@@ -2,7 +2,7 @@ Thank you for downloading Hookflash's Open Peer iOS SDK.
 
 This release is a preliminary 0.8.0 release of the SDK and Hookflash will be publishing updates to the SDK regularly.
 
-For a quick intorduction to the code please read the following. For more detailed instructions please go to http://docs.hookflash.com.
+For a quick introduction to the code please read the following. For more detailed instructions please go to http://docs.hookflash.com.
 
 
 From your terminal, please clone the "opios" git repository:
