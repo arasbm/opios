@@ -56,11 +56,19 @@
         
         self.telnetLoggerSettings =[[[NSUserDefaults standardUserDefaults] objectForKey:archiveTelnetLogger] mutableCopy];
         if (!self.telnetLoggerSettings)
+        {
             self.telnetLoggerSettings = [[NSMutableDictionary alloc] init];
+            [self.telnetLoggerSettings setObject:defaultTelnetPort forKey:@"server"];
+            [self.telnetLoggerSettings setObject:[NSNumber numberWithBool:YES] forKey:@"colorized"];
+        }
         
         self.outgoingTelnetLoggerSettings =[[[NSUserDefaults standardUserDefaults] objectForKey:archiveOutgoingTelnetLogger] mutableCopy];
         if (!self.outgoingTelnetLoggerSettings)
+        {
             self.outgoingTelnetLoggerSettings = [[NSMutableDictionary alloc] init];
+            [self.outgoingTelnetLoggerSettings setObject:defaultOutgoingTelnetServer forKey:@"server"];
+            [self.outgoingTelnetLoggerSettings setObject:[NSNumber numberWithBool:YES] forKey:@"colorized"];
+        }
     }
     return self;
 }

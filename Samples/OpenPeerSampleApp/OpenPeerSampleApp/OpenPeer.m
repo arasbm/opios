@@ -168,7 +168,7 @@
         NSString* port =[[Settings sharedSettings] getServerPortForLogger:LOGGER_TELNET];
         BOOL colorized = [[Settings sharedSettings] isColorizedOutputForLogger:LOGGER_TELNET];
         if ([port length] > 0)
-            [HOPLogger installTelnetLogger:59999 maxSecondsWaitForSocketToBeAvailable:60 colorizeOutput:colorized];
+            [HOPLogger installTelnetLogger:[port intValue] maxSecondsWaitForSocketToBeAvailable:60 colorizeOutput:colorized];
     }
     else
     {

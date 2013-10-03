@@ -143,6 +143,7 @@ typedef enum
             }
             
             cell.tag = indexPath.section;
+            ((UISwitch*)cell.accessoryView).tag = indexPath.section;
             [self setSwitchCellData:cell];
         }
             break;
@@ -164,6 +165,7 @@ typedef enum
                         [switchView addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
                     }
                     cell.tag = indexPath.section;
+                    ((UISwitch*)cell.accessoryView).tag = indexPath.section;
                     [self setSwitchCellData:cell];
                 }
                     break;
