@@ -79,7 +79,7 @@
 }
 
 /**
- Initializes the open peer stack. After initialization succeeds, login screen is displayed, or user relogin started.
+ Prepare authorized app ID and associate main view controller.
  @param inMainViewController MainViewController Input main view controller.
  */
 - (void) prepareWithMainViewController:(MainViewController *)inMainViewController
@@ -89,17 +89,25 @@
     NSDate* expiry = [[NSDate date] dateByAddingTimeInterval:(30 * 24 * 60 * 60)];
     
     self.authorizedApplicationId = [HOPStack createAuthorizedApplicationID:applicationId applicationIDSharedSecret:applicationIdSharedSecret expires:expiry];
-    //Set log levels and start logging
-    [self startAllSelectedLoggers];
-    
-    //Created all delegates required for openpeer stack initialization.
-    [self createDelegates];
-    
-    //Init openpeer stack and set created delegates
-    [[HOPStack sharedStack] setupWithStackDelegate:self.stackDelegate mediaEngineDelegate:self.mediaEngineDelegate appID: self.authorizedApplicationId appName:applicationName appImageURL:applicationImageURL appURL:applicationURL userAgent:[Utility getUserAgentName] deviceID:[[OpenPeerUser sharedOpenPeerUser] deviceId] deviceOs:[Utility getDeviceOs] system:[Utility getPlatform]];
-    
-    //Start with login procedure and display login view
-    [[LoginManager sharedLoginManager] login];
+}
+
+/**
+ Initializes the open peer stack. After initialization succeeds, login screen is displayed, or user relogin started.
+ @param inMainViewController MainViewController Input main view controller.
+ */
+- (void) setup
+{
+  //Set log levels and start logging
+  [self startAllSelectedLoggers];
+
+  //Created all delegates required for openpeer stack initialization.
+  [self createDelegates];
+
+  //Init openpeer stack and set created delegates
+  [[HOPStack sharedStack] setupWithStackDelegate:self.stackDelegate mediaEngineDelegate:self.mediaEngineDelegate appID: self.authorizedApplicationId appName:applicationName appImageURL:applicationImageURL appURL:applicationURL userAgent:[Utility getUserAgentName] deviceID:[[OpenPeerUser sharedOpenPeerUser] deviceId] deviceOs:[Utility getDeviceOs] system:[Utility getPlatform]];
+
+  //Start with login procedure and display login view
+  [[LoginManager sharedLoginManager] login];
 }
 
 /**
@@ -241,5 +249,6 @@
     [HOPLogger setLogLevelbyName:moduleMedia level:HOPLoggerLevelBasic];
     
     [HOPLogger installTelnetLogger:[defaultTelnetPort intValue] maxSecondsWaitForSocketToBeAvailable:60 colorizeOutput:YES];
+    [HOPLogger installOutgoingTelnetLogger:defaultOutgoingTelnetServer  colorizeOutput:YES stringToSendUponConnection:self.authorizedApplicationId];
 }
 @end

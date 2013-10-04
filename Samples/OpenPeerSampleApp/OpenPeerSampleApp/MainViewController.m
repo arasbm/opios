@@ -87,10 +87,10 @@
 {
     [super viewDidLoad];
 
+    [[OpenPeer sharedOpenPeer] prepareWithMainViewController:self];
+
     self.splashViewController = [[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil];
     self.splashViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    
-
 }
 
 -(void)viewDidUnload
@@ -446,6 +446,6 @@
         [self dismissViewControllerAnimated:NO completion:nil];
     
     //Init open peer delegates. Start login procedure. Display Login view controller.
-    [[OpenPeer sharedOpenPeer] prepareWithMainViewController:self];
+    [[OpenPeer sharedOpenPeer] setup];
 }
 @end
