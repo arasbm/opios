@@ -1,4 +1,3 @@
-
 [submodule "libs/op"]
 	path = libs/op
-	url = git@github.com:openpeer/op.git
+	url = https://github.com/openpeer/op.git
