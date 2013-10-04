@@ -81,6 +81,7 @@ typedef enum
 + (id) sharedOpenPeer;
 
 - (void) prepareWithMainViewController:(MainViewController*) inMainViewController;
+- (void) setup;
 - (void) setLogLevels;
 - (void) startStdLogger:(BOOL) start;
 - (void) startTelnetLogger:(BOOL) start;
