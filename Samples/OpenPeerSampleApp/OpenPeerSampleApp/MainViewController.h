@@ -88,4 +88,6 @@ typedef  enum
 
 - (void) showIncominCallForSession:(Session*) session;
 - (void) showNotification:(NSString*) message;
+
+- (void) removeSplashScreen;
 @end

@@ -79,9 +79,14 @@
     ret = [self.loginWebViewsDictionary objectForKey:[identity getBaseIdentityURI]];
     if (!ret)
     {
-        ret= [[WebLoginViewController alloc] initWithCoreObject:identity];
+        //ret = [[LoginManager sharedLoginManager] preloadedWebLoginViewController];
+        //if (!ret)
+        {
+            ret= [[WebLoginViewController alloc] initWithCoreObject:identity];
+        }
         ret.view.hidden = YES;
         [self.loginWebViewsDictionary setObject:ret forKey:[identity getBaseIdentityURI]];
+        //[[LoginManager sharedLoginManager] setPreloadedWebLoginViewController:nil];
     }
     return ret;
 }
@@ -120,8 +125,11 @@
                 if ([[LoginManager sharedLoginManager] isLogin])
                     [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Opening login page ..." inView:[[[OpenPeer sharedOpenPeer] mainViewController] view]];
 
-                //Open identity login web page
-                [webLoginViewController openLoginUrl:outerFrameURL];
+                //if ([[LoginManager sharedLoginManager] preloadedWebLoginViewController] != webLoginViewController)
+                {
+                    //Open identity login web page
+                    [webLoginViewController openLoginUrl:outerFrameURL];
+                }
                 break;
                 
             case HOPIdentityStateWaitingForBrowserWindowToBeMadeVisible:

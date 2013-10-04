@@ -101,21 +101,6 @@
 }
 
 /**
- Custom getter for webLoginViewController
- */
-- (WebLoginViewController *)webLoginViewController
-{
-    if (!_webLoginViewController)
-    {
-        _webLoginViewController = [[WebLoginViewController alloc] init];
-        if (_webLoginViewController)
-            _webLoginViewController.view.hidden = YES;
-    }
-    
-    return _webLoginViewController;
-}
-
-/**
  This method will show login window in case user data does not exists on device, or start relogin automatically if information are available.
  @return Singleton object of the Contacts Manager.
  */
@@ -201,21 +186,17 @@
         NSLog(@"Relogin failed");
 }
 
-
-/**
- Makes login web view visible or hidden, depending of input parameter.
- @param isVisible BOOL YES to make web view visible, NO to hide it 
- */
-- (void) makeLoginWebViewVisible:(BOOL) isVisible
+- (void) preloadLoginWebPage
 {
-    self.webLoginViewController.view.hidden = !isVisible;
-    if (!self.webLoginViewController.view.superview)
+    if (!self.preloadedWebLoginViewController)
     {
-        [[[OpenPeer sharedOpenPeer] mainViewController] showWebLoginView:self.webLoginViewController];
-        [self.webLoginViewController.view setFrame:[[OpenPeer sharedOpenPeer] mainViewController].view.bounds];
+        self.preloadedWebLoginViewController = [[WebLoginViewController alloc] init];
+        if (self.preloadedWebLoginViewController)
+            self.preloadedWebLoginViewController.view.hidden = YES;
     }
+    
+    [self.preloadedWebLoginViewController openLoginUrl:outerFrameURL];
 }
-
 
 /**
  Handles successful identity association. It updates list of associated identities on server side.

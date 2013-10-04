@@ -51,10 +51,11 @@
 #import "MainViewController.h"
 #import "ChatViewController.h"
 #import "SettingsViewController.h"
-
+#import "SplashViewController.h"
 //Private methods
 @interface MainViewController ()
 @property (nonatomic) BOOL isLogerActivated;
+@property (strong, nonatomic) SplashViewController* splashViewController;
 
 - (void) removeAllSubViews;
 - (SessionTransitionStates) determineViewControllerTransitionStateForSession:(NSString*) sessionId forIncomingCall:(BOOL) incomingCall forIncomingMessage:(BOOL) incomingMessage;
@@ -86,8 +87,10 @@
 {
     [super viewDidLoad];
 
-    if (self.threeTapGestureRecognizer)
-        [self.view addGestureRecognizer:self.threeTapGestureRecognizer];
+    self.splashViewController = [[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil];
+    self.splashViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    
+
 }
 
 -(void)viewDidUnload
@@ -98,6 +101,20 @@
         self.threeTapGestureRecognizer = nil;
     }
 }
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    if (self.splashViewController)
+    {
+        [self presentModalViewController:self.splashViewController animated:YES];
+        self.splashViewController = nil;
+    }
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -422,4 +439,13 @@
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Openpeer" message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alertView show];
 }*/
+
+- (void) removeSplashScreen
+{
+    if (![self.presentedViewController isBeingDismissed])
+        [self dismissViewControllerAnimated:NO completion:nil];
+    
+    //Init open peer delegates. Start login procedure. Display Login view controller.
+    [[OpenPeer sharedOpenPeer] prepareWithMainViewController:self];
+}
 @end

@@ -37,7 +37,7 @@
 
 @interface LoginManager : NSObject
 
-@property (nonatomic, strong) WebLoginViewController *webLoginViewController;
+@property (nonatomic, strong) WebLoginViewController *preloadedWebLoginViewController;
 @property (nonatomic) BOOL isLogin;
 
 + (id) sharedLoginManager;
@@ -47,10 +47,11 @@
 - (void) login;
 - (void) logout;
 
-- (void) makeLoginWebViewVisible:(BOOL) isVisible;
 - (void) onIdentityAssociationFinished:(HOPIdentity*) identity;
 
 - (void) onUserLoggedIn;
 
 - (BOOL) isAssociatedIdentity:(NSString*) inBaseIdentityURI;
+
+- (void) preloadLoginWebPage;
 @end

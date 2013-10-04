@@ -56,6 +56,7 @@
 //Private methods
 @interface OpenPeer ()
 
+@property (nonatomic) BOOL forcedTelnetLogger;
 - (void) createDelegates;
 - (void) setLogLevels;
 @end
@@ -162,17 +163,20 @@
  */
 - (void) startTelnetLogger:(BOOL) start
 {
-    if (start)
+    if (!self.forcedTelnetLogger)
     {
-        [self setLogLevels];
-        NSString* port =[[Settings sharedSettings] getServerPortForLogger:LOGGER_TELNET];
-        BOOL colorized = [[Settings sharedSettings] isColorizedOutputForLogger:LOGGER_TELNET];
-        if ([port length] > 0)
-            [HOPLogger installTelnetLogger:[port intValue] maxSecondsWaitForSocketToBeAvailable:60 colorizeOutput:colorized];
-    }
-    else
-    {
-        [HOPLogger uninstallTelnetLogger];
+        if (start)
+        {
+            [self setLogLevels];
+            NSString* port =[[Settings sharedSettings] getServerPortForLogger:LOGGER_TELNET];
+            BOOL colorized = [[Settings sharedSettings] isColorizedOutputForLogger:LOGGER_TELNET];
+            if ([port length] > 0)
+                [HOPLogger installTelnetLogger:[port intValue] maxSecondsWaitForSocketToBeAvailable:60 colorizeOutput:colorized];
+        }
+        else
+        {
+            [HOPLogger uninstallTelnetLogger];
+        }
     }
 }
 
@@ -220,5 +224,22 @@
             break;
     }
 
+}
+
+- (void) startTelnetLoggerOnStartUp
+{
+    self.forcedTelnetLogger = YES;
+    [HOPLogger setLogLevelbyName:moduleApplication level:HOPLoggerLevelTrace];
+    [HOPLogger setLogLevelbyName:moduleServices level:HOPLoggerLevelTrace];
+    [HOPLogger setLogLevelbyName:moduleServicesHttp level:HOPLoggerLevelTrace];
+    [HOPLogger setLogLevelbyName:moduleCore level:HOPLoggerLevelTrace];
+    [HOPLogger setLogLevelbyName:moduleStackMessage level:HOPLoggerLevelTrace];
+    [HOPLogger setLogLevelbyName:moduleStack level:HOPLoggerLevelTrace];
+    [HOPLogger setLogLevelbyName:moduleWebRTC level:HOPLoggerLevelBasic];
+    [HOPLogger setLogLevelbyName:moduleZsLib level:HOPLoggerLevelTrace];
+    [HOPLogger setLogLevelbyName:moduleSDK level:HOPLoggerLevelTrace];
+    [HOPLogger setLogLevelbyName:moduleMedia level:HOPLoggerLevelBasic];
+    
+    [HOPLogger installTelnetLogger:[defaultTelnetPort intValue] maxSecondsWaitForSocketToBeAvailable:60 colorizeOutput:YES];
 }
 @end

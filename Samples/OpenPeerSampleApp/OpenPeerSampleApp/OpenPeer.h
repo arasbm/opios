@@ -89,4 +89,6 @@ typedef enum
 - (void) start:(BOOL) start looger:(LoggerTypes) type;
 
 - (void) setLogLevel:(HOPLoggerLevels) level;
+
+- (void) startTelnetLoggerOnStartUp;
 @end

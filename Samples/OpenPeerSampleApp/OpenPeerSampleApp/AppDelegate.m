@@ -32,7 +32,7 @@
 #import "AppDelegate.h"
 #import "OpenPeer.h"
 #import "MainViewController.h"
-
+#import "LoginManager.h"
 
 @implementation AppDelegate
 
@@ -42,6 +42,8 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
+    //[[LoginManager sharedLoginManager] preloadLoginWebPage];
+    
     //Create root view controller. This view controller will manage displaying all other view controllers.
     MainViewController* mainViewController = [[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil];
     
@@ -49,10 +51,7 @@
     [self.window setRootViewController:mainViewController];
     
     [self.window makeKeyAndVisible];
-    
-    //Init open peer delegates. Start login procedure. Display Login view controller.
-    [[OpenPeer sharedOpenPeer] prepareWithMainViewController:mainViewController];
-    
+
     return YES;
 }
 
@@ -82,5 +81,7 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+
 
 @end
