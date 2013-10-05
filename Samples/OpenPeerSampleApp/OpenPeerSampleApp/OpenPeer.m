@@ -190,17 +190,20 @@
 
 - (void) startOutgoingTelnetLogger:(BOOL) start
 {
-    if (start)
+    if (!self.forcedTelnetLogger)
     {
-        [self setLogLevels];
-        NSString* server =[[Settings sharedSettings] getServerPortForLogger:LOGGER_OUTGOING_TELNET];
-        BOOL colorized = [[Settings sharedSettings] isColorizedOutputForLogger:LOGGER_OUTGOING_TELNET];
-        if ([server length] > 0)
-            [HOPLogger installOutgoingTelnetLogger:server colorizeOutput:colorized stringToSendUponConnection:self.authorizedApplicationId];
-    }
-    else
-    {
-        [HOPLogger uninstallOutgoingTelnetLogger];
+        if (start)
+        {
+            [self setLogLevels];
+            NSString* server =[[Settings sharedSettings] getServerPortForLogger:LOGGER_OUTGOING_TELNET];
+            BOOL colorized = [[Settings sharedSettings] isColorizedOutputForLogger:LOGGER_OUTGOING_TELNET];
+            if ([server length] > 0)
+                [HOPLogger installOutgoingTelnetLogger:server colorizeOutput:colorized stringToSendUponConnection:self.authorizedApplicationId];
+        }
+        else
+        {
+            [HOPLogger uninstallOutgoingTelnetLogger];
+        }
     }
 }
 
