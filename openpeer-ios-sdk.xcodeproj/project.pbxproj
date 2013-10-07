@@ -251,6 +251,13 @@
 			remoteGlobalIDString = 0063B94816CA91F000E6DB4D;
 			remoteInfo = hfstack_ios;
 		};
+		87A1089C1802D495001F705D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 87DD73CB17AFC1210086C295 /* webrtc_ios.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 307C243DFDDBFD9EF8440480;
+			remoteInfo = All;
+		};
 		87C9820B17BE38B1002B947B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8792E85F16519CFF00DEAC58 /* Project object */;
@@ -925,6 +932,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				87A1089D1802D495001F705D /* PBXTargetDependency */,
 				00EB8DD2177D1C2400FFD40F /* PBXTargetDependency */,
 				00EB8DD4177D1C2400FFD40F /* PBXTargetDependency */,
 				00EB8DB8177D158100FFD40F /* PBXTargetDependency */,
@@ -1171,6 +1179,11 @@
 			isa = PBXTargetDependency;
 			name = hfstack_ios;
 			targetProxy = 00EB8DD3177D1C2400FFD40F /* PBXContainerItemProxy */;
+		};
+		87A1089D1802D495001F705D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = All;
+			targetProxy = 87A1089C1802D495001F705D /* PBXContainerItemProxy */;
 		};
 		87C9820C17BE38B1002B947B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

@@ -9,6 +9,7 @@
 #import "LoggerSettingsViewController.h"
 #import "OpenPeer.h"
 #import "Settings.h"
+#import "Logger.h"
 #import "Constants.h"
 #import "MainViewController.h"
 #import "Utility.h"
@@ -298,7 +299,8 @@ typedef enum
 
 - (void) switchChanged:(UISwitch*) sender
 {
-    [[Settings sharedSettings] enable:[sender isOn] looger:sender.tag];
+    [[Settings sharedSettings] enable:[sender isOn] logger:sender.tag];
+    [Logger start:[sender isOn] logger:sender.tag];
 }
 
 - (void) switchColorChanged:(UISwitch*) sender
@@ -328,6 +330,7 @@ typedef enum
     [self.tableView beginUpdates];
     [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
     [self.tableView endUpdates];
+    [Logger setLogLevels];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField

@@ -8,6 +8,7 @@
 
 #import "SplashViewController.h"
 #import "OpenPeer.h"
+#import "Logger.h"
 #import <OpenPeerSDK/HOPModelManager.h>
 
 @interface SplashViewController ()
@@ -48,9 +49,9 @@
 
 - (IBAction)actionStartLogger:(id)sender
 {
-    [[OpenPeer sharedOpenPeer] startTelnetLoggerOnStartUp];
+    [Logger startTelnetLoggerOnStartUp];
     
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"OpenPeer" message:@"Logger is started!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"OpenPeer" message:@"Logger is started! Almost all log levels are set to trace. If you want to change that, you can do that from the settings." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [alert show];
 }
 

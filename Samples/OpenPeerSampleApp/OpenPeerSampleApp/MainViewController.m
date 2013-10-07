@@ -87,7 +87,7 @@
 {
     [super viewDidLoad];
 
-    [[OpenPeer sharedOpenPeer] prepareWithMainViewController:self];
+    [[OpenPeer sharedOpenPeer] setMainViewController:self];
 
     self.splashViewController = [[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil];
     self.splashViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;

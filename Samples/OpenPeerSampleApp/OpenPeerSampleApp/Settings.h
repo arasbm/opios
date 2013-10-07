@@ -66,7 +66,7 @@ typedef enum
 - (void) enableFaceDetectionMode:(BOOL) enable;
 - (void) enableRedialMode:(BOOL) enable;
 
-- (void) enable:(BOOL) enable looger:(LoggerTypes) type;
+- (void) enable:(BOOL) enable logger:(LoggerTypes) type;
 - (BOOL) isLoggerEnabled:(LoggerTypes) type;
 
 - (void) setServerOrPort:(NSString*) server logger:(LoggerTypes) type;
@@ -81,4 +81,6 @@ typedef enum
 
 - (NSString*) getStringForModule:(Modules) module;
 - (NSString*) getStringForLogLevel:(HOPLoggerLevels) level;
+
+- (void) saveDefaultsLoggerSettings;
 @end

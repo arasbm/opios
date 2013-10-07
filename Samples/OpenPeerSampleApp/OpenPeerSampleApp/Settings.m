@@ -9,6 +9,7 @@
 #import "Settings.h"
 #import "Constants.h"
 #import "OpenPeer.h"
+#import "Logger.h"
 
 @interface Settings ()
 
@@ -94,7 +95,7 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (void) enable:(BOOL) enable looger:(LoggerTypes) type
+- (void) enable:(BOOL) enable logger:(LoggerTypes) type
 {
     switch (type)
     {
@@ -117,7 +118,7 @@
             break;
     }
     [[NSUserDefaults standardUserDefaults] synchronize];
-    [[OpenPeer sharedOpenPeer] start:enable looger:type];
+    //[Logger start:enable logger:type];
 }
 
 - (BOOL) isLoggerEnabled:(LoggerTypes) type
@@ -245,7 +246,6 @@
     NSString* archiveString = [self getArchiveStringForModule:module];
     [self.appModulesLoggerLevel setObject:[NSNumber numberWithInt:level] forKey:archiveString];
     [self saveModuleLogLevels];
-    [[OpenPeer sharedOpenPeer] setLogLevels];
 }
 
 - (void) saveModuleLogLevels
@@ -389,5 +389,26 @@
     return nil;
 }
 
+- (void) saveDefaultsLoggerSettings
+{
+    [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_APPLICATION];
+    [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_SERVICES];
+    [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_SERVICES_HTTP];
+    [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_CORE];
+    [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_STACK_MESSAGE];
+    [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_STACK];
+    [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_ZSLIB];
+    [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODEULE_SDK];
+    [self setLoggerLevel:HOPLoggerLevelBasic  forAppModule:MODULE_WEBRTC];
+    [self setLoggerLevel:HOPLoggerLevelBasic forAppModule:MODULE_MEDIA];
+    
+    [self setColorizedOutput:YES logger:LOGGER_STD_OUT];
+    [self setColorizedOutput:YES logger:LOGGER_TELNET];
+    [self setColorizedOutput:YES logger:LOGGER_OUTGOING_TELNET];
+    
+    [self enable:YES logger:LOGGER_STD_OUT];
+    [self enable:YES logger:LOGGER_TELNET];
+    [self enable:YES logger:LOGGER_OUTGOING_TELNET];
+}
 
 @end
