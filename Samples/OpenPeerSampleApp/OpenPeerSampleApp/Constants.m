@@ -50,7 +50,7 @@ NSString* const applicationIdSharedSecret = @"<-- insert shared secret here -->"
 // ------------------- !!! WARNING !!! -------------------
 
 //NSString* const provisioningURI = @"provisioning-stable-dev.hookflash.me";//Not in use
-NSString* const outerFrameURL = @"https://app-javascript.hookflash.me/outer.html";
+NSString* const outerFrameURL = @"http://app-javascript.hookflash.me/outer.html";
 NSString* const identityProviderDomain = @"idprovider-javascript.hookflash.me";
 //NSString* const peerContactServiceDomain = @"unstable.hookflash.me";//Not in use
 //NSString* const contactsLoadingtServiceDomain = @"example-light.hookflash.me";//Not in use
@@ -61,7 +61,7 @@ NSString* const grantOuterFrameURLUponReload = @"grantFinished";
 //NSString* const grantServiceDomain = @"hcs-javascript.hookflash.me";
 NSString* const lockBoxServiceDomain =  @"hcs-javascript.hookflash.me";
 
-NSString* const namespaceGrantServiceURL = @"https://app-javascript.hookflash.me/outernamespacegrant.html";
+NSString* const namespaceGrantServiceURL = @"http://app-javascript.hookflash.me/outernamespacegrant.html";
 
 NSString * const keyOpenPeerUser = @"keyOpenPeerUser";
 
