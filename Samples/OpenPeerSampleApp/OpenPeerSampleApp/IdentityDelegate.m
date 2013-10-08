@@ -122,7 +122,7 @@
             case HOPIdentityStateWaitingForBrowserWindowToBeLoaded:
                 //Login url is received. Remove activity indicator
                 [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
-                if ([[LoginManager sharedLoginManager] isLogin])
+                if ([[LoginManager sharedLoginManager] isLogin] || [[LoginManager sharedLoginManager] isAssociation])
                     [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Opening login page ..." inView:[[[OpenPeer sharedOpenPeer] mainViewController] view]];
 
                 //if ([[LoginManager sharedLoginManager] preloadedWebLoginViewController] != webLoginViewController)
@@ -172,7 +172,7 @@
                 break;
                 
             case HOPIdentityStateReady:
-                if ([[LoginManager sharedLoginManager] isLogin])
+                if ([[LoginManager sharedLoginManager] isLogin] || [[LoginManager sharedLoginManager] isAssociation])
                     [[LoginManager sharedLoginManager] onIdentityAssociationFinished:identity];
                 break;
                 

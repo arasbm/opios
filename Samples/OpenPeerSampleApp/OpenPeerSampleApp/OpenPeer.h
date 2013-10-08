@@ -81,4 +81,5 @@ typedef enum
 + (id) sharedOpenPeer;
 
 - (void) setup;
+- (void) shutdown;
 @end

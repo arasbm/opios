@@ -34,6 +34,7 @@
 #import "OpenPeerUser.h"
 #import "Constants.h"
 #import "Utility.h"
+#import "Logger.h"
 //SDK
 #import <OpenpeerSDK/HOPConversationThread.h>
 //Managers
@@ -60,7 +61,7 @@
 - (void) removeAllSubViews;
 - (SessionTransitionStates) determineViewControllerTransitionStateForSession:(NSString*) sessionId forIncomingCall:(BOOL) incomingCall forIncomingMessage:(BOOL) incomingMessage;
 
-//- (void)threeTapGasture;
+- (void)threeTapGasture;
 
 @end
 
@@ -72,12 +73,12 @@
     if (self)
     {
         self.sessionViewControllersDictionary = [[NSMutableDictionary alloc] init];
-        /*self.threeTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(threeTapGasture)];
+        self.threeTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(threeTapGasture)];
         self.threeTapGestureRecognizer.delegate = self;
         self.threeTapGestureRecognizer.numberOfTapsRequired = 3;
         self.threeTapGestureRecognizer.numberOfTouchesRequired = 2;
         
-       self.isLogerActivated = NO;*/
+       self.isLogerActivated = NO;
     }
     return self;
 }
@@ -89,6 +90,9 @@
 
     [[OpenPeer sharedOpenPeer] setMainViewController:self];
 
+    if (self.threeTapGestureRecognizer)
+        [self.view addGestureRecognizer:self.threeTapGestureRecognizer];
+    
     self.splashViewController = [[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil];
     self.splashViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
 }
@@ -422,23 +426,10 @@
 }
 
 
-/*- (void)threeTapGasture
+- (void)threeTapGasture
 {
-    NSString *msg;
-    if (!self.isLogerActivated)
-    {
-        [[OpenPeer sharedOpenPeer] startOutgoingTelnetLogger:YES];
-        
-        self.isLogerActivated = YES;
-        msg = @"Activated!";
-    }
-    else
-    {
-        msg = @"Already activated";
-    }
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Openpeer" message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    [alertView show];
-}*/
+    [Logger startTelnetLoggerOnStartUp];
+}
 
 - (void) removeSplashScreen
 {
@@ -447,5 +438,12 @@
     
     //Init open peer delegates. Start login procedure. Display Login view controller.
     [[OpenPeer sharedOpenPeer] setup];
+}
+
+- (void) onLogout
+{
+    [self removeAllSubViews];
+    self.contactsTableViewController = nil;
+    self.tabBarController = nil;
 }
 @end

@@ -61,7 +61,7 @@
 @interface LoginManager ()
 
 
-@property (nonatomic) BOOL isAssociation;
+
 
 @property (strong, nonatomic) NSMutableDictionary* associatingIdentitiesDictionary;
 @end
@@ -129,9 +129,31 @@
     //Delete user data stored on device.
     //[[OpenPeerUser sharedOpenPeerUser] deleteUserData];
     
+    NSArray* associatedIdentities = [[HOPAccount sharedAccount] getAssociatedIdentities];
+    for (HOPIdentity* identity in associatedIdentities)
+    {
+        [identity cancel];
+    }
+    
+    for (HOPIdentity* identity in self.associatingIdentitiesDictionary)
+    {
+        [identity cancel];
+    }
+    [self.associatingIdentitiesDictionary removeAllObjects];
+    
     //Call to the SDK in order to shutdown Open Peer engine.
     [[HOPAccount sharedAccount] shutdown];
     
+    //[[OpenPeer sharedOpenPeer] shutdown];
+    //[[OpenPeer sharedOpenPeer] setup];
+    
+    [[[OpenPeer sharedOpenPeer] mainViewController] onLogout];
+    
+    HOPHomeUser* homeUser = [[HOPModelManager sharedModelManager] getLastLoggedInHomeUser];
+    homeUser.loggedIn = [NSNumber numberWithBool:NO];
+    [[HOPModelManager sharedModelManager] saveContext];
+    
+    self.isLogin = YES;
     //Return to the login page.
     [[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
     
@@ -280,19 +302,29 @@
                 [[HOPModelManager sharedModelManager] saveContext];
             }
         }
-
-        //Start loading contacts.
-        [[ContactsManager sharedContactsManager] loadContacts];
         
         //Not yet ready for association
-        /*if (self.isLogin)
+        /*if (self.isLogin || self.isAssociation)
         {
             self.isLogin = NO;
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Identity association" message:@"Do you want to associate another social account" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
             
             [alert show];
-        }*/
+        }
+        else*/
+        {
+            //Start loading contacts.
+            [[ContactsManager sharedContactsManager] loadContacts];
+        }
+    }
+    else
+    {
+        int o = [self.associatingIdentitiesDictionary count];
+        if (o > 0)
+            NSLog(@"onUserLoggedIn - NOT Ready because of associatingIdentitiesDictionary is not empty: %d",o);
+        else
+            NSLog(@"onUserLoggedIn - NOT Ready because of account is not in ready state");
     }
 }
 
@@ -325,6 +357,12 @@
     {
         self.isAssociation = YES;
         [[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
+    }
+    else
+    {
+        [[[[[OpenPeer sharedOpenPeer] mainViewController] loginViewController] view] removeFromSuperview];
+        //Start loading contacts.
+        [[ContactsManager sharedContactsManager] loadContacts];
     }
 }
 @end

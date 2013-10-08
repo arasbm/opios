@@ -107,6 +107,18 @@
   [[LoginManager sharedLoginManager] login];
 }
 
+- (void) shutdown
+{
+    [[HOPStack sharedStack] shutdown];
+    
+    self.stackDelegate = nil;
+    self.mediaEngineDelegate = nil;
+    self.conversationThreadDelegate = nil;
+    self.callDelegate = nil;
+    self.accountDelegate = nil;
+    self.identityDelegate = nil;
+    self.identityLookupDelegate = nil;
+}
 /**
  Method used for all delegates creation. Delegates will catch events from the Open Peer SDK and handle them properly.
  */
