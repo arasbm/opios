@@ -176,7 +176,9 @@
         
         NSString* redirectAfterLoginCompleteURL = [NSString stringWithFormat:@"%@?reload=true",outerFrameURL];
 
-        [self startAccount];
+        if (![[HOPAccount sharedAccount] isCoreAccountCreated])
+            [self startAccount];
+        
         //For identity login it is required to pass identity delegate, URL that will be requested upon successful login, identity URI and identity provider domain. This is 
         HOPIdentity* hopIdentity = [HOPIdentity loginWithDelegate:(id<HOPIdentityDelegate>)[[OpenPeer sharedOpenPeer] identityDelegate] identityProviderDomain:identityProviderDomain  identityURIOridentityBaseURI:identityURI outerFrameURLUponReload:redirectAfterLoginCompleteURL];
         
@@ -229,7 +231,8 @@
     NSString* relogininfo = [[HOPAccount sharedAccount] getReloginInformation];
     
     if ([relogininfo length] > 0)
-    {
+    {;
+        NSLog(@"LoggedIn account stable id: %@",[[HOPAccount sharedAccount] getStableID]);
         HOPHomeUser* homeUser = [[HOPModelManager sharedModelManager] getHomeUserByStableID:[[HOPAccount sharedAccount] getStableID]];
         
         if (!homeUser)
@@ -304,7 +307,7 @@
         }
         
         //Not yet ready for association
-        /*if (self.isLogin || self.isAssociation)
+        if (self.isLogin || self.isAssociation)
         {
             self.isLogin = NO;
             
@@ -312,7 +315,7 @@
             
             [alert show];
         }
-        else*/
+        else
         {
             //Start loading contacts.
             [[ContactsManager sharedContactsManager] loadContacts];

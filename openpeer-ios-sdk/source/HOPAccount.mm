@@ -434,6 +434,11 @@ using namespace openpeer::core;
     }
 }
 
+- (BOOL) isCoreAccountCreated
+{
+    return accountPtr ? YES : NO;
+}
+
 - (NSString *)description
 {
     NSString* ret = nil;
@@ -445,6 +450,7 @@ using namespace openpeer::core;
     
     return ret;
 }
+
 
 #pragma mark - Internal methods
 - (void)setLocalDelegates:(id<HOPAccountDelegate>)inAccountDelegate conversationThread:(id<HOPConversationThreadDelegate>)inConversationThread callDelegate:(id<HOPCallDelegate>)inCallDelegate
