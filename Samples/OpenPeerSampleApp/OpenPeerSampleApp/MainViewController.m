@@ -31,7 +31,6 @@
 
 #import "MainViewController.h"
 #import "OpenPeer.h"
-#import "OpenPeerUser.h"
 #import "Constants.h"
 #import "Utility.h"
 #import "Logger.h"

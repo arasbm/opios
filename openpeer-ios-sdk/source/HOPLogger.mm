@@ -229,4 +229,19 @@ void HOPLog(HOPLoggerLevels logLevel, NSString* format,...)
 {
     ILogger::uninstallDebuggerLogger();
 }
+
++ (BOOL) isTelnetLoggerListening
+{
+    return ILogger::isTelnetLoggerListening();
+}
+
++ (BOOL) isTelnetLoggerConnected
+{
+    return ILogger::isTelnetLoggerConnected();
+}
+
++ (BOOL) isOutgoingTelnetLoggerConnected
+{
+    return ILogger::isOutgoingTelnetLoggerConnected();
+}
 @end

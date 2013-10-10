@@ -30,7 +30,6 @@
  */
 
 #import "OpenPeer.h"
-#import "OpenPeerUser.h"
 #import "Utility.h"
 #import "Constants.h"
 #import "Logger.h"
@@ -88,6 +87,19 @@
     return _authorizedApplicationId;
 }
 
+- (NSString*) deviceId
+{
+    if (!_deviceId)
+    {
+        _deviceId = [[NSUserDefaults standardUserDefaults] objectForKey:keyOpenPeerUser];
+        if ([_deviceId length] == 0)
+        {
+            _deviceId = [Utility getGUIDstring];
+            [[NSUserDefaults standardUserDefaults] setObject:_deviceId forKey:keyOpenPeerUser];
+        }
+    }
+    return _deviceId;
+}
 /**
  Initializes the open peer stack. After initialization succeeds, login screen is displayed, or user relogin started.
  @param inMainViewController MainViewController Input main view controller.
@@ -101,7 +113,7 @@
   [self createDelegates];
 
   //Init openpeer stack and set created delegates
-  [[HOPStack sharedStack] setupWithStackDelegate:self.stackDelegate mediaEngineDelegate:self.mediaEngineDelegate appID: self.authorizedApplicationId appName:applicationName appImageURL:applicationImageURL appURL:applicationURL userAgent:[Utility getUserAgentName] deviceID:[[OpenPeerUser sharedOpenPeerUser] deviceId] deviceOs:[Utility getDeviceOs] system:[Utility getPlatform]];
+  [[HOPStack sharedStack] setupWithStackDelegate:self.stackDelegate mediaEngineDelegate:self.mediaEngineDelegate appID: self.authorizedApplicationId appName:applicationName appImageURL:applicationImageURL appURL:applicationURL userAgent:[Utility getUserAgentName] deviceID:self.deviceId deviceOs:[Utility getDeviceOs] system:[Utility getPlatform]];
 
   //Start with login procedure and display login view
   [[LoginManager sharedLoginManager] login];

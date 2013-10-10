@@ -38,7 +38,6 @@
 #import "ContactsTableViewController.h"
 #import "ActivityIndicatorViewController.h"
 #import "OpenPeer.h"
-#import "OpenPeerUser.h"
 #import "Constants.h"
 #import "Utility.h"
 #import "SBJsonParser.h"
