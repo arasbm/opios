@@ -260,6 +260,15 @@
     [self onUserLoggedIn];
 }
 
+- (void) attachDelegateForIdentity:(HOPIdentity*) identity
+{
+    if (![identity isDelegateAttached])
+    {
+        NSString* redirectAfterLoginCompleteURL = [NSString stringWithFormat:@"%@?reload=true",outerFrameURL];
+        
+        [identity attachDelegate:(id<HOPIdentityDelegate>)[[OpenPeer sharedOpenPeer] identityDelegate]  redirectionURL:redirectAfterLoginCompleteURL];
+    }
+}
 
 /**
  Handles SDK event after login is successful.
