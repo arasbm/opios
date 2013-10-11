@@ -151,7 +151,7 @@
             if (webLoginViewController)
             {
                 NSString* jsMethod = [NSString stringWithFormat:@"sendBundleToJS(\'%@\')", [account getNextMessageForInnerBrowerWindowFrame]];
-                NSLog(@"\n\nSent to inner frame: %@\n\n",jsMethod);
+                //NSLog(@"\n\nSent to inner frame: %@\n\n",jsMethod);
                 [webLoginViewController passMessageToJS:jsMethod];
             }
     });

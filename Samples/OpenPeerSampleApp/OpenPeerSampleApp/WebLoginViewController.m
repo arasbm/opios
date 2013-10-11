@@ -83,19 +83,20 @@
 
 - (void) openLoginUrl:(NSString*) url
 {
+    NSLog(@"Web request initiated by sample app. URL: %@",url);
     [self.loginWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
 }
 
 - (void) passMessageToJS:(NSString*) message
 {
-    NSLog(@"\n\n\n++++++++++\n\n\n Message to JS: \n %@ \n\n\n++++++++++\n\n\n",message);
+    NSLog(@"\n\n Message to JS: \n %@ \n\n",message);
     [self.loginWebView stringByEvaluatingJavaScriptFromString:message];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     NSString *requestString = [[request URL] absoluteString];
-    NSLog(@"Login process - web request: %@", requestString);
+    NSLog(@"Web request: %@", requestString);
     
     //Check if request contains JSON message for core
     if ([requestString hasPrefix:@"https://datapass.hookflash.me/?method="] || [requestString hasPrefix:@"http://datapass.hookflash.me/?method="])
@@ -120,23 +121,26 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-
+    NSString *requestString = [[[webView request] URL] absoluteString];
+    
+    NSLog(@"START LOADING - web request: %@", requestString);
 }
 
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     NSString *requestString = [[[webView request] URL] absoluteString];
+    
+    NSLog(@"FINISH LOADING - web request: %@", requestString);
+    
     if (!self.outerFrameInitialised && [requestString isEqualToString:outerFrameURL])
     {
         self.outerFrameInitialised = YES;
-        //[[LoginManager sharedLoginManager] onOuterFrameLoaded];
         [self onOuterFrameLoaded];
     }
     else if (!self.outerFrameInitialised && [requestString isEqualToString:namespaceGrantServiceURL])
     {
       self.outerFrameInitialised = YES;
-      //[[LoginManager sharedLoginManager] onOuterFrameLoaded];
       [self onOuterFrameLoaded];
     }
 }
@@ -149,7 +153,7 @@
 
 - (void)notifyClient:(NSString *)message
 {
-    NSLog(@"\n\n\n++++++++++\n\n\n Message from JS: \n %@ \n\n\n++++++++++\n\n\n",message);
+    NSLog(@"\n\n Message from JS: \n %@ \n\n",message);
     
     if ([self.coreObject isKindOfClass:[HOPIdentity class]])
     {

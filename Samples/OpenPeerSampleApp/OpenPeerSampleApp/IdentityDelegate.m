@@ -197,7 +197,7 @@
         if (webLoginViewController)
         {
             NSString* jsMethod = [NSString stringWithFormat:@"sendBundleToJS(\'%@\')", [identity getNextMessageForInnerBrowerWindowFrame]];
-            NSLog(@"\n\nSent to inner frame: %@\n\n",jsMethod);
+            //NSLog(@"\n\nSent to inner frame: %@\n\n",jsMethod);
             //Pass JSON message to java script
             [webLoginViewController passMessageToJS:jsMethod];
         }

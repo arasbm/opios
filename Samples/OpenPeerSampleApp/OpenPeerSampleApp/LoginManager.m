@@ -323,7 +323,7 @@
         if (o > 0)
             NSLog(@"onUserLoggedIn - NOT Ready because of associatingIdentitiesDictionary is not empty: %d",o);
         else
-            NSLog(@"onUserLoggedIn - NOT Ready because of account is not in ready state");
+            NSLog(@"onUserLoggedIn - NOT Ready because account is not in ready state");
     }
 }
 

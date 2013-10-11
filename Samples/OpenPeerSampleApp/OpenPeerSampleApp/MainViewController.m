@@ -54,7 +54,9 @@
 #import "SplashViewController.h"
 //Private methods
 @interface MainViewController ()
+
 @property (nonatomic) BOOL isLogerActivated;
+@property (nonatomic) BOOL showSplash;
 @property (strong, nonatomic) SplashViewController* splashViewController;
 
 - (void) removeAllSubViews;
@@ -77,7 +79,8 @@
         self.threeTapGestureRecognizer.numberOfTapsRequired = 3;
         self.threeTapGestureRecognizer.numberOfTouchesRequired = 2;
         
-       self.isLogerActivated = NO;
+        self.isLogerActivated = NO;
+        self.showSplash = YES;
     }
     return self;
 }
@@ -107,10 +110,9 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    if (self.splashViewController)
+    if (self.showSplash)
     {
-        [self presentModalViewController:self.splashViewController animated:YES];
-        self.splashViewController = nil;
+        [self presentViewController:self.splashViewController animated:YES completion:nil];
     }
 }
 
@@ -433,7 +435,13 @@
 - (void) removeSplashScreen
 {
     if (![self.presentedViewController isBeingDismissed])
-        [self dismissViewControllerAnimated:NO completion:nil];
+    {
+        self.showSplash = NO;
+        [self dismissViewControllerAnimated:NO completion:^
+        {
+            self.splashViewController = nil;
+        }];
+    }
     
     //Init open peer delegates. Start login procedure. Display Login view controller.
     [[OpenPeer sharedOpenPeer] setup];
