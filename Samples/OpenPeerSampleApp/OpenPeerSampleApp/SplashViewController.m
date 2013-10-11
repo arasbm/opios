@@ -35,7 +35,7 @@
     [super viewDidLoad];
     
     //if ([[HOPModelManager sharedModelManager] getLastLoggedInHomeUser])
-        self.closingTimer = [NSTimer scheduledTimerWithTimeInterval:7 target:self.presentingViewController /*[UIApplication sharedApplication].delegate*/ selector:@selector(removeSplashScreen) userInfo:nil repeats:NO];
+        self.closingTimer = [NSTimer scheduledTimerWithTimeInterval:4 target:self.presentingViewController /*[UIApplication sharedApplication].delegate*/ selector:@selector(removeSplashScreen) userInfo:nil repeats:NO];
 //    else
 //        self.closingTimer = [NSTimer scheduledTimerWithTimeInterval:3.5 target:self.presentingViewController /*[UIApplication sharedApplication].delegate*/ selector:@selector(removeSplashScreen) userInfo:nil repeats:NO];
 }
