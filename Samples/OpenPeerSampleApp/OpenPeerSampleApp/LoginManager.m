@@ -239,8 +239,11 @@
             homeUser.loggedIn = [NSNumber numberWithBool: YES];
         }
         
-        HOPAssociatedIdentity*  associatedIdentity = (HOPAssociatedIdentity*)[[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPAssociatedIdentity"];
+        HOPAssociatedIdentity*  associatedIdentity = [[HOPModelManager sharedModelManager] getAssociatedIdentityBaseIdentityURI:[identity getBaseIdentityURI] homeUserStableId:homeUser.stableId];
         
+        if (!associatedIdentity)
+            associatedIdentity = (HOPAssociatedIdentity*)[[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPAssociatedIdentity"];
+            
         HOPIdentityContact* homeIdentityContact = [identity getSelfIdentityContact];
         associatedIdentity.domain = [identity getIdentityProviderDomain];
         //associatedIdentity.downloadedVersion = @"";
@@ -249,8 +252,6 @@
         associatedIdentity.homeUserProfile = homeIdentityContact.rolodexContact;
         associatedIdentity.homeUser = homeUser;
         homeIdentityContact.rolodexContact.associatedIdentityForHomeUser = associatedIdentity;
-        
-        //[homeUser addAssociatedIdentitiesObject:associatedIdentity];
         
         [[HOPModelManager sharedModelManager] saveContext];
         
@@ -264,6 +265,9 @@
 {
     if (![identity isDelegateAttached])
     {
+        //Check
+        [self onIdentityAssociationFinished:identity];
+        
         NSString* redirectAfterLoginCompleteURL = [NSString stringWithFormat:@"%@?reload=true",outerFrameURL];
         
         [identity attachDelegate:(id<HOPIdentityDelegate>)[[OpenPeer sharedOpenPeer] identityDelegate]  redirectionURL:redirectAfterLoginCompleteURL];

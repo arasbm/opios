@@ -139,7 +139,6 @@
     NSLog(@"onAccountAssociatedIdentitiesChanged");
     dispatch_async(dispatch_get_main_queue(), ^
     {
-        //get identites, attach delegate
         NSArray* associatedIdentities = [account getAssociatedIdentities];
         for (HOPIdentity* identity in associatedIdentities)
         {

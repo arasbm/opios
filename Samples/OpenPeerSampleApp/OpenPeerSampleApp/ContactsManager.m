@@ -233,6 +233,7 @@
                 [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoadingStarted];
             }
             
+            NSLog(@"startRolodexDownload");
             [identity startRolodexDownload:associatedIdentity.downloadedVersion];
         }
     }
