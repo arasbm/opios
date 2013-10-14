@@ -97,6 +97,10 @@
     
     self.splashViewController = [[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil];
     self.splashViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    
+    self.splashViewController.view.frame = self.view.bounds;
+    
+    [self.view addSubview:self.splashViewController.view];
 }
 
 -(void)viewDidUnload
@@ -110,10 +114,10 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    if (self.showSplash)
-    {
-        [self presentViewController:self.splashViewController animated:YES completion:nil];
-    }
+//    if (self.showSplash)
+//    {
+//        [self presentViewController:self.splashViewController animated:YES completion:nil];
+//    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -200,7 +204,7 @@
 {
     if (webLoginViewController)
     {
-        //[self removeAllSubViews];
+        NSLog(@"Displayed WebLoginViewController");
         [self.view addSubview:webLoginViewController.view];
     }
 }
@@ -434,6 +438,8 @@
 
 - (void) removeSplashScreen
 {
+    [self.splashViewController.view removeFromSuperview];
+    /*
     if (![self.presentedViewController isBeingDismissed])
     {
         self.showSplash = NO;
@@ -442,7 +448,7 @@
             self.splashViewController = nil;
         }];
     }
-    
+    */
     //Init open peer delegates. Start login procedure. Display Login view controller.
     [[OpenPeer sharedOpenPeer] setup];
 }

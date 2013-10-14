@@ -13,6 +13,12 @@
 
 @interface SplashViewController ()
 
+- (void) removeSplashScreen;
+
+@end
+
+@interface SplashViewController ()
+
 @property (strong, nonatomic) NSTimer* closingTimer;
 
 - (IBAction)actionStartLogger:(id)sender;
@@ -35,7 +41,7 @@
     [super viewDidLoad];
     
     //if ([[HOPModelManager sharedModelManager] getLastLoggedInHomeUser])
-        self.closingTimer = [NSTimer scheduledTimerWithTimeInterval:7 target:self.presentingViewController /*[UIApplication sharedApplication].delegate*/ selector:@selector(removeSplashScreen) userInfo:nil repeats:NO];
+        self.closingTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(removeSplashScreen) userInfo:nil repeats:NO];
 //    else
 //        self.closingTimer = [NSTimer scheduledTimerWithTimeInterval:3.5 target:self.presentingViewController /*[UIApplication sharedApplication].delegate*/ selector:@selector(removeSplashScreen) userInfo:nil repeats:NO];
 }
@@ -55,5 +61,10 @@
     [alert show];
 }
 
+- (void) removeSplashScreen
+{
+    [self.view removeFromSuperview];
 
+    [[OpenPeer sharedOpenPeer] setup];
+}
 @end

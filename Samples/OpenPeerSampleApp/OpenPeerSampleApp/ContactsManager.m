@@ -210,17 +210,22 @@
  */
 - (void) loadContacts
 {
+    NSLog(@"loadContacts");
     [[[OpenPeer sharedOpenPeer] mainViewController] showTabBarController];
     
     //For the first login and association it should be performed contacts download on just associated identity
     NSArray* associatedIdentities = [[HOPAccount sharedAccount] getAssociatedIdentities];
     for (HOPIdentity* identity in associatedIdentities)
     {
+        if (![identity isDelegateAttached])
+            [[LoginManager sharedLoginManager] attachDelegateForIdentity:identity];
+        
         if ([[identity getBaseIdentityURI] isEqualToString:identityFederateBaseURI])
         {
             dispatch_queue_t taskQ = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
             dispatch_async(taskQ, ^{
                 [self loadAddressBookContacts];
+                NSLog(@"loadContacts - loadAddressBookContacts");
             });
         }
         else if ([[identity getBaseIdentityURI] isEqualToString:identityFacebookBaseURI])
@@ -235,6 +240,7 @@
             
             NSLog(@"startRolodexDownload");
             [identity startRolodexDownload:associatedIdentity.downloadedVersion];
+            NSLog(@"loadContacts - startRolodexDownload");
         }
     }
     

@@ -167,7 +167,7 @@
 {
     if (![self.associatingIdentitiesDictionary objectForKey:identityURI])
     {
-        NSLog(@"Identity login started");
+        NSLog(@"Identity login started for uri: %@",identityURI);
         [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Getting identity login url ..." inView:[[[[OpenPeer sharedOpenPeer] mainViewController] loginViewController] view]];
         
         NSString* redirectAfterLoginCompleteURL = [NSString stringWithFormat:@"%@?reload=true",outerFrameURL];
@@ -228,7 +228,7 @@
     
     if ([relogininfo length] > 0)
     {;
-        NSLog(@"LoggedIn account stable id: %@",[[HOPAccount sharedAccount] getStableID]);
+        NSLog(@"onIdentityAssociationFinished - identityURI: %@  - accountStableId: %@", [identity getIdentityURI], [[HOPAccount sharedAccount] getStableID]);
         HOPHomeUser* homeUser = [[HOPModelManager sharedModelManager] getHomeUserByStableID:[[HOPAccount sharedAccount] getStableID]];
         
         if (!homeUser)
@@ -263,9 +263,11 @@
 
 - (void) attachDelegateForIdentity:(HOPIdentity*) identity
 {
+    NSLog(@"attachDelegateForIdentity - identityURI: %@", [identity getIdentityURI]);
     if (![identity isDelegateAttached])
     {
-        //Check
+        NSLog(@"attachDelegateForIdentity - attaching delegate - identityURI: %@", [identity getIdentityURI]);
+        //Create core data record if it is not already in the db    
         [self onIdentityAssociationFinished:identity];
         
         NSString* redirectAfterLoginCompleteURL = [NSString stringWithFormat:@"%@?reload=true",outerFrameURL];
@@ -284,8 +286,6 @@
     if ([[HOPAccount sharedAccount] getState].state == HOPAccountStateReady && [self.associatingIdentitiesDictionary count] == 0)
     {
         NSLog(@"onUserLoggedIn - Ready");
-        //Login finished. Remove activity indicator
-        [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
         
         NSArray* associatedIdentites = [[HOPAccount sharedAccount] getAssociatedIdentities];
         for (HOPIdentity* identity in associatedIdentites)
@@ -329,6 +329,9 @@
             //Start loading contacts.
             [[ContactsManager sharedContactsManager] loadContacts];
         }
+        
+        //Login finished. Remove activity indicator
+        [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
     }
     else
     {

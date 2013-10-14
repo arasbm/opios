@@ -135,13 +135,19 @@
     
     if (!self.outerFrameInitialised && [requestString isEqualToString:outerFrameURL])
     {
+        NSLog(@"FINISH LOADING - outerFrameURL: %@", outerFrameURL);
         self.outerFrameInitialised = YES;
         [self onOuterFrameLoaded];
     }
     else if (!self.outerFrameInitialised && [requestString isEqualToString:namespaceGrantServiceURL])
     {
-      self.outerFrameInitialised = YES;
-      [self onOuterFrameLoaded];
+        NSLog(@"FINISH LOADING - namespaceGrantServiceURL: %@", namespaceGrantServiceURL);
+        self.outerFrameInitialised = YES;
+        [self onOuterFrameLoaded];
+    }
+    else
+    {
+        NSLog(@"FINISH LOADING - NOTHING");
     }
 }
 

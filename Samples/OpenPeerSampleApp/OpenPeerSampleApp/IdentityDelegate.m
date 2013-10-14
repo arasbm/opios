@@ -75,6 +75,7 @@
 {
     WebLoginViewController* ret = nil;
     
+    NSLog(@"getLoginWebViewForIdentity:%@", [identity getBaseIdentityURI]);
     ret = [self.loginWebViewsDictionary objectForKey:[identity getBaseIdentityURI]];
     if (!ret)
     {
@@ -86,6 +87,11 @@
         ret.view.hidden = YES;
         [self.loginWebViewsDictionary setObject:ret forKey:[identity getBaseIdentityURI]];
         //[[LoginManager sharedLoginManager] setPreloadedWebLoginViewController:nil];
+        NSLog(@"getLoginWebViewForIdentity - CREATED:%@", [identity getBaseIdentityURI]);
+    }
+    else
+    {
+        NSLog(@"getLoginWebViewForIdentity - RETRIEVED EXISTING:%@", [identity getBaseIdentityURI]);
     }
     return ret;
 }
@@ -97,7 +103,7 @@
 
 - (void)identity:(HOPIdentity *)identity stateChanged:(HOPIdentityStates)state
 {
-    NSLog(@"Identity login state: %@",[HOPIdentity stringForIdentityState:state]);
+    NSLog(@"Identity login state: %@ - identityURI: %@",[HOPIdentity stringForIdentityState:state], [identity getIdentityURI]);
     
     dispatch_async(dispatch_get_main_queue(), ^
     {
@@ -115,7 +121,7 @@
                 break;
                 
             case HOPIdentityStateWaitingAttachmentOfDelegate:
-                
+                [[LoginManager sharedLoginManager] attachDelegateForIdentity:identity];
                 break;
                 
             case HOPIdentityStateWaitingForBrowserWindowToBeLoaded:
@@ -123,6 +129,8 @@
                 [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
                 if ([[LoginManager sharedLoginManager] isLogin] || [[LoginManager sharedLoginManager] isAssociation])
                     [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Opening login page ..." inView:[[[OpenPeer sharedOpenPeer] mainViewController] view]];
+                else
+                    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Relogin ..." inView:[[[OpenPeer sharedOpenPeer] mainViewController] view]];
 
                 //if ([[LoginManager sharedLoginManager] preloadedWebLoginViewController] != webLoginViewController)
                 {
