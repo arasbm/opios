@@ -316,7 +316,7 @@
         }
         
         //Not yet ready for association
-        if (self.isLogin || self.isAssociation)
+        //if (self.isLogin || self.isAssociation)
         {
             self.isLogin = NO;
             
@@ -324,11 +324,11 @@
             
             [alert show];
         }
-        else
+       /* else
         {
             //Start loading contacts.
             [[ContactsManager sharedContactsManager] loadContacts];
-        }
+        }*/
         
         //Login finished. Remove activity indicator
         [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
