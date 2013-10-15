@@ -36,6 +36,7 @@
 #import <OpenpeerSDK/HOPConversationThread.h>
 #import "SessionManager.h"
 #import "MessageManager.h"
+#import "SoundsManager.h"
 
 #import "Session.h"
 #import "MainViewController.h"
@@ -72,13 +73,17 @@
                 break;
                 
             case HOPCallStateRinging:               //Receives just callee side. Now should play ringing sound
+                [[SoundManager sharedSoundsManager] playRingingSound];
                 break;
                 
             case HOPCallStateRingback:              //Receives just caller side
+                [[SoundManager sharedSoundsManager] playCallingSound];
                 break;
                 
             case HOPCallStateOpen:                  //Receives both parties. Call is established
                 [[SessionManager sharedSessionManager] onCallOpened:call];
+                [[SoundManager sharedSoundsManager] stopCallingSound];
+                [[SoundManager sharedSoundsManager] stopRingingSound];
                 break;
                 
             case HOPCallStateActive:                //Currently not in use
