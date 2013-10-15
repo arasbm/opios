@@ -27,9 +27,9 @@
 
  @property (weak,nonatomic) HOPRolodexContact* contact;
 
-- (void) setAccessoryViewFrame:(NSInteger) howMuch;
--(void)setContact:(HOPRolodexContact *)inContact;
-
+//- (void) setAccessoryViewFrame:(NSInteger) howMuch;
+- (void) setContact:(HOPRolodexContact *)inContact;
+- (void) setContact:(HOPRolodexContact *)inContact inTable:(UITableView*) table atIndexPath:(NSIndexPath *)indexPath;
 
 
 @end

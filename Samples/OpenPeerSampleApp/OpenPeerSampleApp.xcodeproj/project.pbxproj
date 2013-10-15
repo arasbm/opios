@@ -97,6 +97,13 @@
 		87E4D9A7180BE199002CA2D4 /* OpenPeerLogo29.png in Resources */ = {isa = PBXBuildFile; fileRef = 87E4D9A4180BE199002CA2D4 /* OpenPeerLogo29.png */; };
 		87E4D9A8180BE199002CA2D4 /* OpenPeerLogo58.png in Resources */ = {isa = PBXBuildFile; fileRef = 87E4D9A5180BE199002CA2D4 /* OpenPeerLogo58.png */; };
 		87E4D9A9180BE199002CA2D4 /* OpenPeerLogo80.png in Resources */ = {isa = PBXBuildFile; fileRef = 87E4D9A6180BE199002CA2D4 /* OpenPeerLogo80.png */; };
+		87E4D9FF180D3545002CA2D4 /* facebook_tag.png in Resources */ = {isa = PBXBuildFile; fileRef = 87E4D9FD180D3545002CA2D4 /* facebook_tag.png */; };
+		87E4DA00180D3545002CA2D4 /* facebook_tag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87E4D9FE180D3545002CA2D4 /* facebook_tag@2x.png */; };
+		87E4DA05180D4E8D002CA2D4 /* SoundsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87E4DA04180D4E8D002CA2D4 /* SoundsManager.m */; };
+		87E4DA0E180D5082002CA2D4 /* calling.wav in Resources */ = {isa = PBXBuildFile; fileRef = 87E4DA07180D5082002CA2D4 /* calling.wav */; };
+		87E4DA11180D5082002CA2D4 /* message-received.wav in Resources */ = {isa = PBXBuildFile; fileRef = 87E4DA0A180D5082002CA2D4 /* message-received.wav */; };
+		87E4DA12180D5082002CA2D4 /* message-send.wav in Resources */ = {isa = PBXBuildFile; fileRef = 87E4DA0B180D5082002CA2D4 /* message-send.wav */; };
+		87E4DA14180D5082002CA2D4 /* ringing.caf in Resources */ = {isa = PBXBuildFile; fileRef = 87E4DA0D180D5082002CA2D4 /* ringing.caf */; };
 		87EE5FE9166E917B002C5FA3 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 87EE5FE8166E917B002C5FA3 /* libresolv.dylib */; };
 		87EE5FF4166E9615002C5FA3 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 874ADDB4166E138A0095FE33 /* CoreAudio.framework */; };
 		87EE5FF5166E9615002C5FA3 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 874ADDBC166E14440095FE33 /* CoreMedia.framework */; };
@@ -301,6 +308,14 @@
 		87E4D9A4180BE199002CA2D4 /* OpenPeerLogo29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OpenPeerLogo29.png; sourceTree = "<group>"; };
 		87E4D9A5180BE199002CA2D4 /* OpenPeerLogo58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OpenPeerLogo58.png; sourceTree = "<group>"; };
 		87E4D9A6180BE199002CA2D4 /* OpenPeerLogo80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OpenPeerLogo80.png; sourceTree = "<group>"; };
+		87E4D9FD180D3545002CA2D4 /* facebook_tag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook_tag.png; sourceTree = "<group>"; };
+		87E4D9FE180D3545002CA2D4 /* facebook_tag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook_tag@2x.png"; sourceTree = "<group>"; };
+		87E4DA03180D4E8D002CA2D4 /* SoundsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundsManager.h; sourceTree = "<group>"; };
+		87E4DA04180D4E8D002CA2D4 /* SoundsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundsManager.m; sourceTree = "<group>"; };
+		87E4DA07180D5082002CA2D4 /* calling.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = calling.wav; sourceTree = "<group>"; };
+		87E4DA0A180D5082002CA2D4 /* message-received.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "message-received.wav"; sourceTree = "<group>"; };
+		87E4DA0B180D5082002CA2D4 /* message-send.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "message-send.wav"; sourceTree = "<group>"; };
+		87E4DA0D180D5082002CA2D4 /* ringing.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ringing.caf; sourceTree = "<group>"; };
 		87EE5FE8166E917B002C5FA3 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		87EE5FF9166F5A7E002C5FA3 /* WebLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebLoginViewController.h; sourceTree = "<group>"; };
 		87EE5FFA166F5A7F002C5FA3 /* WebLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebLoginViewController.m; sourceTree = "<group>"; };
@@ -479,6 +494,8 @@
 		8713363517CCBD6F008C91F7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				87E4D9FD180D3545002CA2D4 /* facebook_tag.png */,
+				87E4D9FE180D3545002CA2D4 /* facebook_tag@2x.png */,
 				87E4D9A4180BE199002CA2D4 /* OpenPeerLogo29.png */,
 				87E4D9A5180BE199002CA2D4 /* OpenPeerLogo58.png */,
 				87E4D9A6180BE199002CA2D4 /* OpenPeerLogo80.png */,
@@ -593,6 +610,7 @@
 		87272833166CBF9B0089CBB6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				87E4DA06180D5082002CA2D4 /* Sounds */,
 				8713363517CCBD6F008C91F7 /* Images */,
 				8713363117CCB676008C91F7 /* Default-568h@2x.png */,
 				87355FE817CCA8AF006151E7 /* Default@2x.png */,
@@ -640,9 +658,22 @@
 			name = Delegates;
 			sourceTree = "<group>";
 		};
+		87E4DA06180D5082002CA2D4 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				87E4DA07180D5082002CA2D4 /* calling.wav */,
+				87E4DA0A180D5082002CA2D4 /* message-received.wav */,
+				87E4DA0B180D5082002CA2D4 /* message-send.wav */,
+				87E4DA0D180D5082002CA2D4 /* ringing.caf */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
 		87FC39F81709BB66002030D1 /* Session */ = {
 			isa = PBXGroup;
 			children = (
+				87E4DA03180D4E8D002CA2D4 /* SoundsManager.h */,
+				87E4DA04180D4E8D002CA2D4 /* SoundsManager.m */,
 				87F09EDD171EBB1A0045F6A6 /* ChatViewController.xib */,
 				87F09EDE171EBB1A0045F6A6 /* ChatViewController.m */,
 				87F09EDF171EBB1A0045F6A6 /* ChatViewController.h */,
@@ -791,7 +822,9 @@
 				87272856166CC2640089CBB6 /* LoginViewController.xib in Resources */,
 				87EE6070166F667C002C5FA3 /* WebLoginViewController.xib in Resources */,
 				87F24B6A1670048000A5389F /* ContactsTableViewController.xib in Resources */,
+				87E4DA11180D5082002CA2D4 /* message-received.wav in Resources */,
 				87421DA4168274BB00699479 /* ActiveSessionViewController.xib in Resources */,
+				87E4DA12180D5082002CA2D4 /* message-send.wav in Resources */,
 				87A1086C1802CBDC001F705D /* logger.png in Resources */,
 				87F11AF017C2854700CFE85D /* OpenPeerDataModel.bundle in Resources */,
 				870F3380168376450090A97F /* ActivityIndicatorViewController.xib in Resources */,
@@ -810,6 +843,7 @@
 				8719AB0717CE0710007E991B /* tableViewCell_selected@2x.png in Resources */,
 				8719AB0817CE0710007E991B /* tableViewCell_selected.png in Resources */,
 				87E4D99F180BE07F002CA2D4 /* OpenPeerLogo57.png in Resources */,
+				87E4DA0E180D5082002CA2D4 /* calling.wav in Resources */,
 				871C7B8E17FEBED200BE641B /* SplashViewController.xib in Resources */,
 				8719AB0C17CE0CEE007E991B /* iPhone_background_navigation_mode@2x.png in Resources */,
 				8719AB0D17CE0CEE007E991B /* iPhone_background_navigation_mode.png in Resources */,
@@ -830,9 +864,12 @@
 				8712BE7917D8CC7C00665F42 /* iPhone_tabBar_settings_active_Icon@2x.png in Resources */,
 				8712BE7A17D8CC7C00665F42 /* iPhone_tabBar_settings_active_Icon.png in Resources */,
 				8712BE7B17D8CC7C00665F42 /* iPhone_tabBar_contacts_inactive@2x.png in Resources */,
+				87E4DA14180D5082002CA2D4 /* ringing.caf in Resources */,
 				87E4D9A1180BE07F002CA2D4 /* OpenPeerLogo120.png in Resources */,
+				87E4D9FF180D3545002CA2D4 /* facebook_tag.png in Resources */,
 				8712BE7C17D8CC7C00665F42 /* iPhone_tabBar_contacts_inactive.png in Resources */,
 				8712BE7D17D8CC7C00665F42 /* iPhone_tabBar_contacts_active@2x.png in Resources */,
+				87E4DA00180D3545002CA2D4 /* facebook_tag@2x.png in Resources */,
 				8712BE7E17D8CC7C00665F42 /* iPhone_tabBar_contacts_active.png in Resources */,
 				87E4D9A8180BE199002CA2D4 /* OpenPeerLogo58.png in Resources */,
 				8712BE7F17D8CC7C00665F42 /* iPhone_tabBar_bkgd@2x.png in Resources */,
@@ -870,6 +907,7 @@
 				87F24B5F166FF0C900A5389F /* Utility.m in Sources */,
 				87F24B62167003F400A5389F /* ContactsManager.m in Sources */,
 				87F24B691670048000A5389F /* ContactsTableViewController.m in Sources */,
+				87E4DA05180D4E8D002CA2D4 /* SoundsManager.m in Sources */,
 				875CD7E2167A14810037396B /* SessionManager.m in Sources */,
 				875CD7E5167A14960037396B /* Session.m in Sources */,
 				874FF90116806D0F00B0A7A0 /* Constants.m in Sources */,
@@ -982,7 +1020,6 @@
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_ENABLE_CPP_RTTI = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1021,7 +1058,6 @@
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_ENABLE_CPP_RTTI = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

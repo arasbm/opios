@@ -76,9 +76,10 @@
 							<object class="IBUIImageView" id="779057432">
 								<reference key="NSNextResponder" ref="703089267"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{10, 12}, {31, 31}}</string>
+								<string key="NSFrame">{{4, 8}, {41, 41}}</string>
 								<reference key="NSSuperview" ref="703089267"/>
 								<reference key="NSNextKeyView" ref="420997024"/>
+								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
@@ -155,6 +156,7 @@
 						</array>
 						<string key="NSFrameSize">{270, 54}</string>
 						<reference key="NSSuperview" ref="96725247"/>
+						<reference key="NSNextKeyView" ref="779057432"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
@@ -167,7 +169,7 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{270, 55}</string>
-				<reference key="NSNextKeyView"/>
+				<reference key="NSNextKeyView" ref="703089267"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">1</int>
 					<bytes key="NSRGB">MSAxIDEAA</bytes>
@@ -261,11 +263,11 @@
 						<reference key="object" ref="96725247"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="420997024"/>
-							<reference ref="779057432"/>
 							<reference ref="167456547"/>
 							<reference ref="884392935"/>
 							<reference ref="337558105"/>
 							<reference ref="1032920000"/>
+							<reference ref="779057432"/>
 						</array>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Contact Table View Cell</string>

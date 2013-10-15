@@ -45,8 +45,8 @@
 #import "IconDownloader.h"
 
 #define REMOTE_SESSION_ALERT_TAG 1
-#define AVATAR_WIDTH 31.0
-#define AVATAR_HEIGHT 31.0
+#define AVATAR_WIDTH 0 //31.0
+#define AVATAR_HEIGHT 0 //31.0
 #define TABLE_CELL_HEIGHT 55.0
 
 @interface ContactsTableViewController ()
@@ -189,7 +189,9 @@
     
     HOPRolodexContact* contact = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    [cell setContact:contact];
+    [cell setContact:contact inTable:self.contactsTableView atIndexPath:indexPath];
+    
+    /*[cell setContact:contact];
     
     HOPAvatar* avatar = [contact getAvatarForWidth:[NSNumber numberWithFloat:AVATAR_WIDTH] height:[NSNumber numberWithFloat:AVATAR_HEIGHT]];
     if (avatar)
@@ -198,8 +200,13 @@
         if (!img)
             [self startIconDownloadForIndexPath:indexPath];
         else
-            cell.imageView.image = img;
-    }
+        {
+            cell.displayImage.contentMode = UIViewContentModeScaleAspectFill;
+            cell.displayImage.clipsToBounds = YES;
+            cell.displayImage.image = img;
+        }
+        
+    }*/
     
     if (contact.identityContact)
     {
@@ -380,9 +387,12 @@
             
             [avatar storeImage:downloadedImage];
             
+            cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
+            cell.imageView.clipsToBounds = YES;
+            
             // Display the newly loaded image
             cell.imageView.image = downloadedImage;
-            
+
             [self.contactsTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             
             // Remove the IconDownloader from the in progress list.

@@ -70,9 +70,11 @@
     self.profileURL = [NSString stringWithCString:inRolodexContact.mProfileURL encoding:NSUTF8StringEncoding];
     self.vProfileURL = [NSString stringWithCString:inRolodexContact.mVProfileURL encoding:NSUTF8StringEncoding];
     
+    NSMutableSet* tempAvatars = nil;//[[NSMutableSet alloc] init];
+    
     if (inRolodexContact.mAvatars.size() > 0)
     {
-        self.avatars = [[NSSet alloc] init];
+        tempAvatars = [[NSMutableSet alloc] init];
         for (RolodexContact::AvatarList::iterator avatar = inRolodexContact.mAvatars.begin(); avatar != inRolodexContact.mAvatars.end(); ++avatar)
         {
             NSString* avatarURL = [NSString stringWithUTF8String:avatar->mURL];
@@ -87,9 +89,14 @@
                 }
                 
                 [hopAvatar updateWithAvatar:*avatar];
+                [tempAvatars addObject:hopAvatar];
             }
+            
         }
     }
+    
+    if ([tempAvatars count] > 0)
+        self.avatars = [NSSet setWithSet:tempAvatars];
 }
 
 @end
