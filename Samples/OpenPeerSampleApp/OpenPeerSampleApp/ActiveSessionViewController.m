@@ -104,7 +104,11 @@
     [[HOPMediaEngine sharedInstance] setChannelRenderView:self.videoImageView];
     //Set default video orientation to be portrait
     [[HOPMediaEngine sharedInstance] setDefaultVideoOrientation:HOPMediaEngineVideoOrientationPortrait];
-    
+    // Set default settings for AEC, AGC and NS
+    [[HOPMediaEngine sharedInstance] setEcEnabled:YES];
+    [[HOPMediaEngine sharedInstance] setAgcEnabled:YES];
+    [[HOPMediaEngine sharedInstance] setNsEnabled:NO];
+  
     [self.view bringSubviewToFront:self.buttonsView];
     //Prepare view controller for default state - no call
     [self prepareForCall:NO withVideo:NO];
