@@ -104,7 +104,7 @@
     [[HOPMediaEngine sharedInstance] setChannelRenderView:self.videoImageView];
     //Set default video orientation to be portrait
     [[HOPMediaEngine sharedInstance] setDefaultVideoOrientation:HOPMediaEngineVideoOrientationPortrait];
-    
+  
     [self.view bringSubviewToFront:self.buttonsView];
     //Prepare view controller for default state - no call
     [self prepareForCall:NO withVideo:NO];
