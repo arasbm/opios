@@ -39,6 +39,7 @@
 
 @property (nonatomic, strong) WebLoginViewController *preloadedWebLoginViewController;
 @property (nonatomic) BOOL isLogin;
+@property (nonatomic) BOOL isAssociation;
 
 + (id) sharedLoginManager;
 
@@ -48,6 +49,7 @@
 - (void) logout;
 
 - (void) onIdentityAssociationFinished:(HOPIdentity*) identity;
+- (void) attachDelegateForIdentity:(HOPIdentity*) identity;
 
 - (void) onUserLoggedIn;
 

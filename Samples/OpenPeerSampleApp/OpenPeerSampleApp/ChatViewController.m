@@ -36,7 +36,6 @@
 #import "MessageManager.h"
 #import "Message.h"
 #import "Session.h"
-#import "OpenPeerUser.h"
 #import "ChatMessageCell.h"
 
 @interface ChatViewController()
@@ -375,12 +374,6 @@
     
     [msgCell setMessage:message];
     
-//    msgCell.textLabel.text = message.message;
-//    if (message.contact)
-//        msgCell.detailTextLabel.text = message.contact.fullName;
-//    else
-//        msgCell.detailTextLabel.text = [[OpenPeerUser sharedOpenPeerUser] fullName];
-    //msgCell.detailTextLabel.text = [message.date description];
     return msgCell;
 }
 

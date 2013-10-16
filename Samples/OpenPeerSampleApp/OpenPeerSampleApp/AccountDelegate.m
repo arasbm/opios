@@ -136,8 +136,14 @@
 
 - (void)onAccountAssociatedIdentitiesChanged:(HOPAccount *)account
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        //get identites, attach delegate
+    NSLog(@"onAccountAssociatedIdentitiesChanged");
+    dispatch_async(dispatch_get_main_queue(), ^
+    {
+        NSArray* associatedIdentities = [account getAssociatedIdentities];
+        for (HOPIdentity* identity in associatedIdentities)
+        {
+            [[LoginManager sharedLoginManager] attachDelegateForIdentity:identity];
+        }
     });
 }
 
@@ -151,7 +157,7 @@
             if (webLoginViewController)
             {
                 NSString* jsMethod = [NSString stringWithFormat:@"sendBundleToJS(\'%@\')", [account getNextMessageForInnerBrowerWindowFrame]];
-                NSLog(@"\n\nSent to inner frame: %@\n\n",jsMethod);
+                //NSLog(@"\n\nSent to inner frame: %@\n\n",jsMethod);
                 [webLoginViewController passMessageToJS:jsMethod];
             }
     });

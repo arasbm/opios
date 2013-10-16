@@ -78,18 +78,9 @@ typedef enum
 @property (nonatomic) BOOL isLocalTelnetOn;
 @property (nonatomic) BOOL isRemoteTelnetOn;
 
+@property (nonatomic, strong) NSString* deviceId;
 + (id) sharedOpenPeer;
 
-- (void) prepareWithMainViewController:(MainViewController*) inMainViewController;
 - (void) setup;
-- (void) setLogLevels;
-- (void) startStdLogger:(BOOL) start;
-- (void) startTelnetLogger:(BOOL) start;
-- (void) startOutgoingTelnetLogger:(BOOL) start;
-
-- (void) start:(BOOL) start looger:(LoggerTypes) type;
-
-- (void) setLogLevel:(HOPLoggerLevels) level;
-
-- (void) startTelnetLoggerOnStartUp;
+- (void) shutdown;
 @end

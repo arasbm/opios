@@ -37,7 +37,6 @@
 
 #import "Utility.h"
 #import "Session.h"
-#import "OpenPeerUser.h"
 #import "OpenPeer.h"
 #import "Constants.h"
 
@@ -51,6 +50,7 @@
 #import <OpenpeerSDK/HOPMediaEngine.h>
 #import <OpenpeerSDK/HOPModelManager.h>
 #import <OpenpeerSDK/HOPContact.h>
+#import <OpenpeerSDK/HOPHomeUser+External.h>
 
 @interface SessionManager()
 
@@ -107,8 +107,6 @@
     
     if (!ret)
     {
-        //NSLog(@"%@ is creating a session with %@", [[OpenPeerUser sharedOpenPeerUser] fullName],[contact name]);
-        
         //Create a conversation thread
         HOPConversationThread* conversationThread = [HOPConversationThread conversationThreadWithProfileBundle:nil];
         //Create a session with new conversation thread
@@ -142,7 +140,7 @@
     NSArray* rolodexContacts = [[HOPModelManager sharedModelManager] getRolodexContactsByPeerURI:[[contacts objectAtIndex:0] getPeerURI]];
     if ([rolodexContacts count] > 0)
     {
-        NSLog(@"%@ initiating a session with %@", [[rolodexContacts objectAtIndex:0] name], [[OpenPeerUser sharedOpenPeerUser] fullName]);
+        NSLog(@"%@ initiating a session with %@", [[rolodexContacts objectAtIndex:0] name], [[[HOPModelManager sharedModelManager] getLastLoggedInHomeUser] getFullName]);
         ret = [[Session alloc] initWithContacts:rolodexContacts conversationThread:inConversationThread];
         
         if (ret)
@@ -476,7 +474,7 @@
         //If call is droped because user is a busy at the moment, show notification to caller.
         if ([session.currentCall getClosedReason] == HOPCallClosedReasonBusy)
         {
-            NSString* contactName = [[[session participantsArray] objectAtIndex:0] fullName];
+            NSString* contactName = [[[HOPModelManager sharedModelManager] getLastLoggedInHomeUser] getFullName];
             [[[OpenPeer sharedOpenPeer] mainViewController] showNotification:[NSString stringWithFormat:@"%@ is busy.",contactName]];
          }
     }

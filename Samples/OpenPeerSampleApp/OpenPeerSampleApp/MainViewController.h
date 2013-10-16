@@ -71,7 +71,7 @@ typedef  enum
 @property (nonatomic, strong) LoginViewController *loginViewController;
 @property (nonatomic, strong) ContactsTableViewController *contactsTableViewController;
 @property (nonatomic, strong) UITabBarController *tabBarController;
-@property (nonatomic, strong) UINavigationController *contactsNavigationController;
+//@property (nonatomic, strong) UINavigationController *contactsNavigationController;
 
 @property (nonatomic, strong) NSMutableDictionary *sessionViewControllersDictionary;
 
@@ -90,4 +90,5 @@ typedef  enum
 - (void) showNotification:(NSString*) message;
 
 - (void) removeSplashScreen;
+- (void) onLogout;
 @end

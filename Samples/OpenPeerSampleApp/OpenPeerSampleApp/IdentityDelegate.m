@@ -42,7 +42,6 @@
 #import "LoginManager.h"
 #import "ContactsManager.h"
 #import "Constants.h"
-#import "OpenPeerUser.h"
 #import "OpenPeer.h"
 #import "MainViewController.h"
 #import "ContactsTableViewController.h"
@@ -76,6 +75,7 @@
 {
     WebLoginViewController* ret = nil;
     
+    NSLog(@"getLoginWebViewForIdentity:%@", [identity getBaseIdentityURI]);
     ret = [self.loginWebViewsDictionary objectForKey:[identity getBaseIdentityURI]];
     if (!ret)
     {
@@ -87,6 +87,11 @@
         ret.view.hidden = YES;
         [self.loginWebViewsDictionary setObject:ret forKey:[identity getBaseIdentityURI]];
         //[[LoginManager sharedLoginManager] setPreloadedWebLoginViewController:nil];
+        NSLog(@"getLoginWebViewForIdentity - CREATED:%@", [identity getBaseIdentityURI]);
+    }
+    else
+    {
+        NSLog(@"getLoginWebViewForIdentity - RETRIEVED EXISTING:%@", [identity getBaseIdentityURI]);
     }
     return ret;
 }
@@ -98,7 +103,7 @@
 
 - (void)identity:(HOPIdentity *)identity stateChanged:(HOPIdentityStates)state
 {
-    NSLog(@"Identity login state: %@",[HOPIdentity stringForIdentityState:state]);
+    NSLog(@"Identity login state: %@ - identityURI: %@",[HOPIdentity stringForIdentityState:state], [identity getIdentityURI]);
     
     dispatch_async(dispatch_get_main_queue(), ^
     {
@@ -116,14 +121,16 @@
                 break;
                 
             case HOPIdentityStateWaitingAttachmentOfDelegate:
-                
+                [[LoginManager sharedLoginManager] attachDelegateForIdentity:identity];
                 break;
                 
             case HOPIdentityStateWaitingForBrowserWindowToBeLoaded:
                 //Login url is received. Remove activity indicator
                 [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
-                if ([[LoginManager sharedLoginManager] isLogin])
+                if ([[LoginManager sharedLoginManager] isLogin] || [[LoginManager sharedLoginManager] isAssociation])
                     [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Opening login page ..." inView:[[[OpenPeer sharedOpenPeer] mainViewController] view]];
+                else
+                    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Relogin ..." inView:[[[OpenPeer sharedOpenPeer] mainViewController] view]];
 
                 //if ([[LoginManager sharedLoginManager] preloadedWebLoginViewController] != webLoginViewController)
                 {
@@ -172,7 +179,7 @@
                 break;
                 
             case HOPIdentityStateReady:
-                if ([[LoginManager sharedLoginManager] isLogin])
+                if ([[LoginManager sharedLoginManager] isLogin] || [[LoginManager sharedLoginManager] isAssociation])
                     [[LoginManager sharedLoginManager] onIdentityAssociationFinished:identity];
                 break;
                 
@@ -198,7 +205,7 @@
         if (webLoginViewController)
         {
             NSString* jsMethod = [NSString stringWithFormat:@"sendBundleToJS(\'%@\')", [identity getNextMessageForInnerBrowerWindowFrame]];
-            NSLog(@"\n\nSent to inner frame: %@\n\n",jsMethod);
+            //NSLog(@"\n\nSent to inner frame: %@\n\n",jsMethod);
             //Pass JSON message to java script
             [webLoginViewController passMessageToJS:jsMethod];
         }

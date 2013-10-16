@@ -31,7 +31,8 @@
 
 #import "ChatMessageCell.h"
 #import "Message.h"
-#import "OpenPeerUser.h"
+#import <OpenpeerSDK/HOPModelManager.h>
+#import <OpenpeerSDK/HOPHomeUser+External.h>
 #import <OpenpeerSDK/HOPRolodexContact.h>
 
 #define AVATAR_SIZE 31
@@ -262,7 +263,7 @@
             }
             else
             {
-                messageSenderName = [[OpenPeerUser sharedOpenPeerUser] fullName];
+                messageSenderName = [[[HOPModelManager sharedModelManager] getLastLoggedInHomeUser] getFullName];
                 [self.contentView setBackgroundColor:[UIColor colorWithRed:198.0/255.0 green:1.0 blue:216.0/255.0 alpha:1.0]];
             }
             

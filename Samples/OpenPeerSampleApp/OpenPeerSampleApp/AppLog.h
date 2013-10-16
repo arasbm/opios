@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#define NSLog(...) AppLog(__VA_ARGS__)
+#define NSLog(...) AppLog([NSString stringWithUTF8String:__PRETTY_FUNCTION__], [NSString stringWithUTF8String:__FILE__], __LINE__, __VA_ARGS__)
 
-void AppLog(NSString* format,...);
+void AppLog(NSString* functionName, NSString* filePath, unsigned long lineNumber, NSString* format,...);

@@ -33,7 +33,6 @@
 
 
 #import "OpenPeer.h"
-#import "OpenPeerUser.h"
 //Utility
 #import "XMLWriter.h"
 #import "Utility.h"
@@ -61,7 +60,7 @@
 @interface LoginManager ()
 
 
-@property (nonatomic) BOOL isAssociation;
+
 
 @property (strong, nonatomic) NSMutableDictionary* associatingIdentitiesDictionary;
 @end
@@ -126,12 +125,31 @@
     //Delete all cookies.
     [Utility removeCookiesAndClearCredentials];
     
-    //Delete user data stored on device.
-    //[[OpenPeerUser sharedOpenPeerUser] deleteUserData];
+    NSArray* associatedIdentities = [[HOPAccount sharedAccount] getAssociatedIdentities];
+    for (HOPIdentity* identity in associatedIdentities)
+    {
+        [identity cancel];
+    }
+    
+    for (HOPIdentity* identity in self.associatingIdentitiesDictionary)
+    {
+        [identity cancel];
+    }
+    [self.associatingIdentitiesDictionary removeAllObjects];
     
     //Call to the SDK in order to shutdown Open Peer engine.
     [[HOPAccount sharedAccount] shutdown];
     
+    //[[OpenPeer sharedOpenPeer] shutdown];
+    //[[OpenPeer sharedOpenPeer] setup];
+    
+    [[[OpenPeer sharedOpenPeer] mainViewController] onLogout];
+    
+    HOPHomeUser* homeUser = [[HOPModelManager sharedModelManager] getLastLoggedInHomeUser];
+    homeUser.loggedIn = [NSNumber numberWithBool:NO];
+    [[HOPModelManager sharedModelManager] saveContext];
+    
+    self.isLogin = YES;
     //Return to the login page.
     [[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
     
@@ -139,7 +157,7 @@
 
 - (void) startAccount
 {
-    [[HOPAccount sharedAccount] loginWithAccountDelegate:(id<HOPAccountDelegate>)[[OpenPeer sharedOpenPeer] accountDelegate] conversationThreadDelegate:(id<HOPConversationThreadDelegate>) [[OpenPeer sharedOpenPeer] conversationThreadDelegate]  callDelegate:(id<HOPCallDelegate>) [[OpenPeer sharedOpenPeer] callDelegate]  namespaceGrantOuterFrameURLUponReload:grantOuterFrameURLUponReload grantID:@"Id" lockboxServiceDomain:identityProviderDomain forceCreateNewLockboxAccount:NO];
+    [[HOPAccount sharedAccount] loginWithAccountDelegate:(id<HOPAccountDelegate>)[[OpenPeer sharedOpenPeer] accountDelegate] conversationThreadDelegate:(id<HOPConversationThreadDelegate>) [[OpenPeer sharedOpenPeer] conversationThreadDelegate]  callDelegate:(id<HOPCallDelegate>) [[OpenPeer sharedOpenPeer] callDelegate]  namespaceGrantOuterFrameURLUponReload:grantOuterFrameURLUponReload grantID:[[OpenPeer sharedOpenPeer] deviceId] lockboxServiceDomain:identityProviderDomain forceCreateNewLockboxAccount:NO];
 }
 /**
  Starts user login for specific identity URI. Activity indicator is displayed and identity login started.
@@ -149,12 +167,14 @@
 {
     if (![self.associatingIdentitiesDictionary objectForKey:identityURI])
     {
-        NSLog(@"Identity login started");
+        NSLog(@"Identity login started for uri: %@",identityURI);
         [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Getting identity login url ..." inView:[[[[OpenPeer sharedOpenPeer] mainViewController] loginViewController] view]];
         
         NSString* redirectAfterLoginCompleteURL = [NSString stringWithFormat:@"%@?reload=true",outerFrameURL];
 
-        [self startAccount];
+        if (![[HOPAccount sharedAccount] isCoreAccountCreated])
+            [self startAccount];
+        
         //For identity login it is required to pass identity delegate, URL that will be requested upon successful login, identity URI and identity provider domain. This is 
         HOPIdentity* hopIdentity = [HOPIdentity loginWithDelegate:(id<HOPIdentityDelegate>)[[OpenPeer sharedOpenPeer] identityDelegate] identityProviderDomain:identityProviderDomain  identityURIOridentityBaseURI:identityURI outerFrameURLUponReload:redirectAfterLoginCompleteURL];
         
@@ -207,7 +227,8 @@
     NSString* relogininfo = [[HOPAccount sharedAccount] getReloginInformation];
     
     if ([relogininfo length] > 0)
-    {
+    {;
+        NSLog(@"onIdentityAssociationFinished - identityURI: %@  - accountStableId: %@", [identity getIdentityURI], [[HOPAccount sharedAccount] getStableID]);
         HOPHomeUser* homeUser = [[HOPModelManager sharedModelManager] getHomeUserByStableID:[[HOPAccount sharedAccount] getStableID]];
         
         if (!homeUser)
@@ -218,8 +239,11 @@
             homeUser.loggedIn = [NSNumber numberWithBool: YES];
         }
         
-        HOPAssociatedIdentity*  associatedIdentity = (HOPAssociatedIdentity*)[[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPAssociatedIdentity"];
+        HOPAssociatedIdentity*  associatedIdentity = [[HOPModelManager sharedModelManager] getAssociatedIdentityBaseIdentityURI:[identity getBaseIdentityURI] homeUserStableId:homeUser.stableId];
         
+        if (!associatedIdentity)
+            associatedIdentity = (HOPAssociatedIdentity*)[[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPAssociatedIdentity"];
+            
         HOPIdentityContact* homeIdentityContact = [identity getSelfIdentityContact];
         associatedIdentity.domain = [identity getIdentityProviderDomain];
         //associatedIdentity.downloadedVersion = @"";
@@ -229,8 +253,6 @@
         associatedIdentity.homeUser = homeUser;
         homeIdentityContact.rolodexContact.associatedIdentityForHomeUser = associatedIdentity;
         
-        //[homeUser addAssociatedIdentitiesObject:associatedIdentity];
-        
         [[HOPModelManager sharedModelManager] saveContext];
         
         [self.associatingIdentitiesDictionary removeObjectForKey:[identity getBaseIdentityURI]];
@@ -239,6 +261,20 @@
     [self onUserLoggedIn];
 }
 
+- (void) attachDelegateForIdentity:(HOPIdentity*) identity
+{
+    NSLog(@"attachDelegateForIdentity - identityURI: %@", [identity getIdentityURI]);
+    if (![identity isDelegateAttached])
+    {
+        NSLog(@"attachDelegateForIdentity - attaching delegate - identityURI: %@", [identity getIdentityURI]);
+        //Create core data record if it is not already in the db    
+        [self onIdentityAssociationFinished:identity];
+        
+        NSString* redirectAfterLoginCompleteURL = [NSString stringWithFormat:@"%@?reload=true",outerFrameURL];
+        
+        [identity attachDelegate:(id<HOPIdentityDelegate>)[[OpenPeer sharedOpenPeer] identityDelegate]  redirectionURL:redirectAfterLoginCompleteURL];
+    }
+}
 
 /**
  Handles SDK event after login is successful.
@@ -250,8 +286,6 @@
     if ([[HOPAccount sharedAccount] getState].state == HOPAccountStateReady && [self.associatingIdentitiesDictionary count] == 0)
     {
         NSLog(@"onUserLoggedIn - Ready");
-        //Login finished. Remove activity indicator
-        [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
         
         NSArray* associatedIdentites = [[HOPAccount sharedAccount] getAssociatedIdentities];
         for (HOPIdentity* identity in associatedIdentites)
@@ -280,19 +314,32 @@
                 [[HOPModelManager sharedModelManager] saveContext];
             }
         }
-
-        //Start loading contacts.
-        [[ContactsManager sharedContactsManager] loadContacts];
         
         //Not yet ready for association
-        /*if (self.isLogin)
+        if (self.isLogin || self.isAssociation)
         {
             self.isLogin = NO;
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Identity association" message:@"Do you want to associate another social account" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
             
             [alert show];
-        }*/
+        }
+        else
+        {
+            //Start loading contacts.
+            [[ContactsManager sharedContactsManager] loadContacts];
+        }
+        
+        //Login finished. Remove activity indicator
+        [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
+    }
+    else
+    {
+        int o = [self.associatingIdentitiesDictionary count];
+        if (o > 0)
+            NSLog(@"onUserLoggedIn - NOT Ready because of associatingIdentitiesDictionary is not empty: %d",o);
+        else
+            NSLog(@"onUserLoggedIn - NOT Ready because account is not in ready state");
     }
 }
 
@@ -325,6 +372,12 @@
     {
         self.isAssociation = YES;
         [[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
+    }
+    else
+    {
+        [[[[[OpenPeer sharedOpenPeer] mainViewController] loginViewController] view] removeFromSuperview];
+        //Start loading contacts.
+        [[ContactsManager sharedContactsManager] loadContacts];
     }
 }
 @end

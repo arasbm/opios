@@ -144,9 +144,31 @@ SDK_EXTERN void HOPLog(HOPLoggerLevels logLevel, NSString* format,...);
  */
 + (void) log: (unsigned int) subsystemUniqueID severity: (HOPLoggerSeverities) severity level: (HOPLoggerLevels) level message: (NSString*) message function: (NSString*) function filePath: (NSString*) filePath lineNumber: (unsigned long) lineNumber;
 
+/**
+ Uninstall various types of loggers.
+ */
 + (void) uninstallStdOutLogger;
 + (void) uninstallFileLogger;
 + (void) uninstallTelnetLogger;
 + (void) uninstallOutgoingTelnetLogger;
 + (void) uninstallDebuggerLogger;
+
+/**
+ Checks if the telnet logger is listening for incoming telnet connections.
+ @returns true if telnet logger is listening for connections
+ */
++ (BOOL) isTelnetLoggerListening;
+
+/**
+ Checks if the telnet logger has a telnet client connected to the telnet logger port
+ @returns true if telnet client is connected to telnet logger port
+ */
++ (BOOL) isTelnetLoggerConnected;
+
+/**
+ Checks if the outgoing telnet logger is connected to a telnet logging server.
+ @returns true if outgoing telnet logger is connected to a telnet logging server
+ */
++ (BOOL) isOutgoingTelnetLoggerConnected;
+
 @end

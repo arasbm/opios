@@ -31,9 +31,9 @@
 
 #import "MainViewController.h"
 #import "OpenPeer.h"
-#import "OpenPeerUser.h"
 #import "Constants.h"
 #import "Utility.h"
+#import "Logger.h"
 //SDK
 #import <OpenpeerSDK/HOPConversationThread.h>
 //Managers
@@ -54,13 +54,15 @@
 #import "SplashViewController.h"
 //Private methods
 @interface MainViewController ()
+
 @property (nonatomic) BOOL isLogerActivated;
+@property (nonatomic) BOOL showSplash;
 @property (strong, nonatomic) SplashViewController* splashViewController;
 
 - (void) removeAllSubViews;
 - (SessionTransitionStates) determineViewControllerTransitionStateForSession:(NSString*) sessionId forIncomingCall:(BOOL) incomingCall forIncomingMessage:(BOOL) incomingMessage;
 
-//- (void)threeTapGasture;
+- (void)threeTapGasture;
 
 @end
 
@@ -72,12 +74,13 @@
     if (self)
     {
         self.sessionViewControllersDictionary = [[NSMutableDictionary alloc] init];
-        /*self.threeTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(threeTapGasture)];
+        self.threeTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(threeTapGasture)];
         self.threeTapGestureRecognizer.delegate = self;
         self.threeTapGestureRecognizer.numberOfTapsRequired = 3;
         self.threeTapGestureRecognizer.numberOfTouchesRequired = 2;
         
-       self.isLogerActivated = NO;*/
+        self.isLogerActivated = NO;
+        self.showSplash = YES;
     }
     return self;
 }
@@ -87,10 +90,17 @@
 {
     [super viewDidLoad];
 
-    [[OpenPeer sharedOpenPeer] prepareWithMainViewController:self];
+    [[OpenPeer sharedOpenPeer] setMainViewController:self];
 
+    if (self.threeTapGestureRecognizer)
+        [self.view addGestureRecognizer:self.threeTapGestureRecognizer];
+    
     self.splashViewController = [[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil];
     self.splashViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    
+    self.splashViewController.view.frame = self.view.bounds;
+    
+    [self.view addSubview:self.splashViewController.view];
 }
 
 -(void)viewDidUnload
@@ -104,11 +114,10 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    if (self.splashViewController)
-    {
-        [self presentModalViewController:self.splashViewController animated:YES];
-        self.splashViewController = nil;
-    }
+//    if (self.showSplash)
+//    {
+//        [self presentViewController:self.splashViewController animated:YES completion:nil];
+//    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -195,7 +204,7 @@
 {
     if (webLoginViewController)
     {
-        //[self removeAllSubViews];
+        NSLog(@"Displayed WebLoginViewController");
         [self.view addSubview:webLoginViewController.view];
     }
 }
@@ -422,30 +431,32 @@
 }
 
 
-/*- (void)threeTapGasture
+- (void)threeTapGasture
 {
-    NSString *msg;
-    if (!self.isLogerActivated)
-    {
-        [[OpenPeer sharedOpenPeer] startOutgoingTelnetLogger:YES];
-        
-        self.isLogerActivated = YES;
-        msg = @"Activated!";
-    }
-    else
-    {
-        msg = @"Already activated";
-    }
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Openpeer" message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    [alertView show];
-}*/
+    [Logger startTelnetLoggerOnStartUp];
+}
 
 - (void) removeSplashScreen
 {
+    [self.splashViewController.view removeFromSuperview];
+    /*
     if (![self.presentedViewController isBeingDismissed])
-        [self dismissViewControllerAnimated:NO completion:nil];
-    
+    {
+        self.showSplash = NO;
+        [self dismissViewControllerAnimated:NO completion:^
+        {
+            self.splashViewController = nil;
+        }];
+    }
+    */
     //Init open peer delegates. Start login procedure. Display Login view controller.
     [[OpenPeer sharedOpenPeer] setup];
+}
+
+- (void) onLogout
+{
+    [self removeAllSubViews];
+    self.contactsTableViewController = nil;
+    self.tabBarController = nil;
 }
 @end

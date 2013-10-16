@@ -1,6 +1,6 @@
 /*
  
- Copyright (c) 2012, SMB Phone Inc.
+ Copyright (c) 2013, SMB Phone Inc.
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
@@ -29,26 +29,14 @@
  
  */
 
-#import <Foundation/Foundation.h>
 
-@interface OpenPeerUser : NSObject
+@interface SoundManager : NSObject
 
-@property (nonatomic, strong) NSString* fullName;
-@property (nonatomic, strong) NSString* deviceId;
-//@property (nonatomic, strong) NSString* stableUniqueId;
-//@property (nonatomic, strong) NSString* identityURI;
-//@property (nonatomic, strong) NSString* peerURI;
-//@property (nonatomic, strong) NSString *privatePeerFile;
-//@property (nonatomic, strong) NSString *reloginInfo;
-//@property (nonatomic, strong) NSData *privatePeerFileSecret;
++ (id) sharedSoundsManager;
 
-//@property (nonatomic, strong) NSMutableDictionary *dictionaryIdentities;
-
-+ (id) sharedOpenPeerUser;
-
-//- (void) saveUserData;
-//- (void) deleteUserData;
-//- (void) addIdentityURI:(NSString*) inIdentityURI forBaseIdentityURI:(NSString*) inBaseIdentity;
-//- (NSString*) createProfileBundle;
+- (void) playCallingSound;
+- (void) stopCallingSound;
+- (void) playRingingSound;
+- (void) stopRingingSound;
 
 @end

@@ -54,7 +54,7 @@
 					<object class="IBUIButton" id="29819100">
 						<reference key="NSNextResponder" ref="1032360612"/>
 						<int key="NSvFlags">1316</int>
-						<string key="NSFrame">{{257, 7}, {79, 30}}</string>
+						<string key="NSFrame">{{236, 20}, {64, 64}}</string>
 						<reference key="NSSuperview" ref="1032360612"/>
 						<reference key="NSNextKeyView" ref="165364177"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -68,7 +68,7 @@
 						</object>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">gear_icon.png</string>
+							<string key="NSResourceName">logger.png</string>
 						</object>
 						<object class="IBUIFontDescription" key="IBUIFontDescription">
 							<int key="type">2</int>
@@ -170,9 +170,9 @@
 						<string key="id">1</string>
 						<reference key="object" ref="1032360612"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="165364177"/>
 							<reference ref="258480770"/>
 							<reference ref="29819100"/>
+							<reference ref="165364177"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -230,8 +230,8 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="OpenPeerLogo.png">{114, 114}</string>
-			<string key="gear_icon.png">{29, 30}</string>
 			<string key="iPhone_background.png">{320, 460}</string>
+			<string key="logger.png">{64, 64}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">3742</string>
 	</data>

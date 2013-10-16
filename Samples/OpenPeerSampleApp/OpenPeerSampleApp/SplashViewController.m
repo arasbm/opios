@@ -8,7 +8,14 @@
 
 #import "SplashViewController.h"
 #import "OpenPeer.h"
+#import "Logger.h"
 #import <OpenPeerSDK/HOPModelManager.h>
+
+@interface SplashViewController ()
+
+- (void) removeSplashScreen;
+
+@end
 
 @interface SplashViewController ()
 
@@ -33,10 +40,10 @@
 {
     [super viewDidLoad];
     
-    if ([[HOPModelManager sharedModelManager] getLastLoggedInHomeUser])
-        self.closingTimer = [NSTimer scheduledTimerWithTimeInterval:1.5 target:self.presentingViewController /*[UIApplication sharedApplication].delegate*/ selector:@selector(removeSplashScreen) userInfo:nil repeats:NO];
-    else
-        self.closingTimer = [NSTimer scheduledTimerWithTimeInterval:3.5 target:self.presentingViewController /*[UIApplication sharedApplication].delegate*/ selector:@selector(removeSplashScreen) userInfo:nil repeats:NO];
+    //if ([[HOPModelManager sharedModelManager] getLastLoggedInHomeUser])
+        self.closingTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(removeSplashScreen) userInfo:nil repeats:NO];
+//    else
+//        self.closingTimer = [NSTimer scheduledTimerWithTimeInterval:3.5 target:self.presentingViewController /*[UIApplication sharedApplication].delegate*/ selector:@selector(removeSplashScreen) userInfo:nil repeats:NO];
 }
 
 
@@ -48,11 +55,16 @@
 
 - (IBAction)actionStartLogger:(id)sender
 {
-    [[OpenPeer sharedOpenPeer] startTelnetLoggerOnStartUp];
+    [Logger startTelnetLoggerOnStartUp];
     
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"OpenPeer" message:@"Logger is started!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"OpenPeer" message:@"Logger is started! Almost all log levels are set to trace. If you want to change that, you can do that from the settings." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [alert show];
 }
 
+- (void) removeSplashScreen
+{
+    [self.view removeFromSuperview];
 
+    [[OpenPeer sharedOpenPeer] setup];
+}
 @end

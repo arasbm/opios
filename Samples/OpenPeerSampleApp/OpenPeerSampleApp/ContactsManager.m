@@ -38,7 +38,6 @@
 #import "ContactsTableViewController.h"
 #import "ActivityIndicatorViewController.h"
 #import "OpenPeer.h"
-#import "OpenPeerUser.h"
 #import "Constants.h"
 #import "Utility.h"
 #import "SBJsonParser.h"
@@ -211,17 +210,22 @@
  */
 - (void) loadContacts
 {
+    NSLog(@"loadContacts");
     [[[OpenPeer sharedOpenPeer] mainViewController] showTabBarController];
     
     //For the first login and association it should be performed contacts download on just associated identity
     NSArray* associatedIdentities = [[HOPAccount sharedAccount] getAssociatedIdentities];
     for (HOPIdentity* identity in associatedIdentities)
     {
+        if (![identity isDelegateAttached])
+            [[LoginManager sharedLoginManager] attachDelegateForIdentity:identity];
+        
         if ([[identity getBaseIdentityURI] isEqualToString:identityFederateBaseURI])
         {
             dispatch_queue_t taskQ = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
             dispatch_async(taskQ, ^{
                 [self loadAddressBookContacts];
+                NSLog(@"loadContacts - loadAddressBookContacts");
             });
         }
         else if ([[identity getBaseIdentityURI] isEqualToString:identityFacebookBaseURI])
@@ -229,12 +233,14 @@
             HOPHomeUser* homeUser = [[HOPModelManager sharedModelManager] getLastLoggedInHomeUser];
             HOPAssociatedIdentity* associatedIdentity = [[HOPModelManager sharedModelManager] getAssociatedIdentityBaseIdentityURI:[identity getBaseIdentityURI] homeUserStableId:homeUser.stableId];
         
-            if ([[LoginManager sharedLoginManager] isLogin])
+            if ([[LoginManager sharedLoginManager] isLogin] || [[LoginManager sharedLoginManager] isAssociation])
             {
                 [[[[OpenPeer sharedOpenPeer] mainViewController] contactsTableViewController] onContactsLoadingStarted];
             }
             
+            NSLog(@"startRolodexDownload");
             [identity startRolodexDownload:associatedIdentity.downloadedVersion];
+            NSLog(@"loadContacts - startRolodexDownload");
         }
     }
     

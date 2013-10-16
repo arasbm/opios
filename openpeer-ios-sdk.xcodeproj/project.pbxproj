@@ -44,6 +44,8 @@
 		873A1FCA17F74DBB0002296C /* HOPAssociatedIdentity.m in Sources */ = {isa = PBXBuildFile; fileRef = 873A1FC817F74DBB0002296C /* HOPAssociatedIdentity.m */; };
 		8758405A17B17CB0006B9A21 /* HOPModelManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 8758405917B17CB0006B9A21 /* HOPModelManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8758405C17B17CD0006B9A21 /* HOPModelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8758405B17B17CD0006B9A21 /* HOPModelManager.m */; };
+		875FD1361806AF74001A5BEA /* HOPHomeUser+External.h in Headers */ = {isa = PBXBuildFile; fileRef = 875FD1341806AF74001A5BEA /* HOPHomeUser+External.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		875FD1371806AF74001A5BEA /* HOPHomeUser+External.m in Sources */ = {isa = PBXBuildFile; fileRef = 875FD1351806AF74001A5BEA /* HOPHomeUser+External.m */; };
 		8765B8FC17ED837F0045094E /* HOPRolodexContact.h in Headers */ = {isa = PBXBuildFile; fileRef = 8765B8FA17ED837F0045094E /* HOPRolodexContact.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8765B8FD17ED837F0045094E /* HOPRolodexContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 8765B8FB17ED837F0045094E /* HOPRolodexContact.m */; };
 		8783859117A84FAB003C6EEA /* HOPRolodexContact+External.h in Headers */ = {isa = PBXBuildFile; fileRef = 8783858F17A84FAA003C6EEA /* HOPRolodexContact+External.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -251,6 +253,13 @@
 			remoteGlobalIDString = 0063B94816CA91F000E6DB4D;
 			remoteInfo = hfstack_ios;
 		};
+		87A1089C1802D495001F705D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 87DD73CB17AFC1210086C295 /* webrtc_ios.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 307C243DFDDBFD9EF8440480;
+			remoteInfo = All;
+		};
 		87C9820B17BE38B1002B947B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8792E85F16519CFF00DEAC58 /* Project object */;
@@ -304,6 +313,8 @@
 		874F65A716528FCF00E580F0 /* HOPProtocols.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HOPProtocols.h; sourceTree = "<group>"; };
 		8758405917B17CB0006B9A21 /* HOPModelManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HOPModelManager.h; sourceTree = "<group>"; };
 		8758405B17B17CD0006B9A21 /* HOPModelManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = HOPModelManager.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		875FD1341806AF74001A5BEA /* HOPHomeUser+External.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HOPHomeUser+External.h"; sourceTree = "<group>"; };
+		875FD1351806AF74001A5BEA /* HOPHomeUser+External.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HOPHomeUser+External.m"; sourceTree = "<group>"; };
 		8765B8FA17ED837F0045094E /* HOPRolodexContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HOPRolodexContact.h; sourceTree = "<group>"; };
 		8765B8FB17ED837F0045094E /* HOPRolodexContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HOPRolodexContact.m; sourceTree = "<group>"; };
 		8783858F17A84FAA003C6EEA /* HOPRolodexContact+External.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HOPRolodexContact+External.h"; sourceTree = "<group>"; };
@@ -602,6 +613,8 @@
 				873A1FC817F74DBB0002296C /* HOPAssociatedIdentity.m */,
 				8765B8FA17ED837F0045094E /* HOPRolodexContact.h */,
 				8765B8FB17ED837F0045094E /* HOPRolodexContact.m */,
+				875FD1341806AF74001A5BEA /* HOPHomeUser+External.h */,
+				875FD1351806AF74001A5BEA /* HOPHomeUser+External.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -885,6 +898,7 @@
 				87D72ECC17DDEEDB00DEB37E /* HOPAvatar+External.h in Headers */,
 				873A1FC917F74DBB0002296C /* HOPAssociatedIdentity.h in Headers */,
 				8765B8FC17ED837F0045094E /* HOPRolodexContact.h in Headers */,
+				875FD1361806AF74001A5BEA /* HOPHomeUser+External.h in Headers */,
 				87B014001661557C00E8938B /* HOPIdentity.h in Headers */,
 				87E3CD24172A89E300084D2F /* HOPIdentityLookupInfo_Internal.h in Headers */,
 				87A5B1DE16EDE5F9007E825A /* HOPAccount_Internal.h in Headers */,
@@ -925,6 +939,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				87A1089D1802D495001F705D /* PBXTargetDependency */,
 				00EB8DD2177D1C2400FFD40F /* PBXTargetDependency */,
 				00EB8DD4177D1C2400FFD40F /* PBXTargetDependency */,
 				00EB8DB8177D158100FFD40F /* PBXTargetDependency */,
@@ -1111,6 +1126,7 @@
 				87A5B20516EDE5F9007E825A /* OpenPeerUtility.mm in Sources */,
 				87A5B20716EDE648007E825A /* HOPIdentityLookup.mm in Sources */,
 				87E3CD21172A859600084D2F /* HOPIdentityLookupInfo.mm in Sources */,
+				875FD1371806AF74001A5BEA /* HOPHomeUser+External.m in Sources */,
 				872DA9E6175CEC9C000CCA76 /* HOPCache.mm in Sources */,
 				87D91AA71767509700E46B66 /* OpenPeerCacheDelegate.mm in Sources */,
 				87CEF2ED179D5CD0003770EE /* HOPRolodexContact_Internal.mm in Sources */,
@@ -1171,6 +1187,11 @@
 			isa = PBXTargetDependency;
 			name = hfstack_ios;
 			targetProxy = 00EB8DD3177D1C2400FFD40F /* PBXContainerItemProxy */;
+		};
+		87A1089D1802D495001F705D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = All;
+			targetProxy = 87A1089C1802D495001F705D /* PBXContainerItemProxy */;
 		};
 		87C9820C17BE38B1002B947B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1328,6 +1349,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = usr/local/include;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = iphoneos;
 			};
 			name = Debug;
 		};
@@ -1361,6 +1383,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = usr/local/include;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = iphoneos;
 			};
 			name = Release;
 		};
@@ -1382,6 +1405,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = iphoneos;
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Debug;
@@ -1405,6 +1429,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = iphoneos;
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
@@ -1413,6 +1438,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = iphoneos;
 			};
 			name = Debug;
 		};
@@ -1420,6 +1446,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = iphoneos;
 			};
 			name = Release;
 		};
