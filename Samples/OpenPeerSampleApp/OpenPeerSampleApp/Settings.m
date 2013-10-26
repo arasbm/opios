@@ -382,7 +382,11 @@
         case HOPLoggerLevelTrace:
             return @"TRACE";
             break;
-            
+
+        case HOPLoggerLevelInsane:
+            return @"INSANE";
+            break;
+
         default:
             break;
     }
@@ -399,8 +403,8 @@
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_STACK];
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_ZSLIB];
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODEULE_SDK];
-    [self setLoggerLevel:HOPLoggerLevelBasic  forAppModule:MODULE_WEBRTC];
-    [self setLoggerLevel:HOPLoggerLevelBasic forAppModule:MODULE_MEDIA];
+    [self setLoggerLevel:HOPLoggerLevelDetail forAppModule:MODULE_WEBRTC];
+    [self setLoggerLevel:HOPLoggerLevelDetail forAppModule:MODULE_MEDIA];
     
     [self setColorizedOutput:YES logger:LOGGER_STD_OUT];
     [self setColorizedOutput:YES logger:LOGGER_TELNET];

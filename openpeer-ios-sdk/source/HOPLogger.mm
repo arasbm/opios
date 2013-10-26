@@ -61,7 +61,11 @@ void HOPLog(HOPLoggerLevels logLevel, NSString* format,...)
         case HOPLoggerLevelTrace:
             ZS_LOG_TRACE(zsLib::String("Application: ") + [fullString UTF8String]);
             break;
-            
+
+        case HOPLoggerLevelInsane:
+            ZS_LOG_INSANE(zsLib::String("Application: ") + [fullString UTF8String]);
+            break;
+
         case HOPLoggerLevelNone:
         default:
             break;
@@ -124,7 +128,11 @@ void HOPLog(HOPLoggerLevels logLevel, NSString* format,...)
         case HOPLoggerLevelTrace:
             ret = NSLocalizedString(@"Trace",@"Trace");
             break;
-            
+
+        case HOPLoggerLevelInsane:
+            ret = NSLocalizedString(@"Insane",@"Insane");
+            break;
+
         default:
             ret = @"";
             break;

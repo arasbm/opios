@@ -60,7 +60,11 @@ void OpenPeerLog(HOPLoggerLevels logLevel, NSString* format,...)
         case HOPLoggerLevelTrace:
             ZS_LOG_TRACE(zsLib::String("SDK: ") + [fullString UTF8String]);
             break;
-        
+
+        case HOPLoggerLevelInsane:
+            ZS_LOG_INSANE(zsLib::String("SDK: ") + [fullString UTF8String]);
+            break;
+
         case HOPLoggerLevelNone:
         default:
             break;

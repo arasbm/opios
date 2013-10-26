@@ -130,7 +130,8 @@ typedef enum
     HOPLoggerLevelDetail,
     HOPLoggerLevelDebug,
     HOPLoggerLevelTrace,
-    
+    HOPLoggerLevelInsane,
+
     HOPLoggerTotalNumberOfLevels
 } HOPLoggerLevels; //Replacing HOPClientLogSeverities
 
