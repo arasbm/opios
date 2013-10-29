@@ -19,6 +19,8 @@
     //For each system you can choose log level from HOPClientLogLevelNone (turned off) to HOPClientLogLevelInsane (most detail).
     [HOPLogger setLogLevelbyName:moduleApplication level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleApplication]];
     [HOPLogger setLogLevelbyName:moduleServices level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleServices]];
+    [HOPLogger setLogLevelbyName:moduleServicesIce level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleServicesIce]];
+    [HOPLogger setLogLevelbyName:moduleServicesRudp level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleServicesRudp]];
     [HOPLogger setLogLevelbyName:moduleServicesHttp level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleServicesHttp]];
     [HOPLogger setLogLevelbyName:moduleCore level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleCore]];
     [HOPLogger setLogLevelbyName:moduleStackMessage level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleStackMessage]];

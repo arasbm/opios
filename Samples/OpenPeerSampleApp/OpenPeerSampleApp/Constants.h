@@ -115,6 +115,8 @@ extern NSString * const moduleCore;
 extern NSString * const moduleStackMessage;
 extern NSString * const moduleStack;
 extern NSString * const moduleServices;
+extern NSString * const moduleServicesIce;
+extern NSString * const moduleServicesRudp;
 extern NSString * const moduleServicesHttp;
 extern NSString * const moduleZsLib;
 

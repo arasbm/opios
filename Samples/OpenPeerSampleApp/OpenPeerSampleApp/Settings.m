@@ -292,6 +292,14 @@
             ret = @"SDK (services)";
             break;
 
+        case MODULE_SERVICES_ICE:
+            ret = @"SDK (ICE)";
+            break;
+
+        case MODULE_SERVICES_RUDP:
+            ret = @"SDK (RUDP)";
+            break;
+
         case MODULE_SERVICES_HTTP:
             ret = @"SDK (HTTP)";
             break;
@@ -345,6 +353,14 @@
             ret = moduleServices;
             break;
             
+        case MODULE_SERVICES_ICE:
+            ret = moduleServicesIce;
+            break;
+
+        case MODULE_SERVICES_RUDP:
+          ret = moduleServicesRudp;
+          break;
+
         case MODULE_SERVICES_HTTP:
             ret = moduleServicesHttp;
             break;
@@ -397,6 +413,8 @@
 {
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_APPLICATION];
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_SERVICES];
+    [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_SERVICES_ICE];
+    [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_SERVICES_RUDP];
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_SERVICES_HTTP];
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_CORE];
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_STACK_MESSAGE];

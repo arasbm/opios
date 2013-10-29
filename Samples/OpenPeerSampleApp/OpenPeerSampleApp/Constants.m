@@ -128,5 +128,7 @@ NSString * const moduleCore = @"openpeer_core";
 NSString * const moduleStackMessage = @"openpeer_stack_message";
 NSString * const moduleStack = @"openpeer_stack";
 NSString * const moduleServices = @"openpeer_services";
+NSString * const moduleServicesIce = @"openpeer_services_ice";
+NSString * const moduleServicesRudp = @"openpeer_services_rudp";
 NSString * const moduleServicesHttp = @"openpeer_services_http";
 NSString * const moduleZsLib = @"zsLib";
