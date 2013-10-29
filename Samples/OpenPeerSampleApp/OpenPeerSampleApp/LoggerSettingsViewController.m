@@ -112,7 +112,7 @@ typedef enum
             break;
            
         case SECTION_LOGGER_MODULES:
-            ret = TOTAL_MODULES_NUMBER;
+            ret = TOTAL_MODULES;
             break;
             
         default:
