@@ -32,10 +32,18 @@
 
 #import "OpenPeerAccountDelegate.h"
 #import "HOPAccount.h"
+#import <openpeer/core/ILogger.h>
+
+ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
 
 OpenPeerAccountDelegate::OpenPeerAccountDelegate(id<HOPAccountDelegate> inAccountDelegate)
 {
     accountDelegate = inAccountDelegate;
+}
+
+OpenPeerAccountDelegate::~OpenPeerAccountDelegate()
+{
+    ZS_LOG_DEBUG(zsLib::String("SDK - OpenPeerAccountDelegate destructor is called"));
 }
 
 boost::shared_ptr<OpenPeerAccountDelegate>  OpenPeerAccountDelegate::create(id<HOPAccountDelegate> inAccountDelegate)

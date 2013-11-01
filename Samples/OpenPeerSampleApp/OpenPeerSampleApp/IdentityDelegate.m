@@ -121,7 +121,7 @@
                 break;
                 
             case HOPIdentityStateWaitingAttachmentOfDelegate:
-                [[LoginManager sharedLoginManager] attachDelegateForIdentity:identity];
+                [[LoginManager sharedLoginManager] attachDelegateForIdentity:identity forceAttach:NO];
                 break;
                 
             case HOPIdentityStateWaitingForBrowserWindowToBeLoaded:
@@ -163,6 +163,7 @@
                 
             case HOPIdentityStateWaitingForBrowserWindowToClose:
             {
+                [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Login ..." inView:[[[OpenPeer sharedOpenPeer] mainViewController] view]];
                 //Detach identity login web view
                 [UIView animateWithDuration:0.77 animations:^{
                     webLoginViewController.view.alpha = 0;
@@ -179,6 +180,7 @@
                 break;
                 
             case HOPIdentityStateReady:
+                [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
                 if ([[LoginManager sharedLoginManager] isLogin] || [[LoginManager sharedLoginManager] isAssociation])
                     [[LoginManager sharedLoginManager] onIdentityAssociationFinished:identity];
                 break;
@@ -214,6 +216,7 @@
 
 - (void)onIdentityRolodexContactsDownloaded:(HOPIdentity *)identity
 {
+    NSLog(@"onIdentityRolodexContactsDownloaded");
     //Remove activity indicator
     [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
     if (identity)
@@ -229,9 +232,10 @@
         //Get downloaded rolodex contacts
         BOOL rolodexContactsObtained = [identity getDownloadedRolodexContacts:&flushAllRolodexContacts outVersionDownloaded:&downloadedVersion outRolodexContacts:&rolodexContacts];
         
+        NSLog(@"onIdentityRolodexContactsDownloaded - Identity URI: %@ - Total number of roldex contacts: %d",[identity getIdentityURI], [rolodexContacts count]);
+        
         if ([downloadedVersion length] > 0)
             associatedIdentity.downloadedVersion = downloadedVersion;
-        
         
         //Stop timer that is started when flushAllRolodexContacts is received
         [identity stopTimerForContactsDeletion];
@@ -265,5 +269,9 @@
     }
 }
 
+- (void) onNewIdentity:(HOPIdentity*) identity
+{
+    [[LoginManager sharedLoginManager] attachDelegateForIdentity:identity forceAttach:YES];
+}
 @end
 

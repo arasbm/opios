@@ -44,7 +44,11 @@ protected:
     id<HOPCallDelegate> callDelegate;
     
     OpenPeerCallDelegate(id<HOPCallDelegate> inCallDelegate);
+
 public:
+    
+    ~OpenPeerCallDelegate();
+    
     static boost::shared_ptr<OpenPeerCallDelegate> create(id<HOPCallDelegate> inCallDelegate);
     virtual void onCallStateChanged(ICallPtr call,CallStates state);
 };

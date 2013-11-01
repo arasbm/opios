@@ -65,4 +65,11 @@
     return ret;
 }
 
+- (NSString*) firstLetter
+{
+    //[self.name willAccessValueForKey:@"uppercaseFirstLetterOfName"];
+    NSString *stringToReturn = [[self.name uppercaseString] substringToIndex:1];
+    //[self didAccessValueForKey:@"uppercaseFirstLetterOfName"];
+    return stringToReturn;
+}
 @end

@@ -97,6 +97,8 @@
                 
             case HOPCallStateClosing:               //Receives both parties
                  [[SessionManager sharedSessionManager] onCallClosing:call];
+                [[SoundManager sharedSoundsManager] stopCallingSound];
+                [[SoundManager sharedSoundsManager] stopRingingSound];
                 break;
                 
             case HOPCallStateClosed:                //Receives both parties

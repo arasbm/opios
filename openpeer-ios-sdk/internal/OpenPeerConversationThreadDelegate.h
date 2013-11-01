@@ -50,7 +50,11 @@ protected:
     id<HOPConversationThreadDelegate> conversationThreadDelegate;
     OpenPeerConversationThreadDelegate(id<HOPConversationThreadDelegate> inConversationThreadDelegate);
     HOPConversationThread* getOpenPeerConversationThread(IConversationThreadPtr conversationThread);
+
 public:
+    
+    ~OpenPeerConversationThreadDelegate();
+    
     static boost::shared_ptr<OpenPeerConversationThreadDelegate> create(id<HOPConversationThreadDelegate> inConversationThreadDelegate);
     
     virtual void onConversationThreadNew(IConversationThreadPtr conversationThread);

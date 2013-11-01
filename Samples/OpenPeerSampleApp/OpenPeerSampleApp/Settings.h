@@ -49,6 +49,10 @@ typedef enum
 
 @interface Settings : NSObject
 
+@property (nonatomic) BOOL isMediaAECOn;
+@property (nonatomic) BOOL isMediaAGCOn;
+@property (nonatomic) BOOL isMediaNSOn;
+
 @property (nonatomic) BOOL isRemoteSessionActivationModeOn;
 @property (nonatomic) BOOL isFaceDetectionModeOn;
 @property (nonatomic) BOOL isRedialModeOn;
@@ -63,6 +67,10 @@ typedef enum
 
 + (id) sharedSettings;
 - (id) init __attribute__((unavailable("HOPAccount is singleton class.")));
+
+- (void) enableMediaAEC:(BOOL) enable;
+- (void) enableMediaAGC:(BOOL) enable;
+- (void) enableMediaNS:(BOOL) enable;
 
 - (void) enableRemoteSessionActivationMode:(BOOL) enable;
 - (void) enableFaceDetectionMode:(BOOL) enable;

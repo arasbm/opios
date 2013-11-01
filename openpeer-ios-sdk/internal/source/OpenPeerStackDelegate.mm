@@ -31,10 +31,18 @@
 
 
 #import "OpenPeerStackDelegate.h"
+#import <openpeer/core/ILogger.h>
+
+ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
 
 OpenPeerStackDelegate::OpenPeerStackDelegate(id<HOPStackDelegate> inStackDelegate)
 {
     stackDelegate = inStackDelegate;
+}
+
+OpenPeerStackDelegate::~OpenPeerStackDelegate()
+{
+    ZS_LOG_DEBUG(zsLib::String("SDK - OpenPeerStackDelegate destructor is called"));
 }
 
 boost::shared_ptr<OpenPeerStackDelegate>  OpenPeerStackDelegate::create(id<HOPStackDelegate> inStackDelegate)

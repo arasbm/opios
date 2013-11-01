@@ -37,7 +37,7 @@
 #import "HOPModelManager.h"
 #import "HOPContact.h"
 #import "OpenPeerStorageManager.h"
-#import "OpenPeerUtility.h"
+#import "HOPUtility.h"
 
 @implementation HOPRolodexContact
 
@@ -49,10 +49,27 @@
 @dynamic identityContact;
 @dynamic associatedIdentity;
 @dynamic readyForDeletion;
+@dynamic associatedIdentityForHomeUser;
+
+- (void) updateWithName:(NSString*) inName identityURI:(NSString*) inIdentityURI identityProviderDomain:(NSString*)identityProviderDomain  homeUserIdentityURI:(NSString*) homeUserIdentityURI
+{
+    NSString* baseIdentityURI = [HOPUtility getBaseIdentityURIFromURI:inIdentityURI];
+    HOPAssociatedIdentity* associated = [[HOPModelManager sharedModelManager] getAssociatedIdentityByDomain:identityProviderDomain identityName:baseIdentityURI homeUserIdentityURI:homeUserIdentityURI];
+    if (!associated)
+    {
+        associated = [NSEntityDescription insertNewObjectForEntityForName:@"HOPAssociatedIdentity" inManagedObjectContext:[[HOPModelManager sharedModelManager]managedObjectContext]];
+        
+        associated.baseIdentityURI = baseIdentityURI;
+        associated.name = baseIdentityURI;
+        associated.domain = identityProviderDomain;
+    }
+    
+    self.name = inName;
+}
 
 - (void) updateWithCoreRolodexContact:(RolodexContact) inRolodexContact identityProviderDomain:(NSString*)identityProviderDomain homeUserIdentityURI:(NSString*)homeUserIdentityURI
 {
-    NSString* baseIdentityURI = [OpenPeerUtility getBaseIdentityURIFromURI:homeUserIdentityURI];//[NSString stringWithCString:inRolodexContact.mIdentityProvider encoding:NSUTF8StringEncoding];
+    NSString* baseIdentityURI = [HOPUtility getBaseIdentityURIFromURI:homeUserIdentityURI];//[NSString stringWithCString:inRolodexContact.mIdentityProvider encoding:NSUTF8StringEncoding];
     HOPAssociatedIdentity* associated = [[HOPModelManager sharedModelManager] getAssociatedIdentityByDomain:identityProviderDomain identityName:baseIdentityURI homeUserIdentityURI:homeUserIdentityURI];
     if (!associated)
     {

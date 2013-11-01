@@ -142,7 +142,7 @@
         NSArray* associatedIdentities = [account getAssociatedIdentities];
         for (HOPIdentity* identity in associatedIdentities)
         {
-            [[LoginManager sharedLoginManager] attachDelegateForIdentity:identity];
+            [[LoginManager sharedLoginManager] attachDelegateForIdentity:identity forceAttach:NO];
         }
     });
 }

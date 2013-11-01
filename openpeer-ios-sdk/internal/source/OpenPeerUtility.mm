@@ -80,46 +80,7 @@ void OpenPeerLog(HOPLoggerLevels logLevel, NSString* format,...)
     return[NSDate dateWithTimeIntervalSince1970:x];
 }
 
-+ (NSString*) getBaseIdentityURIFromURI:(NSString*) identityURI
-{
-    NSString* ret = @"";
-    NSArray* identityParts = [identityURI componentsSeparatedByString:@"/"];
-    if ([identityParts count] > 3)
-    {
-        int maxCount = [identityParts count] - 1;
-        for (int i = 0; i < maxCount; i++)
-        {
-            ret = [ret stringByAppendingFormat:@"%@/",[identityParts objectAtIndex:i]];
-        }
-    }
-    return ret;
-}
 
-+ (NSString*) getContactIdFromURI:(NSString*) identityURI
-{
-    {
-        NSString* ret = @"";
-        NSArray* identityParts = [identityURI componentsSeparatedByString:@"/"];
-        if ([identityParts count] > 3)
-        {
-            int index = [identityParts count] - 1;
-            ret = [identityParts objectAtIndex:index];
-        }
-        return ret;
-    }
-}
-
-+ (BOOL) isBaseIdentityURI:(NSString*) identityURI
-{
-    BOOL ret = YES;
-    NSArray* identityParts = [identityURI componentsSeparatedByString:@"/"];
-    if ([identityParts count] > 3)
-    {
-        int index = [identityParts count] - 1;
-        ret = [[identityParts objectAtIndex:index] length] == 0;
-    }
-    return ret;
-}
 
 static void OpenPeerLog(NSString* format,...)
 {

@@ -39,6 +39,15 @@
     self = [super init];
     if (self)
     {
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:archiveMediaAEC])
+            self.isMediaAECOn = [[[NSUserDefaults standardUserDefaults] objectForKey:archiveMediaAEC] boolValue];
+        
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:archiveMediaAGC])
+            self.isMediaAGCOn = [[[NSUserDefaults standardUserDefaults] objectForKey:archiveMediaAGC] boolValue];
+        
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:archiveMediaNS])
+            self.isMediaNSOn = [[[NSUserDefaults standardUserDefaults] objectForKey:archiveMediaNS] boolValue];
+        
         if ([[NSUserDefaults standardUserDefaults] objectForKey:archiveRemoteSessionActivationMode])
             self.isRemoteSessionActivationModeOn = [[[NSUserDefaults standardUserDefaults] objectForKey:archiveRemoteSessionActivationMode] boolValue];
         
@@ -72,6 +81,25 @@
         }
     }
     return self;
+}
+
+- (void) enableMediaAEC:(BOOL) enable
+{
+    self.isMediaAECOn = enable;
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:self.isMediaAECOn] forKey:archiveMediaAEC];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+- (void) enableMediaAGC:(BOOL) enable
+{
+    self.isMediaAGCOn = enable;
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:self.isMediaAGCOn] forKey:archiveMediaAGC];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+- (void) enableMediaNS:(BOOL) enable
+{
+    self.isMediaNSOn = enable;
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:self.isMediaNSOn] forKey:archiveMediaNS];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void) enableRemoteSessionActivationMode:(BOOL) enable

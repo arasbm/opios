@@ -1,6 +1,6 @@
 /*
  
- Copyright (c) 2012, SMB Phone Inc.
+ Copyright (c) 2013, SMB Phone Inc.
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
@@ -29,35 +29,12 @@
  
  */
 
-
 #import <Foundation/Foundation.h>
-#include <openpeer/core/types.h>
-#include <openpeer/core/IStack.h>
-//#include <openpeer/core/IClient.h>
-#import "HOPProtocols.h"
 
-using namespace openpeer;
-using namespace openpeer::core;
+@interface HOPUtility : NSObject
 
-/**
- Wrapper Class that creates stack object used in core.
- */
-class OpenPeerStackDelegate : public IStackDelegate
-{
-protected:
-    id<HOPStackDelegate> stackDelegate;
-    
-    OpenPeerStackDelegate(id<HOPStackDelegate> inStackDelegate);
-    
-public:
-    
-    ~OpenPeerStackDelegate();
-    
-    /**
-     Create StackDelegateWrapper object packed in boost shared pointer.
-     @returns StackDelegateWrapper object boost shared object
-     */
-    static boost::shared_ptr<OpenPeerStackDelegate>  create(id<HOPStackDelegate> inStackDelegate); 
-    
-    virtual void onStackShutdown(IStackAutoCleanupPtr ignoreThisArgument);
-};
++ (NSString*) getBaseIdentityURIFromURI:(NSString*) identityURI;
++ (NSString*) getContactIdFromURI:(NSString*) identityURI;
++ (BOOL) isBaseIdentityURI:(NSString*) identityURI;
+
+@end

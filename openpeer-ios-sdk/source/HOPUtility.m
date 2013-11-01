@@ -1,6 +1,6 @@
 /*
  
- Copyright (c) 2012, SMB Phone Inc.
+ Copyright (c) 2013, SMB Phone Inc.
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
@@ -29,35 +29,49 @@
  
  */
 
+#import "HOPUtility.h"
 
-#import <Foundation/Foundation.h>
-#include <openpeer/core/types.h>
-#include <openpeer/core/IStack.h>
-//#include <openpeer/core/IClient.h>
-#import "HOPProtocols.h"
+@implementation HOPUtility
 
-using namespace openpeer;
-using namespace openpeer::core;
-
-/**
- Wrapper Class that creates stack object used in core.
- */
-class OpenPeerStackDelegate : public IStackDelegate
++ (NSString*) getBaseIdentityURIFromURI:(NSString*) identityURI
 {
-protected:
-    id<HOPStackDelegate> stackDelegate;
-    
-    OpenPeerStackDelegate(id<HOPStackDelegate> inStackDelegate);
-    
-public:
-    
-    ~OpenPeerStackDelegate();
-    
-    /**
-     Create StackDelegateWrapper object packed in boost shared pointer.
-     @returns StackDelegateWrapper object boost shared object
-     */
-    static boost::shared_ptr<OpenPeerStackDelegate>  create(id<HOPStackDelegate> inStackDelegate); 
-    
-    virtual void onStackShutdown(IStackAutoCleanupPtr ignoreThisArgument);
-};
+    NSString* ret = @"";
+    NSArray* identityParts = [identityURI componentsSeparatedByString:@"/"];
+    if ([identityParts count] > 3)
+    {
+        int maxCount = [identityParts count] - 1;
+        for (int i = 0; i < maxCount; i++)
+        {
+            ret = [ret stringByAppendingFormat:@"%@/",[identityParts objectAtIndex:i]];
+        }
+    }
+    return ret;
+}
+
++ (NSString*) getContactIdFromURI:(NSString*) identityURI
+{
+    {
+        NSString* ret = @"";
+        NSArray* identityParts = [identityURI componentsSeparatedByString:@"/"];
+        if ([identityParts count] > 3)
+        {
+            int index = [identityParts count] - 1;
+            ret = [identityParts objectAtIndex:index];
+        }
+        return ret;
+    }
+}
+
++ (BOOL) isBaseIdentityURI:(NSString*) identityURI
+{
+    BOOL ret = YES;
+    NSArray* identityParts = [identityURI componentsSeparatedByString:@"/"];
+    if ([identityParts count] > 3)
+    {
+        int index = [identityParts count] - 1;
+        ret = [[identityParts objectAtIndex:index] length] == 0;
+    }
+    return ret;
+}
+
+@end

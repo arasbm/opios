@@ -39,7 +39,6 @@
 @property (nonatomic, weak) IBOutlet ContactTableViewCell *contactsTableViewCell;
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
-- (void) onContactsLoadingStarted;
 - (void) onContactsPeerFilesLoadingStarted;
 - (void) onContactsLoaded;
 - (void) onContactsLookupCheckStarted;

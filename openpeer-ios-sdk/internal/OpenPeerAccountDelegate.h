@@ -49,7 +49,11 @@ protected:
     id<HOPAccountDelegate> accountDelegate;
     
     OpenPeerAccountDelegate(id<HOPAccountDelegate> inAccountDelegate);
+
 public:
+    
+    ~OpenPeerAccountDelegate();
+    
     /**
      Create OpenPeerAccountDelegate object packed in boost shared pointer.
      @returns OpenPeerAccountDelegate object boost shared object

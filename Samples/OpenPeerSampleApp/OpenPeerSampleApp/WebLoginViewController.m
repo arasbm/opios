@@ -41,7 +41,7 @@
 @interface WebLoginViewController()
 
 @property (nonatomic) BOOL outerFrameInitialised;
-@property (nonatomic, weak) id coreObject;
+//@property (nonatomic, weak) id coreObject;
 @end
 
 @implementation WebLoginViewController
@@ -84,6 +84,7 @@
 - (void) openLoginUrl:(NSString*) url
 {
     NSLog(@"Web request initiated by sample app. URL: %@",url);
+    self.outerFrameInitialised = NO;
     [self.loginWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
 }
 

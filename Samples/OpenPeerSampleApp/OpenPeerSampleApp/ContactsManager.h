@@ -34,6 +34,7 @@
 
 @class HOPIdentityLookup;
 @class HOPRolodexContact;
+@class HOPIdentityContact;
 
 @interface ContactsManager : NSObject<UIWebViewDelegate>
 
@@ -47,4 +48,8 @@
 - (void) refreshExisitngContacts;
 - (void) identityLookupForContacts:(NSArray *)contacts identityServiceDomain:(NSString*) identityServiceDomain;
 - (void) updateContactsWithDataFromLookup:(HOPIdentityLookup*) identityLookup;
+- (BOOL) checkIsContactValid:(HOPContact*) contact;
+- (NSArray*) getBaseURIsForStableId:(NSString*) stableID;
+- (NSString*) createProfileBundleForCommunicationWithContact:(HOPRolodexContact*) targetContact;
+- (HOPRolodexContact*) getRolodexContactByProfileBundle:(NSString*) profileBundle coreContact:(HOPContact*) coreContact;
 @end

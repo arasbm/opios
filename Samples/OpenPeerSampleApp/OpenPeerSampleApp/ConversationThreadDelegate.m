@@ -51,9 +51,11 @@
             
             if ([participants count] > 0)
             {
-                if (![[SessionManager sharedSessionManager] proceedWithExistingSessionForContact:[participants objectAtIndex:0] newConversationThread:conversationThread])
+                HOPContact* participant = [participants objectAtIndex:0];
+                
+                if (![[SessionManager sharedSessionManager] proceedWithExistingSessionForContact:participant newConversationThread:conversationThread])
                 {
-                    [[SessionManager sharedSessionManager] createSessionForContacts:participants andConversationThread:conversationThread];
+                    [[SessionManager sharedSessionManager] createSessionForConversationThread: conversationThread];
                 }
             }
         }

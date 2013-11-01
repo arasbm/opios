@@ -33,10 +33,18 @@
 #import "OpenPeerIdentityLookupDelegate.h"
 #import "HOPIdentityLookup_Internal.h"
 #import "OpenPeerStorageManager.h"
+#import <openpeer/core/ILogger.h>
+
+ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
 
 OpenPeerIdentityLookupDelegate::OpenPeerIdentityLookupDelegate(id<HOPIdentityLookupDelegate> inIdentityLookupDelegate)
 {
     identityLookupDelegate = inIdentityLookupDelegate;
+}
+
+OpenPeerIdentityLookupDelegate::~OpenPeerIdentityLookupDelegate()
+{
+    ZS_LOG_DEBUG(zsLib::String("SDK - OpenPeerIdentityLookupDelegate destructor is called"));
 }
 
 boost::shared_ptr<OpenPeerIdentityLookupDelegate> OpenPeerIdentityLookupDelegate::create(id<HOPIdentityLookupDelegate> inIdentityLookupDelegate)

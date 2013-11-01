@@ -107,8 +107,10 @@
     
     if (!ret)
     {
+        NSString* profileBundle = [[ContactsManager sharedContactsManager] createProfileBundleForCommunicationWithContact:contact];
         //Create a conversation thread
-        HOPConversationThread* conversationThread = [HOPConversationThread conversationThreadWithProfileBundle:nil];
+        HOPConversationThread* conversationThread = [HOPConversationThread conversationThreadWithProfileBundle:profileBundle];
+        
         //Create a session with new conversation thread
         ret = [[Session alloc] initWithContact:contact conversationThread:conversationThread];
         
@@ -134,13 +136,31 @@
  @param contacts NSArray List of participants.
  @param inConversationThread HOPConversationThread Incoming conversation thread
 */
-- (Session*) createSessionForContacts:(NSArray*) contacts andConversationThread:(HOPConversationThread*) inConversationThread
+- (Session*) createSessionForConversationThread:(HOPConversationThread*) inConversationThread
 {
     Session* ret = nil;
-    NSArray* rolodexContacts = [[HOPModelManager sharedModelManager] getRolodexContactsByPeerURI:[[contacts objectAtIndex:0] getPeerURI]];
-    if ([rolodexContacts count] > 0)
+    HOPRolodexContact* rolodexContact = nil;
+    NSArray* contacts = [inConversationThread getContacts];
+    
+    NSArray* contactAaray = [[HOPModelManager sharedModelManager] getRolodexContactsByPeerURI:[[contacts objectAtIndex:0] getPeerURI]];
+    NSMutableArray* rolodexContacts  = contactAaray == nil ? [[NSMutableArray alloc] init] : [NSMutableArray  arrayWithArray: contactAaray];
+    
+    if ([rolodexContacts count] == 0)
+    {
+        HOPContact* coreContact = [contacts objectAtIndex:0];
+        NSString* profileBundle = [inConversationThread getProfileBundle:coreContact];
+        rolodexContact = [[ContactsManager sharedContactsManager] getRolodexContactByProfileBundle:profileBundle coreContact:coreContact];
+        [rolodexContacts addObject:rolodexContact];
+    }
+    else
+    {
+        rolodexContact = [rolodexContacts objectAtIndex:0];
+    }
+    
+    if (rolodexContact)
     {
         NSLog(@"%@ initiating a session with %@", [[rolodexContacts objectAtIndex:0] name], [[[HOPModelManager sharedModelManager] getLastLoggedInHomeUser] getFullName]);
+        
         ret = [[Session alloc] initWithContacts:rolodexContacts conversationThread:inConversationThread];
         
         if (ret)
@@ -170,7 +190,7 @@
             if (contact)
             {
                 //Create a session for contact
-                session = [self createSessionForContact:[contact getCoreContact]];
+                session = [self createSessionForContact:contact];
                 if (session)
                 {
                     //If session is created sucessfully, start a video call
@@ -218,7 +238,12 @@
  */
 - (Session*) proceedWithExistingSessionForContact:(HOPContact*) contact newConversationThread:(HOPConversationThread*) inConversationThread
 {
-    Session* ret = [self getSessionForContact:contact];
+    Session* ret = nil;
+    NSArray* rolodexContacts = [[HOPModelManager sharedModelManager] getRolodexContactsByPeerURI:[contact getPeerURI]];
+    
+    if ([rolodexContacts count] > 0)
+        ret = [self getSessionForContact:[rolodexContacts objectAtIndex:0]];
+    
     if (ret)
     {
         NSString* oldSessionId = [ret.conversationThread getThreadId];
@@ -383,7 +408,7 @@
 {
     NSString* sessionId = [[call getConversationThread] getThreadId];
     Session* session = [[[SessionManager sharedSessionManager] sessionsDictionary] objectForKey:sessionId];
-    
+    [[HOPMediaEngine sharedInstance] stopVideoCapture];
     [[session currentCall] hangup:HOPCallClosedReasonNone];
     //Set flag that there is no active call
     [self setActiveCallSession:session callActive:NO];
@@ -524,4 +549,25 @@
 {
     return self.sessionWithActiveCall != nil;
 }
-@end
+
+- (void) makeCallForContact:(HOPRolodexContact*) contact includeVideo:(BOOL) includeVideo
+{
+    Session* session = [self createSessionForContact:contact];
+    
+    if (session)
+    {
+        if (!session.currentCall)
+        {
+            [self makeCallForSession:session includeVideo:includeVideo isRedial:NO];
+            [[[OpenPeer sharedOpenPeer] mainViewController] showSessionViewControllerForSession:session forIncomingCall:NO forIncomingMessage:NO];
+        }
+        else
+        {
+            [self endCallForSession:session];
+            [self makeCallForSession:session includeVideo:includeVideo isRedial:NO];
+        }
+        
+    }
+}
+
+    @end

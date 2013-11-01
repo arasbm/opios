@@ -100,6 +100,9 @@ extern NSString * const notificationRemoteSessionModeChanged;
 extern NSString * const defaultTelnetPort;
 extern NSString * const defaultOutgoingTelnetServer;
 
+extern NSString * const archiveMediaAEC;
+extern NSString * const archiveMediaAGC;
+extern NSString * const archiveMediaNS;
 extern NSString * const archiveRemoteSessionActivationMode;
 extern NSString * const archiveFaceDetectionMode;
 extern NSString * const archiveRedialMode;

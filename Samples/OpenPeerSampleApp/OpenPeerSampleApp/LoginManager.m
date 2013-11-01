@@ -34,7 +34,6 @@
 
 #import "OpenPeer.h"
 //Utility
-#import "XMLWriter.h"
 #import "Utility.h"
 #import "Constants.h"
 //Managers
@@ -261,10 +260,10 @@
     [self onUserLoggedIn];
 }
 
-- (void) attachDelegateForIdentity:(HOPIdentity*) identity
+- (void) attachDelegateForIdentity:(HOPIdentity*) identity forceAttach:(BOOL) forceAttach
 {
     NSLog(@"attachDelegateForIdentity - identityURI: %@", [identity getIdentityURI]);
-    if (![identity isDelegateAttached])
+    if (![identity isDelegateAttached] || forceAttach)
     {
         NSLog(@"attachDelegateForIdentity - attaching delegate - identityURI: %@", [identity getIdentityURI]);
         //Create core data record if it is not already in the db    

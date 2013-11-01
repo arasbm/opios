@@ -36,6 +36,7 @@
 @property (nonatomic, weak) IBOutlet UIWebView *loginWebView;
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, weak) IBOutlet UILabel *activityLabel;
+@property (nonatomic, weak) id coreObject;
 
 - (id) initWithCoreObject:(id) inCoreObject;
 

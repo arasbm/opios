@@ -52,6 +52,7 @@
 #import "ChatViewController.h"
 #import "SettingsViewController.h"
 #import "SplashViewController.h"
+#import "ActivityIndicatorViewController.h"
 //Private methods
 @interface MainViewController ()
 
@@ -458,5 +459,22 @@
     [self removeAllSubViews];
     self.contactsTableViewController = nil;
     self.tabBarController = nil;
+}
+
+- (void) onContactsLoadingStarted
+{
+    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Getting contacts ..." inView:self.view];
+}
+
+- (void) onCallEnded
+{
+//    if (self.callViewController)
+//    {
+//        [self dismissViewControllerAnimated:YES completion:^
+//        {
+//            //self.callViewController = nil;
+//        }];
+//        
+//    }
 }
 @end

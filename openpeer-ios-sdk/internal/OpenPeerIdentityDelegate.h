@@ -51,7 +51,9 @@ protected:
     id<HOPIdentityDelegate> identityDelegate;
     
     OpenPeerIdentityDelegate(id<HOPIdentityDelegate> inIdentityDelegate);
+
 public:
+    ~OpenPeerIdentityDelegate();
     /**
      Create OpenPeerIdentityDelegate object packed in boost shared pointer.
      @returns OpenPeerIdentityDelegate object boost shared object
