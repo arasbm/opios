@@ -32,27 +32,41 @@
 #import "ChatViewController.h"
 #import <UIKit/UIKit.h>
 
-#import "Utility.h"
 #import "MessageManager.h"
 #import "Message.h"
 #import "Session.h"
+//#import "OpenPeerUser.h"
 #import "ChatMessageCell.h"
 
 @interface ChatViewController()
 
-@property (nonatomic, weak) NSDictionary* userInfo;
+@property (weak, nonatomic) Session* session;
+
+
+@property (weak, nonatomic) IBOutlet UIView *typingMessageView;
+@property (weak, nonatomic) IBOutlet UITextView *messageTextbox;
+@property (weak, nonatomic) NSDictionary* userInfo;
+@property (nonatomic) BOOL keyboardIsHidden;
+@property (nonatomic) CGFloat keyboardLastChange;
+
+- (void) setFramesSizes;
+- (void) registerForNotifications:(BOOL)registerForNotifications;
+
+- (void) sendIMmessage:(NSString *)message;
+
+- (IBAction) sendButtonPressed:(id) sender;
+
 @end
 
 @implementation ChatViewController
-
-@synthesize shouldCloseSession = _shouldCloseSession;
 
 
 #pragma mark init/dealloc
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self)
+    {
         // Custom initialization
     }
     return self;
@@ -68,42 +82,6 @@
     return self;
 }
 
--(void)setDefaults
-{
-    // set default values
-    _defaultsSet = YES;
-    _portraitMaxHeight = 0.0;
-    _landscapeMaxHeight = 0.0;
-    _portraitFullScreenHeight = 0.0;
-    _landscapeFullScreeHeight = 0.0;
-    self.shouldCloseSession = NO;
-
-    /*
-    
-    // Back button
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setImage:[Hookflash_ThemeManager imageNamed:ki_iPhone_back_button] forState:UIControlStateNormal];
-    [backButton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
-    [backButton setFrame:CGRectMake(0.0, 0.0, 40.0, 40.0)];
-    UIBarButtonItem *navBarBackButton = [[UIBarButtonItem alloc] initWithCustomView: backButton];
-    self.navigationItem.leftBarButtonItem = navBarBackButton;
-
-    
-    // Lightning button
-    UIButton *menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [menuButton addTarget:self action:@selector(actionCallMenu) forControlEvents:UIControlEventTouchUpInside];
-    [menuButton setFrame:CGRectMake(0.0, 0.0, 40.0, 40.0)];
-    UIBarButtonItem *navBarMenuButton = [[UIBarButtonItem alloc] initWithCustomView: menuButton];
-    self.navigationItem.rightBarButtonItem = navBarMenuButton;
-    
-    chatTableView.backgroundColor = [UIColor clearColor];
-    */
-    //messageTextbox.backgroundColor = [UIColor clearColor];
-    [messageTextbox setReturnKeyType:UIReturnKeySend];
-    
-
-    //[self updateSessionView];
-}
 
 #pragma mark - Memory
 - (void)didReceiveMemoryWarning
@@ -114,49 +92,19 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+
 #pragma mark - View lifecycle
 - (void)viewWillAppear:(BOOL)animated
 {
-    UIView* nView = nil;
-    
-    if (nView)
-    {
-        [self.navigationController.navigationBar addSubview:nView];
-        
-        CGRect rect = self.navigationController.navigationBar.frame;
-        rect.size.height = nView.frame.size.height;
-        self.navigationController.navigationBar.frame = rect;
-    }
-    
     [self registerForNotifications:YES];
-    if (!_keyboardIsHidden)
+    
+    if (!self.keyboardIsHidden)
     {
-        [messageTextbox becomeFirstResponder];
+        [self.messageTextbox becomeFirstResponder];
     }
+    
     [super viewWillAppear:animated];
 }
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    if(!_defaultsSet)
-        [self setDefaults];
-    
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
-    tapGesture.numberOfTapsRequired = 1;
-    [chatTableView addGestureRecognizer:tapGesture];
-    
-    self.navigationItem.leftBarButtonItem = [Utility createNavigationBackButtonForTarget:self.navigationController];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
 
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -164,15 +112,37 @@
     [self registerForNotifications:NO];
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    self.keyboardIsHidden = YES;
+    
+    self.chatTableView.backgroundColor = [UIColor clearColor];
+    self.chatTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    [self.messageTextbox setReturnKeyType:UIReturnKeySend];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+    tapGesture.numberOfTapsRequired = 1;
+    [self.chatTableView addGestureRecognizer:tapGesture];
+}
+
+- (void) hideKeyboard
+{
+    [self.messageTextbox resignFirstResponder];
+}
+
 #pragma mark - Keyboard handling
 -(void)resetKeyboard:(NSNotification *)notification
 {
-    _keyboardIsHidden = NO;
+    self.keyboardIsHidden = NO;
 }
 
 -(void)keyboardWillShow:(NSNotification *)notification
 {
-    _keyboardIsHidden = NO;
+    [self.delegate prepareForChat];
+    self.keyboardIsHidden = NO;
     
     self.userInfo = [notification userInfo];       
    
@@ -181,7 +151,7 @@
 
 -(void)keyboardWillHide:(NSNotification *)notification
 {
-    _keyboardIsHidden = YES;
+    self.keyboardIsHidden = YES;
     self.userInfo = [notification userInfo];
     [self setFramesSizes];
 }
@@ -189,13 +159,14 @@
 #pragma mark - Frames handling
 -(void) setFramesSizes
 {
+    float chatHeight;
     if (self.userInfo != nil)
     {
         CGRect keyboardFrame;
         NSValue *ks = [self.userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey];
         keyboardFrame = [ks CGRectValue];
         CGRect kF = [self.view convertRect:keyboardFrame toView:nil];
-        _keyboardLastChange = kF.size.height;
+        self.keyboardLastChange = kF.size.height;
         
         NSTimeInterval animD;
         UIViewAnimationCurve animC;
@@ -207,32 +178,41 @@
         [UIView setAnimationDuration: animD]; 
         [UIView setAnimationCurve:animC];
     }
-    if (_keyboardIsHidden)
+    
+    CGRect viewRect = self.view.superview.frame;
+    if (self.keyboardIsHidden)
+        viewRect.size.height -= self.keyboardLastChange;
+    else
+        viewRect.size.height += self.keyboardLastChange;
+
+    
+    if (self.keyboardIsHidden)
     {
-        _keyboardLastChange = 0;
+        self.keyboardLastChange = 0;
     }
     
     // set initial size, session view
-    CGRect viewRect = self.view.superview.frame;
-    viewRect.origin.y=0;
+    
+    
+        
     
     // set initial size, chat view
-    CGRect chatRect = chatTableView.frame;
+    CGRect chatRect = self.chatTableView.frame;
     chatRect.origin.y = 0.0;//topSessionView.frame.size.height;
-    if (!typingMessageView.hidden)
-        _chatHeight = viewRect.size.height - typingMessageView.frame.size.height - _keyboardLastChange;
+    if (!self.typingMessageView.hidden)
+        chatHeight = viewRect.size.height - self.typingMessageView.frame.size.height - self.keyboardLastChange;
     else 
-        _chatHeight = viewRect.size.height - _keyboardLastChange;
+        chatHeight = viewRect.size.height - self.keyboardLastChange;
     
     self.view.frame = viewRect;
     NSLog(@"SessionViewContorller frame: %f, %f, %f, %f,",viewRect.origin.x, viewRect.origin.y, viewRect.size.width, viewRect.size.height);
     
-    chatRect.size.height = _chatHeight;
-    chatTableView.frame = chatRect;
+    chatRect.size.height = chatHeight;
+    //self.chatTableView.frame = chatRect;
     
-    CGRect textEntryViewRect = typingMessageView.frame;
+    CGRect textEntryViewRect = self.typingMessageView.frame;
     textEntryViewRect.origin.y = chatRect.size.height;
-    typingMessageView.frame = textEntryViewRect;
+    //self.typingMessageView.frame = textEntryViewRect;
     [self refreshViewWithData];
     
     if (self.userInfo)
@@ -244,14 +224,14 @@
 #pragma mark - Actions
 - (IBAction) sendButtonPressed : (id) sender
 {
-    if ([messageTextbox.text length] > 0)
-        [self sendIMmessage:messageTextbox.text];
+    if ([self.messageTextbox.text length] > 0)
+        [self sendIMmessage:self.messageTextbox.text];
 }
 
 
 - (void)handleTapGesture:(UITapGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateRecognized) {
-        [messageTextbox resignFirstResponder];
+        [self.messageTextbox resignFirstResponder];
     }
 }
 
@@ -263,7 +243,7 @@
 }
 
 #pragma mark - UITextViewDelegate
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+- (BOOL) textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     if([text isEqualToString:@"\n"] && [textView.text length] > 0)
     {
@@ -273,22 +253,17 @@
     return YES;
 }
 
-- (void)dealloc
-{
-    messageTextbox.delegate = nil;
-}
-
--(void)refreshViewWithData
+- (void) refreshViewWithData
 {
     if(self.session.messageArray && [self.session.messageArray count] > 0)
     {
-        [chatTableView reloadData];
+        [self.chatTableView reloadData];
         
-        [chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[self.session.messageArray count] - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[self.session.messageArray count] - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
 }
 
--(float)getHeaderHeight:(float)tableViewHeight
+/*- (float) getHeaderHeight:(float)tableViewHeight
 {
     float res = tableViewHeight;
     
@@ -296,9 +271,9 @@
     {
         for(int i=0; i<[self.session.messageArray count]; i++)
         {
-            Message *m = [self.session.messageArray objectAtIndex:i];
+            Message *message = [self.session.messageArray objectAtIndex:i];
             
-            CGSize cs = [ChatMessageCell calcMessageHeight:m.message forScreenWidth:chatTableView.frame.size.width - 85];
+            CGSize cs = [ChatMessageCell calcMessageHeight:message.text forScreenWidth:self.chatTableView.frame.size.width - 85];
             res -= (cs.height + 32);
             
             if(res < 0)
@@ -310,9 +285,9 @@
     }
     
     return res;
-}
+}*/
 
--(void)registerForNotifications:(BOOL)registerForNotifications
+- (void) registerForNotifications:(BOOL)registerForNotifications
 {
     if (registerForNotifications)
     {
@@ -328,31 +303,18 @@
 
 
 #pragma mark - Table Data Source Methods
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
 	return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self.session.messageArray count];
 }
 
 
-//- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-//{
-//    return _headerHeight;
-//}
-
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-//{
-//    CGRect rect = CGRectMake(0, 0, chatTableView.frame.size.width, _chatHeight);
-//    UIView *v = [[UIView alloc] initWithFrame:rect];
-//    return v;
-//    
-//}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Message* message = nil;
     
@@ -377,13 +339,13 @@
     return msgCell;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
     float res = 0.0;
-    Message *messageObj = [self.session.messageArray objectAtIndex:indexPath.row];
+    Message *message = [self.session.messageArray objectAtIndex:indexPath.row];
     
-    CGSize textSize = [ChatMessageCell calcMessageHeight:messageObj.message forScreenWidth:chatTableView.frame.size.width - 85];
+    CGSize textSize = [ChatMessageCell calcMessageHeight:message.text forScreenWidth:self.chatTableView.frame.size.width - 85];
 
     textSize.height += 32;
     
@@ -392,25 +354,10 @@
     return res;
 }
 
-- (void) setKeyboardIsHidden:(BOOL) hidden
-{
-    _keyboardIsHidden = hidden;
-}
-
--(void)sendIMmessage:(NSString *)message
+- (void) sendIMmessage:(NSString *)message
 {
     [[MessageManager sharedMessageManager] sendMessage:message forSession:self.session];
-    messageTextbox.text = nil;
+    self.messageTextbox.text = nil;
     [self refreshViewWithData];
 }
-
-//-(CGSize)calcMessageHeight:(NSString *)message forScreenWidth:(float)width
-//{
-//    CGSize maxSize = {width, 200000.0};
-//    CGSize calcSize = [message sizeWithFont:[UIFont systemFontOfSize:14.0]
-//                          constrainedToSize:maxSize];
-//    
-//    return calcSize;
-//    
-//}
 @end

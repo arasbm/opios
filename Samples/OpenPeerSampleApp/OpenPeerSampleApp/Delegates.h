@@ -1,6 +1,6 @@
 /*
  
- Copyright (c) 2012, SMB Phone Inc.
+ Copyright (c) 2013, SMB Phone Inc.
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
@@ -29,21 +29,8 @@
  
  */
 
-#import <Foundation/Foundation.h>
-#import <OpenpeerSDK/HOPTypes.h>
+@protocol ChatViewControllerDelegate <NSObject>
 
-@interface Utility : NSObject
+- (void) prepareForChat;
 
-+ (NSString *) base64StringFromData: (NSData *)data length: (int)length;
-+ (NSString *) decodeBase64:(NSString *)data64based;
-+ (NSString*) getDeviceOs;
-+ (NSString*) getPlatform;
-+ (NSString*) getUserAgentName;
-+ (void) removeCookiesAndClearCredentials;
-+ (NSString *) getGUIDstring;
-+ (NSString*) getCallStateAsString:(HOPCallStates) callState;
-+ (NSString*) getFunctionNameForRequest:(NSString*) requestString;
-+ (NSString*) getParametersNameForRequest:(NSString*) requestString;
-+ (UIBarButtonItem*) createNavigationBackButtonForTarget:(id) target;
-+ (NSString *)formatedMessageTimeStampForDate:(NSDate*) inDate;
 @end

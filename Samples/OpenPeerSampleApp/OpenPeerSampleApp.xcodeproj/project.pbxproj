@@ -84,6 +84,16 @@
 		8757E1831827A10E00D7BDA1 /* SessionViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8757E1821827A10E00D7BDA1 /* SessionViewController_iPhone.xib */; };
 		8757E1A11827BD2200D7BDA1 /* ContactsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8757E19E1827BD2200D7BDA1 /* ContactsViewController.xib */; };
 		8757E1A21827BD2200D7BDA1 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8757E19F1827BD2200D7BDA1 /* ContactsViewController.m */; };
+		8757E1BC1827E5A200D7BDA1 /* iPhone_chat_textfield_bkgd.png in Resources */ = {isa = PBXBuildFile; fileRef = 8757E1B81827E5A200D7BDA1 /* iPhone_chat_textfield_bkgd.png */; };
+		8757E1BD1827E5A200D7BDA1 /* iPhone_chat_textfield_bkgd@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8757E1B91827E5A200D7BDA1 /* iPhone_chat_textfield_bkgd@2x.png */; };
+		8757E1BE1827E5A200D7BDA1 /* iPhone_chat_textfield.png in Resources */ = {isa = PBXBuildFile; fileRef = 8757E1BA1827E5A200D7BDA1 /* iPhone_chat_textfield.png */; };
+		8757E1BF1827E5A200D7BDA1 /* iPhone_chat_textfield@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8757E1BB1827E5A200D7BDA1 /* iPhone_chat_textfield@2x.png */; };
+		8757E1C21827E66800D7BDA1 /* iPhone_send_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 8757E1C01827E66800D7BDA1 /* iPhone_send_button.png */; };
+		8757E1C31827E66800D7BDA1 /* iPhone_send_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8757E1C11827E66800D7BDA1 /* iPhone_send_button@2x.png */; };
+		8757E1C61827E7AE00D7BDA1 /* chat_bubble_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 8757E1C41827E7AE00D7BDA1 /* chat_bubble_left.png */; };
+		8757E1C71827E7AE00D7BDA1 /* chat_bubble_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 8757E1C51827E7AE00D7BDA1 /* chat_bubble_right.png */; };
+		8757E1CB1827E85700D7BDA1 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8757E1CA1827E85700D7BDA1 /* TTTAttributedLabel.m */; };
+		8757E1CE1827ED5600D7BDA1 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8757E1CD1827ED5600D7BDA1 /* CoreText.framework */; };
 		875CD7E2167A14810037396B /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 875CD7E1167A14810037396B /* SessionManager.m */; };
 		875CD7E5167A14960037396B /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = 875CD7E4167A14960037396B /* Session.m */; };
 		876CBCBB16F20A88004D542B /* IdentityDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 876CBCBA16F20A88004D542B /* IdentityDelegate.m */; };
@@ -291,6 +301,18 @@
 		8757E19E1827BD2200D7BDA1 /* ContactsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactsViewController.xib; sourceTree = "<group>"; };
 		8757E19F1827BD2200D7BDA1 /* ContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsViewController.m; sourceTree = "<group>"; };
 		8757E1A01827BD2200D7BDA1 /* ContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsViewController.h; sourceTree = "<group>"; };
+		8757E1B81827E5A200D7BDA1 /* iPhone_chat_textfield_bkgd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_chat_textfield_bkgd.png; sourceTree = "<group>"; };
+		8757E1B91827E5A200D7BDA1 /* iPhone_chat_textfield_bkgd@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_chat_textfield_bkgd@2x.png"; sourceTree = "<group>"; };
+		8757E1BA1827E5A200D7BDA1 /* iPhone_chat_textfield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_chat_textfield.png; sourceTree = "<group>"; };
+		8757E1BB1827E5A200D7BDA1 /* iPhone_chat_textfield@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_chat_textfield@2x.png"; sourceTree = "<group>"; };
+		8757E1C01827E66800D7BDA1 /* iPhone_send_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_send_button.png; sourceTree = "<group>"; };
+		8757E1C11827E66800D7BDA1 /* iPhone_send_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_send_button@2x.png"; sourceTree = "<group>"; };
+		8757E1C41827E7AE00D7BDA1 /* chat_bubble_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_bubble_left.png; sourceTree = "<group>"; };
+		8757E1C51827E7AE00D7BDA1 /* chat_bubble_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_bubble_right.png; sourceTree = "<group>"; };
+		8757E1C91827E85700D7BDA1 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
+		8757E1CA1827E85700D7BDA1 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
+		8757E1CC1827EB6100D7BDA1 /* Delegates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Delegates.h; sourceTree = "<group>"; };
+		8757E1CD1827ED5600D7BDA1 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		875CD7E0167A14810037396B /* SessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionManager.h; sourceTree = "<group>"; };
 		875CD7E1167A14810037396B /* SessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionManager.m; sourceTree = "<group>"; };
 		875CD7E3167A14960037396B /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
@@ -377,6 +399,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8757E1CE1827ED5600D7BDA1 /* CoreText.framework in Frameworks */,
 				87E0FFB417BB8ADD00F30484 /* AddressBook.framework in Frameworks */,
 				871BC9A7179EECC400AEA4A6 /* CoreData.framework in Frameworks */,
 				87448B0517905FFC00E374EE /* QuartzCore.framework in Frameworks */,
@@ -405,6 +428,8 @@
 		870C5E181672345A00A3AA4F /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				8757E1CC1827EB6100D7BDA1 /* Delegates.h */,
+				8757E1C81827E85700D7BDA1 /* TTTAttributedLabel */,
 				874FE11117FD8DA9007A791B /* AppLog.h */,
 				87D72EC017DDEEB000DEB37E /* IconDownloader.m */,
 				87D72EC117DDEEB000DEB37E /* IconDownloader.h */,
@@ -499,6 +524,14 @@
 		8713363517CCBD6F008C91F7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				8757E1C41827E7AE00D7BDA1 /* chat_bubble_left.png */,
+				8757E1C51827E7AE00D7BDA1 /* chat_bubble_right.png */,
+				8757E1C01827E66800D7BDA1 /* iPhone_send_button.png */,
+				8757E1C11827E66800D7BDA1 /* iPhone_send_button@2x.png */,
+				8757E1B81827E5A200D7BDA1 /* iPhone_chat_textfield_bkgd.png */,
+				8757E1B91827E5A200D7BDA1 /* iPhone_chat_textfield_bkgd@2x.png */,
+				8757E1BA1827E5A200D7BDA1 /* iPhone_chat_textfield.png */,
+				8757E1BB1827E5A200D7BDA1 /* iPhone_chat_textfield@2x.png */,
 				87E4D9FD180D3545002CA2D4 /* facebook_tag.png */,
 				87E4D9FE180D3545002CA2D4 /* facebook_tag@2x.png */,
 				87E4D9A4180BE199002CA2D4 /* OpenPeerLogo29.png */,
@@ -569,6 +602,7 @@
 		8727282B166CBF9B0089CBB6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8757E1CD1827ED5600D7BDA1 /* CoreText.framework */,
 				0012C551177D11DB0017FF5E /* libz.dylib */,
 				87FF9861170EDAF00017C627 /* libxml2.dylib */,
 				87EE5FE8166E917B002C5FA3 /* libresolv.dylib */,
@@ -662,6 +696,16 @@
 			);
 			name = Delegates;
 			sourceTree = "<group>";
+		};
+		8757E1C81827E85700D7BDA1 /* TTTAttributedLabel */ = {
+			isa = PBXGroup;
+			children = (
+				8757E1C91827E85700D7BDA1 /* TTTAttributedLabel.h */,
+				8757E1CA1827E85700D7BDA1 /* TTTAttributedLabel.m */,
+			);
+			name = TTTAttributedLabel;
+			path = 3rdParties/TTTAttributedLabel;
+			sourceTree = SOURCE_ROOT;
 		};
 		87E4DA06180D5082002CA2D4 /* Sounds */ = {
 			isa = PBXGroup;
@@ -831,6 +875,7 @@
 				87EE6070166F667C002C5FA3 /* WebLoginViewController.xib in Resources */,
 				87E4DA11180D5082002CA2D4 /* message-received.wav in Resources */,
 				87421DA4168274BB00699479 /* ActiveSessionViewController.xib in Resources */,
+				8757E1BF1827E5A200D7BDA1 /* iPhone_chat_textfield@2x.png in Resources */,
 				87E4DA12180D5082002CA2D4 /* message-send.wav in Resources */,
 				87A1086C1802CBDC001F705D /* logger.png in Resources */,
 				87F11AF017C2854700CFE85D /* OpenPeerDataModel.bundle in Resources */,
@@ -857,6 +902,7 @@
 				8719AB0E17CE0CEE007E991B /* iPhone_background_navigation_mode-568h@2x.png in Resources */,
 				8719AB1117CE2C60007E991B /* audio_call_incoming_decline_button.png in Resources */,
 				8719AB1217CE2C60007E991B /* audio_call_incoming_accept_button.png in Resources */,
+				8757E1BD1827E5A200D7BDA1 /* iPhone_chat_textfield_bkgd@2x.png in Resources */,
 				87E4D9A7180BE199002CA2D4 /* OpenPeerLogo29.png in Resources */,
 				8722A67317CF7FAE002A3BB6 /* ContactTableViewCell.xib in Resources */,
 				8722A67E17D35AB3002A3BB6 /* video_indicator_blue.png in Resources */,
@@ -868,15 +914,20 @@
 				8712BE7617D8CC7C00665F42 /* iPhone_top_bar_background.png in Resources */,
 				8712BE7717D8CC7C00665F42 /* iPhone_tabBar_settings_inactive_Icon@2x.png in Resources */,
 				8757E1A11827BD2200D7BDA1 /* ContactsViewController.xib in Resources */,
+				8757E1C21827E66800D7BDA1 /* iPhone_send_button.png in Resources */,
+				8757E1BC1827E5A200D7BDA1 /* iPhone_chat_textfield_bkgd.png in Resources */,
 				8757E1831827A10E00D7BDA1 /* SessionViewController_iPhone.xib in Resources */,
+				8757E1C31827E66800D7BDA1 /* iPhone_send_button@2x.png in Resources */,
 				8712BE7817D8CC7C00665F42 /* iPhone_tabBar_settings_inactive_Icon.png in Resources */,
 				8712BE7917D8CC7C00665F42 /* iPhone_tabBar_settings_active_Icon@2x.png in Resources */,
 				8712BE7A17D8CC7C00665F42 /* iPhone_tabBar_settings_active_Icon.png in Resources */,
 				8712BE7B17D8CC7C00665F42 /* iPhone_tabBar_contacts_inactive@2x.png in Resources */,
 				87E4DA14180D5082002CA2D4 /* ringing.caf in Resources */,
 				87E4D9A1180BE07F002CA2D4 /* OpenPeerLogo120.png in Resources */,
+				8757E1C71827E7AE00D7BDA1 /* chat_bubble_right.png in Resources */,
 				87E4D9FF180D3545002CA2D4 /* facebook_tag.png in Resources */,
 				8712BE7C17D8CC7C00665F42 /* iPhone_tabBar_contacts_inactive.png in Resources */,
+				8757E1BE1827E5A200D7BDA1 /* iPhone_chat_textfield.png in Resources */,
 				8712BE7D17D8CC7C00665F42 /* iPhone_tabBar_contacts_active@2x.png in Resources */,
 				87E4DA00180D3545002CA2D4 /* facebook_tag@2x.png in Resources */,
 				8712BE7E17D8CC7C00665F42 /* iPhone_tabBar_contacts_active.png in Resources */,
@@ -884,6 +935,7 @@
 				8712BE7F17D8CC7C00665F42 /* iPhone_tabBar_bkgd@2x.png in Resources */,
 				871C7B9A17FEDD8900BE641B /* gear_icon.png in Resources */,
 				87E4D9A9180BE199002CA2D4 /* OpenPeerLogo80.png in Resources */,
+				8757E1C61827E7AE00D7BDA1 /* chat_bubble_left.png in Resources */,
 				8712BE8017D8CC7C00665F42 /* iPhone_tabBar_bkgd.png in Resources */,
 				8712BE8117D8CC7C00665F42 /* iPhone_back_button@2x.png in Resources */,
 				8712BE8217D8CC7C00665F42 /* iPhone_back_button.png in Resources */,
@@ -900,6 +952,7 @@
 			files = (
 				87272839166CBF9B0089CBB6 /* main.m in Sources */,
 				874FE10E17FD7FF0007A791B /* AppLog.m in Sources */,
+				8757E1CB1827E85700D7BDA1 /* TTTAttributedLabel.m in Sources */,
 				8727283D166CBF9B0089CBB6 /* AppDelegate.m in Sources */,
 				87272850166CC1810089CBB6 /* MainViewController.m in Sources */,
 				87272855166CC2640089CBB6 /* LoginViewController.m in Sources */,

@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SessionViewController_iPhone : UIViewController
+@class Session;
+@class ChatViewController;
+@interface SessionViewController_iPhone : UIViewController<UINavigationControllerDelegate>
 
+@property (nonatomic, strong) Session* session;
+@property (nonatomic, strong) ChatViewController* chatViewController;
+
+
+- (id) initWithSession:(Session*) inSession;
 @end

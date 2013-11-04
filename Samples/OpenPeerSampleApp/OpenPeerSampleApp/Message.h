@@ -35,7 +35,7 @@
 
 @interface Message : NSObject
 
-@property (nonatomic, strong) NSString* message;
+@property (nonatomic, strong) NSString* text;
 @property (nonatomic, strong) NSDate* date;
 @property (nonatomic, weak) HOPRolodexContact* contact;
 

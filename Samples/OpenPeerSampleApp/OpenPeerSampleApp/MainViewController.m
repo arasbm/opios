@@ -48,6 +48,8 @@
 #import "WebLoginViewController.h"
 #import "ContactsViewController.h"
 #import "ActiveSessionViewController.h"
+#import "SessionViewController_iPhone.h"
+
 #import "MainViewController.h"
 #import "ChatViewController.h"
 #import "SettingsViewController.h"
@@ -236,6 +238,10 @@
         }
         case NEW_SESSION:
         case NEW_SESSION_WITH_CALL:
+        {
+//            SessionViewController_iPhone* sessionViewContorller2 = [[SessionViewController_iPhone alloc] initWithSession:session];
+//            sessionViewContorller2.hidesBottomBarWhenPushed = YES;
+//            [self.sessionViewControllersDictionary setObject:sessionViewContorller2 forKey:sessionId];
             sessionViewContorller = [[ActiveSessionViewController alloc] initWithSession:session];
             sessionViewContorller.hidesBottomBarWhenPushed = YES;
             [self.sessionViewControllersDictionary setObject:sessionViewContorller forKey:sessionId];
@@ -244,6 +250,7 @@
             //[self.contactsNavigationController.navigationBar.topItem setTitle:title];
             [navigationController pushViewController:sessionViewContorller animated:YES];
             [navigationController.navigationBar.topItem setTitle:title];
+        }
             break;
             
         case NEW_SESSION_WITH_CHAT:

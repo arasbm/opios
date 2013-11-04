@@ -7,6 +7,8 @@
 //
 
 #import "SessionViewController_iPhone.h"
+#import "Session.h"
+#import "ChatViewController.h"
 
 @interface SessionViewController_iPhone ()
 
@@ -23,10 +25,38 @@
     return self;
 }
 
+- (id) initWithSession:(Session*) inSession
+{
+    self = [self initWithNibName:@"SessionViewController_iPhone" bundle:nil];
+    if (self)
+    {
+        self.session = inSession;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+	
+    self.chatViewController = [[ChatViewController alloc] initWithSession:self.session];
+    
+    [self.chatViewController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+    [self.view addSubview:self.chatViewController.view];
+    
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.chatViewController.view attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTop multiplier:1.0 constant:0]];
+    
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.chatViewController.view attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0]];
+    
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.chatViewController.view attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0]];
+    
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.chatViewController.view attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0]];
+}
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    return;
 }
 
 - (void)didReceiveMemoryWarning

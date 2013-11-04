@@ -366,4 +366,25 @@ static const short _base64DecodingTable[256] = {
     UIBarButtonItem* backButon = [[UIBarButtonItem alloc] initWithCustomView: button];
     return backButon;
 }
+
++ (NSString *)formatedMessageTimeStampForDate:(NSDate*) inDate
+{
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    
+    NSDateComponents *massageDayOfDate = [[NSCalendar currentCalendar] components:NSEraCalendarUnit|NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:inDate];
+    NSDateComponents *today = [[NSCalendar currentCalendar] components:NSEraCalendarUnit|NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:[NSDate date]];
+    if([today day] == [massageDayOfDate day] &&
+       [today month] == [massageDayOfDate month] &&
+       [today year] == [massageDayOfDate year] &&
+       [today era] == [massageDayOfDate era])
+    {
+        [df setDateFormat:@"hh:mm aa"];
+    }
+    else
+    {
+        [df setDateFormat:@"MM/dd/yyyy hh:mm aa"];
+    }
+    
+    return [df stringFromDate:inDate];
+}
 @end
