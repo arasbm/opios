@@ -44,7 +44,7 @@
 #import "Constants.h"
 #import "OpenPeer.h"
 #import "MainViewController.h"
-#import "ContactsTableViewController.h"
+#import "ContactsViewController.h"
 #import "ActivityIndicatorViewController.h"
 
 @interface IdentityDelegate()

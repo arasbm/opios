@@ -80,6 +80,10 @@
 		874FE10E17FD7FF0007A791B /* AppLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 874FE10D17FD7FF0007A791B /* AppLog.m */; };
 		874FF90116806D0F00B0A7A0 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 874FF90016806D0F00B0A7A0 /* Constants.m */; };
 		87570E46172ED183006E1C2F /* OpenpeerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87570E45172ED183006E1C2F /* OpenpeerSDK.framework */; };
+		8757E17F1827A0BF00D7BDA1 /* SessionViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 8757E17E1827A0BF00D7BDA1 /* SessionViewController_iPhone.m */; };
+		8757E1831827A10E00D7BDA1 /* SessionViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8757E1821827A10E00D7BDA1 /* SessionViewController_iPhone.xib */; };
+		8757E1A11827BD2200D7BDA1 /* ContactsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8757E19E1827BD2200D7BDA1 /* ContactsViewController.xib */; };
+		8757E1A21827BD2200D7BDA1 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8757E19F1827BD2200D7BDA1 /* ContactsViewController.m */; };
 		875CD7E2167A14810037396B /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 875CD7E1167A14810037396B /* SessionManager.m */; };
 		875CD7E5167A14960037396B /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = 875CD7E4167A14960037396B /* Session.m */; };
 		876CBCBB16F20A88004D542B /* IdentityDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 876CBCBA16F20A88004D542B /* IdentityDelegate.m */; };
@@ -119,8 +123,6 @@
 		87F11AF017C2854700CFE85D /* OpenPeerDataModel.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 87098FDC17C23997007C9093 /* OpenPeerDataModel.bundle */; };
 		87F24B5F166FF0C900A5389F /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F24B5E166FF0C900A5389F /* Utility.m */; };
 		87F24B62167003F400A5389F /* ContactsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F24B61167003F300A5389F /* ContactsManager.m */; };
-		87F24B691670048000A5389F /* ContactsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F24B671670047A00A5389F /* ContactsTableViewController.m */; };
-		87F24B6A1670048000A5389F /* ContactsTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87F24B681670047D00A5389F /* ContactsTableViewController.xib */; };
 		87FC39F71709BB39002030D1 /* MessageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87FC39F51709BB36002030D1 /* MessageManager.m */; };
 		87FC3A151709BD8D002030D1 /* XMLWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 87FC39FB1709BD8C002030D1 /* XMLWriter.m */; };
 		87FC3A161709BD8D002030D1 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 87FC39FF1709BD8C002030D1 /* SBJsonParser.m */; };
@@ -283,6 +285,12 @@
 		874FF8FF16806D0F00B0A7A0 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		874FF90016806D0F00B0A7A0 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		87570E45172ED183006E1C2F /* OpenpeerSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenpeerSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8757E17D1827A0BF00D7BDA1 /* SessionViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionViewController_iPhone.h; sourceTree = "<group>"; };
+		8757E17E1827A0BF00D7BDA1 /* SessionViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionViewController_iPhone.m; sourceTree = "<group>"; };
+		8757E1821827A10E00D7BDA1 /* SessionViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SessionViewController_iPhone.xib; sourceTree = "<group>"; };
+		8757E19E1827BD2200D7BDA1 /* ContactsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactsViewController.xib; sourceTree = "<group>"; };
+		8757E19F1827BD2200D7BDA1 /* ContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsViewController.m; sourceTree = "<group>"; };
+		8757E1A01827BD2200D7BDA1 /* ContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsViewController.h; sourceTree = "<group>"; };
 		875CD7E0167A14810037396B /* SessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionManager.h; sourceTree = "<group>"; };
 		875CD7E1167A14810037396B /* SessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionManager.m; sourceTree = "<group>"; };
 		875CD7E3167A14960037396B /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
@@ -331,9 +339,6 @@
 		87F24B5E166FF0C900A5389F /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
 		87F24B60167003F300A5389F /* ContactsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsManager.h; sourceTree = "<group>"; };
 		87F24B61167003F300A5389F /* ContactsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsManager.m; sourceTree = "<group>"; };
-		87F24B661670047A00A5389F /* ContactsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsTableViewController.h; sourceTree = "<group>"; };
-		87F24B671670047A00A5389F /* ContactsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsTableViewController.m; sourceTree = "<group>"; };
-		87F24B681670047D00A5389F /* ContactsTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactsTableViewController.xib; sourceTree = "<group>"; };
 		87FC39F51709BB36002030D1 /* MessageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageManager.m; sourceTree = "<group>"; };
 		87FC39F61709BB37002030D1 /* MessageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageManager.h; sourceTree = "<group>"; };
 		87FC39FA1709BD8C002030D1 /* XMLWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLWriter.h; sourceTree = "<group>"; };
@@ -438,14 +443,14 @@
 		870C5E1A167234DD00A3AA4F /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
+				8757E19E1827BD2200D7BDA1 /* ContactsViewController.xib */,
+				8757E19F1827BD2200D7BDA1 /* ContactsViewController.m */,
+				8757E1A01827BD2200D7BDA1 /* ContactsViewController.h */,
 				8722A67017CF7FAD002A3BB6 /* ContactTableViewCell.xib */,
 				8722A67117CF7FAD002A3BB6 /* ContactTableViewCell.m */,
 				8722A67217CF7FAD002A3BB6 /* ContactTableViewCell.h */,
 				87F24B60167003F300A5389F /* ContactsManager.h */,
 				87F24B61167003F300A5389F /* ContactsManager.m */,
-				87F24B661670047A00A5389F /* ContactsTableViewController.h */,
-				87F24B671670047A00A5389F /* ContactsTableViewController.m */,
-				87F24B681670047D00A5389F /* ContactsTableViewController.xib */,
 			);
 			name = Contacts;
 			sourceTree = "<group>";
@@ -686,6 +691,9 @@
 				87421DA2168274BB00699479 /* ActiveSessionViewController.xib */,
 				87FC39F51709BB36002030D1 /* MessageManager.m */,
 				87FC39F61709BB37002030D1 /* MessageManager.h */,
+				8757E17D1827A0BF00D7BDA1 /* SessionViewController_iPhone.h */,
+				8757E17E1827A0BF00D7BDA1 /* SessionViewController_iPhone.m */,
+				8757E1821827A10E00D7BDA1 /* SessionViewController_iPhone.xib */,
 			);
 			name = Session;
 			sourceTree = "<group>";
@@ -821,7 +829,6 @@
 				87272851166CC1810089CBB6 /* MainViewController.xib in Resources */,
 				87272856166CC2640089CBB6 /* LoginViewController.xib in Resources */,
 				87EE6070166F667C002C5FA3 /* WebLoginViewController.xib in Resources */,
-				87F24B6A1670048000A5389F /* ContactsTableViewController.xib in Resources */,
 				87E4DA11180D5082002CA2D4 /* message-received.wav in Resources */,
 				87421DA4168274BB00699479 /* ActiveSessionViewController.xib in Resources */,
 				87E4DA12180D5082002CA2D4 /* message-send.wav in Resources */,
@@ -860,6 +867,8 @@
 				8712BE7517D8CC7C00665F42 /* iPhone_top_bar_background@2x.png in Resources */,
 				8712BE7617D8CC7C00665F42 /* iPhone_top_bar_background.png in Resources */,
 				8712BE7717D8CC7C00665F42 /* iPhone_tabBar_settings_inactive_Icon@2x.png in Resources */,
+				8757E1A11827BD2200D7BDA1 /* ContactsViewController.xib in Resources */,
+				8757E1831827A10E00D7BDA1 /* SessionViewController_iPhone.xib in Resources */,
 				8712BE7817D8CC7C00665F42 /* iPhone_tabBar_settings_inactive_Icon.png in Resources */,
 				8712BE7917D8CC7C00665F42 /* iPhone_tabBar_settings_active_Icon@2x.png in Resources */,
 				8712BE7A17D8CC7C00665F42 /* iPhone_tabBar_settings_active_Icon.png in Resources */,
@@ -902,11 +911,11 @@
 				874AD9DB166CEB530095FE33 /* ConversationThreadDelegate.m in Sources */,
 				874AD9DE166CEB780095FE33 /* CallDelegate.m in Sources */,
 				871C7B8D17FEBED200BE641B /* SplashViewController.m in Sources */,
+				8757E1A21827BD2200D7BDA1 /* ContactsViewController.m in Sources */,
 				874AD9E5166D4C900095FE33 /* OpenPeer.m in Sources */,
 				87EE5FFB166F5A7F002C5FA3 /* WebLoginViewController.m in Sources */,
 				87F24B5F166FF0C900A5389F /* Utility.m in Sources */,
 				87F24B62167003F400A5389F /* ContactsManager.m in Sources */,
-				87F24B691670048000A5389F /* ContactsTableViewController.m in Sources */,
 				87E4DA05180D4E8D002CA2D4 /* SoundsManager.m in Sources */,
 				875CD7E2167A14810037396B /* SessionManager.m in Sources */,
 				875CD7E5167A14960037396B /* Session.m in Sources */,
@@ -917,6 +926,7 @@
 				876CBCBB16F20A88004D542B /* IdentityDelegate.m in Sources */,
 				87FC39F71709BB39002030D1 /* MessageManager.m in Sources */,
 				87FC3A151709BD8D002030D1 /* XMLWriter.m in Sources */,
+				8757E17F1827A0BF00D7BDA1 /* SessionViewController_iPhone.m in Sources */,
 				87FC3A161709BD8D002030D1 /* SBJsonParser.m in Sources */,
 				87FC3A171709BD8D002030D1 /* SBJsonStreamParser.m in Sources */,
 				87FC3A181709BD8D002030D1 /* SBJsonStreamParserAccumulator.m in Sources */,
@@ -1027,7 +1037,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "OpenPeerSampleApp/OpenPeerSampleApp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = (
@@ -1068,7 +1078,7 @@
 					"\"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts\"",
 				);
 				INFOPLIST_FILE = "OpenPeerSampleApp/OpenPeerSampleApp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = (

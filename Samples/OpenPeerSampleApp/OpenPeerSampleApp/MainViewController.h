@@ -35,7 +35,7 @@
 
 @class LoginViewController;
 @class WebLoginViewController;
-@class ContactsTableViewController;
+@class ContactsViewController;
 
 typedef enum
 {
@@ -69,7 +69,7 @@ typedef  enum
 @property (nonatomic, weak) IBOutlet UIView *activityView;
 
 @property (nonatomic, strong) LoginViewController *loginViewController;
-@property (nonatomic, strong) ContactsTableViewController *contactsTableViewController;
+@property (nonatomic, strong) ContactsViewController *contactsTableViewController;
 @property (nonatomic, strong) UITabBarController *tabBarController;
 //@property (nonatomic, strong) UINavigationController *contactsNavigationController;
 

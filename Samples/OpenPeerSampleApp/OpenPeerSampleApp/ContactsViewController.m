@@ -1,63 +1,42 @@
-/*
- 
- Copyright (c) 2012, SMB Phone Inc.
- All rights reserved.
- 
- Redistribution and use in source and binary forms, with or without
- modification, are permitted provided that the following conditions are met:
- 
- 1. Redistributions of source code must retain the above copyright notice, this
- list of conditions and the following disclaimer.
- 2. Redistributions in binary form must reproduce the above copyright notice,
- this list of conditions and the following disclaimer in the documentation
- and/or other materials provided with the distribution.
- 
- THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
- ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- 
- The views and conclusions contained in the software and documentation are those
- of the authors and should not be interpreted as representing official policies,
- either expressed or implied, of the FreeBSD Project.
- 
- */
+//
+//  ContactsViewController.m
+//  OpenPeerSampleApp
+//
+//  Created by Sergej on 10/16/13.
+//  Copyright (c) 2013 Hookflash. All rights reserved.
+//
 
-#import "ContactsTableViewController.h"
-#import "ContactsManager.h"
-#import "SessionManager.h"
-#import "Constants.h"
-#import <OpenpeerSDK/HOPRolodexContact+External.h>
-#import <OpenpeerSDK/HOPModelManager.h>
-#import <OpenpeerSDK/HOPImage.h>
-#import <OpenpeerSDK/HOPAvatar+External.h>
-#import <OpenpeerSDK/HOPHomeUser.h>
-#import "OpenPeer.h"
+#import "ContactsViewController.h"
+#import "ContactTableViewCell.h"
 #import "ActivityIndicatorViewController.h"
 #import "MainViewController.h"
-#import "ContactTableViewCell.h"
-#import "IconDownloader.h"
+#import "OpenPeer.h"
+#import "SessionManager.h"
+
+#import <OpenpeerSDK/HOPRolodexContact+External.h>
+#import <OpenpeerSDK/HOPModelManager.h>
+#import <OpenpeerSDK/HOPHomeUser.h>
 
 #define REMOTE_SESSION_ALERT_TAG 1
-#define AVATAR_WIDTH 0 //31.0
-#define AVATAR_HEIGHT 0 //31.0
 #define TABLE_CELL_HEIGHT 55.0
 
-@interface ContactsTableViewController ()
+@interface ContactsViewController ()
 
-- (void) prepareTableForRemoteSessionMode;
+@property (weak, nonatomic) IBOutlet UITableView *contactsTableView;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
+@property (nonatomic, strong) UITapGestureRecognizer *oneTapGestureRecognizer;
 @property (nonatomic,retain) NSMutableArray* listOfSelectedContacts;
-@property (nonatomic, strong) NSMutableDictionary *imageDownloadsInProgress;
+@property (nonatomic) BOOL keyboardIsHidden;
+
+- (void)registerForNotifications:(BOOL)registerForNotifications;
+- (void)keyboardWillShow:(NSNotification *)notification;
+- (void)keyboardWillHide:(NSNotification *)notification;
+- (void) setFramesSizesForUserInfo:(NSDictionary*) userInfo;
 @end
 
-@implementation ContactsTableViewController
+@implementation ContactsViewController
 
 - (NSMutableArray*) listOfSelectedContacts
 {
@@ -69,26 +48,23 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self)
+    {
+        self.keyboardIsHidden = YES;
     }
     return self;
-}
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter]  removeObserver:self];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
+    if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
+        self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    self.navigationController.navigationBar.hidden = NO;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(prepareTableForRemoteSessionMode) name:notificationRemoteSessionModeChanged object:nil];
+    if ([self.contactsTableView respondsToSelector:@selector(sectionIndexBackgroundColor)])
+        self.contactsTableView.sectionIndexBackgroundColor = [UIColor clearColor];
     
-    self.contactsTableView.backgroundColor = [UIColor clearColor];
     NSError *error;
     if (![self.fetchedResultsController performFetch:&error])
     {
@@ -96,18 +72,32 @@
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 		exit(-1);  // Fail
 	}
+    
+    self.oneTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self.searchBar action:@selector(resignFirstResponder)];
+    self.oneTapGestureRecognizer.delegate = self;
+    self.oneTapGestureRecognizer.numberOfTapsRequired = 1;
+    self.oneTapGestureRecognizer.numberOfTouchesRequired = 1;
+ 
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self registerForNotifications:YES];
+    
+//    CGRect rect = self.navigationController.navigationBar.frame;
+//    rect.size.height = 70.0;
+//    self.navigationController.navigationBar.frame = rect;
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self registerForNotifications:NO];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
     
-    //Terminate all pending icon download connections
-    NSArray *allDownloads = [self.imageDownloadsInProgress allValues];
-    [allDownloads makeObjectsPerformSelector:@selector(cancelDownload)];
-    
-    [self.imageDownloadsInProgress removeAllObjects];
 }
 
 - (void) prepareTableForRemoteSessionMode
@@ -118,44 +108,6 @@
         [self.listOfSelectedContacts removeAllObjects];
     }
 }
-
-
-- (void) onContactsLookupCheckStarted
-{
-    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Checking contacts against lookup server ..." inView:self.view];
-}
-
-- (void) onContactsPeerFilesLoadingStarted
-{
-    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Getting peer files for contacts ..." inView:self.view];
-}
-- (void) onContactsLoaded
-{
-    NSError *error;
-	if (![self.fetchedResultsController performFetch:&error])
-    {
-		// Update to handle the error appropriately.
-		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-		exit(-1);  // Fail
-	}
-    
-    [self.contactsTableView reloadData];
-    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
-}
-
-#pragma  mark - UINavigationControllerDelegate
-
-- (void)navigationController:(UINavigationController *)navigationController
-       didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
-    [viewController viewDidAppear:animated];
-}
-
-- (void) navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
-    [viewController viewWillAppear:animated];
-}
-
 
 #pragma mark - UITableViewDataSource
 
@@ -186,23 +138,6 @@
     HOPRolodexContact* contact = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     [cell setContact:contact inTable:self.contactsTableView atIndexPath:indexPath];
-    
-    /*[cell setContact:contact];
-    
-    HOPAvatar* avatar = [contact getAvatarForWidth:[NSNumber numberWithFloat:AVATAR_WIDTH] height:[NSNumber numberWithFloat:AVATAR_HEIGHT]];
-    if (avatar)
-    {
-        UIImage* img = [avatar getImage];
-        if (!img)
-            [self startIconDownloadForIndexPath:indexPath];
-        else
-        {
-            cell.displayImage.contentMode = UIViewContentModeScaleAspectFill;
-            cell.displayImage.clipsToBounds = YES;
-            cell.displayImage.image = img;
-        }
-        
-    }*/
     
     if (contact.identityContact)
     {
@@ -307,7 +242,6 @@
     }
 }
 
-
 #pragma mark - NSFetchedResultsController
 - (NSFetchedResultsController *)fetchedResultsController
 {
@@ -323,23 +257,20 @@
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"(associatedIdentity.homeUser.stableId MATCHES '%@')",[[HOPModelManager sharedModelManager] getLastLoggedInHomeUser].stableId]];
     [fetchRequest setPredicate:predicate];
-
+    
 	[fetchRequest setFetchBatchSize:20];
 	
-	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:NO];
+	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
 	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
 	
 	[fetchRequest setSortDescriptors:sortDescriptors];
-
-	_fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[[HOPModelManager sharedModelManager] managedObjectContext] sectionNameKeyPath:nil cacheName:@"RolodexContacts"];
+    
+	//_fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[[HOPModelManager sharedModelManager] managedObjectContext] sectionNameKeyPath:@"firstLetter" cacheName:@"RolodexContacts"];
+    
+    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[[HOPModelManager sharedModelManager] managedObjectContext] sectionNameKeyPath:nil cacheName:@"RolodexContacts"];
     _fetchedResultsController.delegate = self;
-
+    
 	return _fetchedResultsController;
-}
-
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
-{
-	[self.contactsTableView beginUpdates];
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
@@ -350,7 +281,6 @@
 			[self.contactsTableView  insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
 			break;
 		case NSFetchedResultsChangeUpdate:
-            [self.contactsTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationNone];
 			//[[self.contactsTableView cellForRowAtIndexPath:indexPath].textLabel setText:((HOPRolodexContact*)[[[self.fetchedResultsController sections] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]).name];
 			break;
 		case NSFetchedResultsChangeDelete:
@@ -365,40 +295,125 @@
 	}
 }
 
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+#pragma mark UISearchBarDelegate
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-	[self.contactsTableView endUpdates];
+    NSString* predicateString = nil;
+    
+    if ([searchText length] > 0)
+        predicateString = [NSString stringWithFormat:@"(associatedIdentity.homeUser.stableId MATCHES '%@' AND name CONTAINS[c] '%@') ",[[HOPModelManager sharedModelManager] getLastLoggedInHomeUser].stableId,searchText];
+    else
+        predicateString = [NSString stringWithFormat:@"(associatedIdentity.homeUser.stableId MATCHES '%@') ",[[HOPModelManager sharedModelManager] getLastLoggedInHomeUser].stableId];
+    
+    [NSFetchedResultsController deleteCacheWithName:@"RolodexContacts"];
+    
+    //NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    //NSEntityDescription *entity = [NSEntityDescription entityForName:@"HOPRolodexContact" inManagedObjectContext:[[HOPModelManager sharedModelManager] managedObjectContext]];
+    //[fetchRequest setEntity:entity];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateString];
+    [self.fetchedResultsController.fetchRequest setPredicate:predicate];
+    
+    NSError *error;
+	if (![self.fetchedResultsController performFetch:&error])
+    {
+		// Update to handle the error appropriately.
+		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+		exit(-1);  // Fail
+	}
+    
+    [self.contactsTableView reloadData];
 }
 
-- (void)startIconDownloadForIndexPath:(NSIndexPath *)indexPath
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    IconDownloader *iconDownloader = [self.imageDownloadsInProgress objectForKey:indexPath];
-    if (iconDownloader == nil)
-    {
-        iconDownloader = [[IconDownloader alloc] init];
-        HOPRolodexContact* contact = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        HOPAvatar* avatar = ((HOPAvatar*)contact.avatars.anyObject);
-        [iconDownloader setCompletionHandler:^(UIImage* downloadedImage){
-            
-            UITableViewCell *cell = [self.contactsTableView cellForRowAtIndexPath:indexPath];
-            
-            [avatar storeImage:downloadedImage];
-            
-            cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
-            cell.imageView.clipsToBounds = YES;
-            
-            // Display the newly loaded image
-            cell.imageView.image = downloadedImage;
+    [self.searchBar resignFirstResponder];
+}
 
-            [self.contactsTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            
-            // Remove the IconDownloader from the in progress list.
-            // This will result in it being deallocated.
-            [self.imageDownloadsInProgress removeObjectForKey:indexPath];
-            
-        }];
-        [self.imageDownloadsInProgress setObject:iconDownloader forKey:indexPath];
-        [iconDownloader startDownloadForURL:avatar.url];
+
+- (void) onContactsLoaded
+{
+    NSLog(@"onContactsLoaded");
+    NSError *error;
+	if (![self.fetchedResultsController performFetch:&error])
+    {
+		// Update to handle the error appropriately.
+		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+		exit(-1);  // Fail
+	}
+    
+    [self.contactsTableView reloadData];
+    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
+}
+
+- (void) registerForNotifications:(BOOL)registerForNotifications
+{
+    if (registerForNotifications)
+    {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    }
+    else
+    {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     }
 }
+
+- (void) keyboardWillShow:(NSNotification *)notification
+{
+    if (self.oneTapGestureRecognizer)
+        [self.view addGestureRecognizer:self.oneTapGestureRecognizer];
+    
+    self.keyboardIsHidden = NO;
+    [self setFramesSizesForUserInfo:[notification userInfo]];
+}
+
+- (void) keyboardWillHide:(NSNotification *)notification
+{
+    if (self.oneTapGestureRecognizer)
+        [self.view removeGestureRecognizer:self.oneTapGestureRecognizer];
+    
+    self.keyboardIsHidden = YES;
+    [self setFramesSizesForUserInfo:[notification userInfo]];
+}
+- (void) setFramesSizesForUserInfo:(NSDictionary*) userInfo
+{
+    CGFloat keyboardHeight = 0;
+    
+    if (userInfo != nil)
+    {
+        CGRect keyboardFrame;
+        NSValue *ks = [userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey];
+        keyboardFrame = [ks CGRectValue];
+        keyboardHeight = self.keyboardIsHidden ? 0 : keyboardFrame.size.height;
+        //CGRect kF = [self.view convertRect:keyboardFrame toView:nil];
+        //_keyboardLastChange = kF.size.height;
+        
+        NSTimeInterval animD;
+        UIViewAnimationCurve animC;
+        
+        [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] getValue:&animC];
+        [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&animD];
+        
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration: animD];
+        [UIView setAnimationCurve:animC];
+    }
+    
+    // set initial size, chat view
+    CGRect contactsTableViewRect = self.contactsTableView.frame;
+    //contactsTableViewRect.origin.y = 0.0;//topSessionView.frame.size.height;
+    
+    if (!self.keyboardIsHidden)
+        contactsTableViewRect.size.height = self.view.frame.size.height - self.searchBar.viewForBaselineLayout.frame.size.height - keyboardHeight + self.tabBarController.tabBar.frame.size.height;
+    else
+        contactsTableViewRect.size.height = self.view.frame.size.height - self.searchBar.viewForBaselineLayout.frame.size.height;    self.contactsTableView.frame = contactsTableViewRect;
+
+    
+    if (userInfo)
+        [UIView commitAnimations];
+}
+
 @end

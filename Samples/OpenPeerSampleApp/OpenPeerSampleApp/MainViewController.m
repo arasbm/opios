@@ -46,7 +46,7 @@
 //View controllers
 #import "LoginViewController.h"
 #import "WebLoginViewController.h"
-#import "ContactsTableViewController.h"
+#import "ContactsViewController.h"
 #import "ActiveSessionViewController.h"
 #import "MainViewController.h"
 #import "ChatViewController.h"
@@ -149,7 +149,7 @@
         self.contactsTableViewController = nil;
         
         //Contacts tab
-        self.contactsTableViewController = [[ContactsTableViewController alloc] initWithNibName:@"ContactsTableViewController" bundle:nil];
+        self.contactsTableViewController = [[ContactsViewController alloc] initWithNibName:@"ContactsViewController" bundle:nil];
         self.contactsTableViewController.title = @"Contacts";
         self.tabBarItem.title = @"CONTACTS";
         
@@ -322,7 +322,7 @@
                 return INCOMING_CALL_WHILE_OTHER_INPROGRESS; //Cannot have two active calls at once
             else
             {
-                if (navigationController.visibleViewController && ![navigationController.visibleViewController isKindOfClass:[ContactsTableViewController class]])
+                if (navigationController.visibleViewController && ![navigationController.visibleViewController isKindOfClass:[ContactsViewController class]])
                     return NEW_SESSION_SWITCH; //Incoming call has priority over chat session, so switch from currently active session to new with incoming call
                 else
                     return NEW_SESSION_WITH_CALL; //Create and show a new session with incomming call
@@ -331,7 +331,7 @@
         }
         else if (incomingMessage)
         {
-            if (navigationController.visibleViewController && ![navigationController.visibleViewController isKindOfClass:[ContactsTableViewController class]])
+            if (navigationController.visibleViewController && ![navigationController.visibleViewController isKindOfClass:[ContactsViewController class]])
                 return NEW_SESSION_REFRESH_CHAT; //Create a new session and update chat, but don't switch from existing session
             else
                 return NEW_SESSION_WITH_CHAT; //Create and show a new session with incomming message
@@ -367,7 +367,7 @@
             {
                 return EXISTING_SESSION_REFRESH_CHAT; //Already displayed chat view, so just refresh messages
             }
-            else if ([navigationController.visibleViewController isKindOfClass:[ContactsTableViewController class]])
+            else if ([navigationController.visibleViewController isKindOfClass:[ContactsViewController class]])
             {
                 return EXISTIG_SESSION_SHOW_CHAT; //Move from the contacts list to the chat view for session
             }

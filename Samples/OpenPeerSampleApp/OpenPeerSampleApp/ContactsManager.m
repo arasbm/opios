@@ -35,7 +35,7 @@
 #import "LoginManager.h"
 
 #import "MainViewController.h"
-#import "ContactsTableViewController.h"
+#import "ContactsViewController.h"
 //#import "ContactsViewController.h"
 #import "ActivityIndicatorViewController.h"
 #import "OpenPeer.h"
@@ -117,7 +117,7 @@
         });
         
         dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
-        dispatch_release(sema);
+        //dispatch_release(sema);
     }
     else
     {
