@@ -140,6 +140,12 @@ HOPStack.h
 HOPTypes.h
 - Place where are defined most of enums used in SDK
 
+
+Branches:
+
+Our current activity is being performed on "20131025-federated-cloud-contacts" but this branch is unstable. Individual activity is on other sub-branches from this branch.
+
+
 Contact info:
 
 Please contact robin@hookflash.com if you have any suggestions to improve the API. Please use support@hookflash.com for any bug reports. New feature requests should be directed to erik@hookflash.com.
