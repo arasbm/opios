@@ -48,6 +48,25 @@
 		871C7B9617FEDC3600BE641B /* OpenPeerLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 871C7B9517FEDC3600BE641B /* OpenPeerLogo.png */; };
 		871C7B9817FEDCEE00BE641B /* OpenPeerLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 871C7B9717FEDCEE00BE641B /* OpenPeerLogo@2x.png */; };
 		871C7B9A17FEDD8900BE641B /* gear_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 871C7B9917FEDD8900BE641B /* gear_icon.png */; };
+		87224729182D01AB0027DA50 /* iPhone_lightning_bolt.png in Resources */ = {isa = PBXBuildFile; fileRef = 87224727182D01AB0027DA50 /* iPhone_lightning_bolt.png */; };
+		8722472A182D01AB0027DA50 /* iPhone_lightning_bolt@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87224728182D01AB0027DA50 /* iPhone_lightning_bolt@2x.png */; };
+		87224732182D02F30027DA50 /* AudioCallViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8722472D182D02F30027DA50 /* AudioCallViewController.xib */; };
+		87224733182D02F30027DA50 /* AudioCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8722472E182D02F30027DA50 /* AudioCallViewController.m */; };
+		87224734182D02F30027DA50 /* CallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87224730182D02F30027DA50 /* CallViewController.m */; };
+		8722474C182D15750027DA50 /* iPhone_menu_grid_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 8722474A182D15750027DA50 /* iPhone_menu_grid_background.png */; };
+		8722474D182D15750027DA50 /* iPhone_menu_grid_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8722474B182D15750027DA50 /* iPhone_menu_grid_background@2x.png */; };
+		87224758182D165A0027DA50 /* audio-call-mic-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 8722474E182D165A0027DA50 /* audio-call-mic-active.png */; };
+		87224759182D165A0027DA50 /* audio-call-mic-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8722474F182D165A0027DA50 /* audio-call-mic-active@2x.png */; };
+		8722475A182D165A0027DA50 /* audio-call-mic-press.png in Resources */ = {isa = PBXBuildFile; fileRef = 87224750182D165A0027DA50 /* audio-call-mic-press.png */; };
+		8722475B182D165A0027DA50 /* audio-call-speaker-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 87224751182D165A0027DA50 /* audio-call-speaker-active.png */; };
+		8722475C182D165A0027DA50 /* audio-call-speaker-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87224752182D165A0027DA50 /* audio-call-speaker-active@2x.png */; };
+		8722475D182D165A0027DA50 /* audio-call-speaker-press.png in Resources */ = {isa = PBXBuildFile; fileRef = 87224753182D165A0027DA50 /* audio-call-speaker-press.png */; };
+		8722475E182D165A0027DA50 /* iPhone_audio_add_caller.png in Resources */ = {isa = PBXBuildFile; fileRef = 87224754182D165A0027DA50 /* iPhone_audio_add_caller.png */; };
+		8722475F182D165A0027DA50 /* iPhone_audio_add_caller@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87224755182D165A0027DA50 /* iPhone_audio_add_caller@2x.png */; };
+		87224760182D165A0027DA50 /* iPhone_audio_camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 87224756182D165A0027DA50 /* iPhone_audio_camera.png */; };
+		87224761182D165A0027DA50 /* iPhone_audio_camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87224757182D165A0027DA50 /* iPhone_audio_camera@2x.png */; };
+		87224764182D170B0027DA50 /* call_recording_red_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 87224762182D170B0027DA50 /* call_recording_red_button.png */; };
+		87224765182D170B0027DA50 /* call_recording_white_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 87224763182D170B0027DA50 /* call_recording_white_button.png */; };
 		8722A67317CF7FAE002A3BB6 /* ContactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8722A67017CF7FAD002A3BB6 /* ContactTableViewCell.xib */; };
 		8722A67417CF7FAE002A3BB6 /* ContactTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8722A67117CF7FAD002A3BB6 /* ContactTableViewCell.m */; };
 		8722A67E17D35AB3002A3BB6 /* video_indicator_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 8722A67B17D35AB3002A3BB6 /* video_indicator_blue.png */; };
@@ -235,6 +254,27 @@
 		871C7B9517FEDC3600BE641B /* OpenPeerLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OpenPeerLogo.png; sourceTree = "<group>"; };
 		871C7B9717FEDCEE00BE641B /* OpenPeerLogo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OpenPeerLogo@2x.png"; sourceTree = "<group>"; };
 		871C7B9917FEDD8900BE641B /* gear_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gear_icon.png; sourceTree = "<group>"; };
+		87224727182D01AB0027DA50 /* iPhone_lightning_bolt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_lightning_bolt.png; sourceTree = "<group>"; };
+		87224728182D01AB0027DA50 /* iPhone_lightning_bolt@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_lightning_bolt@2x.png"; sourceTree = "<group>"; };
+		8722472D182D02F30027DA50 /* AudioCallViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AudioCallViewController.xib; sourceTree = "<group>"; };
+		8722472E182D02F30027DA50 /* AudioCallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioCallViewController.m; sourceTree = "<group>"; };
+		8722472F182D02F30027DA50 /* CallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallViewController.h; sourceTree = "<group>"; };
+		87224730182D02F30027DA50 /* CallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallViewController.m; sourceTree = "<group>"; };
+		87224731182D02F30027DA50 /* AudioCallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioCallViewController.h; sourceTree = "<group>"; };
+		8722474A182D15750027DA50 /* iPhone_menu_grid_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_menu_grid_background.png; sourceTree = "<group>"; };
+		8722474B182D15750027DA50 /* iPhone_menu_grid_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_menu_grid_background@2x.png"; sourceTree = "<group>"; };
+		8722474E182D165A0027DA50 /* audio-call-mic-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "audio-call-mic-active.png"; sourceTree = "<group>"; };
+		8722474F182D165A0027DA50 /* audio-call-mic-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "audio-call-mic-active@2x.png"; sourceTree = "<group>"; };
+		87224750182D165A0027DA50 /* audio-call-mic-press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "audio-call-mic-press.png"; sourceTree = "<group>"; };
+		87224751182D165A0027DA50 /* audio-call-speaker-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "audio-call-speaker-active.png"; sourceTree = "<group>"; };
+		87224752182D165A0027DA50 /* audio-call-speaker-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "audio-call-speaker-active@2x.png"; sourceTree = "<group>"; };
+		87224753182D165A0027DA50 /* audio-call-speaker-press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "audio-call-speaker-press.png"; sourceTree = "<group>"; };
+		87224754182D165A0027DA50 /* iPhone_audio_add_caller.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_audio_add_caller.png; sourceTree = "<group>"; };
+		87224755182D165A0027DA50 /* iPhone_audio_add_caller@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_audio_add_caller@2x.png"; sourceTree = "<group>"; };
+		87224756182D165A0027DA50 /* iPhone_audio_camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_audio_camera.png; sourceTree = "<group>"; };
+		87224757182D165A0027DA50 /* iPhone_audio_camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_audio_camera@2x.png"; sourceTree = "<group>"; };
+		87224762182D170B0027DA50 /* call_recording_red_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = call_recording_red_button.png; sourceTree = "<group>"; };
+		87224763182D170B0027DA50 /* call_recording_white_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = call_recording_white_button.png; sourceTree = "<group>"; };
 		8722A67017CF7FAD002A3BB6 /* ContactTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactTableViewCell.xib; sourceTree = "<group>"; };
 		8722A67117CF7FAD002A3BB6 /* ContactTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactTableViewCell.m; sourceTree = "<group>"; };
 		8722A67217CF7FAD002A3BB6 /* ContactTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactTableViewCell.h; sourceTree = "<group>"; };
@@ -524,59 +564,75 @@
 		8713363517CCBD6F008C91F7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				87224762182D170B0027DA50 /* call_recording_red_button.png */,
+				87224763182D170B0027DA50 /* call_recording_white_button.png */,
+				8722474E182D165A0027DA50 /* audio-call-mic-active.png */,
+				8722474F182D165A0027DA50 /* audio-call-mic-active@2x.png */,
+				87224750182D165A0027DA50 /* audio-call-mic-press.png */,
+				87224751182D165A0027DA50 /* audio-call-speaker-active.png */,
+				87224752182D165A0027DA50 /* audio-call-speaker-active@2x.png */,
+				87224753182D165A0027DA50 /* audio-call-speaker-press.png */,
+				87224754182D165A0027DA50 /* iPhone_audio_add_caller.png */,
+				87224755182D165A0027DA50 /* iPhone_audio_add_caller@2x.png */,
+				87224756182D165A0027DA50 /* iPhone_audio_camera.png */,
+				87224757182D165A0027DA50 /* iPhone_audio_camera@2x.png */,
+				8722474A182D15750027DA50 /* iPhone_menu_grid_background.png */,
+				8722474B182D15750027DA50 /* iPhone_menu_grid_background@2x.png */,
+				8719AB1017CE2C60007E991B /* audio_call_incoming_accept_button.png */,
+				8719AB0F17CE2C60007E991B /* audio_call_incoming_decline_button.png */,
+				8722A67D17D35AB3002A3BB6 /* audio_indicator_blue.png */,
+				8722A69617D375E4002A3BB6 /* avatar.png */,
 				8757E1C41827E7AE00D7BDA1 /* chat_bubble_left.png */,
 				8757E1C51827E7AE00D7BDA1 /* chat_bubble_right.png */,
-				8757E1C01827E66800D7BDA1 /* iPhone_send_button.png */,
-				8757E1C11827E66800D7BDA1 /* iPhone_send_button@2x.png */,
-				8757E1B81827E5A200D7BDA1 /* iPhone_chat_textfield_bkgd.png */,
-				8757E1B91827E5A200D7BDA1 /* iPhone_chat_textfield_bkgd@2x.png */,
-				8757E1BA1827E5A200D7BDA1 /* iPhone_chat_textfield.png */,
-				8757E1BB1827E5A200D7BDA1 /* iPhone_chat_textfield@2x.png */,
+				8722A67C17D35AB3002A3BB6 /* chat_indicator_blue.png */,
 				87E4D9FD180D3545002CA2D4 /* facebook_tag.png */,
 				87E4D9FE180D3545002CA2D4 /* facebook_tag@2x.png */,
-				87E4D9A4180BE199002CA2D4 /* OpenPeerLogo29.png */,
-				87E4D9A5180BE199002CA2D4 /* OpenPeerLogo58.png */,
-				87E4D9A6180BE199002CA2D4 /* OpenPeerLogo80.png */,
-				87E4D99C180BE07F002CA2D4 /* OpenPeerLogo57.png */,
-				87E4D99D180BE07F002CA2D4 /* OpenPeerLogo114.png */,
-				87E4D99E180BE07F002CA2D4 /* OpenPeerLogo120.png */,
-				87A1086D1802CD92001F705D /* logger@2x.png */,
-				87A1086B1802CBDC001F705D /* logger.png */,
 				871C7B9917FEDD8900BE641B /* gear_icon.png */,
-				871C7B9717FEDCEE00BE641B /* OpenPeerLogo@2x.png */,
-				871C7B9517FEDC3600BE641B /* OpenPeerLogo.png */,
-				8712BE6717D8CC7C00665F42 /* iPhone_top_bar_background@2x.png */,
-				8712BE6817D8CC7C00665F42 /* iPhone_top_bar_background.png */,
-				8712BE6917D8CC7C00665F42 /* iPhone_tabBar_settings_inactive_Icon@2x.png */,
-				8712BE6A17D8CC7C00665F42 /* iPhone_tabBar_settings_inactive_Icon.png */,
-				8712BE6B17D8CC7C00665F42 /* iPhone_tabBar_settings_active_Icon@2x.png */,
-				8712BE6C17D8CC7C00665F42 /* iPhone_tabBar_settings_active_Icon.png */,
-				8712BE6D17D8CC7C00665F42 /* iPhone_tabBar_contacts_inactive@2x.png */,
-				8712BE6E17D8CC7C00665F42 /* iPhone_tabBar_contacts_inactive.png */,
-				8712BE6F17D8CC7C00665F42 /* iPhone_tabBar_contacts_active@2x.png */,
-				8712BE7017D8CC7C00665F42 /* iPhone_tabBar_contacts_active.png */,
-				8712BE7117D8CC7C00665F42 /* iPhone_tabBar_bkgd@2x.png */,
-				8712BE7217D8CC7C00665F42 /* iPhone_tabBar_bkgd.png */,
-				8712BE7317D8CC7C00665F42 /* iPhone_back_button@2x.png */,
 				8712BE7417D8CC7C00665F42 /* iPhone_back_button.png */,
-				8722A69617D375E4002A3BB6 /* avatar.png */,
-				8722A67B17D35AB3002A3BB6 /* video_indicator_blue.png */,
-				8722A67C17D35AB3002A3BB6 /* chat_indicator_blue.png */,
-				8722A67D17D35AB3002A3BB6 /* audio_indicator_blue.png */,
-				8719AB0F17CE2C60007E991B /* audio_call_incoming_decline_button.png */,
-				8719AB1017CE2C60007E991B /* audio_call_incoming_accept_button.png */,
-				8719AB0917CE0CEE007E991B /* iPhone_background_navigation_mode@2x.png */,
-				8719AB0A17CE0CEE007E991B /* iPhone_background_navigation_mode.png */,
-				8719AB0B17CE0CEE007E991B /* iPhone_background_navigation_mode-568h@2x.png */,
-				8719AB0517CE0710007E991B /* tableViewCell_selected@2x.png */,
-				8719AB0617CE0710007E991B /* tableViewCell_selected.png */,
-				8719AAFF17CE0523007E991B /* tableViewCell@2x.png */,
-				8719AB0017CE0523007E991B /* tableViewCell.png */,
-				8713363C17CCC10B008C91F7 /* iPhone_blue_button@2x.png */,
-				8713363D17CCC10B008C91F7 /* iPhone_blue_button.png */,
+				8712BE7317D8CC7C00665F42 /* iPhone_back_button@2x.png */,
 				8713363617CCBD6F008C91F7 /* iPhone_background-568h@2x.png */,
 				8713363717CCBD6F008C91F7 /* iPhone_background.png */,
 				8713363817CCBD6F008C91F7 /* iPhone_background@2x.png */,
+				8719AB0B17CE0CEE007E991B /* iPhone_background_navigation_mode-568h@2x.png */,
+				8719AB0A17CE0CEE007E991B /* iPhone_background_navigation_mode.png */,
+				8719AB0917CE0CEE007E991B /* iPhone_background_navigation_mode@2x.png */,
+				8713363D17CCC10B008C91F7 /* iPhone_blue_button.png */,
+				8713363C17CCC10B008C91F7 /* iPhone_blue_button@2x.png */,
+				8757E1BA1827E5A200D7BDA1 /* iPhone_chat_textfield.png */,
+				8757E1BB1827E5A200D7BDA1 /* iPhone_chat_textfield@2x.png */,
+				8757E1B81827E5A200D7BDA1 /* iPhone_chat_textfield_bkgd.png */,
+				8757E1B91827E5A200D7BDA1 /* iPhone_chat_textfield_bkgd@2x.png */,
+				87224727182D01AB0027DA50 /* iPhone_lightning_bolt.png */,
+				87224728182D01AB0027DA50 /* iPhone_lightning_bolt@2x.png */,
+				8757E1C01827E66800D7BDA1 /* iPhone_send_button.png */,
+				8757E1C11827E66800D7BDA1 /* iPhone_send_button@2x.png */,
+				8712BE7217D8CC7C00665F42 /* iPhone_tabBar_bkgd.png */,
+				8712BE7117D8CC7C00665F42 /* iPhone_tabBar_bkgd@2x.png */,
+				8712BE7017D8CC7C00665F42 /* iPhone_tabBar_contacts_active.png */,
+				8712BE6F17D8CC7C00665F42 /* iPhone_tabBar_contacts_active@2x.png */,
+				8712BE6E17D8CC7C00665F42 /* iPhone_tabBar_contacts_inactive.png */,
+				8712BE6D17D8CC7C00665F42 /* iPhone_tabBar_contacts_inactive@2x.png */,
+				8712BE6C17D8CC7C00665F42 /* iPhone_tabBar_settings_active_Icon.png */,
+				8712BE6B17D8CC7C00665F42 /* iPhone_tabBar_settings_active_Icon@2x.png */,
+				8712BE6A17D8CC7C00665F42 /* iPhone_tabBar_settings_inactive_Icon.png */,
+				8712BE6917D8CC7C00665F42 /* iPhone_tabBar_settings_inactive_Icon@2x.png */,
+				8712BE6817D8CC7C00665F42 /* iPhone_top_bar_background.png */,
+				8712BE6717D8CC7C00665F42 /* iPhone_top_bar_background@2x.png */,
+				87A1086B1802CBDC001F705D /* logger.png */,
+				87A1086D1802CD92001F705D /* logger@2x.png */,
+				871C7B9517FEDC3600BE641B /* OpenPeerLogo.png */,
+				87E4D99D180BE07F002CA2D4 /* OpenPeerLogo114.png */,
+				87E4D99E180BE07F002CA2D4 /* OpenPeerLogo120.png */,
+				87E4D9A4180BE199002CA2D4 /* OpenPeerLogo29.png */,
+				87E4D99C180BE07F002CA2D4 /* OpenPeerLogo57.png */,
+				87E4D9A5180BE199002CA2D4 /* OpenPeerLogo58.png */,
+				87E4D9A6180BE199002CA2D4 /* OpenPeerLogo80.png */,
+				871C7B9717FEDCEE00BE641B /* OpenPeerLogo@2x.png */,
+				8719AB0017CE0523007E991B /* tableViewCell.png */,
+				8719AAFF17CE0523007E991B /* tableViewCell@2x.png */,
+				8719AB0617CE0710007E991B /* tableViewCell_selected.png */,
+				8719AB0517CE0710007E991B /* tableViewCell_selected@2x.png */,
+				8722A67B17D35AB3002A3BB6 /* video_indicator_blue.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -721,6 +777,11 @@
 		87FC39F81709BB66002030D1 /* Session */ = {
 			isa = PBXGroup;
 			children = (
+				8722472D182D02F30027DA50 /* AudioCallViewController.xib */,
+				8722472E182D02F30027DA50 /* AudioCallViewController.m */,
+				8722472F182D02F30027DA50 /* CallViewController.h */,
+				87224730182D02F30027DA50 /* CallViewController.m */,
+				87224731182D02F30027DA50 /* AudioCallViewController.h */,
 				87E4DA03180D4E8D002CA2D4 /* SoundsManager.h */,
 				87E4DA04180D4E8D002CA2D4 /* SoundsManager.m */,
 				87F09EDD171EBB1A0045F6A6 /* ChatViewController.xib */,
@@ -730,9 +791,9 @@
 				87F09EE1171EBB1B0045F6A6 /* ChatMessageCell.h */,
 				875CD7E0167A14810037396B /* SessionManager.h */,
 				875CD7E1167A14810037396B /* SessionManager.m */,
+				87421DA2168274BB00699479 /* ActiveSessionViewController.xib */,
 				87421DA0168274BB00699479 /* ActiveSessionViewController.h */,
 				87421DA1168274BB00699479 /* ActiveSessionViewController.m */,
-				87421DA2168274BB00699479 /* ActiveSessionViewController.xib */,
 				87FC39F51709BB36002030D1 /* MessageManager.m */,
 				87FC39F61709BB37002030D1 /* MessageManager.h */,
 				8757E17D1827A0BF00D7BDA1 /* SessionViewController_iPhone.h */,
@@ -872,6 +933,7 @@
 				871C7B9617FEDC3600BE641B /* OpenPeerLogo.png in Resources */,
 				87272851166CC1810089CBB6 /* MainViewController.xib in Resources */,
 				87272856166CC2640089CBB6 /* LoginViewController.xib in Resources */,
+				87224758182D165A0027DA50 /* audio-call-mic-active.png in Resources */,
 				87EE6070166F667C002C5FA3 /* WebLoginViewController.xib in Resources */,
 				87E4DA11180D5082002CA2D4 /* message-received.wav in Resources */,
 				87421DA4168274BB00699479 /* ActiveSessionViewController.xib in Resources */,
@@ -879,9 +941,11 @@
 				87E4DA12180D5082002CA2D4 /* message-send.wav in Resources */,
 				87A1086C1802CBDC001F705D /* logger.png in Resources */,
 				87F11AF017C2854700CFE85D /* OpenPeerDataModel.bundle in Resources */,
+				8722475E182D165A0027DA50 /* iPhone_audio_add_caller.png in Resources */,
 				870F3380168376450090A97F /* ActivityIndicatorViewController.xib in Resources */,
 				87F09EE2171EBB1B0045F6A6 /* ChatViewController.xib in Resources */,
 				87355FE517CCA7E3006151E7 /* Default.png in Resources */,
+				8722475B182D165A0027DA50 /* audio-call-speaker-active.png in Resources */,
 				87355FE917CCA8AF006151E7 /* Default@2x.png in Resources */,
 				8713363217CCB676008C91F7 /* Default-568h@2x.png in Resources */,
 				8713363917CCBD6F008C91F7 /* iPhone_background-568h@2x.png in Resources */,
@@ -901,16 +965,22 @@
 				8719AB0D17CE0CEE007E991B /* iPhone_background_navigation_mode.png in Resources */,
 				8719AB0E17CE0CEE007E991B /* iPhone_background_navigation_mode-568h@2x.png in Resources */,
 				8719AB1117CE2C60007E991B /* audio_call_incoming_decline_button.png in Resources */,
+				87224765182D170B0027DA50 /* call_recording_white_button.png in Resources */,
 				8719AB1217CE2C60007E991B /* audio_call_incoming_accept_button.png in Resources */,
 				8757E1BD1827E5A200D7BDA1 /* iPhone_chat_textfield_bkgd@2x.png in Resources */,
 				87E4D9A7180BE199002CA2D4 /* OpenPeerLogo29.png in Resources */,
 				8722A67317CF7FAE002A3BB6 /* ContactTableViewCell.xib in Resources */,
+				87224761182D165A0027DA50 /* iPhone_audio_camera@2x.png in Resources */,
+				8722472A182D01AB0027DA50 /* iPhone_lightning_bolt@2x.png in Resources */,
 				8722A67E17D35AB3002A3BB6 /* video_indicator_blue.png in Resources */,
 				8722A67F17D35AB3002A3BB6 /* chat_indicator_blue.png in Resources */,
 				87E4D9A0180BE07F002CA2D4 /* OpenPeerLogo114.png in Resources */,
+				8722475D182D165A0027DA50 /* audio-call-speaker-press.png in Resources */,
 				8722A68017D35AB3002A3BB6 /* audio_indicator_blue.png in Resources */,
 				8722A69717D375E4002A3BB6 /* avatar.png in Resources */,
 				8712BE7517D8CC7C00665F42 /* iPhone_top_bar_background@2x.png in Resources */,
+				87224760182D165A0027DA50 /* iPhone_audio_camera.png in Resources */,
+				87224732182D02F30027DA50 /* AudioCallViewController.xib in Resources */,
 				8712BE7617D8CC7C00665F42 /* iPhone_top_bar_background.png in Resources */,
 				8712BE7717D8CC7C00665F42 /* iPhone_tabBar_settings_inactive_Icon@2x.png in Resources */,
 				8757E1A11827BD2200D7BDA1 /* ContactsViewController.xib in Resources */,
@@ -919,21 +989,29 @@
 				8757E1831827A10E00D7BDA1 /* SessionViewController_iPhone.xib in Resources */,
 				8757E1C31827E66800D7BDA1 /* iPhone_send_button@2x.png in Resources */,
 				8712BE7817D8CC7C00665F42 /* iPhone_tabBar_settings_inactive_Icon.png in Resources */,
+				8722475A182D165A0027DA50 /* audio-call-mic-press.png in Resources */,
 				8712BE7917D8CC7C00665F42 /* iPhone_tabBar_settings_active_Icon@2x.png in Resources */,
 				8712BE7A17D8CC7C00665F42 /* iPhone_tabBar_settings_active_Icon.png in Resources */,
 				8712BE7B17D8CC7C00665F42 /* iPhone_tabBar_contacts_inactive@2x.png in Resources */,
 				87E4DA14180D5082002CA2D4 /* ringing.caf in Resources */,
 				87E4D9A1180BE07F002CA2D4 /* OpenPeerLogo120.png in Resources */,
 				8757E1C71827E7AE00D7BDA1 /* chat_bubble_right.png in Resources */,
+				8722475F182D165A0027DA50 /* iPhone_audio_add_caller@2x.png in Resources */,
 				87E4D9FF180D3545002CA2D4 /* facebook_tag.png in Resources */,
 				8712BE7C17D8CC7C00665F42 /* iPhone_tabBar_contacts_inactive.png in Resources */,
 				8757E1BE1827E5A200D7BDA1 /* iPhone_chat_textfield.png in Resources */,
+				8722474D182D15750027DA50 /* iPhone_menu_grid_background@2x.png in Resources */,
 				8712BE7D17D8CC7C00665F42 /* iPhone_tabBar_contacts_active@2x.png in Resources */,
 				87E4DA00180D3545002CA2D4 /* facebook_tag@2x.png in Resources */,
 				8712BE7E17D8CC7C00665F42 /* iPhone_tabBar_contacts_active.png in Resources */,
 				87E4D9A8180BE199002CA2D4 /* OpenPeerLogo58.png in Resources */,
 				8712BE7F17D8CC7C00665F42 /* iPhone_tabBar_bkgd@2x.png in Resources */,
+				87224729182D01AB0027DA50 /* iPhone_lightning_bolt.png in Resources */,
+				87224764182D170B0027DA50 /* call_recording_red_button.png in Resources */,
 				871C7B9A17FEDD8900BE641B /* gear_icon.png in Resources */,
+				8722474C182D15750027DA50 /* iPhone_menu_grid_background.png in Resources */,
+				8722475C182D165A0027DA50 /* audio-call-speaker-active@2x.png in Resources */,
+				87224759182D165A0027DA50 /* audio-call-mic-active@2x.png in Resources */,
 				87E4D9A9180BE199002CA2D4 /* OpenPeerLogo80.png in Resources */,
 				8757E1C61827E7AE00D7BDA1 /* chat_bubble_left.png in Resources */,
 				8712BE8017D8CC7C00665F42 /* iPhone_tabBar_bkgd.png in Resources */,
@@ -983,6 +1061,7 @@
 				87FC3A161709BD8D002030D1 /* SBJsonParser.m in Sources */,
 				87FC3A171709BD8D002030D1 /* SBJsonStreamParser.m in Sources */,
 				87FC3A181709BD8D002030D1 /* SBJsonStreamParserAccumulator.m in Sources */,
+				87224734182D02F30027DA50 /* CallViewController.m in Sources */,
 				87FC3A191709BD8D002030D1 /* SBJsonStreamParserAdapter.m in Sources */,
 				87FC3A1A1709BD8D002030D1 /* SBJsonStreamParserState.m in Sources */,
 				87FC3A1B1709BD8D002030D1 /* SBJsonStreamTokeniser.m in Sources */,
@@ -995,6 +1074,7 @@
 				87F09EE4171EBB1B0045F6A6 /* ChatMessageCell.m in Sources */,
 				87F09EE7171EBB2A0045F6A6 /* Message.m in Sources */,
 				87E3CCE7172A814F00084D2F /* IdentityLookupDelegate.m in Sources */,
+				87224733182D02F30027DA50 /* AudioCallViewController.m in Sources */,
 				87D91B2A17687EFD00E46B66 /* CacheDelegate.m in Sources */,
 				8722A67417CF7FAE002A3BB6 /* ContactTableViewCell.m in Sources */,
 				8712BE8A17D8CCAD00665F42 /* SettingsViewController.m in Sources */,

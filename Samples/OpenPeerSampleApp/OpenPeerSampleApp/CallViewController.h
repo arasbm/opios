@@ -28,9 +28,31 @@
  either expressed or implied, of the FreeBSD Project.
  
  */
+#import <UIKit/UIKit.h>
 
-@protocol ChatViewControllerDelegate <NSObject>
+@class Session;
 
-- (void) prepareForKeyboard:(NSDictionary*) userInfo showKeyboard:(BOOL) showKeyboard;
+@interface CallViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UILabel *callDurationLabel;
+
+@property (weak,nonatomic) Session *session;
+@property (strong,nonatomic) NSDate *callStartedTime;
+
+- (id) initWithSession:(Session*) inSession;
+
+- (IBAction) callHangup:(id)sender;
+- (IBAction) muteCall:(id)sender;
+- (IBAction) pauseCall:(id)sender;
+- (IBAction) recordCall:(id)sender;
+
+- (void) callStarted;
+- (void)setDefaults;
+
+- (void)handleCallStateChanged;
+- (void)playSoundForSessionState;
+- (void) endAudioCall;
+
+-(void)setControlPositions;
 
 @end

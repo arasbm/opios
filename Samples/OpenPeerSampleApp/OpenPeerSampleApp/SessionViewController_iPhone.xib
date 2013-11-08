@@ -7,6 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SessionViewController_iPhone">
             <connections>
+                <outlet property="constraintBottomViewContainer" destination="uC1-vo-vpf" id="esQ-wI-iKu"/>
+                <outlet property="containerView" destination="4J1-bF-y0Y" id="2TO-2G-k0E"/>
                 <outlet property="view" destination="RtF-gq-RBc" id="mK9-qQ-oxj"/>
             </connections>
         </placeholder>
@@ -19,13 +21,22 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4J1-bF-y0Y" userLabel="View - Container">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.18112814769999999" green="1" blue="0.17616293229999999" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="g3b-zb-yWv" secondAttribute="bottom" id="0hR-Io-1e2"/>
+                <constraint firstItem="4J1-bF-y0Y" firstAttribute="top" secondItem="RtF-gq-RBc" secondAttribute="top" id="Jvy-5g-NT3"/>
                 <constraint firstItem="g3b-zb-yWv" firstAttribute="leading" secondItem="RtF-gq-RBc" secondAttribute="leading" id="L6j-wc-YEE"/>
+                <constraint firstAttribute="trailing" secondItem="4J1-bF-y0Y" secondAttribute="trailing" id="a7i-CK-xeg"/>
+                <constraint firstItem="4J1-bF-y0Y" firstAttribute="leading" secondItem="RtF-gq-RBc" secondAttribute="leading" id="ajE-8n-f72"/>
                 <constraint firstItem="g3b-zb-yWv" firstAttribute="top" secondItem="RtF-gq-RBc" secondAttribute="top" id="eT0-mL-xv0"/>
                 <constraint firstAttribute="trailing" secondItem="g3b-zb-yWv" secondAttribute="trailing" id="gfy-Lk-VL6"/>
+                <constraint firstAttribute="bottom" secondItem="4J1-bF-y0Y" secondAttribute="bottom" id="uC1-vo-vpf"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>

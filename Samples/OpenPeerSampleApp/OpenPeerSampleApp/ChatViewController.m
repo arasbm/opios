@@ -43,13 +43,13 @@
 @property (weak, nonatomic) Session* session;
 
 
-@property (weak, nonatomic) IBOutlet UIView *typingMessageView;
-@property (weak, nonatomic) IBOutlet UITextView *messageTextbox;
+//@property (weak, nonatomic) IBOutlet UIView *typingMessageView;
+
 @property (weak, nonatomic) NSDictionary* userInfo;
 @property (nonatomic) BOOL keyboardIsHidden;
 @property (nonatomic) CGFloat keyboardLastChange;
+@property (nonatomic,strong) UITapGestureRecognizer *tapGesture;
 
-- (void) setFramesSizes;
 - (void) registerForNotifications:(BOOL)registerForNotifications;
 
 - (void) sendIMmessage:(NSString *)message;
@@ -94,6 +94,34 @@
 
 
 #pragma mark - View lifecycle
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    self.keyboardIsHidden = NO;
+    
+    //[self.chatTableView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    //[self.typingMessageView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    //[self.containerView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+    self.chatTableView.backgroundColor = [UIColor clearColor];
+    self.chatTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    [self.messageTextbox setReturnKeyType:UIReturnKeySend];
+    
+    self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+    self.tapGesture.numberOfTapsRequired = 1;
+    
+    
+    [self registerForNotifications:YES];
+    
+    if (!self.keyboardIsHidden)
+    {
+        [self.messageTextbox becomeFirstResponder];
+    }
+    
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [self registerForNotifications:YES];
@@ -102,31 +130,24 @@
     {
         [self.messageTextbox becomeFirstResponder];
     }
-    
+    [self.chatTableView addGestureRecognizer:self.tapGesture];
     [super viewWillAppear:animated];
+}
+
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    return;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [self registerForNotifications:NO];
+    [self.chatTableView removeGestureRecognizer:self.tapGesture];
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    self.keyboardIsHidden = YES;
-    
-    self.chatTableView.backgroundColor = [UIColor clearColor];
-    self.chatTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-    [self.messageTextbox setReturnKeyType:UIReturnKeySend];
-    
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
-    tapGesture.numberOfTapsRequired = 1;
-    [self.chatTableView addGestureRecognizer:tapGesture];
-}
+
 
 - (void) hideKeyboard
 {
@@ -141,85 +162,16 @@
 
 -(void)keyboardWillShow:(NSNotification *)notification
 {
-    [self.delegate prepareForChat];
     self.keyboardIsHidden = NO;
-    
-    self.userInfo = [notification userInfo];       
-   
-    [self setFramesSizes];
+    [self.delegate prepareForKeyboard:[notification userInfo] showKeyboard:YES];
 }
 
 -(void)keyboardWillHide:(NSNotification *)notification
 {
     self.keyboardIsHidden = YES;
-    self.userInfo = [notification userInfo];
-    [self setFramesSizes];
+    [self.delegate prepareForKeyboard:[notification userInfo] showKeyboard:NO];
 }
 
-#pragma mark - Frames handling
--(void) setFramesSizes
-{
-    float chatHeight;
-    if (self.userInfo != nil)
-    {
-        CGRect keyboardFrame;
-        NSValue *ks = [self.userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey];
-        keyboardFrame = [ks CGRectValue];
-        CGRect kF = [self.view convertRect:keyboardFrame toView:nil];
-        self.keyboardLastChange = kF.size.height;
-        
-        NSTimeInterval animD;
-        UIViewAnimationCurve animC;
-        
-        [[self.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] getValue:&animC];
-        [[self.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&animD];
-        
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration: animD]; 
-        [UIView setAnimationCurve:animC];
-    }
-    
-    CGRect viewRect = self.view.superview.frame;
-    if (self.keyboardIsHidden)
-        viewRect.size.height -= self.keyboardLastChange;
-    else
-        viewRect.size.height += self.keyboardLastChange;
-
-    
-    if (self.keyboardIsHidden)
-    {
-        self.keyboardLastChange = 0;
-    }
-    
-    // set initial size, session view
-    
-    
-        
-    
-    // set initial size, chat view
-    CGRect chatRect = self.chatTableView.frame;
-    chatRect.origin.y = 0.0;//topSessionView.frame.size.height;
-    if (!self.typingMessageView.hidden)
-        chatHeight = viewRect.size.height - self.typingMessageView.frame.size.height - self.keyboardLastChange;
-    else 
-        chatHeight = viewRect.size.height - self.keyboardLastChange;
-    
-    self.view.frame = viewRect;
-    NSLog(@"SessionViewContorller frame: %f, %f, %f, %f,",viewRect.origin.x, viewRect.origin.y, viewRect.size.width, viewRect.size.height);
-    
-    chatRect.size.height = chatHeight;
-    //self.chatTableView.frame = chatRect;
-    
-    CGRect textEntryViewRect = self.typingMessageView.frame;
-    textEntryViewRect.origin.y = chatRect.size.height;
-    //self.typingMessageView.frame = textEntryViewRect;
-    [self refreshViewWithData];
-    
-    if (self.userInfo)
-        [UIView commitAnimations];
-    
-    self.userInfo = nil;
-}
 
 #pragma mark - Actions
 - (IBAction) sendButtonPressed : (id) sender
@@ -360,4 +312,6 @@
     self.messageTextbox.text = nil;
     [self refreshViewWithData];
 }
+
 @end
+

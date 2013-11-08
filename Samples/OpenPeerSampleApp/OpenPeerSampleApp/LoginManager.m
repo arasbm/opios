@@ -171,7 +171,8 @@
         
         NSString* redirectAfterLoginCompleteURL = [NSString stringWithFormat:@"%@?reload=true",outerFrameURL];
 
-        if (![[HOPAccount sharedAccount] isCoreAccountCreated])
+        //if (![[HOPAccount sharedAccount] isCoreAccountCreated])
+        if (![[HOPAccount sharedAccount] isCoreAccountCreated] || [[HOPAccount sharedAccount] getState].state == HOPAccountStateShutdown)
             [self startAccount];
         
         //For identity login it is required to pass identity delegate, URL that will be requested upon successful login, identity URI and identity provider domain. This is 

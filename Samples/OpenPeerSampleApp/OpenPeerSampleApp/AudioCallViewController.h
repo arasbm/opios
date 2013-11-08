@@ -29,8 +29,17 @@
  
  */
 
-@protocol ChatViewControllerDelegate <NSObject>
+#import <UIKit/UIKit.h>
+#import "CallViewController.h"
 
-- (void) prepareForKeyboard:(NSDictionary*) userInfo showKeyboard:(BOOL) showKeyboard;
-
+@interface AudioCallViewController : CallViewController
+{
+    bool isSpeakerOn;
+    IBOutlet UIButton *speakerButton;
+    IBOutlet UIButton *muteButton;
+}
+//@property (retain, nonatomic) MediaNavigationViewController* mediaNavigationViewController;
+//@property (assign, nonatomic) id<SessionViewControlleriPhoneDelegate> delegateSessionViewContorller;
+- (IBAction)actionShowChat:(id)sender;
+- (IBAction)actionSwitchToSpeaker:(id)sender;
 @end

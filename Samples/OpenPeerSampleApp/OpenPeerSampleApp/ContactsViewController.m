@@ -78,6 +78,12 @@
     self.oneTapGestureRecognizer.numberOfTapsRequired = 1;
     self.oneTapGestureRecognizer.numberOfTouchesRequired = 1;
  
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    return;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -388,8 +394,6 @@
         NSValue *ks = [userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey];
         keyboardFrame = [ks CGRectValue];
         keyboardHeight = self.keyboardIsHidden ? 0 : keyboardFrame.size.height;
-        //CGRect kF = [self.view convertRect:keyboardFrame toView:nil];
-        //_keyboardLastChange = kF.size.height;
         
         NSTimeInterval animD;
         UIViewAnimationCurve animC;

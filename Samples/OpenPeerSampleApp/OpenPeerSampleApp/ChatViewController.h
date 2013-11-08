@@ -37,8 +37,10 @@
 @interface ChatViewController : UIViewController <UITextViewDelegate,UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *chatTableView;
+@property (weak, nonatomic) IBOutlet UITextView *messageTextbox;
+@property (strong, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) id<ChatViewControllerDelegate> delegate;
-
+@property (weak, nonatomic) IBOutlet UIView *typingMessageView;
 - (id) initWithSession:(Session*)inSession;
 - (void) refreshViewWithData;
 - (void) hideKeyboard;

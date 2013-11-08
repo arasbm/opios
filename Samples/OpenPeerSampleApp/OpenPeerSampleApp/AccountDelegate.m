@@ -125,6 +125,7 @@
                 break;
                 
             case HOPAccountStateShutdown:
+                //[[OpenPeer sharedOpenPeer] shutdown];
                 [[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
                 break;
                 

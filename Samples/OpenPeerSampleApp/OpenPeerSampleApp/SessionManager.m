@@ -348,7 +348,7 @@
             sessionViewController = [[[[OpenPeer sharedOpenPeer] mainViewController] sessionViewControllersDictionary] objectForKey:sessionId];
     }
     //Stop recording if it is placed and remove recording button
-    [sessionViewController stopVideoRecording:YES hideRecordButton:YES];
+    //[sessionViewController stopVideoRecording:YES hideRecordButton:YES];
 }
 
 /**
