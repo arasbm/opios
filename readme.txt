@@ -144,6 +144,7 @@ HOPTypes.h
 Branches:
 
 Our current activity is being performed on "20131025-federated-cloud-contacts" but this branch is unstable. Individual activity is on other sub-branches from this branch.
+https://github.com/openpeer/opios/tree/20131025-federated-cloud-contacts
 
 
 Contact info:
