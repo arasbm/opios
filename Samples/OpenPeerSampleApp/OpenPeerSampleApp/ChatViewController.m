@@ -143,6 +143,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [self.messageTextbox resignFirstResponder];
     [self registerForNotifications:NO];
     [self.chatTableView removeGestureRecognizer:self.tapGesture];
 }

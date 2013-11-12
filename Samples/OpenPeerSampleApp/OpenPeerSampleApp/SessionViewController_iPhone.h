@@ -21,6 +21,12 @@
 
 - (id) initWithSession:(Session*) inSession;
 - (void) updateCallState;
+- (void) showIncomingCall:(BOOL) show;
+- (IBAction) startAudioSession:(id)sender;
+- (void) removeCallViews;
+- (void) startTimer;
+- (void) stopTimer;
+- (void) onCallEnded;
 @end
 
 

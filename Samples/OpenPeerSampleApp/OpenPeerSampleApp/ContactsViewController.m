@@ -98,6 +98,8 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [self registerForNotifications:NO];
+    if (self.oneTapGestureRecognizer)
+        [self.view removeGestureRecognizer:self.oneTapGestureRecognizer];
 }
 
 - (void)didReceiveMemoryWarning

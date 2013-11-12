@@ -11,24 +11,24 @@
 #import "SessionManager.h"
 #import "ChatViewController.h"
 #import "AudioCallViewController.h"
+#import "IncomingCallViewController.h"
 #import "Utility.h"
 #import <OpenPeerSDK/HOPCall.h>
 
 @interface SessionViewController_iPhone ()
-{
-    UILabel* labelTitle;
-}
-@property (nonatomic, weak) IBOutlet UIView* containerView;
 
+@property (nonatomic, weak) IBOutlet UIView* containerView;
+@property (nonatomic, strong) IncomingCallViewController* incomingCallViewController;
 //It is set to strong because during life cycle it will be situations when this constrain will be removed from self.view. (e.g. showing keyboard)
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *constraintBottomViewContainer;
 
-@property (strong, nonatomic)  NSLayoutConstraint *constraintHeightViewContainer;
-@property (strong, nonatomic)  UILabel* labelTitle;
-@property (strong, nonatomic)  UILabel* labelDuration;
-
+@property (nonatomic, strong)  NSLayoutConstraint *constraintHeightViewContainer;
+@property (nonatomic, strong)  UILabel* labelTitle;
+@property (nonatomic, strong)  UILabel* labelDuration;
+@property (nonatomic, strong) NSTimer* callTimer;
+@property (nonatomic) int callDuration;
 - (void) actionCallMenu;
-- (IBAction) startAudioSession:(id)sender;
+-(void)updateCallDuration;
 @end
 
 @implementation SessionViewController_iPhone
@@ -102,16 +102,16 @@
     UIView* titleView = [[ UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 44.0)];
     titleView.backgroundColor = [UIColor clearColor];
     
-    self.labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 4.0, 180.0, 24.0)];
+    self.labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 3.0, 180.0, 24.0)];
     self.labelTitle.text = [[[self.session participantsArray]objectAtIndex:0] name];
     [self.labelTitle setFont:[UIFont fontWithName:@"Helvetica-Bold" size:22.0]];
     self.labelTitle.textColor = [UIColor whiteColor];
     self.labelTitle.textAlignment = NSTextAlignmentCenter;
     
-    self.labelDuration = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 24.0, 160.0, 16.0)];
+    self.labelDuration = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 26.0, 160.0, 16.0)];
     [self.labelDuration setFont:[UIFont fontWithName:@"Helvetica" size:14.0]];
     self.labelDuration.textColor = [UIColor whiteColor];
-    self.labelDuration.text = @"Duration: 00:00:00";
+    //self.labelDuration.text = @"Duration: 00:00:00";
     self.labelDuration.textAlignment = NSTextAlignmentCenter;
     
     [titleView addSubview:self.labelTitle];
@@ -272,14 +272,70 @@
         [self.labelDuration setText:stateStr];
 }
 
-//-(void)updateCallDuration
-//{
-//    self.callDuration++;
-//    NSInteger secs =    self.callDuration % 60;
-//    NSInteger mins = (self.callDuration / 60) % 60;
-//    NSInteger hrs = (self.callDuration / 3600);
-//    
-//    self.labelDuration.text = [NSString stringWithFormat:@"%@: %02i:%02i:%02i", NSLocalizedString(@"Duration", @""), hrs, mins, secs];
-//}
+- (void) showIncomingCall:(BOOL) show
+{
+    if (show)
+    {
+        [self.chatViewController hideKeyboard];
+        self.incomingCallViewController = [[IncomingCallViewController alloc] initWithSession:self.session];
+        [self.incomingCallViewController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.containerView addSubview:self.incomingCallViewController.view];
+        
+        [self.containerView addConstraint:[NSLayoutConstraint constraintWithItem:self.incomingCallViewController.view attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.containerView attribute:NSLayoutAttributeTop multiplier:1.0 constant:0]];
+        
+        [self.containerView addConstraint:[NSLayoutConstraint constraintWithItem:self.incomingCallViewController.view attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.containerView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0]];
+        
+        [self.containerView addConstraint:[NSLayoutConstraint constraintWithItem:self.incomingCallViewController.view attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.containerView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-self.chatViewController.typingMessageView.frame.size.height]];
+        
+        [self.containerView addConstraint:[NSLayoutConstraint constraintWithItem:self.incomingCallViewController.view attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.containerView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0]];
+    }
+    else
+    {
+        [self.incomingCallViewController.view removeFromSuperview];
+    }
+}
+
+- (void) removeCallViews
+{
+    [self showIncomingCall:NO];
+    if (self.audioCallViewController && self.audioCallViewController.view)
+    {
+        [self.audioCallViewController.view removeFromSuperview];
+        self.audioCallViewController = nil;
+    }
+}
+
+
+- (void)startTimer
+{
+    self.callDuration = 0;
+    [self updateCallDuration];
+    self.callTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateCallDuration) userInfo:nil repeats:YES];
+}
+
+-(void)stopTimer
+{
+    [self.callTimer invalidate];
+    self.callTimer = nil;
+    self.labelDuration.text = @"";
+}
+
+-(void)updateCallDuration
+{
+    self.callDuration++;
+    NSInteger secs =    self.callDuration % 60;
+    NSInteger mins = (self.callDuration / 60) % 60;
+    NSInteger hrs = (self.callDuration / 3600);
+    
+    self.labelDuration.text = [NSString stringWithFormat:@"%@: %02i:%02i:%02i", NSLocalizedString(@"Duration", @""), hrs, mins, secs];
+    
+}
+
+- (void) onCallEnded
+{
+    [self stopTimer];
+    [self removeCallViews];
+    self.labelDuration.text = @"";
+}
 @end
 

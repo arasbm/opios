@@ -399,6 +399,7 @@
 - (void) showIncominCallForSession:(Session*) session
 {
     SessionViewController_iPhone* sessionViewContorller = [self.sessionViewControllersDictionary objectForKey:[[session conversationThread] getThreadId]];
+    [sessionViewContorller showIncomingCall:YES];
     //[sessionViewContorller prepareForIncomingCall];
 }
 
