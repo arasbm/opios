@@ -8,11 +8,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WaitingVideoViewController">
             <connections>
                 <outlet property="callEndedLabel" destination="17" id="18"/>
-                <outlet property="calleeImage" destination="10" id="14"/>
-                <outlet property="callerImage" destination="9" id="11"/>
-                <outlet property="callerName" destination="5" id="12"/>
+                <outlet property="calleeImage" destination="9" id="tAC-J5-YKh"/>
+                <outlet property="callerImage" destination="10" id="c32-y1-X0i"/>
+                <outlet property="callerName" destination="8" id="mkJ-Y0-QyF"/>
                 <outlet property="connectingAnimationImageView" destination="7" id="13"/>
-                <outlet property="participantName" destination="8" id="15"/>
+                <outlet property="participantName" destination="5" id="f6U-aR-tnY"/>
                 <outlet property="view" destination="3" id="16"/>
             </connections>
         </placeholder>
@@ -47,7 +47,7 @@
                         <constraint firstAttribute="height" constant="35" id="qkM-qu-l9p"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="participant name" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="8">
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="caller name" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="8" userLabel="Label - caller name">
                     <rect key="frame" x="59" y="292" width="203" height="28"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -58,7 +58,7 @@
                     <color key="textColor" red="0.49019607840000001" green="0.53725490200000003" blue="0.5568627451" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="caller name" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="5">
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="callee name" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="5" userLabel="Label - callee name">
                     <rect key="frame" x="60" y="92" width="203" height="28"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>

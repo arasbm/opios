@@ -31,8 +31,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class Session;
+
 @interface WaitingVideoViewController : UIViewController
 
+- (id) initWithSession:(Session*) inSession;
 @property (weak, nonatomic) NSString* statusText;
 
 @end

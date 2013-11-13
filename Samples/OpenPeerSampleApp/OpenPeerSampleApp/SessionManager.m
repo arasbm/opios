@@ -340,13 +340,19 @@
     
     SessionViewController_iPhone* sessionViewController = [[[[OpenPeer sharedOpenPeer] mainViewController] sessionViewControllersDictionary] objectForKey:sessionId];
     
-    //TODO: Make HOPRolodex category for HOPContact
     //If it is an incomming call, get show session view controller
     if (![[call getCaller] isSelf])
     {
         [[[OpenPeer sharedOpenPeer] mainViewController] showSessionViewControllerForSession:session forIncomingCall:YES forIncomingMessage:NO];
         if (!sessionViewController)
             sessionViewController = [[[[OpenPeer sharedOpenPeer] mainViewController] sessionViewControllersDictionary] objectForKey:sessionId];
+    }
+    else
+    {
+        if ([call hasVideo])
+            [sessionViewController showWaitingView:YES];
+        else
+            [sessionViewController showCallViewControllerWithVideo:NO];
     }
     //Stop recording if it is placed and remove recording button
     //[sessionViewController stopVideoRecording:YES hideRecordButton:YES];
@@ -396,7 +402,7 @@
      SessionViewController_iPhone* sessionViewController = [[[[OpenPeer sharedOpenPeer] mainViewController] sessionViewControllersDictionary] objectForKey:[[call getConversationThread] getThreadId]];
     
     [sessionViewController showIncomingCall:NO];
-    [sessionViewController startCallWithVideo:[call hasVideo]];
+    [sessionViewController showCallViewControllerWithVideo:[call hasVideo]];
     //[sessionViewController prepareForCall:YES withVideo:[call hasVideo]];
     
     //At this moment it is possible to do recording, so show the recording button

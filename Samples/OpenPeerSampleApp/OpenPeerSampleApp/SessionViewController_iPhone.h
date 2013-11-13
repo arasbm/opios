@@ -49,13 +49,14 @@
 - (id) initWithSession:(Session*) inSession;
 - (void) updateCallState;
 - (void) showIncomingCall:(BOOL) show;
-- (void) startCallWithVideo:(BOOL) videoCall;
+- (void) showCallViewControllerWithVideo:(BOOL) videoCall;
 - (IBAction) startAudioSession:(id)sender;
 - (IBAction) startVideoSession:(id)sender;
 - (void) removeCallViews;
 - (void) startTimer;
 - (void) stopTimer;
 - (void) onCallEnded;
+- (void) showWaitingView:(BOOL) show;
 @end
 
 

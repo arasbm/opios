@@ -229,13 +229,6 @@
                 [action showFromRect:self.view.frame inView:self.view.superview animated:YES];
             }
         }
-//        else //show call controller
-//        {
-//            [self.chatViewController.messageTextbox resignFirstResponder];
-//            //[self.view addSubview:self.audioCallViewController.view];
-//            if (self.audioCallViewController.view.hidden == YES)
-//                self.audioCallViewController.view.hidden = NO;
-//        }
     }
     
 }
@@ -249,11 +242,12 @@
     switch (buttonIndex)
     {
         case 0:
-            [self startAudioSession:NO];
+            //[self startAudioSession:NO];
+            [[SessionManager sharedSessionManager] makeCallForSession:self.session includeVideo:NO isRedial:NO];
             break;
         case 1:
             //[self startCallWithVideo:YES];
-            [self showWaitingView:YES];
+            [[SessionManager sharedSessionManager] makeCallForSession:self.session includeVideo:YES isRedial:NO];
             break;
         case 2:
             //[self closeSession:nil];
@@ -267,7 +261,7 @@
 {
     [self.chatViewController hideKeyboard];
     
-    self.waitingVideoViewController = [[WaitingVideoViewController alloc] init];
+    self.waitingVideoViewController = [[WaitingVideoViewController alloc] initWithSession:self.session];
     [self.waitingVideoViewController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.containerView addSubview:self.waitingVideoViewController.view];
     
@@ -281,7 +275,8 @@
     
     [[SessionManager sharedSessionManager] makeCallForSession:self.session includeVideo:YES isRedial:NO];
 }
-- (void) startCallWithVideo:(BOOL) videoCall
+
+- (void) showCallViewControllerWithVideo:(BOOL) videoCall
 {
     [self.chatViewController hideKeyboard];
     

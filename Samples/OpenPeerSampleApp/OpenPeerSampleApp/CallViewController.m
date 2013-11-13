@@ -139,10 +139,10 @@
 
 - (void)callStarted
 {
-    self.callStartedTime = [NSDate date];
-    
-    if (!self.sessionDurationTimer)
-        self.sessionDurationTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateCallDuration) userInfo:nil repeats:YES];
+//    self.callStartedTime = [NSDate date];
+//    
+//    if (!self.sessionDurationTimer)
+//        self.sessionDurationTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateCallDuration) userInfo:nil repeats:YES];
 }
 
 //Implement on client side
@@ -211,7 +211,7 @@
     theAnimation.toValue=[NSNumber numberWithFloat:0.1];
     [button.layer addAnimation:theAnimation forKey:@"animateOpacity"];
 }
-
+/*
 - (void) updateCallDuration
 {
     NSTimeInterval passedTime = [[NSDate date] timeIntervalSinceDate: self.callStartedTime];
@@ -220,5 +220,5 @@
     NSString *string = [NSString stringWithFormat:@"%02u:%02u:%02u",
                         seconds / 3600, (seconds / 60) % 60, seconds % 60];
     self.callDurationLabel.text = string;
-}
+}*/
 @end

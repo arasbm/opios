@@ -35,8 +35,7 @@
 
 @interface VideoCallViewController : CallViewController
 
-@property (weak, nonatomic) IBOutlet UIButton *muteButton;
-@property (weak, nonatomic) IBOutlet UIButton *videoButton;
+
 @property (weak, nonatomic) id<VideoCallViewControllerDelegate> delegate;
 
 @end

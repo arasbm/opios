@@ -30,7 +30,12 @@
  */
 
 #import "WaitingVideoViewController.h"
-
+#import "Session.h"
+#import <OpenPeerSDK/HOPRolodexContact+External.h>
+#import <OpenPeerSDK/HOPModelManager.h>
+#import <OpenPeerSDK/HOPAvatar.h>
+#import <OpenPeerSDK/HOPImage.h>
+#import <OpenPeerSDK/HOPHomeUser+External.h>
 @interface WaitingVideoViewController()
 
 @property (weak, nonatomic) IBOutlet UIImageView *callerImage;
@@ -41,6 +46,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *callEndedLabel;
 @property (weak, nonatomic) IBOutlet UILabel* statusLabel;
 
+@property (weak, nonatomic) Session* session;
 -(NSMutableArray*)getAnimationImages;
 
 @end
@@ -60,11 +66,16 @@ const int CONNECTING_ANIMATION_DURATION = 2;
     return self;
 }
 
-- (id) init
+- (id) initWithSession:(Session*) inSession
 {
     self = [self initWithNibName:@"WaitingVideoViewController" bundle:nil];
+    if (self)
+    {
+        self.session = inSession;
+    }
     return self;
 }
+
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
@@ -81,13 +92,16 @@ const int CONNECTING_ANIMATION_DURATION = 2;
     
     self.statusLabel.text = self.statusText;
     
-    // Do any additional setup after loading the view from its nib.
-
-   /* Contact* contact = [[[[SessionManager sharedSessionManager] getCurrentSession] getParticipants] objectAtIndex:0];
-    calleeImage.image = [contact getAvatarImage];
-    callerImage.image = [[[HomeUser sharedHomeUser] homeUser] getAvatarImage];
-    participantName.text = [contact fullName];
-    callerName.text = [[HomeUser sharedHomeUser].homeUser fullName];*/
+    HOPRolodexContact* rolodexContact = [[self.session participantsArray] objectAtIndex:0];
+    self.participantName.text = rolodexContact.name;
+    self.callerName.text = [[[HOPModelManager sharedModelManager] getLastLoggedInHomeUser] getFullName];
+    
+    HOPAvatar* avatar = [rolodexContact getAvatarForWidth:[NSNumber numberWithFloat:self.calleeImage.frame.size.width] height:[NSNumber numberWithFloat:self.calleeImage.frame.size.height]];
+    
+    if (avatar && avatar.avatarImage.image)
+    {
+        [self.calleeImage setImage:[UIImage imageWithData:avatar.avatarImage.image]];
+    }
     
     self.connectingAnimationImageView.animationImages = [self getAnimationImages];
     self.connectingAnimationImageView.animationDuration = CONNECTING_ANIMATION_DURATION;
