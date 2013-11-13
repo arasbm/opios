@@ -30,19 +30,9 @@
  */
 
 #import <UIKit/UIKit.h>
-//#import <QuartzCore/QuartzCore.h>
 
+@interface WaitingVideoViewController : UIViewController
 
-@class Session;
-
-@interface IncomingCallViewController : UIViewController <UIWebViewDelegate>
-
-@property (nonatomic, weak) Session* session;
-
-- (id)initWithSession:(Session*) inSession;
-
-- (IBAction)acceptCall:(id)sender;
-- (IBAction)declineCall:(id)sender;
-- (IBAction)toggleSilent:(id)sender;
+@property (weak, nonatomic) NSString* statusText;
 
 @end

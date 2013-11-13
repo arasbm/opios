@@ -30,19 +30,13 @@
  */
 
 #import <UIKit/UIKit.h>
-//#import <QuartzCore/QuartzCore.h>
+#import "CallViewController.h"
+#import "Delegates.h"
 
+@interface VideoCallViewController : CallViewController
 
-@class Session;
-
-@interface IncomingCallViewController : UIViewController <UIWebViewDelegate>
-
-@property (nonatomic, weak) Session* session;
-
-- (id)initWithSession:(Session*) inSession;
-
-- (IBAction)acceptCall:(id)sender;
-- (IBAction)declineCall:(id)sender;
-- (IBAction)toggleSilent:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *muteButton;
+@property (weak, nonatomic) IBOutlet UIButton *videoButton;
+@property (weak, nonatomic) id<VideoCallViewControllerDelegate> delegate;
 
 @end

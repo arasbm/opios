@@ -396,7 +396,7 @@
      SessionViewController_iPhone* sessionViewController = [[[[OpenPeer sharedOpenPeer] mainViewController] sessionViewControllersDictionary] objectForKey:[[call getConversationThread] getThreadId]];
     
     [sessionViewController showIncomingCall:NO];
-    [sessionViewController startAudioSession:nil];
+    [sessionViewController startCallWithVideo:[call hasVideo]];
     //[sessionViewController prepareForCall:YES withVideo:[call hasVideo]];
     
     //At this moment it is possible to do recording, so show the recording button

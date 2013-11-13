@@ -11,7 +11,9 @@
 #import "SessionManager.h"
 #import "ChatViewController.h"
 #import "AudioCallViewController.h"
+#import "VideoCallViewController.h"
 #import "IncomingCallViewController.h"
+#import "WaitingVideoViewController.h"
 #import "Utility.h"
 #import <OpenPeerSDK/HOPCall.h>
 
@@ -26,6 +28,7 @@
 @property (nonatomic, strong)  UILabel* labelTitle;
 @property (nonatomic, strong)  UILabel* labelDuration;
 @property (nonatomic, strong) NSTimer* callTimer;
+@property (nonatomic, strong) UIButton *menuButton;
 @property (nonatomic) int callDuration;
 - (void) actionCallMenu;
 -(void)updateCallDuration;
@@ -86,11 +89,11 @@
     [self.containerView addConstraint:[NSLayoutConstraint constraintWithItem:self.chatViewController.view attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.containerView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0]];
     
     // Lightning button
-    UIButton *menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [menuButton setImage:[UIImage imageNamed:@"iPhone_lightning_bolt.png"] forState:UIControlStateNormal];
-    [menuButton addTarget:self action:@selector(actionCallMenu) forControlEvents:UIControlEventTouchUpInside];
-    [menuButton setFrame:CGRectMake(0.0, 0.0, 40.0, 40.0)];
-    UIBarButtonItem *navBarMenuButton = [[UIBarButtonItem alloc] initWithCustomView: menuButton];
+    self.menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.menuButton setImage:[UIImage imageNamed:@"iPhone_lightning_bolt.png"] forState:UIControlStateNormal];
+    [self.menuButton addTarget:self action:@selector(actionCallMenu) forControlEvents:UIControlEventTouchUpInside];
+    [self.menuButton setFrame:CGRectMake(0.0, 0.0, 40.0, 40.0)];
+    UIBarButtonItem *navBarMenuButton = [[UIBarButtonItem alloc] initWithCustomView: self.menuButton];
     self.navigationItem.rightBarButtonItem = navBarMenuButton;
     
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -168,10 +171,11 @@
         //[self.audioCallViewController.view removeFromSuperview];
         
     }
-    /*else if(videoContainerViewController != nil)
-     {
-     [self.videoContainerViewController.view removeFromSuperview];
-     }*/
+    else if(self.videoCallViewController != nil)
+    {
+        [self.chatViewController.messageTextbox resignFirstResponder];
+        self.videoCallViewController.view.hidden = NO;
+     }
     else
     {
         //If call is not in progress show action sheet
@@ -222,10 +226,11 @@
     switch (buttonIndex)
     {
         case 0:
-            [self startAudioSession:nil];
+            [self startAudioSession:NO];
             break;
         case 1:
-            //[self startVideoSession:nil];
+            //[self startCallWithVideo:YES];
+            [self showWaitingView:YES];
             break;
         case 2:
             //[self closeSession:nil];
@@ -235,35 +240,87 @@
     }
 }
 
-- (IBAction) startAudioSession:(id)sender
+- (void) showWaitingView:(BOOL) show
 {
     [self.chatViewController hideKeyboard];
     
-    if (!self.audioCallViewController)
+    self.waitingVideoViewController = [[WaitingVideoViewController alloc] init];
+    [self.waitingVideoViewController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.containerView addSubview:self.waitingVideoViewController.view];
+    
+    [self.containerView addConstraint:[NSLayoutConstraint constraintWithItem:self.waitingVideoViewController.view attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.containerView attribute:NSLayoutAttributeTop multiplier:1.0 constant:0]];
+    
+    [self.containerView addConstraint:[NSLayoutConstraint constraintWithItem:self.waitingVideoViewController.view attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.containerView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0]];
+    
+    [self.containerView addConstraint:[NSLayoutConstraint constraintWithItem:self.waitingVideoViewController.view attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.containerView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0]];
+    
+    [self.containerView addConstraint:[NSLayoutConstraint constraintWithItem:self.waitingVideoViewController.view attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.containerView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0]];
+    
+    [[SessionManager sharedSessionManager] makeCallForSession:self.session includeVideo:YES isRedial:NO];
+}
+- (void) startCallWithVideo:(BOOL) videoCall
+{
+    [self.chatViewController hideKeyboard];
+    
+    CallViewController* callViewController = videoCall ? self.videoCallViewController : self.audioCallViewController;
+    
+    if (!callViewController)
     {
-        self.audioCallViewController = [[AudioCallViewController alloc] initWithSession:self.session];
-        //self.audioCallViewController.view.frame = self.chatViewController.chatTableView.frame;
-        [self.audioCallViewController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
+        if (videoCall)
+        {
+            self.videoCallViewController = [[VideoCallViewController alloc] initWithSession:self.session];
+            callViewController = self.videoCallViewController;
+            self.videoCallViewController.delegate = self;
+        }
+        else
+        {
+            self.audioCallViewController = [[AudioCallViewController alloc] initWithSession:self.session];
+            callViewController = self.audioCallViewController;
+        }
         
-        [self.containerView addSubview:self.audioCallViewController.view];
-        [self.containerView addConstraint:[NSLayoutConstraint constraintWithItem:self.audioCallViewController.view attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.containerView attribute:NSLayoutAttributeTop multiplier:1.0 constant:0]];
+        [callViewController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
         
-        [self.containerView addConstraint:[NSLayoutConstraint constraintWithItem:self.audioCallViewController.view attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.containerView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0]];
+        [self.containerView addSubview:callViewController.view];
+        [self.containerView addConstraint:[NSLayoutConstraint constraintWithItem:callViewController.view attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.containerView attribute:NSLayoutAttributeTop multiplier:1.0 constant:0]];
         
-        [self.containerView addConstraint:[NSLayoutConstraint constraintWithItem:self.audioCallViewController.view attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.containerView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-self.chatViewController.typingMessageView.frame.size.height]];
+        [self.containerView addConstraint:[NSLayoutConstraint constraintWithItem:callViewController.view attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.containerView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0]];
         
-        [self.containerView addConstraint:[NSLayoutConstraint constraintWithItem:self.audioCallViewController.view attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.containerView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0]];
+        if (videoCall)
+            [self.containerView addConstraint:[NSLayoutConstraint constraintWithItem:callViewController.view attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.containerView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0]];
+        else
+            [self.containerView addConstraint:[NSLayoutConstraint constraintWithItem:callViewController.view attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.containerView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-self.chatViewController.typingMessageView.frame.size.height]];
+        
+        [self.containerView addConstraint:[NSLayoutConstraint constraintWithItem:callViewController.view attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.containerView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0]];
     }
     else
     {
-        if (self.audioCallViewController.view.hidden == YES)
-            self.audioCallViewController.view.hidden = NO;
+        if (callViewController.view.hidden == YES)
+            callViewController.view.hidden = NO;
     }
     
-    
-    [self.audioCallViewController callStarted];
-    [[SessionManager sharedSessionManager] makeCallForSession:self.session includeVideo:NO isRedial:NO];
+    if (videoCall)
+    {
+        UIButton* btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        UIImage* img =[UIImage imageNamed:@"iPhone_Button-end-baritem.png"];
+        //[btn setBackgroundImage:img forState:UIControlStateNormal];
+        //[btn setImage:img forState:UIControlStateNormal];
+        btn.titleLabel.textColor = [UIColor whiteColor];
+        btn.titleLabel.text = @"End";
+        [btn addTarget:self action:@selector(actionCallMenu) forControlEvents:UIControlEventTouchUpInside];
+        [btn setFrame:CGRectMake(20.0, 0.0, 30.0, 40.0)];
+        [btn addTarget:self.videoCallViewController action:@selector(callHangup:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem* endCallButton = /*[[UIBarButtonItem alloc] initWithCustomView:btn];*/[[UIBarButtonItem alloc] initWithTitle:@"End" style:UIBarButtonItemStylePlain target:self.videoCallViewController action:@selector(callHangup:)];
+        [endCallButton setBackgroundImage:img forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+        endCallButton.tintColor = [UIColor whiteColor];
+        //endCallButton.width = 30.0;
+        self.navigationItem.rightBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItem = endCallButton;
+
+    }
+    [callViewController callStarted];
+    [[SessionManager sharedSessionManager] makeCallForSession:self.session includeVideo:videoCall isRedial:NO];
 }
+
 
 - (void) updateCallState
 {
@@ -303,6 +360,16 @@
         [self.audioCallViewController.view removeFromSuperview];
         self.audioCallViewController = nil;
     }
+    
+    if (self.videoCallViewController && self.videoCallViewController.view)
+    {
+        [self.videoCallViewController.view removeFromSuperview];
+        self.videoCallViewController = nil;
+        
+        self.navigationItem.rightBarButtonItem = nil;
+        UIBarButtonItem *navBarMenuButton = [[UIBarButtonItem alloc] initWithCustomView: self.menuButton];
+        self.navigationItem.rightBarButtonItem = navBarMenuButton;
+    }
 }
 
 
@@ -336,6 +403,13 @@
     [self stopTimer];
     [self removeCallViews];
     self.labelDuration.text = @"";
+}
+
+#pragma mark - VideoCallViewControllerDelegate
+- (void)hideVideo:(BOOL)hide
+{
+    if (self.videoCallViewController)
+        self.videoCallViewController.view.hidden = hide;
 }
 @end
 

@@ -34,3 +34,9 @@
 - (void) prepareForKeyboard:(NSDictionary*) userInfo showKeyboard:(BOOL) showKeyboard;
 
 @end
+
+@protocol VideoCallViewControllerDelegate <NSObject>
+
+- (void) hideVideo:(BOOL) hide;
+
+@end
