@@ -318,6 +318,12 @@
     
     if (videoCall)
     {
+        if (self.waitingVideoViewController)
+        {
+            [self.waitingVideoViewController.view removeFromSuperview];
+            self.waitingVideoViewController = nil;
+        }
+        
         UIButton* btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         UIImage* img =[UIImage imageNamed:@"iPhone_Button-end-baritem.png"];
         //[btn setBackgroundImage:img forState:UIControlStateNormal];
