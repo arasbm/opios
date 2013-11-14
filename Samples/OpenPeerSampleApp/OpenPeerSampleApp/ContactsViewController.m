@@ -78,12 +78,15 @@
     self.oneTapGestureRecognizer.numberOfTapsRequired = 1;
     self.oneTapGestureRecognizer.numberOfTouchesRequired = 1;
  
-    
+    //self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    //self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+    self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Helvetica-Bold" size:22.0], NSFontAttributeName, nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    return;
+    self.navigationItem.title = @"Contacts";
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
