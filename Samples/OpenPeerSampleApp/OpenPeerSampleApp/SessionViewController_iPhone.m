@@ -57,7 +57,7 @@
 @property (nonatomic) int callDuration;
 - (void) actionCallMenu;
 - (void) updateCallDuration;
-- (void) setRightBarButtonWithEndCall:(BOOL) withEndCall;
+- (void) setRightBarButtonWithEndCall:(BOOL) withEndCall forWaitingView:(BOOL)forWaitingView ;
 @end
 
 @implementation SessionViewController_iPhone
@@ -122,7 +122,7 @@
     UIBarButtonItem *navBarMenuButton = [[UIBarButtonItem alloc] initWithCustomView: self.menuButton];
     self.navigationItem.rightBarButtonItem = navBarMenuButton;*/
     
-    [self setRightBarButtonWithEndCall:NO];
+    [self setRightBarButtonWithEndCall:NO forWaitingView:NO];
     
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setImage:[UIImage imageNamed:@"iPhone_back_button.png"] forState:UIControlStateNormal];
@@ -278,7 +278,7 @@
     
     [self.containerView addConstraint:[NSLayoutConstraint constraintWithItem:self.waitingVideoViewController.view attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.containerView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0]];
     
-    [self setRightBarButtonWithEndCall:YES];
+    [self setRightBarButtonWithEndCall:YES forWaitingView:YES];
 }
 
 - (void) showCallViewControllerWithVideo:(BOOL) videoCall
@@ -329,7 +329,7 @@
             self.waitingVideoViewController = nil;
         }
         
-        [self setRightBarButtonWithEndCall:YES];
+        [self setRightBarButtonWithEndCall:YES forWaitingView:NO];
     }
     [callViewController callStarted];
     [[SessionManager sharedSessionManager] makeCallForSession:self.session includeVideo:videoCall isRedial:NO];
@@ -381,7 +381,7 @@
         self.videoCallViewController = nil;
         
         
-        [self setRightBarButtonWithEndCall:NO];
+        [self setRightBarButtonWithEndCall:NO forWaitingView:NO];
     }
     
     if (self.waitingVideoViewController && self.waitingVideoViewController.view)
@@ -390,7 +390,7 @@
         self.waitingVideoViewController = nil;
         
         
-        [self setRightBarButtonWithEndCall:NO];
+        [self setRightBarButtonWithEndCall:NO forWaitingView:NO];
     }
 }
 
@@ -434,7 +434,7 @@
         self.videoCallViewController.view.hidden = hide;
 }
 
-- (void) setRightBarButtonWithEndCall:(BOOL) withEndCall
+- (void) setRightBarButtonWithEndCall:(BOOL) withEndCall forWaitingView:(BOOL) forWaitingView
 {
     UIBarButtonItem* rightBarButtonItem = nil;
     if (withEndCall)
@@ -446,6 +446,16 @@
             [self.endCallRightbarButton setBackgroundImage:img forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
             self.endCallRightbarButton.tintColor = [UIColor whiteColor];
         }
+        
+        if (forWaitingView)
+        {
+            [self.endCallRightbarButton setTarget:self.waitingVideoViewController];
+        }
+        else
+        {
+            [self.endCallRightbarButton setTarget:self.videoCallViewController];
+        }
+        
         rightBarButtonItem = self.endCallRightbarButton;
     }
     else
@@ -457,6 +467,7 @@
         self.menuRightbarButton = [[UIBarButtonItem alloc] initWithCustomView: menuButton];
         rightBarButtonItem = self.menuRightbarButton;
     }
+    
     
     self.navigationItem.rightBarButtonItem = nil;
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;

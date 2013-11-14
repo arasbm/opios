@@ -36,6 +36,7 @@
 @interface WaitingVideoViewController : UIViewController
 
 - (id) initWithSession:(Session*) inSession;
+- (IBAction) callHangup:(id)sender;
 @property (weak, nonatomic) NSString* statusText;
 
 @end

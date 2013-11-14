@@ -31,11 +31,13 @@
 
 #import "WaitingVideoViewController.h"
 #import "Session.h"
+#import "SessionManager.h"
 #import <OpenPeerSDK/HOPRolodexContact+External.h>
 #import <OpenPeerSDK/HOPModelManager.h>
 #import <OpenPeerSDK/HOPAvatar.h>
 #import <OpenPeerSDK/HOPImage.h>
 #import <OpenPeerSDK/HOPHomeUser+External.h>
+
 @interface WaitingVideoViewController()
 
 @property (weak, nonatomic) IBOutlet UIImageView *callerImage;
@@ -143,4 +145,9 @@ const int CONNECTING_ANIMATION_DURATION = 2;
     return images;
 }
 
+- (IBAction) callHangup:(id)sender
+{
+
+    [[SessionManager sharedSessionManager] endCallForSession:self.session];
+}
 @end
