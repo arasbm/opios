@@ -19,18 +19,10 @@ opios/Samples/                    - contains the Open Peer iOS Samples applicati
 
 How to build:
 
-1) Extract pre-built boost libraries:
+1) Build boost, from your terminal:
 
 pushd opios/libs/op/libs/boost/
-curl -O http://assets.hookflash.me/github.com-openpeer-opios/lib/10012013_0.8_boost-build-iOS-5.zip
-unzip 10012013_0.8_boost-build-iOS-5.zip
-popd
-
-
-NOTE: If you are running < XCode 5.0 you can build boost by from your terminal:
-
-pushd opios/libs/op/libs/boost/projects/gnu-make/
-./build all
+./boost.sh
 popd
 
 
