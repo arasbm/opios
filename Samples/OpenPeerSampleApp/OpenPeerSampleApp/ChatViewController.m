@@ -130,7 +130,7 @@
     {
         [self.messageTextbox becomeFirstResponder];
     }
-    [self.chatTableView addGestureRecognizer:self.tapGesture];
+    
     [super viewWillAppear:animated];
 }
 
@@ -143,6 +143,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [self.messageTextbox resignFirstResponder];
     [self registerForNotifications:NO];
     [self.chatTableView removeGestureRecognizer:self.tapGesture];
 }
@@ -162,12 +163,14 @@
 
 -(void)keyboardWillShow:(NSNotification *)notification
 {
+    [self.chatTableView addGestureRecognizer:self.tapGesture];
     self.keyboardIsHidden = NO;
     [self.delegate prepareForKeyboard:[notification userInfo] showKeyboard:YES];
 }
 
 -(void)keyboardWillHide:(NSNotification *)notification
 {
+    [self.chatTableView addGestureRecognizer:self.tapGesture];
     self.keyboardIsHidden = YES;
     [self.delegate prepareForKeyboard:[notification userInfo] showKeyboard:NO];
 }

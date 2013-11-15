@@ -33,13 +33,6 @@
 #import "CallViewController.h"
 
 @interface AudioCallViewController : CallViewController
-{
-    bool isSpeakerOn;
-    IBOutlet UIButton *speakerButton;
-    IBOutlet UIButton *muteButton;
-}
-//@property (retain, nonatomic) MediaNavigationViewController* mediaNavigationViewController;
-//@property (assign, nonatomic) id<SessionViewControlleriPhoneDelegate> delegateSessionViewContorller;
-- (IBAction)actionShowChat:(id)sender;
-- (IBAction)actionSwitchToSpeaker:(id)sender;
+
+
 @end

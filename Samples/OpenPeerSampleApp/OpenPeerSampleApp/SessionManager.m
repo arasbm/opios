@@ -33,7 +33,8 @@
 #import "ContactsManager.h"
 #import "MainViewController.h"
 #import "MessageManager.h"
-#import "ActiveSessionViewController.h"
+//#import "ActiveSessionViewController.h"
+#import "SessionViewController_iPhone.h"
 
 #import "Utility.h"
 #import "Session.h"
@@ -337,15 +338,21 @@
     NSString* sessionId = [[call getConversationThread] getThreadId];
     Session* session = [[[SessionManager sharedSessionManager] sessionsDictionary] objectForKey:sessionId];
     
-    ActiveSessionViewController* sessionViewController = [[[[OpenPeer sharedOpenPeer] mainViewController] sessionViewControllersDictionary] objectForKey:sessionId];
+    SessionViewController_iPhone* sessionViewController = [[[[OpenPeer sharedOpenPeer] mainViewController] sessionViewControllersDictionary] objectForKey:sessionId];
     
-    //TODO: Make HOPRolodex category for HOPContact
     //If it is an incomming call, get show session view controller
     if (![[call getCaller] isSelf])
     {
         [[[OpenPeer sharedOpenPeer] mainViewController] showSessionViewControllerForSession:session forIncomingCall:YES forIncomingMessage:NO];
         if (!sessionViewController)
             sessionViewController = [[[[OpenPeer sharedOpenPeer] mainViewController] sessionViewControllersDictionary] objectForKey:sessionId];
+    }
+    else
+    {
+        if ([call hasVideo])
+            [sessionViewController showWaitingView:YES];
+        else
+            [sessionViewController showCallViewControllerWithVideo:NO];
     }
     //Stop recording if it is placed and remove recording button
     //[sessionViewController stopVideoRecording:YES hideRecordButton:YES];
@@ -392,12 +399,14 @@
  */
 - (void) onCallOpened:(HOPCall*) call
 {
-     ActiveSessionViewController* sessionViewController = [[[[OpenPeer sharedOpenPeer] mainViewController] sessionViewControllersDictionary] objectForKey:[[call getConversationThread] getThreadId]];
+     SessionViewController_iPhone* sessionViewController = [[[[OpenPeer sharedOpenPeer] mainViewController] sessionViewControllersDictionary] objectForKey:[[call getConversationThread] getThreadId]];
     
-    [sessionViewController prepareForCall:YES withVideo:[call hasVideo]];
+    [sessionViewController showIncomingCall:NO];
+    [sessionViewController showCallViewControllerWithVideo:[call hasVideo]];
+    //[sessionViewController prepareForCall:YES withVideo:[call hasVideo]];
     
     //At this moment it is possible to do recording, so show the recording button
-    [sessionViewController stopVideoRecording:YES hideRecordButton:![call hasVideo]];
+    //[sessionViewController stopVideoRecording:YES hideRecordButton:![call hasVideo]];
 }
 
 /**
@@ -468,15 +477,17 @@
     Session* session = [[[SessionManager sharedSessionManager] sessionsDictionary] objectForKey:sessionId];
     
     //Get view controller for call session
-    ActiveSessionViewController* sessionViewController = [[[[OpenPeer sharedOpenPeer] mainViewController] sessionViewControllersDictionary] objectForKey:[[session conversationThread] getThreadId]];
+    SessionViewController_iPhone* sessionViewController = [[[[OpenPeer sharedOpenPeer] mainViewController] sessionViewControllersDictionary] objectForKey:[[session conversationThread] getThreadId]];
     
     if (sessionViewController)
     {
+        //[sessionViewController removeCallViews];
+        [sessionViewController onCallEnded];
         //Update view for case when call is not active
-        [sessionViewController prepareForCall:NO withVideo:NO];
+        //[sessionViewController prepareForCall:NO withVideo:NO];
         
         //Enable video recording if face detection is on
-        [sessionViewController stopVideoRecording:YES hideRecordButton:![[OpenPeer sharedOpenPeer] isFaceDetectionModeOn]];
+        //[sessionViewController stopVideoRecording:YES hideRecordButton:![[OpenPeer sharedOpenPeer] isFaceDetectionModeOn]];
     }
     
     [self setLastEndedCallSession: session];

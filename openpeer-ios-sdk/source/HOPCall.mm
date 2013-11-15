@@ -152,6 +152,8 @@ using namespace openpeer::core;
         {
             NSString* peerURI = [NSString stringWithUTF8String:contactPtr->getPeerURI()];
             ret = [[OpenPeerStorageManager sharedStorageManager] getContactForPeerURI:peerURI];
+            if (!ret)
+                ret = [[HOPContact alloc] initWithCoreContact:contactPtr];
         }
         else
         {
@@ -176,6 +178,8 @@ using namespace openpeer::core;
         {
             NSString* peerURI = [NSString stringWithUTF8String:contactPtr->getPeerURI()];
             ret = [[OpenPeerStorageManager sharedStorageManager] getContactForPeerURI:peerURI];
+            if (!ret)
+                ret = [[HOPContact alloc] initWithCoreContact:contactPtr];
         }
         else
         {

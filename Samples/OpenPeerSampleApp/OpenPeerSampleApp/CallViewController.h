@@ -34,7 +34,11 @@
 
 @interface CallViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UILabel *callDurationLabel;
+//@property (weak, nonatomic) IBOutlet UILabel *callDurationLabel;
+
+@property (weak, nonatomic) IBOutlet UIButton *muteButton;
+@property (weak, nonatomic) IBOutlet UIButton *videoButton;
+@property (weak, nonatomic) IBOutlet UIButton *speakerButton;
 
 @property (weak,nonatomic) Session *session;
 @property (strong,nonatomic) NSDate *callStartedTime;
@@ -45,6 +49,9 @@
 - (IBAction) muteCall:(id)sender;
 - (IBAction) pauseCall:(id)sender;
 - (IBAction) recordCall:(id)sender;
+
+- (IBAction)actionSwitchToSpeaker:(id)sender;
+- (IBAction)actionShowChat:(id)sender;
 
 - (void) callStarted;
 - (void)setDefaults;
