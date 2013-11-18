@@ -50,7 +50,7 @@ NSString* const applicationIdSharedSecret = @"<-- insert shared secret here -->"
 // ------------------- !!! WARNING !!! -------------------
 
 //NSString* const provisioningURI = @"provisioning-stable-dev.hookflash.me";//Not in use
-NSString* const outerFrameURL = @"https://app-javascript.hookflash.me/outer.html";
+NSString* const outerFrameURL = @"https://app-javascript.hookflash.me/outer.html?view=choose";//?skin=xfinity";
 NSString* const identityProviderDomain = @"idprovider-javascript.hookflash.me";
 //NSString* const peerContactServiceDomain = @"unstable.hookflash.me";//Not in use
 //NSString* const contactsLoadingtServiceDomain = @"example-light.hookflash.me";//Not in use
