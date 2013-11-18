@@ -21,14 +21,14 @@ How to build:
 
 1) Build boost, from your terminal:
 
-pushd opios/libs/op/libs/boost/
+pushd opios/libs/op/libs/ortc-lib/libs/boost/
 ./boost.sh
 popd
 
 
 2) Build curl, from your terminal:
 
-pushd opios/libs/op/libs/curl/
+pushd opios/libs/op/libs/ortc-lib/libs/curl/
 ./build_ios.sh
 popd
 
