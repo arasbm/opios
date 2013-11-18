@@ -34,7 +34,7 @@
 #import "OpenpeerSDK/HOPAccount.h"
 #import "LoginManager.h"
 #import "OpenPeer.h"
-#import "Constants.h"
+#import "AppConsts.h"
 #import "MainViewController.h"
 #import "WebLoginViewController.h"
 #import "OpenpeerSDK/HOPLogger.h"

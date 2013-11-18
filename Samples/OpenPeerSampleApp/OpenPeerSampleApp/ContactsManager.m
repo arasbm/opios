@@ -38,7 +38,7 @@
 #import "ContactsViewController.h"
 #import "ActivityIndicatorViewController.h"
 #import "OpenPeer.h"
-#import "Constants.h"
+#import "AppConsts.h"
 #import "Utility.h"
 #import "SBJsonParser.h"
 #import <OpenpeerSDK/HOPIdentityLookup.h>

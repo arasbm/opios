@@ -41,7 +41,7 @@
 
 #import "LoginManager.h"
 #import "ContactsManager.h"
-#import "Constants.h"
+#import "AppConsts.h"
 #import "OpenPeer.h"
 #import "MainViewController.h"
 #import "ContactsViewController.h"

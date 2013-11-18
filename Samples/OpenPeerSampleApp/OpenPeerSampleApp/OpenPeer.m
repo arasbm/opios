@@ -31,7 +31,7 @@
 
 #import "OpenPeer.h"
 #import "Utility.h"
-#import "Constants.h"
+#import "AppConsts.h"
 #import "Logger.h"
 //SDK
 #import "OpenpeerSDK/HOPStack.h"

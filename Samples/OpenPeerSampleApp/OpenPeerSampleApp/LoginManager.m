@@ -35,7 +35,7 @@
 #import "OpenPeer.h"
 //Utility
 #import "Utility.h"
-#import "Constants.h"
+#import "AppConsts.h"
 //Managers
 #import "ContactsManager.h"
 //SDK
