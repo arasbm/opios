@@ -65,6 +65,6 @@
 {
     [self.view removeFromSuperview];
 
-    [[OpenPeer sharedOpenPeer] setup];
+    //[[OpenPeer sharedOpenPeer] setup];
 }
 @end

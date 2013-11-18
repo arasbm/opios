@@ -76,7 +76,12 @@
     WebLoginViewController* ret = nil;
     
     NSLog(@"getLoginWebViewForIdentity:%@", [identity getBaseIdentityURI]);
-    ret = [self.loginWebViewsDictionary objectForKey:[identity getBaseIdentityURI]];
+    //ret = [self.loginWebViewsDictionary objectForKey:[identity getBaseIdentityURI]];
+    if ([self.loginWebViewsDictionary count] > 0)
+    {
+        ret = [[self.loginWebViewsDictionary allValues]objectAtIndex:0];
+        ret.coreObject = identity;
+    }
     if (!ret)
     {
         //ret = [[LoginManager sharedLoginManager] preloadedWebLoginViewController];
@@ -144,6 +149,7 @@
                 //Add identity login web view like main view subview
                 if (!webLoginViewController.view.superview)
                 {
+                    [[[OpenPeer sharedOpenPeer] mainViewController] removeSplashScreen];
                     [webLoginViewController.view setFrame:[[OpenPeer sharedOpenPeer] mainViewController].view.bounds];
                     [[[OpenPeer sharedOpenPeer] mainViewController] showWebLoginView:webLoginViewController];
                 }
@@ -187,7 +193,7 @@
                 
             case HOPIdentityStateShutdown:
                 [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
-                [[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
+                //[[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
                 break;
                 
             default:

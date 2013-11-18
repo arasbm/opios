@@ -445,7 +445,7 @@
     }
     */
     //Init open peer delegates. Start login procedure. Display Login view controller.
-    [[OpenPeer sharedOpenPeer] setup];
+    //[[OpenPeer sharedOpenPeer] setup];
 }
 
 - (void) onLogout

@@ -107,7 +107,9 @@
     //If peer file doesn't exists, show login view, otherwise start relogin
     if (![[HOPModelManager sharedModelManager] getLastLoggedInHomeUser])
     {
-        [[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
+        //[[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
+        
+        [self startLoginUsingIdentityURI:identityFederateBaseURI];
         self.isLogin = YES;
     }
     else
@@ -150,7 +152,9 @@
     
     self.isLogin = YES;
     //Return to the login page.
-    [[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
+    //[[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
+    
+    //[self login];
     
 }
 
@@ -255,7 +259,8 @@
         
         [[HOPModelManager sharedModelManager] saveContext];
         
-        [self.associatingIdentitiesDictionary removeObjectForKey:[identity getBaseIdentityURI]];
+        //[self.associatingIdentitiesDictionary removeObjectForKey:[identity getBaseIdentityURI]];
+        [self.associatingIdentitiesDictionary removeAllObjects];
     }
     
     [self onUserLoggedIn];
@@ -316,11 +321,20 @@
         }
         
         //Not yet ready for association
-        if (self.isLogin || self.isAssociation)
+        if ((self.isLogin || self.isAssociation) && ([associatedIdentites count] < 2))
         {
             self.isLogin = NO;
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Identity association" message:@"Do you want to associate another social account" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
+            HOPIdentity* identity = [associatedIdentites objectAtIndex:0];
+            
+            NSString* message = @"Do you want to associate federated account?";
+            
+            if ([[identity getBaseIdentityURI] isEqualToString:identityFacebookBaseURI])
+                message = @"Do you want to associate federated account?";
+            else
+                message = @"Do you want to associate facebook account?";
+                    
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Identity association" message:message delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
             
             [alert show];
         }
@@ -370,8 +384,20 @@
 {
     if (buttonIndex != alertView.cancelButtonIndex)
     {
+        NSArray* associatedIdentites = [[HOPAccount sharedAccount] getAssociatedIdentities];
+        HOPIdentity* identity = [associatedIdentites objectAtIndex:0];
+        
+        if ([[identity getBaseIdentityURI] isEqualToString:identityFacebookBaseURI])
+        {
+            [[LoginManager sharedLoginManager] startLoginUsingIdentityURI:identityFederateBaseURI];
+        }
+        else
+        {
+            [[LoginManager sharedLoginManager] startLoginUsingIdentityURI:identityFacebookBaseURI];
+        }
+        
         self.isAssociation = YES;
-        [[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
+        //[[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
     }
     else
     {

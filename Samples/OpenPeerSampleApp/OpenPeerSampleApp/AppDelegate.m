@@ -42,7 +42,7 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    //[[LoginManager sharedLoginManager] preloadLoginWebPage];
+    [[OpenPeer sharedOpenPeer] setup];
     
     //Create root view controller. This view controller will manage displaying all other view controllers.
     MainViewController* mainViewController = [[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil];
