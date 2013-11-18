@@ -197,6 +197,7 @@
 		87A1086A1802C116001F705D /* Logger.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A108691802C116001F705D /* Logger.m */; };
 		87A1086C1802CBDC001F705D /* logger.png in Resources */ = {isa = PBXBuildFile; fileRef = 87A1086B1802CBDC001F705D /* logger.png */; };
 		87A1086E1802CD92001F705D /* logger@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87A1086D1802CD92001F705D /* logger@2x.png */; };
+		87BFEDB7183A84A000A48821 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 87BFEDB6183A849F00A48821 /* Constants.m */; };
 		87D72EC217DDEEB000DEB37E /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D72EC017DDEEB000DEB37E /* IconDownloader.m */; };
 		87D91B2A17687EFD00E46B66 /* CacheDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D91B2917687EFD00E46B66 /* CacheDelegate.m */; };
 		87E0FFB417BB8ADD00F30484 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87E0FFB317BB8ADD00F30484 /* AddressBook.framework */; };
@@ -518,6 +519,7 @@
 		87A108691802C116001F705D /* Logger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Logger.m; sourceTree = "<group>"; };
 		87A1086B1802CBDC001F705D /* logger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logger.png; sourceTree = "<group>"; };
 		87A1086D1802CD92001F705D /* logger@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logger@2x.png"; sourceTree = "<group>"; };
+		87BFEDB6183A849F00A48821 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		87D72EC017DDEEB000DEB37E /* IconDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconDownloader.m; sourceTree = "<group>"; };
 		87D72EC117DDEEB000DEB37E /* IconDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconDownloader.h; sourceTree = "<group>"; };
 		87D91B2817687EFD00E46B66 /* CacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheDelegate.h; sourceTree = "<group>"; };
@@ -639,6 +641,7 @@
 				874FE10D17FD7FF0007A791B /* AppLog.m */,
 				87A108681802C116001F705D /* Logger.h */,
 				87A108691802C116001F705D /* Logger.m */,
+				87BFEDB6183A849F00A48821 /* Constants.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -1333,6 +1336,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87BFEDB7183A84A000A48821 /* Constants.m in Sources */,
 				87272839166CBF9B0089CBB6 /* main.m in Sources */,
 				874FE10E17FD7FF0007A791B /* AppLog.m in Sources */,
 				8757E1CB1827E85700D7BDA1 /* TTTAttributedLabel.m in Sources */,

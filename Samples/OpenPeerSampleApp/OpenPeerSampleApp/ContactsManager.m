@@ -395,8 +395,6 @@
     {
         name = [profileBundleDictionary objectForKey:profileXmlTagName];
         
-        //NSArray* arrayIdentities = [profileBundleDictionary objectForKey:profileXmlTagIdentities];
-        
         //Hack because JSON doesn't pass array of one element
         NSArray* arrayIdentities = nil;
         id identities = [profileBundleDictionary objectForKey:profileXmlTagIdentities];
