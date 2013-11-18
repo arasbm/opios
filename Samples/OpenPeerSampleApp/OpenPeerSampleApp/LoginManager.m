@@ -35,7 +35,7 @@
 #import "OpenPeer.h"
 //Utility
 #import "Utility.h"
-#import "Constants.h"
+#import "AppConsts.h"
 //Managers
 #import "ContactsManager.h"
 //SDK
@@ -141,9 +141,6 @@
     //Call to the SDK in order to shutdown Open Peer engine.
     [[HOPAccount sharedAccount] shutdown];
     
-    //[[OpenPeer sharedOpenPeer] shutdown];
-    //[[OpenPeer sharedOpenPeer] setup];
-    
     [[[OpenPeer sharedOpenPeer] mainViewController] onLogout];
     
     HOPHomeUser* homeUser = [[HOPModelManager sharedModelManager] getLastLoggedInHomeUser];
@@ -151,11 +148,7 @@
     [[HOPModelManager sharedModelManager] saveContext];
     
     self.isLogin = YES;
-    //Return to the login page.
-    //[[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
-    
-    //[self login];
-    
+
 }
 
 - (void) startAccount
@@ -397,7 +390,6 @@
         }
         
         self.isAssociation = YES;
-        //[[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
     }
     else
     {

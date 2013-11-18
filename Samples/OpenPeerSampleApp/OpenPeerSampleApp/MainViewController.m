@@ -31,7 +31,7 @@
 
 #import "MainViewController.h"
 #import "OpenPeer.h"
-#import "Constants.h"
+#import "AppConsts.h"
 #import "Utility.h"
 #import "Logger.h"
 //SDK

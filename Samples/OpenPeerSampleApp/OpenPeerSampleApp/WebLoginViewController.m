@@ -33,7 +33,7 @@
 #import "LoginManager.h"
 #import "OpenPeer.h"
 #import "ActivityIndicatorViewController.h"
-#import "Constants.h"
+#import "AppConsts.h"
 #import "Utility.h"
 #import <OpenpeerSDK/HOPIdentity.h>
 #import <OpenpeerSDK/HOPAccount.h>

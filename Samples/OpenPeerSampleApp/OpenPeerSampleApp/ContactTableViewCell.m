@@ -11,7 +11,7 @@
 #import <OpenpeerSDK/HOPAssociatedIdentity.h>
 #import <OpenpeerSDK/HOPAvatar+External.h>
 #import "IconDownloader.h"
-#import "Constants.h"
+#import "AppConsts.h"
 
 #define AVATAR_WIDTH 0 //31.0
 #define AVATAR_HEIGHT 0 //31.0

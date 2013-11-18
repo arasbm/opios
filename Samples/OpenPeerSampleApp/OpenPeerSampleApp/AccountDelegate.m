@@ -34,7 +34,7 @@
 #import "OpenpeerSDK/HOPAccount.h"
 #import "LoginManager.h"
 #import "OpenPeer.h"
-#import "Constants.h"
+#import "AppConsts.h"
 #import "MainViewController.h"
 #import "WebLoginViewController.h"
 #import "OpenpeerSDK/HOPLogger.h"
@@ -125,7 +125,6 @@
                 break;
                 
             case HOPAccountStateShutdown:
-                //[[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
                 [[LoginManager sharedLoginManager] login];
                 break;
                 
@@ -158,7 +157,7 @@
             if (webLoginViewController)
             {
                 NSString* jsMethod = [NSString stringWithFormat:@"sendBundleToJS(\'%@\')", [account getNextMessageForInnerBrowerWindowFrame]];
-                //NSLog(@"\n\nSent to inner frame: %@\n\n",jsMethod);
+                
                 [webLoginViewController passMessageToJS:jsMethod];
             }
     });

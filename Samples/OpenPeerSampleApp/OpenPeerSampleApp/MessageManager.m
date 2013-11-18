@@ -33,7 +33,7 @@
 #import "SessionManager.h"
 #import "ContactsManager.h"
 
-#import "Constants.h"
+#import "AppConsts.h"
 #import "Session.h"
 #import "Utility.h"
 #import "Message.h"

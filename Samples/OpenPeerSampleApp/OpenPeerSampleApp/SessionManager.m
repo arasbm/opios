@@ -33,13 +33,12 @@
 #import "ContactsManager.h"
 #import "MainViewController.h"
 #import "MessageManager.h"
-//#import "ActiveSessionViewController.h"
 #import "SessionViewController_iPhone.h"
 
 #import "Utility.h"
 #import "Session.h"
 #import "OpenPeer.h"
-#import "Constants.h"
+#import "AppConsts.h"
 
 #import <OpenpeerSDK/HOPConversationThread.h>
 #import <OpenpeerSDK/HOPContact.h>

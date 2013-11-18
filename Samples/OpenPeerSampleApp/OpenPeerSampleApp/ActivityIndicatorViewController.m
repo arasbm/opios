@@ -61,7 +61,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
     
     self.view.layer.cornerRadius = 5;
     self.view.layer.masksToBounds = YES;
@@ -70,7 +70,7 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
 }
 
 - (void) showActivityIndicator:(BOOL) show withText:(NSString*) text inView:(UIView*) inView
@@ -80,8 +80,6 @@
     
     if (show)
     {
-        //[self.view removeFromSuperview];
-        
         [inView addSubview:self.view];
         
         CGRect activityFrame = self.view.frame;
@@ -93,10 +91,5 @@
         [self.activityIndicator startAnimating];
         [self.activityLabel setText:text];
     }
-//    else
-//    {
-//        [self.activityIndicator stopAnimating];
-//        [self.view removeFromSuperview];
-//    }
 }
 @end
