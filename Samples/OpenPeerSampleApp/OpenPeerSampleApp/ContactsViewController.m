@@ -319,10 +319,6 @@
     
     [NSFetchedResultsController deleteCacheWithName:@"RolodexContacts"];
     
-    //NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    //NSEntityDescription *entity = [NSEntityDescription entityForName:@"HOPRolodexContact" inManagedObjectContext:[[HOPModelManager sharedModelManager] managedObjectContext]];
-    //[fetchRequest setEntity:entity];
-    
     NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateString];
     [self.fetchedResultsController.fetchRequest setPredicate:predicate];
     

@@ -162,8 +162,6 @@
 		8730D7E41833A63D008D1D37 /* iPhone_loader_00028@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8730D7AA1833A63D008D1D37 /* iPhone_loader_00028@2x.png */; };
 		87355FE517CCA7E3006151E7 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 87355FE417CCA7E3006151E7 /* Default.png */; };
 		87355FE917CCA8AF006151E7 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87355FE817CCA8AF006151E7 /* Default@2x.png */; };
-		87421DA3168274BB00699479 /* ActiveSessionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87421DA1168274BB00699479 /* ActiveSessionViewController.m */; };
-		87421DA4168274BB00699479 /* ActiveSessionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87421DA2168274BB00699479 /* ActiveSessionViewController.xib */; };
 		874408CA182FE873004AD8FC /* IncomingCallView_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 874408C7182FE873004AD8FC /* IncomingCallView_iPhone.xib */; };
 		874408CB182FE873004AD8FC /* IncomingCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 874408C9182FE873004AD8FC /* IncomingCallViewController.m */; };
 		874408D1182FFD6D004AD8FC /* handset_decline_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 874408D0182FFD6D004AD8FC /* handset_decline_icon.png */; };
@@ -177,7 +175,6 @@
 		874AD9DE166CEB780095FE33 /* CallDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 874AD9DD166CEB780095FE33 /* CallDelegate.m */; };
 		874AD9E5166D4C900095FE33 /* OpenPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 874AD9E4166D4C900095FE33 /* OpenPeer.m */; };
 		874FE10E17FD7FF0007A791B /* AppLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 874FE10D17FD7FF0007A791B /* AppLog.m */; };
-		874FF90116806D0F00B0A7A0 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 874FF90016806D0F00B0A7A0 /* Constants.m */; };
 		87570E46172ED183006E1C2F /* OpenpeerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87570E45172ED183006E1C2F /* OpenpeerSDK.framework */; };
 		8757E17F1827A0BF00D7BDA1 /* SessionViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 8757E17E1827A0BF00D7BDA1 /* SessionViewController_iPhone.m */; };
 		8757E1831827A10E00D7BDA1 /* SessionViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8757E1821827A10E00D7BDA1 /* SessionViewController_iPhone.xib */; };
@@ -290,7 +287,7 @@
 /* Begin PBXFileReference section */
 		0012C551177D11DB0017FF5E /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		0024393B178F55BF00B79368 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		00CD052918321B6700EA3BB4 /* boost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = boost.framework; path = ../../libs/op/libs/ortc-lib/libs/boost/ios/framework/boost.framework; sourceTree = "<group>"; };
+		00CD052918321B6700EA3BB4 /* boost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = boost.framework; path = "../../libs/op/libs/ortc-lib/libs/boost/ios/framework/boost.framework"; sourceTree = "<group>"; };
 		87098FDC17C23997007C9093 /* OpenPeerDataModel.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = OpenPeerDataModel.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		870F337C168376450090A97F /* ActivityIndicatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityIndicatorViewController.h; sourceTree = "<group>"; };
 		870F337D168376450090A97F /* ActivityIndicatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityIndicatorViewController.m; sourceTree = "<group>"; };
@@ -462,9 +459,6 @@
 		8730D7AA1833A63D008D1D37 /* iPhone_loader_00028@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_loader_00028@2x.png"; sourceTree = "<group>"; };
 		87355FE417CCA7E3006151E7 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
 		87355FE817CCA8AF006151E7 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = SOURCE_ROOT; };
-		87421DA0168274BB00699479 /* ActiveSessionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActiveSessionViewController.h; sourceTree = "<group>"; };
-		87421DA1168274BB00699479 /* ActiveSessionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActiveSessionViewController.m; sourceTree = "<group>"; };
-		87421DA2168274BB00699479 /* ActiveSessionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActiveSessionViewController.xib; sourceTree = "<group>"; };
 		874408C7182FE873004AD8FC /* IncomingCallView_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IncomingCallView_iPhone.xib; sourceTree = "<group>"; };
 		874408C8182FE873004AD8FC /* IncomingCallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncomingCallViewController.h; sourceTree = "<group>"; };
 		874408C9182FE873004AD8FC /* IncomingCallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncomingCallViewController.m; sourceTree = "<group>"; };
@@ -489,11 +483,10 @@
 		874ADDB8166E13970095FE33 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		874ADDBA166E14000095FE33 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		874ADDBC166E14440095FE33 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		874ADDCD166E2B7C0095FE33 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../libs/op/libs/ortc-lib/libs/curl/staging/libcurl.a; sourceTree = SOURCE_ROOT; };
+		874ADDCD166E2B7C0095FE33 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "../../libs/op/libs/ortc-lib/libs/curl/staging/libcurl.a"; sourceTree = SOURCE_ROOT; };
 		874FE10D17FD7FF0007A791B /* AppLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppLog.m; sourceTree = "<group>"; };
 		874FE11117FD8DA9007A791B /* AppLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppLog.h; sourceTree = "<group>"; };
 		874FF8FF16806D0F00B0A7A0 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		874FF90016806D0F00B0A7A0 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		87570E45172ED183006E1C2F /* OpenpeerSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenpeerSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8757E17D1827A0BF00D7BDA1 /* SessionViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionViewController_iPhone.h; sourceTree = "<group>"; };
 		8757E17E1827A0BF00D7BDA1 /* SessionViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionViewController_iPhone.m; sourceTree = "<group>"; };
@@ -640,7 +633,6 @@
 				87F24B5D166FF0C900A5389F /* Utility.h */,
 				87F24B5E166FF0C900A5389F /* Utility.m */,
 				874FF8FF16806D0F00B0A7A0 /* Constants.h */,
-				874FF90016806D0F00B0A7A0 /* Constants.m */,
 				870F337C168376450090A97F /* ActivityIndicatorViewController.h */,
 				870F337D168376450090A97F /* ActivityIndicatorViewController.m */,
 				870F337E168376450090A97F /* ActivityIndicatorViewController.xib */,
@@ -1009,9 +1001,6 @@
 		87FC39F81709BB66002030D1 /* Session */ = {
 			isa = PBXGroup;
 			children = (
-				87421DA0168274BB00699479 /* ActiveSessionViewController.h */,
-				87421DA1168274BB00699479 /* ActiveSessionViewController.m */,
-				87421DA2168274BB00699479 /* ActiveSessionViewController.xib */,
 				87224731182D02F30027DA50 /* AudioCallViewController.h */,
 				8722472E182D02F30027DA50 /* AudioCallViewController.m */,
 				8722472D182D02F30027DA50 /* AudioCallViewController.xib */,
@@ -1183,7 +1172,6 @@
 				87EE6070166F667C002C5FA3 /* WebLoginViewController.xib in Resources */,
 				87E4DA11180D5082002CA2D4 /* message-received.wav in Resources */,
 				8730D7701833A62A008D1D37 /* WaitingVideoViewController.xib in Resources */,
-				87421DA4168274BB00699479 /* ActiveSessionViewController.xib in Resources */,
 				8757E1BF1827E5A200D7BDA1 /* iPhone_chat_textfield@2x.png in Resources */,
 				8730D7D71833A63D008D1D37 /* iPhone_loader_00022.png in Resources */,
 				8730D7B21833A63D008D1D37 /* iPhone_loader_00003@2x.png in Resources */,
@@ -1368,9 +1356,7 @@
 				87E4DA05180D4E8D002CA2D4 /* SoundsManager.m in Sources */,
 				875CD7E2167A14810037396B /* SessionManager.m in Sources */,
 				875CD7E5167A14960037396B /* Session.m in Sources */,
-				874FF90116806D0F00B0A7A0 /* Constants.m in Sources */,
 				8730D76F1833A62A008D1D37 /* WaitingVideoViewController.m in Sources */,
-				87421DA3168274BB00699479 /* ActiveSessionViewController.m in Sources */,
 				8723F8E917FC99EE003C8802 /* Settings.m in Sources */,
 				870F337F168376450090A97F /* ActivityIndicatorViewController.m in Sources */,
 				876CBCBB16F20A88004D542B /* IdentityDelegate.m in Sources */,

@@ -36,7 +36,6 @@
 
 #import "MainViewController.h"
 #import "ContactsViewController.h"
-//#import "ContactsViewController.h"
 #import "ActivityIndicatorViewController.h"
 #import "OpenPeer.h"
 #import "Constants.h"
@@ -117,7 +116,6 @@
         });
         
         dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
-        //dispatch_release(sema);
     }
     else
     {
@@ -355,7 +353,6 @@
             
             [dict setObject:identityContactWithHighestPriority.rolodexContact.name forKey:profileXmlTagName];
             
-            //NSMutableDictionary *dictIdentitites = [[NSMutableDictionary alloc] init];
             NSMutableArray* arrayIdentities = [[NSMutableArray alloc] init];
             for (HOPIdentityContact* identityContact in homeUserIdentityContacts)
             {
@@ -366,75 +363,22 @@
             
             [dict setObject:arrayIdentities forKey:profileXmlTagIdentities];
             
-            dictionaryProfile = [NSDictionary dictionaryWithObject:dict forKey:profileXmlTagProfile];
-            /*XMLWriter *xmlWriter = [[XMLWriter alloc] init];
-            [xmlWriter writeStartElement:profileXmlTagProfile];
-            
-            [xmlWriter writeStartElement:profileXmlTagName];
-            [xmlWriter writeCharacters:identityContactWithHighestPriority.rolodexContact.name];
-            [xmlWriter writeEndElement];
-            
-            
-            [xmlWriter writeStartElement:profileXmlTagIdentities];
-            
-            
-            for (HOPIdentityContact* identityContact in homeUserIdentityContacts)
-            {
-                NSString* baseURI = [HOPUtility getBaseIdentityURIFromURI:identityContact.rolodexContact.identityURI];
-                
-                if ([arrayOfContactAvailableIdentities containsObject:baseURI])
-                {
-                    [xmlWriter writeStartElement:profileXmlTagIdentityBundle];
-                    
-                    [xmlWriter writeStartElement:profileXmlTagIdentity];
-                    [xmlWriter writeCharacters:identityContact.rolodexContact.identityURI];
-                    [xmlWriter writeEndElement];
-                    
-    //                [xmlWriter writeStartElement:profileXmlTagSocialId];
-    //                [xmlWriter writeCharacters:[self.associatedIdentities objectForKey:key]];
-    //                [xmlWriter writeEndElement];
-                    
-                    [xmlWriter writeEndElement];
-                }
-            }
-            
-            [xmlWriter writeEndElement];
-            
-            [xmlWriter writeEndElement];
-            
-            testXMLString = [NSString stringWithString: [xmlWriter toString]];*/
-        }
+            dictionaryProfile = [NSDictionary dictionaryWithObject:dict forKey:profileXmlTagProfile];}
     }
     
-    NSError *parseError = nil;
-    //NSDictionary *xmlDictionary = [XMLReader dictionaryForXMLString:testXMLString error:&parseError];
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictionaryProfile
                                                        options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
                                                          error:&error];
     
-    if (! jsonData) {
+    if (! jsonData)
+    {
         NSLog(@"Got an error: %@", error);
-    } else {
+    } else
+    {
         ret = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-
     }
 
-    /*SBJsonParser* parser = [[SBJsonParser alloc] init];
-    NSDictionary* myDict = [parser objectWithString: ret];
-    
-    if (myDict)
-    {
-        NSDictionary* dict = [myDict objectForKey:profileXmlTagProfile];
-        NSString* name = [dict objectForKey:profileXmlTagName];
-        NSArray* identities = [dict objectForKey:profileXmlTagIdentities];
-        
-        for (NSDictionary* d in identities)
-        {
-            NSString* identityURI = [d objectForKey:profileXmlTagIdentity];
-            identityURI = nil;
-        }
-    }*/
     return ret;
 }
 
@@ -529,77 +473,6 @@
         }
 
     }
-    
-    
-    //RXMLElement *rxmlProfile = [[RXMLElement alloc] initFromXMLString:profileBundle encoding:NSUTF8StringEncoding];
-    //NSString* name = @"Jelena Jankovic";//[rxmlProfile child:profileXmlTagName].text;
-    
-    //for (RXMLElement* element in [rxmlProfile children:[[rxmlProfile child:profileXmlTagIdentities] child:profileXmlTagIdentityBundle].text])
-    /*{
-        NSString* identityURI = @"identity://facebook.com/100004429630836";//[element child:profileXmlTagIdentity].text;
-        HOPRolodexContact* contact = [[HOPModelManager sharedModelManager] getRolodexContactByIdentityURI:identityURI];
-        if (!contact)
-        {
-            NSString* baseIdentityURI = [HOPUtility getBaseIdentityURIFromURI:identityURI];
-            
-            HOPHomeUser* homeUser = [[HOPModelManager sharedModelManager] getLastLoggedInHomeUser];
-            HOPAssociatedIdentity* associatedIdentity = [[HOPModelManager sharedModelManager] getAssociatedIdentityBaseIdentityURI:baseIdentityURI homeUserStableId:homeUser.stableId];
-            
-            if (!associatedIdentity)
-            {
-                NSManagedObject* managedObject = [[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPAssociatedIdentity"];
-                
-                if ([managedObject isKindOfClass:[HOPAssociatedIdentity class]])
-                {
-                    associatedIdentity = (HOPAssociatedIdentity*) managedObject;
-                    associatedIdentity.baseIdentityURI = baseIdentityURI;
-                    associatedIdentity.name = baseIdentityURI;
-                    associatedIdentity.domain = identityProviderDomain;
-                    
-                    [[HOPModelManager sharedModelManager] saveContext];
-                }
-            }
-            
-            NSManagedObject* managedObject = [[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPRolodexContact"];
-            if ([managedObject isKindOfClass:[HOPRolodexContact class]])
-            {
-                contact = (HOPRolodexContact*)managedObject;
-                contact.name = name;
-                contact.identityURI = identityURI;
-                contact.associatedIdentity = associatedIdentity;
-                HOPRolodexContact* homeUserRolodexContact = [[[HOPModelManager sharedModelManager] getLastLoggedInHomeUser] getRolodexContactForIdentityBaseURI:[HOPUtility getBaseIdentityURIFromURI:identityURI]];
-                NSString* homeUserIdentityURI = homeUserRolodexContact ? homeUserRolodexContact.identityURI : nil;
-                [contact updateWithName:name identityURI:identityURI identityProviderDomain:identityProviderDomain homeUserIdentityURI:homeUserIdentityURI];
-                
-                [[HOPModelManager sharedModelManager] saveContext];
-            }
-        }
-
-        if (!contact.identityContact)
-        {
-            NSManagedObject* managedObject = [[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPIdentityContact"];
-            if ([managedObject isKindOfClass:[HOPIdentityContact class]])
-            {
-                HOPIdentityContact* hopIdentityContact = (HOPIdentityContact*)managedObject;
-                
-                NSManagedObject* managedObject = [[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPPublicPeerFile"];
-                if ([managedObject isKindOfClass:[HOPPublicPeerFile class]])
-                {
-                    HOPPublicPeerFile* hopPublicPeerFile = (HOPPublicPeerFile*)managedObject;
-                    hopPublicPeerFile.peerURI = [coreContact getPeerURI];
-                    hopPublicPeerFile.peerFile = [coreContact getPeerFilePublic];
-                    hopIdentityContact.peerFile = hopPublicPeerFile;
-                }
-                contact.identityContact = hopIdentityContact;
-                [[HOPModelManager sharedModelManager] saveContext];
-            }
-        }
-        
-        //Return first rolodex contact with highest priority
-        if (!ret)
-            ret = contact;
-    }
-    */
     return ret;
 }
 

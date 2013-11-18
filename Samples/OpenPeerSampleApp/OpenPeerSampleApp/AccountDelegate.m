@@ -125,7 +125,6 @@
                 break;
                 
             case HOPAccountStateShutdown:
-                //[[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
                 [[LoginManager sharedLoginManager] login];
                 break;
                 
@@ -158,7 +157,7 @@
             if (webLoginViewController)
             {
                 NSString* jsMethod = [NSString stringWithFormat:@"sendBundleToJS(\'%@\')", [account getNextMessageForInnerBrowerWindowFrame]];
-                //NSLog(@"\n\nSent to inner frame: %@\n\n",jsMethod);
+                
                 [webLoginViewController passMessageToJS:jsMethod];
             }
     });
