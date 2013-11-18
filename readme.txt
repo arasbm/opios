@@ -6,7 +6,7 @@ For a quick introduction to the code please read the following. For more detaile
 
 
 From your terminal, please clone the "opios" git repository:
-git clone --recursive https://github.com/openpeer/opios.git
+git clone --recursive https://github.com/openpeer/opios.git -b 20131025-federated-cloud-contacts
 
 This repository will yield the iOS Object-C SDK, sample application and dependency librarys like the C++ open peer core, stack, media and libraries needed to support the underlying SDK.
 
@@ -19,24 +19,16 @@ opios/Samples/                    - contains the Open Peer iOS Samples applicati
 
 How to build:
 
-1) Extract pre-built boost libraries:
+1) Build boost, from your terminal:
 
-pushd opios/libs/op/libs/boost/
-curl -O http://assets.hookflash.me/github.com-openpeer-opios/lib/10012013_0.8_boost-build-iOS-5.zip
-unzip 10012013_0.8_boost-build-iOS-5.zip
-popd
-
-
-NOTE: If you are running < XCode 5.0 you can build boost by from your terminal:
-
-pushd opios/libs/op/libs/boost/projects/gnu-make/
-./build all
+pushd opios/libs/op/libs/ortc-lib/libs/boost/
+./boost.sh
 popd
 
 
 2) Build curl, from your terminal:
 
-pushd opios/libs/op/libs/curl/
+pushd opios/libs/op/libs/ortc-lib/libs/curl/
 ./build_ios.sh
 popd
 
