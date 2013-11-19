@@ -62,6 +62,7 @@ typedef enum
     MODULE_SERVICES_RUDP,
     MODULE_SERVICES_HTTP,
     MODULE_ZSLIB,
+    MODULE_JAVASCRIPT,
     
     TOTAL_MODULES
 }Modules;
