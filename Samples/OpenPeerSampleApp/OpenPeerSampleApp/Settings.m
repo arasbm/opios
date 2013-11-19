@@ -481,7 +481,7 @@
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODEULE_SDK];
     [self setLoggerLevel:HOPLoggerLevelDetail forAppModule:MODULE_WEBRTC];
     [self setLoggerLevel:HOPLoggerLevelDetail forAppModule:MODULE_MEDIA];
-    [self setLoggerLevel:HOPLoggerLevelDetail forAppModule:MODULE_JAVASCRIPT];
+    [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_JAVASCRIPT];
     
     [self setColorizedOutput:YES logger:LOGGER_STD_OUT];
     [self setColorizedOutput:YES logger:LOGGER_TELNET];
