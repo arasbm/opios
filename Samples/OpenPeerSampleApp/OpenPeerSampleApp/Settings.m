@@ -359,6 +359,9 @@
             ret = @"SDK (zsLib)";
             break;
             
+        case MODULE_JAVASCRIPT:
+            ret = @"JavaScript";
+            break;
             default:
             break;
     }
@@ -420,6 +423,10 @@
             ret = moduleZsLib;
             break;
             
+        case MODULE_JAVASCRIPT:
+            ret = moduleJavaScript;
+            break;
+            
             default:
             break;
     }
@@ -474,6 +481,7 @@
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODEULE_SDK];
     [self setLoggerLevel:HOPLoggerLevelDetail forAppModule:MODULE_WEBRTC];
     [self setLoggerLevel:HOPLoggerLevelDetail forAppModule:MODULE_MEDIA];
+    [self setLoggerLevel:HOPLoggerLevelDetail forAppModule:MODULE_JAVASCRIPT];
     
     [self setColorizedOutput:YES logger:LOGGER_STD_OUT];
     [self setColorizedOutput:YES logger:LOGGER_TELNET];
