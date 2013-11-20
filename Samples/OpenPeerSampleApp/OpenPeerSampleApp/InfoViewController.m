@@ -131,12 +131,12 @@ typedef enum
     switch (indexPath.section)
     {
         case USER_INFO_STABLE_ID:
-            cell.textLabel.lineBreakMode = UILineBreakModeCharacterWrap;
+            cell.textLabel.lineBreakMode = NSLineBreakByCharWrapping;
             cell.textLabel.numberOfLines = 0;
             cell.textLabel.text = self.homeUser.stableId;
             break;
             
-        case USER_INFO_PEER_URI:cell.textLabel.lineBreakMode = UILineBreakModeCharacterWrap;
+        case USER_INFO_PEER_URI:cell.textLabel.lineBreakMode = NSLineBreakByCharWrapping;
             cell.textLabel.numberOfLines = 0;
             cell.textLabel.text = ((HOPAssociatedIdentity*)self.homeUser.associatedIdentities.anyObject).homeUserProfile.identityContact.peerFile.peerURI;
             break;
@@ -144,10 +144,10 @@ typedef enum
         case USER_INFO_IDENTITIES:
         {
             HOPAssociatedIdentity* identityInfo = [[self.homeUser.associatedIdentities allObjects] objectAtIndex:indexPath.row];
-            cell.textLabel.lineBreakMode = UILineBreakModeCharacterWrap;
+            cell.textLabel.lineBreakMode = NSLineBreakByCharWrapping;
             cell.textLabel.numberOfLines = 0;
             cell.textLabel.text = identityInfo.name;
-            cell.detailTextLabel.lineBreakMode = UILineBreakModeCharacterWrap;
+            cell.detailTextLabel.lineBreakMode = NSLineBreakByCharWrapping;
             cell.detailTextLabel.numberOfLines = 0;
             cell.detailTextLabel.text = [NSString stringWithFormat:@"Identity URI: %@",identityInfo.homeUserProfile.identityURI];
         }
@@ -170,7 +170,7 @@ typedef enum
         case USER_INFO_STABLE_ID:
         {
             UIFont* cellFont = [UIFont boldSystemFontOfSize:17.0];
-            CGSize labelSize = [self.homeUser.stableId sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeCharacterWrap];
+            CGSize labelSize = [self.homeUser.stableId sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByCharWrapping];
             ret = (labelSize.height) > cellDefaultHeight ? labelSize.height : cellDefaultHeight;
         }
         break;
@@ -179,7 +179,7 @@ typedef enum
         {
             UIFont* cellFont = [UIFont boldSystemFontOfSize:17.0];
             NSString* str = ((HOPRolodexContact*)((HOPAssociatedIdentity*)self.homeUser.associatedIdentities.anyObject).rolodexContacts.anyObject).identityContact.peerFile.peerURI;
-            CGSize labelSize = [str sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
+            CGSize labelSize = [str sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByCharWrapping];
             ret = labelSize.height > cellDefaultHeight ? labelSize.height : cellDefaultHeight;
         }
             break;
@@ -190,10 +190,10 @@ typedef enum
             UIFont* cellDetailFont = [UIFont boldSystemFontOfSize:14.0];
             HOPAssociatedIdentity* identityInfo = [[self.homeUser.associatedIdentities allObjects] objectAtIndex:indexPath.row];
             
-            CGSize labelSize = [identityInfo.name sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
+            CGSize labelSize = [identityInfo.name sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByCharWrapping];
             
             NSString* str = [NSString stringWithFormat:@"Identity URI: %@",identityInfo.homeUserProfile.identityURI];
-            CGSize labelDetailSize = [str sizeWithFont:cellDetailFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeCharacterWrap];
+            CGSize labelDetailSize = [str sizeWithFont:cellDetailFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByCharWrapping];
             
             CGFloat totalCellHeight = labelSize.height + labelDetailSize.height;
             ret = (totalCellHeight) > cellDefaultHeight ? totalCellHeight: cellDefaultHeight;
