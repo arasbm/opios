@@ -355,6 +355,10 @@
             ret = @"SDK (HTTP)";
             break;
 
+        case MODULE_SERVICES_MLS:
+            ret = @"SDK (MLS)";
+            break;
+
         case MODULE_ZSLIB:
             ret = @"SDK (zsLib)";
             break;
@@ -418,7 +422,11 @@
         case MODULE_SERVICES_HTTP:
             ret = moduleServicesHttp;
             break;
-            
+
+        case MODULE_SERVICES_MLS:
+            ret = moduleServicesMls;
+            break;
+
         case MODULE_ZSLIB:
             ret = moduleZsLib;
             break;
@@ -474,6 +482,7 @@
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_SERVICES_ICE];
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_SERVICES_RUDP];
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_SERVICES_HTTP];
+    [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_SERVICES_MLS];
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_CORE];
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_STACK_MESSAGE];
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_STACK];
