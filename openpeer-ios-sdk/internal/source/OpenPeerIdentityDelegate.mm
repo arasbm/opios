@@ -31,14 +31,24 @@
 
 
 #import "OpenPeerIdentityDelegate.h"
-#import "HOPIdentity.h"
+#import "HOPIdentity_Internal.h"
 
 #import "OpenPeerStorageManager.h"
-#import "OpenPeerUtility.h"
+//#import "OpenPeerUtility.h"
+#import "HOPUtility.h"
+
+#import <openpeer/core/ILogger.h>
+
+ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
 
 OpenPeerIdentityDelegate::OpenPeerIdentityDelegate(id<HOPIdentityDelegate> inIdentityDelegate)
 {
     identityDelegate = inIdentityDelegate;
+}
+
+OpenPeerIdentityDelegate::~OpenPeerIdentityDelegate()
+{
+    ZS_LOG_DEBUG(zsLib::String("SDK - OpenPeerIdentityDelegate destructor is called"));
 }
 
 boost::shared_ptr<OpenPeerIdentityDelegate>  OpenPeerIdentityDelegate::create(id<HOPIdentityDelegate> inIdentityDelegate)
@@ -48,6 +58,7 @@ boost::shared_ptr<OpenPeerIdentityDelegate>  OpenPeerIdentityDelegate::create(id
 
 void OpenPeerIdentityDelegate::onIdentityStateChanged(IIdentityPtr identity,IdentityStates state)
 {
+    ZS_LOG_DEBUG(zsLib::String("SDK - onIdentityStateChanged for URI: ") + identity->getIdentityURI());
     // NSString* identityId = [NSString stringWithCString:identity->getIdentityURI() encoding:NSUTF8StringEncoding];
     HOPIdentity* hopIdentity = this->getHOPIdentity(identity);//[[OpenPeerStorageManager sharedStorageManager] getIdentityForId:identityId];
     
@@ -72,14 +83,20 @@ HOPIdentity* OpenPeerIdentityDelegate::getHOPIdentity(IIdentityPtr identity)
 {
     NSString* identityURI = [NSString stringWithCString:identity->getIdentityURI() encoding:NSUTF8StringEncoding];
     HOPIdentity* hopIdentity = [[OpenPeerStorageManager sharedStorageManager] getIdentityForId:identityURI];
-    
-    //This is temporary hack till 
-    if (!hopIdentity && ![OpenPeerUtility isBaseIdentityURI:identityURI])
+     
+    if (!hopIdentity && ![HOPUtility isBaseIdentityURI:identityURI])
     {
-        NSString* uri = [OpenPeerUtility getBaseIdentityURIFromURI:identityURI];
+        NSString* uri = [HOPUtility getBaseIdentityURIFromURI:identityURI];
         if (uri)
         {
             hopIdentity = [[OpenPeerStorageManager sharedStorageManager] getIdentityForId:uri];
+            
+            if (!hopIdentity)
+            {
+                hopIdentity = [[HOPIdentity alloc] initWithIdentityPtr:identity];
+                [identityDelegate onNewIdentity:hopIdentity];
+            }
+            
             if (hopIdentity)
                 [[OpenPeerStorageManager sharedStorageManager] setIdentity:hopIdentity forId:identityURI];
         }

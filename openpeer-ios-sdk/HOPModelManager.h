@@ -116,6 +116,13 @@
 - (HOPIdentityContact*) getIdentityContactByStableID:(NSString*) stableID identityURI:(NSString*) identityURI;
 
 /**
+ Retrieves the array of identity contacts for specified stable ID.
+ @param stableID NSString stable ID of registered contact
+ @return NSArray Array of HOPRolodexContact objects
+ */
+- (NSArray*) getIdentityContactsByStableID:(NSString*) stableID;
+
+/**
  Retrieves the public peer file object for spcified peer URI.
  @param peerURI NSString peer URI
  @return HOPPublicPeerFile public peer file object

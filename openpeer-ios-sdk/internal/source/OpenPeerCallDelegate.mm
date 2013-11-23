@@ -33,6 +33,9 @@
 #import "OpenPeerCallDelegate.h"
 #import "OpenPeerStorageManager.h"
 #import "HOPCall_Internal.h"
+#import <openpeer/core/ILogger.h>
+
+ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
 
 OpenPeerCallDelegate::OpenPeerCallDelegate(id<HOPCallDelegate> inCallDelegate)
 {
@@ -42,6 +45,11 @@ OpenPeerCallDelegate::OpenPeerCallDelegate(id<HOPCallDelegate> inCallDelegate)
 boost::shared_ptr<OpenPeerCallDelegate> OpenPeerCallDelegate::create(id<HOPCallDelegate> inCallDelegate)
 {
     return boost::shared_ptr<OpenPeerCallDelegate> (new OpenPeerCallDelegate(inCallDelegate));
+}
+
+OpenPeerCallDelegate::~OpenPeerCallDelegate()
+{
+    ZS_LOG_DEBUG(zsLib::String("SDK - OpenPeerCallDelegate destructor is called"));
 }
 
 void OpenPeerCallDelegate::onCallStateChanged(ICallPtr call,CallStates state)

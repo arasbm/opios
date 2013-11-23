@@ -30,50 +30,19 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "Delegates.h"
 
-@class Message;
 @class Session;
-@interface ChatViewController : UIViewController <UITextViewDelegate,UIActionSheetDelegate,UITableViewDelegate, UITableViewDataSource>
-{
-    IBOutlet UIView *typingMessageView;
-    IBOutlet UIButton *sendButton;
-    
-    BOOL _defaultsSet;
-    BOOL _isChatAndVideoActivated;
-    BOOL _keyboardIsHidden;
-    
-    // chat
-    IBOutlet UITableView *chatTableView;
-    IBOutlet UITextView *messageTextbox;
-    
-    float _chatHeight;
-    float _headerHeight;
-    float _keyboardLastChange;
-    float _portraitMaxHeight;
-    float _landscapeMaxHeight;
-    float _portraitFullScreenHeight;
-    float _landscapeFullScreeHeight;
-    bool _removeKeyboardAndDeactivateChat;
-}
 
-@property(nonatomic,assign) Session* session;
-@property(nonatomic,assign) BOOL shouldCloseSession;
+@interface ChatViewController : UIViewController <UITextViewDelegate,UITableViewDelegate, UITableViewDataSource>
 
-
-- (id)initWithSession:(Session*)inSession;
-
-- (void)refreshViewWithData;
-- (void)setFramesSizes;
-- (float)getHeaderHeight:(float)tableViewHeight;
-
-- (void)registerForNotifications:(BOOL)registerForNotifications;
-
-
-- (void)sendIMmessage:(NSString *)message;
-
-- (void)setDefaults;
-
-- (void) setKeyboardIsHidden:(BOOL) hidden;
-
-- (IBAction) sendButtonPressed:(id) sender;
+@property (weak, nonatomic) IBOutlet UITableView *chatTableView;
+@property (weak, nonatomic) IBOutlet UITextView *messageTextbox;
+@property (strong, nonatomic) IBOutlet UIView *containerView;
+@property (weak, nonatomic) id<ChatViewControllerDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UIView *typingMessageView;
+- (id) initWithSession:(Session*)inSession;
+- (void) refreshViewWithData;
+- (void) hideKeyboard;
+//- (float) getHeaderHeight:(float)tableViewHeight;
 @end

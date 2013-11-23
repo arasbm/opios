@@ -1,6 +1,6 @@
 /*
  
- Copyright (c) 2012, SMB Phone Inc.
+ Copyright (c) 2013, SMB Phone Inc.
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
@@ -29,7 +29,7 @@
  
  */
 
-#import "Constants.h"
+#import "AppConsts.h"
 
 #error PLEASE SET APPLICATION ID VALUE (THEN REMOVE THIS LINE)
 NSString* const applicationId = @"<-- insert application ID here (e.g. com.domain.appName) -->";
@@ -49,11 +49,8 @@ NSString* const applicationIdSharedSecret = @"<-- insert shared secret here -->"
 // most appropriate.
 // ------------------- !!! WARNING !!! -------------------
 
-//NSString* const provisioningURI = @"provisioning-stable-dev.hookflash.me";//Not in use
-NSString* const outerFrameURL = @"https://app-javascript.hookflash.me/outer.html";
+NSString* const outerFrameURL = @"https://app-javascript.hookflash.me/outer.html?view=choose";
 NSString* const identityProviderDomain = @"idprovider-javascript.hookflash.me";
-//NSString* const peerContactServiceDomain = @"unstable.hookflash.me";//Not in use
-//NSString* const contactsLoadingtServiceDomain = @"example-light.hookflash.me";//Not in use
 NSString* const identityFederateBaseURI = @"identity://idprovider-javascript.hookflash.me/";
 NSString* const identityFacebookBaseURI = @"identity://facebook.com/";
 NSString* const identityLinkedInBaseURI = @"identity://linkedin.com/";
@@ -111,6 +108,10 @@ NSString * const notificationRemoteSessionModeChanged = @"notificationRemoteSess
 NSString * const defaultTelnetPort = @"59999";
 NSString * const defaultOutgoingTelnetServer = @"tcp.logger.hookflash.me:8055";
 
+NSString * const archiveMediaAEC = @"archiveMediaAEC";
+NSString * const archiveMediaAGC = @"archiveMediaAGC";
+NSString * const archiveMediaNS = @"archiveMediaNS";
+
 NSString * const archiveRemoteSessionActivationMode = @"archiveRemoteSessionActivationMode";
 NSString * const archiveFaceDetectionMode = @"archiveFaceDetectionMode";
 NSString * const archiveRedialMode = @"archiveRedialMode";
@@ -128,5 +129,10 @@ NSString * const moduleCore = @"openpeer_core";
 NSString * const moduleStackMessage = @"openpeer_stack_message";
 NSString * const moduleStack = @"openpeer_stack";
 NSString * const moduleServices = @"openpeer_services";
+NSString * const moduleServicesIce = @"openpeer_services_ice";
+NSString * const moduleServicesRudp = @"openpeer_services_rudp";
 NSString * const moduleServicesHttp = @"openpeer_services_http";
+NSString * const moduleServicesMls = @"openpeer_services_mls";
 NSString * const moduleZsLib = @"zsLib";
+NSString * const moduleJavaScript = @"openpeer_javascript";
+

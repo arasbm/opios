@@ -1,6 +1,6 @@
 /*
  
- Copyright (c) 2012, SMB Phone Inc.
+ Copyright (c) 2013, SMB Phone Inc.
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
@@ -30,17 +30,13 @@
  */
 
 #import <UIKit/UIKit.h>
-#import <CoreData/CoreData.h>
-#import "ContactTableViewCell.h"
 
-@interface ContactsTableViewController : UIViewController<UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource,NSFetchedResultsControllerDelegate>
+@class Session;
 
-@property (nonatomic, weak) IBOutlet UITableView *contactsTableView;
-@property (nonatomic, weak) IBOutlet ContactTableViewCell *contactsTableViewCell;
-@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+@interface WaitingVideoViewController : UIViewController
 
-- (void) onContactsLoadingStarted;
-- (void) onContactsPeerFilesLoadingStarted;
-- (void) onContactsLoaded;
-- (void) onContactsLookupCheckStarted;
+- (id) initWithSession:(Session*) inSession;
+- (IBAction) callHangup:(id)sender;
+@property (weak, nonatomic) NSString* statusText;
+
 @end

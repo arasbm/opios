@@ -40,7 +40,7 @@
 
 #import "Session.h"
 #import "MainViewController.h"
-#import "ActiveSessionViewController.h"
+#import "SessionViewController_iPhone.h"
 #import "Utility.h"
 
 @implementation CallDelegate
@@ -52,7 +52,7 @@
     NSString* sessionId = [[call getConversationThread] getThreadId];
     dispatch_async(dispatch_get_main_queue(), ^{
 
-        ActiveSessionViewController* sessionViewController = [[[[OpenPeer sharedOpenPeer] mainViewController] sessionViewControllersDictionary] objectForKey:sessionId];
+        SessionViewController_iPhone* sessionViewController = [[[[OpenPeer sharedOpenPeer] mainViewController] sessionViewControllersDictionary] objectForKey:sessionId];
         
         [sessionViewController updateCallState];
         
@@ -97,6 +97,8 @@
                 
             case HOPCallStateClosing:               //Receives both parties
                  [[SessionManager sharedSessionManager] onCallClosing:call];
+                [[SoundManager sharedSoundsManager] stopCallingSound];
+                [[SoundManager sharedSoundsManager] stopRingingSound];
                 break;
                 
             case HOPCallStateClosed:                //Receives both parties

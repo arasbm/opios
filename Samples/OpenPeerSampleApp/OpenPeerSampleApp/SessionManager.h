@@ -47,7 +47,7 @@
 + (id) sharedSessionManager;
 
 - (Session*) createSessionForContact:(HOPRolodexContact*) contact;
-- (Session*) createSessionForContacts:(NSArray*) contacts andConversationThread:(HOPConversationThread*) inConversationThread;
+- (Session*) createSessionForConversationThread:(HOPConversationThread*) inConversationThread;
 - (Session*) createSessionInitiatedFromSession:(Session*) inSession forContactPeerURIs:(NSString*) peerURIs;
 - (Session*) createRemoteSessionForContacts:(NSArray*) participants;
 - (Session*) proceedWithExistingSessionForContact:(HOPContact*) contact newConversationThread:(HOPConversationThread*) inConversationThread;

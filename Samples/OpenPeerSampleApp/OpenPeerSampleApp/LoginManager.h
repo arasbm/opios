@@ -49,7 +49,7 @@
 - (void) logout;
 
 - (void) onIdentityAssociationFinished:(HOPIdentity*) identity;
-- (void) attachDelegateForIdentity:(HOPIdentity*) identity;
+- (void) attachDelegateForIdentity:(HOPIdentity*) identity forceAttach:(BOOL) forceAttach;
 
 - (void) onUserLoggedIn;
 

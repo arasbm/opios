@@ -44,7 +44,11 @@ protected:
     id<HOPMediaEngineDelegate> mediaEngineDelegate;
     
     OpenPeerMediaEngineDelegate(id<HOPMediaEngineDelegate> inMediaEngineDelegate);
+
 public:
+    
+    ~OpenPeerMediaEngineDelegate();
+    
   static boost::shared_ptr<OpenPeerMediaEngineDelegate> create(id<HOPMediaEngineDelegate> inMediaEngineDelegate);
   
   virtual void onMediaEngineAudioRouteChanged(IMediaEngine::OutputAudioRoutes audioRoute);

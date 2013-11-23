@@ -35,7 +35,10 @@
 
 @interface HOPRolodexContact (External)
 
+- (void) updateWithName:(NSString*) inName identityURI:(NSString*) inIdentityURI identityProviderDomain:(NSString*)identityProviderDomain  homeUserIdentityURI:(NSString*)homeUserIdentityURI;
+
 - (BOOL) isSelf;
 - (HOPContact*) getCoreContact;
 - (HOPAvatar*) getAvatarForWidth:(NSNumber*) width height:(NSNumber*) height;
+- (NSString*) firstLetter;
 @end

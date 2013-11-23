@@ -31,11 +31,12 @@
 
 #import "OpenPeer.h"
 #import "Utility.h"
-#import "Constants.h"
+#import "AppConsts.h"
 #import "Logger.h"
 //SDK
 #import "OpenpeerSDK/HOPStack.h"
 #import "OpenpeerSDK/HOPLogger.h"
+#import "OpenpeerSDK/HOPMediaEngine.h"
 //Managers
 #import "LoginManager.h"
 //Delegates
@@ -115,8 +116,12 @@
   //Init openpeer stack and set created delegates
   [[HOPStack sharedStack] setupWithStackDelegate:self.stackDelegate mediaEngineDelegate:self.mediaEngineDelegate appID: self.authorizedApplicationId appName:applicationName appImageURL:applicationImageURL appURL:applicationURL userAgent:[Utility getUserAgentName] deviceID:self.deviceId deviceOs:[Utility getDeviceOs] system:[Utility getPlatform]];
 
-  //Start with login procedure and display login view
-  [[LoginManager sharedLoginManager] login];
+    //Start with login procedure and display login view
+    [[LoginManager sharedLoginManager] login];
+    
+    [[HOPMediaEngine sharedInstance] setEcEnabled:[[Settings sharedSettings] isMediaAECOn]];
+    [[HOPMediaEngine sharedInstance] setAgcEnabled:[[Settings sharedSettings] isMediaAGCOn]];
+    [[HOPMediaEngine sharedInstance] setNsEnabled:[[Settings sharedSettings] isMediaNSOn]];
 }
 
 - (void) shutdown

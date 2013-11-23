@@ -48,7 +48,11 @@ protected:
     id<HOPStackDelegate> stackDelegate;
     
     OpenPeerStackDelegate(id<HOPStackDelegate> inStackDelegate);
+    
 public:
+    
+    ~OpenPeerStackDelegate();
+    
     /**
      Create StackDelegateWrapper object packed in boost shared pointer.
      @returns StackDelegateWrapper object boost shared object

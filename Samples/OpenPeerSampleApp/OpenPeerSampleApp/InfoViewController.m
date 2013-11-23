@@ -1,10 +1,33 @@
-//
-//  InfoViewController.m
-//  OpenPeerSampleApp
-//
-//  Created by Sergej on 9/4/13.
-//  Copyright (c) 2013 Hookflash. All rights reserved.
-//
+/*
+ 
+ Copyright (c) 2013, SMB Phone Inc.
+ All rights reserved.
+ 
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+ 
+ 1. Redistributions of source code must retain the above copyright notice, this
+ list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright notice,
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
+ 
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ 
+ The views and conclusions contained in the software and documentation are those
+ of the authors and should not be interpreted as representing official policies,
+ either expressed or implied, of the FreeBSD Project.
+ 
+ */
 
 #import "InfoViewController.h"
 #import <OpenpeerSDK/HOPModelManager.h>
@@ -108,12 +131,12 @@ typedef enum
     switch (indexPath.section)
     {
         case USER_INFO_STABLE_ID:
-            cell.textLabel.lineBreakMode = UILineBreakModeCharacterWrap;
+            cell.textLabel.lineBreakMode = NSLineBreakByCharWrapping;
             cell.textLabel.numberOfLines = 0;
             cell.textLabel.text = self.homeUser.stableId;
             break;
             
-        case USER_INFO_PEER_URI:cell.textLabel.lineBreakMode = UILineBreakModeCharacterWrap;
+        case USER_INFO_PEER_URI:cell.textLabel.lineBreakMode = NSLineBreakByCharWrapping;
             cell.textLabel.numberOfLines = 0;
             cell.textLabel.text = ((HOPAssociatedIdentity*)self.homeUser.associatedIdentities.anyObject).homeUserProfile.identityContact.peerFile.peerURI;
             break;
@@ -121,10 +144,10 @@ typedef enum
         case USER_INFO_IDENTITIES:
         {
             HOPAssociatedIdentity* identityInfo = [[self.homeUser.associatedIdentities allObjects] objectAtIndex:indexPath.row];
-            cell.textLabel.lineBreakMode = UILineBreakModeCharacterWrap;
+            cell.textLabel.lineBreakMode = NSLineBreakByCharWrapping;
             cell.textLabel.numberOfLines = 0;
             cell.textLabel.text = identityInfo.name;
-            cell.detailTextLabel.lineBreakMode = UILineBreakModeCharacterWrap;
+            cell.detailTextLabel.lineBreakMode = NSLineBreakByCharWrapping;
             cell.detailTextLabel.numberOfLines = 0;
             cell.detailTextLabel.text = [NSString stringWithFormat:@"Identity URI: %@",identityInfo.homeUserProfile.identityURI];
         }
@@ -147,7 +170,7 @@ typedef enum
         case USER_INFO_STABLE_ID:
         {
             UIFont* cellFont = [UIFont boldSystemFontOfSize:17.0];
-            CGSize labelSize = [self.homeUser.stableId sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeCharacterWrap];
+            CGSize labelSize = [self.homeUser.stableId sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByCharWrapping];
             ret = (labelSize.height) > cellDefaultHeight ? labelSize.height : cellDefaultHeight;
         }
         break;
@@ -156,7 +179,7 @@ typedef enum
         {
             UIFont* cellFont = [UIFont boldSystemFontOfSize:17.0];
             NSString* str = ((HOPRolodexContact*)((HOPAssociatedIdentity*)self.homeUser.associatedIdentities.anyObject).rolodexContacts.anyObject).identityContact.peerFile.peerURI;
-            CGSize labelSize = [str sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
+            CGSize labelSize = [str sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByCharWrapping];
             ret = labelSize.height > cellDefaultHeight ? labelSize.height : cellDefaultHeight;
         }
             break;
@@ -167,10 +190,10 @@ typedef enum
             UIFont* cellDetailFont = [UIFont boldSystemFontOfSize:14.0];
             HOPAssociatedIdentity* identityInfo = [[self.homeUser.associatedIdentities allObjects] objectAtIndex:indexPath.row];
             
-            CGSize labelSize = [identityInfo.name sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
+            CGSize labelSize = [identityInfo.name sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByCharWrapping];
             
             NSString* str = [NSString stringWithFormat:@"Identity URI: %@",identityInfo.homeUserProfile.identityURI];
-            CGSize labelDetailSize = [str sizeWithFont:cellDetailFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeCharacterWrap];
+            CGSize labelDetailSize = [str sizeWithFont:cellDetailFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByCharWrapping];
             
             CGFloat totalCellHeight = labelSize.height + labelDetailSize.height;
             ret = (totalCellHeight) > cellDefaultHeight ? totalCellHeight: cellDefaultHeight;

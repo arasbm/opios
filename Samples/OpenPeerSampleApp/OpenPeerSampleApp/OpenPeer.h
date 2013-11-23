@@ -42,21 +42,7 @@
 @class IdentityDelegate;
 @class IdentityLookupDelegate;
 
-typedef enum
-{
-    OPENPEER_APPLICATION,
-    OPENPEER_SDK,
-    OPENPEER_MEDIA,
-    OPENPEER_WEBRTC,
-    OPENPEER_CORE,
-    OPENPEER_STACK_MESSAGE,
-    OPENPEER_STACK,
-    OPENPEER_SERVICES,
-    OPENPEER_SERVICES_HTTP,
-    ZSLIB,
-    
-    TOTAL_MODULES_NUMBER
-}OpenPeerModuls;
+
 
 @interface OpenPeer : NSObject
 

@@ -31,10 +31,18 @@
 
 
 #include "OpenPeerMediaEngineDelegate.h"
+#import <openpeer/core/ILogger.h>
+
+ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
 
 OpenPeerMediaEngineDelegate::OpenPeerMediaEngineDelegate(id<HOPMediaEngineDelegate> inMediaEngineDelegate)
 {
     mediaEngineDelegate = inMediaEngineDelegate;
+}
+
+OpenPeerMediaEngineDelegate::~OpenPeerMediaEngineDelegate()
+{
+    ZS_LOG_DEBUG(zsLib::String("SDK - OpenPeerMediaEngineDelegate destructor is called"));
 }
 
 boost::shared_ptr<OpenPeerMediaEngineDelegate> OpenPeerMediaEngineDelegate::create(id<HOPMediaEngineDelegate> inMediaEngineDelegate)

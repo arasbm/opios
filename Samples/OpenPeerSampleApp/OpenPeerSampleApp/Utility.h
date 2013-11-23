@@ -45,4 +45,5 @@
 + (NSString*) getFunctionNameForRequest:(NSString*) requestString;
 + (NSString*) getParametersNameForRequest:(NSString*) requestString;
 + (UIBarButtonItem*) createNavigationBackButtonForTarget:(id) target;
++ (NSString *)formatedMessageTimeStampForDate:(NSDate*) inDate;
 @end

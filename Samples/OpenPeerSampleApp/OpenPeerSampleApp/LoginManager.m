@@ -34,9 +34,8 @@
 
 #import "OpenPeer.h"
 //Utility
-#import "XMLWriter.h"
 #import "Utility.h"
-#import "Constants.h"
+#import "AppConsts.h"
 //Managers
 #import "ContactsManager.h"
 //SDK
@@ -108,7 +107,9 @@
     //If peer file doesn't exists, show login view, otherwise start relogin
     if (![[HOPModelManager sharedModelManager] getLastLoggedInHomeUser])
     {
-        [[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
+        //[[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
+        
+        [self startLoginUsingIdentityURI:identityFederateBaseURI];
         self.isLogin = YES;
     }
     else
@@ -140,9 +141,6 @@
     //Call to the SDK in order to shutdown Open Peer engine.
     [[HOPAccount sharedAccount] shutdown];
     
-    //[[OpenPeer sharedOpenPeer] shutdown];
-    //[[OpenPeer sharedOpenPeer] setup];
-    
     [[[OpenPeer sharedOpenPeer] mainViewController] onLogout];
     
     HOPHomeUser* homeUser = [[HOPModelManager sharedModelManager] getLastLoggedInHomeUser];
@@ -150,9 +148,7 @@
     [[HOPModelManager sharedModelManager] saveContext];
     
     self.isLogin = YES;
-    //Return to the login page.
-    [[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
-    
+
 }
 
 - (void) startAccount
@@ -172,7 +168,8 @@
         
         NSString* redirectAfterLoginCompleteURL = [NSString stringWithFormat:@"%@?reload=true",outerFrameURL];
 
-        if (![[HOPAccount sharedAccount] isCoreAccountCreated])
+        //if (![[HOPAccount sharedAccount] isCoreAccountCreated])
+        if (![[HOPAccount sharedAccount] isCoreAccountCreated] || [[HOPAccount sharedAccount] getState].state == HOPAccountStateShutdown)
             [self startAccount];
         
         //For identity login it is required to pass identity delegate, URL that will be requested upon successful login, identity URI and identity provider domain. This is 
@@ -255,16 +252,17 @@
         
         [[HOPModelManager sharedModelManager] saveContext];
         
-        [self.associatingIdentitiesDictionary removeObjectForKey:[identity getBaseIdentityURI]];
+        //[self.associatingIdentitiesDictionary removeObjectForKey:[identity getBaseIdentityURI]];
+        [self.associatingIdentitiesDictionary removeAllObjects];
     }
     
     [self onUserLoggedIn];
 }
 
-- (void) attachDelegateForIdentity:(HOPIdentity*) identity
+- (void) attachDelegateForIdentity:(HOPIdentity*) identity forceAttach:(BOOL) forceAttach
 {
     NSLog(@"attachDelegateForIdentity - identityURI: %@", [identity getIdentityURI]);
-    if (![identity isDelegateAttached])
+    if (![identity isDelegateAttached] || forceAttach)
     {
         NSLog(@"attachDelegateForIdentity - attaching delegate - identityURI: %@", [identity getIdentityURI]);
         //Create core data record if it is not already in the db    
@@ -316,11 +314,20 @@
         }
         
         //Not yet ready for association
-        if (self.isLogin || self.isAssociation)
+        if ((self.isLogin || self.isAssociation) && ([associatedIdentites count] < 2))
         {
             self.isLogin = NO;
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Identity association" message:@"Do you want to associate another social account" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
+            HOPIdentity* identity = [associatedIdentites objectAtIndex:0];
+            
+            NSString* message = @"Do you want to associate federated account?";
+            
+            if ([[identity getBaseIdentityURI] isEqualToString:identityFacebookBaseURI])
+                message = @"Do you want to associate federated account?";
+            else
+                message = @"Do you want to associate facebook account?";
+                    
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Identity association" message:message delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
             
             [alert show];
         }
@@ -370,8 +377,19 @@
 {
     if (buttonIndex != alertView.cancelButtonIndex)
     {
+        NSArray* associatedIdentites = [[HOPAccount sharedAccount] getAssociatedIdentities];
+        HOPIdentity* identity = [associatedIdentites objectAtIndex:0];
+        
+        if ([[identity getBaseIdentityURI] isEqualToString:identityFacebookBaseURI])
+        {
+            [[LoginManager sharedLoginManager] startLoginUsingIdentityURI:identityFederateBaseURI];
+        }
+        else
+        {
+            [[LoginManager sharedLoginManager] startLoginUsingIdentityURI:identityFacebookBaseURI];
+        }
+        
         self.isAssociation = YES;
-        [[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
     }
     else
     {

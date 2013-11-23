@@ -32,7 +32,7 @@
 #import "LoginViewController.h"
 #import "MainViewController.h"
 #import "LoginManager.h"
-#import "Constants.h"
+#import "AppConsts.h"
 
 @interface LoginViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *buttonLinkedIn;

@@ -39,6 +39,7 @@
 #import "HOPModelManager.h"
 #import "OpenPeerIdentityDelegate.h"
 #import "OpenPeerUtility.h"
+#import "HOPUtility.h"
 #import "HOPRolodexContact_Internal.h"
 #import "HOPIdentityContact_Internal.h"
 #import "OpenPeerConstants.h"
@@ -204,7 +205,7 @@ ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
     {
         NSString* uri = [NSString stringWithCString:identityPtr->getIdentityURI() encoding:NSUTF8StringEncoding];
         if (uri)
-            ret = [OpenPeerUtility getBaseIdentityURIFromURI:uri];
+            ret = [HOPUtility getBaseIdentityURIFromURI:uri];
     }
     else
     {
@@ -239,7 +240,7 @@ ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
         IdentityContact identityContact;
         identityPtr->getSelfIdentityContact(identityContact);
         
-        NSString* sId = [NSString stringWithUTF8String:identityContact.mStableID];
+        NSString* sId = [[HOPAccount sharedAccount] getStableID];//[NSString stringWithUTF8String:identityContact.mStableID];
         NSString* identityURI = [NSString stringWithUTF8String:identityContact.mIdentityURI];
         ret = [[HOPModelManager sharedModelManager] getIdentityContactByStableID:sId identityURI:identityURI];
         if (!ret)
@@ -488,6 +489,19 @@ ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
 }
 
 #pragma mark - Internal methods
+- (id) initWithIdentityPtr:(IIdentityPtr) inIdentityPtr
+{
+    self = [super init];
+    if (self)
+    {
+        identityPtr = inIdentityPtr;
+        NSString* uri = [NSString stringWithCString:identityPtr->getIdentityURI() encoding:NSUTF8StringEncoding];
+        if (uri)
+            self.identityBaseURI = [NSString stringWithString:[HOPUtility getBaseIdentityURIFromURI:uri]];
+    }
+    return self;
+}
+
 - (id) initWithIdentityPtr:(IIdentityPtr) inIdentityPtr openPeerIdentityDelegate:(boost::shared_ptr<OpenPeerIdentityDelegate>) inOpenPeerIdentityDelegate
 {
     self = [super init];
@@ -497,7 +511,7 @@ ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
         openPeerIdentityDelegatePtr = inOpenPeerIdentityDelegate;
         NSString* uri = [NSString stringWithCString:identityPtr->getIdentityURI() encoding:NSUTF8StringEncoding];
         if (uri)
-            self.identityBaseURI = [NSString stringWithString:[OpenPeerUtility getBaseIdentityURIFromURI:uri]];
+            self.identityBaseURI = [NSString stringWithString:[HOPUtility getBaseIdentityURIFromURI:uri]];
     }
     return self;
 }

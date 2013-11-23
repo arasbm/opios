@@ -33,16 +33,13 @@
 
 
 @class Message;
+@class TTTAttributedLabel;
+
 @interface ChatMessageCell : UITableViewCell
 
-@property (nonatomic, strong) UILabel *messageLabel;
-@property (nonatomic) BOOL hasSendingIndicator;
+@property (nonatomic, strong) TTTAttributedLabel *messageLabel;
 
 - (void) setMessage:(Message*) message;
-+(CGSize)calcMessageHeight:(NSString *)message forScreenWidth:(float)width;
-
-
--(void)setUnicodeChars:(NSString *)str;
-
++ (CGSize) calcMessageHeight:(NSString *)message forScreenWidth:(float)width;
 
 @end

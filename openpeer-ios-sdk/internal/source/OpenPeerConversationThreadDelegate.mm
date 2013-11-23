@@ -35,10 +35,18 @@
 #import "HOPConversationThread_Internal.h"
 
 #include <zsLib/types.h>
+#import <openpeer/core/ILogger.h>
+
+ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
 
 OpenPeerConversationThreadDelegate::OpenPeerConversationThreadDelegate(id<HOPConversationThreadDelegate> inConversationThreadDelegate)
 {
     conversationThreadDelegate = inConversationThreadDelegate;
+}
+
+OpenPeerConversationThreadDelegate::~OpenPeerConversationThreadDelegate()
+{
+    ZS_LOG_DEBUG(zsLib::String("SDK - OpenPeerConversationThreadDelegate destructor is called"));
 }
 
 boost::shared_ptr<OpenPeerConversationThreadDelegate> OpenPeerConversationThreadDelegate::create(id<HOPConversationThreadDelegate> inConversationThreadDelegate)
@@ -50,11 +58,10 @@ HOPConversationThread* OpenPeerConversationThreadDelegate::getOpenPeerConversati
 {
     HOPConversationThread * hopConversationThread = nil;
     
-    NSString* threadId = [[NSString alloc] initWithUTF8String:conversationThread->getThreadID()];//[NSString stringWithUTF8String:conversationThread->getThreadID()];
+    NSString* threadId = [[NSString alloc] initWithUTF8String:conversationThread->getThreadID()];
     if (threadId)
     {
         hopConversationThread = [[OpenPeerStorageManager sharedStorageManager] getConversationThreadForId:threadId];
-        //[threadId release];
     }
     return hopConversationThread;
 }
@@ -66,9 +73,7 @@ void OpenPeerConversationThreadDelegate::onConversationThreadNew(IConversationTh
     if (!hopConversationThread)
     {
         hopConversationThread = [[HOPConversationThread alloc] initWithConversationThread:conversationThread];
-        [[OpenPeerStorageManager sharedStorageManager] setConversationThread:hopConversationThread forId:[NSString stringWithUTF8String:conversationThread->getThreadID()]];
         [conversationThreadDelegate onConversationThreadNew:hopConversationThread];
-        //[hopConversationThread release];
     }
 }
 

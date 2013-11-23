@@ -139,6 +139,31 @@ ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
     return ret;
 }
 
+- (NSString*) getPeerFilePublic
+{
+    NSString* ret = nil;
+    
+    if (coreContactPtr)
+    {
+        IPeerFilePublicPtr peerFilePublicPtr = coreContactPtr->getPeerFilePublic();
+        if (peerFilePublicPtr)
+        {
+            ElementPtr peerFilePublicElementPtr = IHelper::convertToElement(peerFilePublicPtr);
+            if (peerFilePublicElementPtr)
+            {
+                String peerFilePublic = IHelper::convertToString(peerFilePublicElementPtr);
+                if (peerFilePublic)
+                    ret = [NSString stringWithCString:peerFilePublic encoding:NSUTF8StringEncoding];
+            }
+        }
+    }
+    else
+    {
+        ZS_LOG_ERROR(Debug, [self log:@"Invalid contact object!"]);
+        [NSException raise:NSInvalidArgumentException format:@"Invalid contact object!"];
+    }
+    return ret;
+}
 
 - (HOPAccount*) getAssociatedAccount
 {

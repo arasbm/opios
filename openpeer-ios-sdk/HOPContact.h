@@ -64,6 +64,12 @@
  */
 - (NSString*) getPeerURI;
 
+/**
+ Retrieves peer file public from the contact object
+ @returns NSString peer file public
+ */
+- (NSString*) getPeerFilePublic;
+
 
 /**
  Retrieves account object of logged user

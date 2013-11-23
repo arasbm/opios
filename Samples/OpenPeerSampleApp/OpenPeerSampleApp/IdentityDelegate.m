@@ -41,10 +41,10 @@
 
 #import "LoginManager.h"
 #import "ContactsManager.h"
-#import "Constants.h"
+#import "AppConsts.h"
 #import "OpenPeer.h"
 #import "MainViewController.h"
-#import "ContactsTableViewController.h"
+#import "ContactsViewController.h"
 #import "ActivityIndicatorViewController.h"
 
 @interface IdentityDelegate()
@@ -76,7 +76,12 @@
     WebLoginViewController* ret = nil;
     
     NSLog(@"getLoginWebViewForIdentity:%@", [identity getBaseIdentityURI]);
-    ret = [self.loginWebViewsDictionary objectForKey:[identity getBaseIdentityURI]];
+    //ret = [self.loginWebViewsDictionary objectForKey:[identity getBaseIdentityURI]];
+    if ([self.loginWebViewsDictionary count] > 0)
+    {
+        ret = [[self.loginWebViewsDictionary allValues]objectAtIndex:0];
+        ret.coreObject = identity;
+    }
     if (!ret)
     {
         //ret = [[LoginManager sharedLoginManager] preloadedWebLoginViewController];
@@ -121,7 +126,7 @@
                 break;
                 
             case HOPIdentityStateWaitingAttachmentOfDelegate:
-                [[LoginManager sharedLoginManager] attachDelegateForIdentity:identity];
+                [[LoginManager sharedLoginManager] attachDelegateForIdentity:identity forceAttach:NO];
                 break;
                 
             case HOPIdentityStateWaitingForBrowserWindowToBeLoaded:
@@ -144,6 +149,7 @@
                 //Add identity login web view like main view subview
                 if (!webLoginViewController.view.superview)
                 {
+                    [[[OpenPeer sharedOpenPeer] mainViewController] removeSplashScreen];
                     [webLoginViewController.view setFrame:[[OpenPeer sharedOpenPeer] mainViewController].view.bounds];
                     [[[OpenPeer sharedOpenPeer] mainViewController] showWebLoginView:webLoginViewController];
                 }
@@ -163,6 +169,7 @@
                 
             case HOPIdentityStateWaitingForBrowserWindowToClose:
             {
+                [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Login ..." inView:[[[OpenPeer sharedOpenPeer] mainViewController] view]];
                 //Detach identity login web view
                 [UIView animateWithDuration:0.77 animations:^{
                     webLoginViewController.view.alpha = 0;
@@ -179,13 +186,14 @@
                 break;
                 
             case HOPIdentityStateReady:
+                [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
                 if ([[LoginManager sharedLoginManager] isLogin] || [[LoginManager sharedLoginManager] isAssociation])
                     [[LoginManager sharedLoginManager] onIdentityAssociationFinished:identity];
                 break;
                 
             case HOPIdentityStateShutdown:
                 [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
-                [[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
+                //[[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
                 break;
                 
             default:
@@ -214,6 +222,7 @@
 
 - (void)onIdentityRolodexContactsDownloaded:(HOPIdentity *)identity
 {
+    NSLog(@"onIdentityRolodexContactsDownloaded");
     //Remove activity indicator
     [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
     if (identity)
@@ -229,9 +238,10 @@
         //Get downloaded rolodex contacts
         BOOL rolodexContactsObtained = [identity getDownloadedRolodexContacts:&flushAllRolodexContacts outVersionDownloaded:&downloadedVersion outRolodexContacts:&rolodexContacts];
         
+        NSLog(@"onIdentityRolodexContactsDownloaded - Identity URI: %@ - Total number of roldex contacts: %d",[identity getIdentityURI], [rolodexContacts count]);
+        
         if ([downloadedVersion length] > 0)
             associatedIdentity.downloadedVersion = downloadedVersion;
-        
         
         //Stop timer that is started when flushAllRolodexContacts is received
         [identity stopTimerForContactsDeletion];
@@ -265,5 +275,9 @@
     }
 }
 
+- (void) onNewIdentity:(HOPIdentity*) identity
+{
+    [[LoginManager sharedLoginManager] attachDelegateForIdentity:identity forceAttach:YES];
+}
 @end
 

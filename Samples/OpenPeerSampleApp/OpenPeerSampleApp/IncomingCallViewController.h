@@ -1,6 +1,6 @@
 /*
  
- Copyright (c) 2012, SMB Phone Inc.
+ Copyright (c) 2013, SMB Phone Inc.
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
@@ -30,45 +30,19 @@
  */
 
 #import <UIKit/UIKit.h>
+//#import <QuartzCore/QuartzCore.h>
+
 
 @class Session;
-@class ChatViewController;
 
-@interface ActiveSessionViewController : UIViewController
+@interface IncomingCallViewController : UIViewController <UIWebViewDelegate>
 
-@property (nonatomic, strong) Session* session;
+@property (nonatomic, weak) Session* session;
 
-@property (nonatomic, weak) IBOutlet UIView *videoView;
-@property (nonatomic, weak) IBOutlet UIView *callStatusView;
-@property (nonatomic, weak) IBOutlet UIView *buttonsView;
-@property (nonatomic, weak) IBOutlet UIView *incomingCallView;
-@property (nonatomic, weak) IBOutlet UIImageView *videoImageView;
-@property (nonatomic, weak) IBOutlet UIImageView *videoPreviewImageView;
+- (id)initWithSession:(Session*) inSession;
 
+- (IBAction)acceptCall:(id)sender;
+- (IBAction)declineCall:(id)sender;
+- (IBAction)toggleSilent:(id)sender;
 
-@property (nonatomic, weak) IBOutlet UILabel *statusLabel;
-
-@property (nonatomic, weak) IBOutlet UIButton *voiceCallButton;
-@property (nonatomic, weak) IBOutlet UIButton *videoCallButton;
-@property (nonatomic, weak) IBOutlet UIButton *messageButton;
-//@property (weak, nonatomic) IBOutlet UIButton *recordingButton;
-
-@property (strong, nonatomic) ChatViewController *chatViewController;
-
-@property (assign) BOOL isIncomingCall;
-
-- (id) initWithSession:(Session*) inSession;
-
-- (IBAction)actionSendMessage:(id)sender;
-- (IBAction)actionVideoCall:(id)sender;
-- (IBAction)actionVoiceCall:(id)sender;
-- (IBAction)actionDeclineCall:(id)sender;
-- (IBAction)actionAcceptCall:(id)sender;
-//- (IBAction)actionRecordVideo:(id)sender;
-
-- (void) prepareForCall:(BOOL) isCallSession withVideo:(BOOL) includeVideo;
-- (void) prepareForIncomingCall;
-- (void) updateCallState;
-
-- (void) stopVideoRecording:(BOOL) stopRecording hideRecordButton:(BOOL) hideButton;
 @end

@@ -45,6 +45,8 @@ protected:
     OpenPeerIdentityLookupDelegate(id<HOPIdentityLookupDelegate> inIdentityLookupDelegate);
 public:
     
+    ~OpenPeerIdentityLookupDelegate();
+    
     static boost::shared_ptr<OpenPeerIdentityLookupDelegate> create(id<HOPIdentityLookupDelegate> inIdentityLookupDelegate);
     
     virtual void onIdentityLookupCompleted(IIdentityLookupPtr lookup);

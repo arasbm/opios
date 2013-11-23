@@ -1,21 +1,46 @@
-//
-//  SettingsViewController.m
-//  OpenPeerSampleApp
-//
-//  Created by Sergej on 9/2/13.
-//  Copyright (c) 2013 Hookflash. All rights reserved.
-//
+/*
+ 
+ Copyright (c) 2013, SMB Phone Inc.
+ All rights reserved.
+ 
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+ 
+ 1. Redistributions of source code must retain the above copyright notice, this
+ list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright notice,
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
+ 
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ 
+ The views and conclusions contained in the software and documentation are those
+ of the authors and should not be interpreted as representing official policies,
+ either expressed or implied, of the FreeBSD Project.
+ 
+ */
 
 #import "SettingsViewController.h"
 #import "LoggerSettingsViewController.h"
 #import "Settings.h"
-#import "Constants.h"
+#import "AppConsts.h"
 #import "InfoViewController.h"
 #import "LoginManager.h"
+#import <OpenPeerSDK/HOPMediaEngine.h>
 
 typedef enum
 {
     SETTINGS_INFO_SECTION,
+    SETTINGS_MEDIA_SECTION,
     SETTINGS_OPTIONS_SECTION,
     SETTINGS_LOGGER_SECTION,
     SETTINGS_LOGOUT_SECTION,
@@ -32,10 +57,21 @@ typedef enum
     SETTINS_TOTAL_OPTIONS_NUMBER = 3
 } SettingsOptions;
 
+typedef enum
+{
+    SETTINGS_MEDIA_AEC,
+    SETTINGS_MEDIA_AGC,
+    SETTINGS_MEDIA_NS,
+    
+    SETTINGS_MEDIA_TOTAL_NUMBER = 3
+} SettingsMediaOptions;
+
 @interface SettingsViewController ()
 
 - (void) switchChanged:(UISwitch*) sender;
+- (void) switchMediaChanged:(UISwitch*) sender;
 - (void) setSwitchCellData:(UITableViewCell*) tableCell;
+- (void) setSwitchCellData:(UITableViewCell*) tableCell atIndexPath:(NSIndexPath*) indexPath;
 @end
 
 @implementation SettingsViewController
@@ -79,6 +115,9 @@ typedef enum
             ret = SETTINS_TOTAL_OPTIONS_NUMBER;
             break;
             
+        case SETTINGS_MEDIA_SECTION:
+            ret = SETTINGS_MEDIA_TOTAL_NUMBER;
+            break;
         case SETTINGS_INFO_SECTION:
         case SETTINGS_LOGOUT_SECTION:
         case SETTINGS_LOGGER_SECTION:
@@ -93,6 +132,7 @@ typedef enum
 {
     static NSString *cellIdentifier = @"regularCell";
     static NSString *switchCellIdentifier = @"switchCell";
+    static NSString *switchCellMediaIdentifier = @"switchCellMedia";
     
     UITableViewCell *cell = nil;
     
@@ -110,7 +150,24 @@ typedef enum
         }
         
         cell.tag = indexPath.row;
-        [self setSwitchCellData:cell];
+        //[self setSwitchCellData:cell];
+        [self setSwitchCellData:cell atIndexPath:indexPath];
+    }
+    else if (indexPath.section == SETTINGS_MEDIA_SECTION)
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:switchCellMediaIdentifier];
+        if (!cell)
+        {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:switchCellMediaIdentifier];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
+            cell.accessoryView = switchView;
+            [switchView setOn:NO animated:NO];
+            [switchView addTarget:self action:@selector(switchMediaChanged:) forControlEvents:UIControlEventValueChanged];
+        }
+        
+        cell.tag = indexPath.row;
+        [self setSwitchCellData:cell atIndexPath:indexPath];
     }
     else
     {
@@ -202,6 +259,69 @@ typedef enum
     }
 }
 
+- (void) setSwitchCellData:(UITableViewCell*) tableCell atIndexPath:(NSIndexPath*) indexPath
+{
+    UISwitch* switcher = (UISwitch*) tableCell.accessoryView;
+    switcher.tag = tableCell.tag;
+    
+    switch (indexPath.section)
+    {
+        case SETTINGS_MEDIA_SECTION:
+        {
+            switch (tableCell.tag)
+            {
+                case SETTINGS_MEDIA_AEC:
+                    [switcher setOn: [[Settings sharedSettings] isMediaAECOn]];
+                    tableCell.textLabel.text = @"Acoustic Echo Canceler";
+                    break;
+                    
+                case SETTINGS_MEDIA_AGC:
+                    [switcher setOn: [[Settings sharedSettings] isMediaAGCOn]];
+                    tableCell.textLabel.text = @"Automatic Gain Control";
+                    break;
+                    
+                case SETTINGS_MEDIA_NS:
+                    [switcher setOn: [[Settings sharedSettings] isMediaNSOn]];
+                    tableCell.textLabel.text = @"Noise Suppression";
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+        break;
+            
+            
+        case SETTINGS_OPTIONS_SECTION:
+        {
+            switch (tableCell.tag)
+            {
+                case SETTINGS_REMOTE_SESSION_INIT:
+                    [switcher setOn: [[Settings sharedSettings] isRemoteSessionActivationModeOn]];
+                    tableCell.textLabel.text = @"Remote Session Mode";
+                    break;
+                    
+                case SETTINGS_FACE_DETECTION_MODE:
+                    [switcher setOn: [[Settings sharedSettings] isFaceDetectionModeOn]];
+                    tableCell.textLabel.text = @"Face Detection Mode";
+                    break;
+                    
+                case SETTINGS_CALL_REDIAL:
+                    [switcher setOn: [[Settings sharedSettings] isRedialModeOn]];
+                    tableCell.textLabel.text = @"Redial Mode";
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+        break;
+            
+        default:
+            break;
+    }
+}
+
 - (void) switchChanged:(UISwitch*) sender
 {
     switch (sender.tag)
@@ -246,4 +366,34 @@ typedef enum
     }
 }
 
+- (void) switchMediaChanged:(UISwitch*) sender
+{
+    switch (sender.tag)
+    {
+        case SETTINGS_MEDIA_AEC:
+        {
+            [[Settings sharedSettings] enableMediaAEC:[sender isOn]];
+            [[HOPMediaEngine sharedInstance] setEcEnabled:[sender isOn]];
+
+        }
+            break;
+            
+        case SETTINGS_MEDIA_AGC:
+        {
+            [[Settings sharedSettings] enableMediaAGC: [sender isOn]];
+            [[HOPMediaEngine sharedInstance] setAgcEnabled:[sender isOn]];
+
+            
+        }
+            break;
+            
+        case SETTINGS_MEDIA_NS:
+            [[Settings sharedSettings] enableMediaNS: [sender isOn]];
+            [[HOPMediaEngine sharedInstance] setNsEnabled:[sender isOn]];
+            break;
+            
+        default:
+            break;
+    }
+}
 @end

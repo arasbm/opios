@@ -1,6 +1,6 @@
 /*
  
- Copyright (c) 2012, SMB Phone Inc.
+ Copyright (c) 2013, SMB Phone Inc.
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
@@ -37,12 +37,9 @@ extern NSString* const applicationName;
 extern NSString* const applicationImageURL;
 extern NSString* const applicationURL;
 extern NSString* const applicationIdSharedSecret;
-//extern NSString* const provisioningURI;
 extern NSString* const outerFrameURL;
 extern NSString* const namespaceGrantServiceURL;
 extern NSString* const identityProviderDomain;
-//extern NSString* const peerContactServiceDomain;
-//extern NSString* const contactsLoadingtServiceDomain;
 extern NSString* const identityFederateBaseURI;
 extern NSString* const identityFacebookBaseURI;
 extern NSString* const identityLinkedInBaseURI;
@@ -100,6 +97,9 @@ extern NSString * const notificationRemoteSessionModeChanged;
 extern NSString * const defaultTelnetPort;
 extern NSString * const defaultOutgoingTelnetServer;
 
+extern NSString * const archiveMediaAEC;
+extern NSString * const archiveMediaAGC;
+extern NSString * const archiveMediaNS;
 extern NSString * const archiveRemoteSessionActivationMode;
 extern NSString * const archiveFaceDetectionMode;
 extern NSString * const archiveRedialMode;
@@ -115,7 +115,11 @@ extern NSString * const moduleCore;
 extern NSString * const moduleStackMessage;
 extern NSString * const moduleStack;
 extern NSString * const moduleServices;
+extern NSString * const moduleServicesIce;
+extern NSString * const moduleServicesRudp;
 extern NSString * const moduleServicesHttp;
+extern NSString * const moduleServicesMls;
 extern NSString * const moduleZsLib;
+extern NSString * const moduleJavaScript;
 
 

@@ -1,13 +1,36 @@
-//
-//  Settings.m
-//  OpenPeerSampleApp
-//
-//  Created by Sergej on 10/1/13.
-//  Copyright (c) 2013 Hookflash. All rights reserved.
-//
+/*
+ 
+ Copyright (c) 2013, SMB Phone Inc.
+ All rights reserved.
+ 
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+ 
+ 1. Redistributions of source code must retain the above copyright notice, this
+ list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright notice,
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
+ 
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ 
+ The views and conclusions contained in the software and documentation are those
+ of the authors and should not be interpreted as representing official policies,
+ either expressed or implied, of the FreeBSD Project.
+ 
+ */
 
 #import "Settings.h"
-#import "Constants.h"
+#import "AppConsts.h"
 #import "OpenPeer.h"
 #import "Logger.h"
 
@@ -39,6 +62,15 @@
     self = [super init];
     if (self)
     {
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:archiveMediaAEC])
+            self.isMediaAECOn = [[[NSUserDefaults standardUserDefaults] objectForKey:archiveMediaAEC] boolValue];
+        
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:archiveMediaAGC])
+            self.isMediaAGCOn = [[[NSUserDefaults standardUserDefaults] objectForKey:archiveMediaAGC] boolValue];
+        
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:archiveMediaNS])
+            self.isMediaNSOn = [[[NSUserDefaults standardUserDefaults] objectForKey:archiveMediaNS] boolValue];
+        
         if ([[NSUserDefaults standardUserDefaults] objectForKey:archiveRemoteSessionActivationMode])
             self.isRemoteSessionActivationModeOn = [[[NSUserDefaults standardUserDefaults] objectForKey:archiveRemoteSessionActivationMode] boolValue];
         
@@ -72,6 +104,25 @@
         }
     }
     return self;
+}
+
+- (void) enableMediaAEC:(BOOL) enable
+{
+    self.isMediaAECOn = enable;
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:self.isMediaAECOn] forKey:archiveMediaAEC];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+- (void) enableMediaAGC:(BOOL) enable
+{
+    self.isMediaAGCOn = enable;
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:self.isMediaAGCOn] forKey:archiveMediaAGC];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+- (void) enableMediaNS:(BOOL) enable
+{
+    self.isMediaNSOn = enable;
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:self.isMediaNSOn] forKey:archiveMediaNS];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void) enableRemoteSessionActivationMode:(BOOL) enable
@@ -292,14 +343,29 @@
             ret = @"SDK (services)";
             break;
 
+        case MODULE_SERVICES_ICE:
+            ret = @"SDK (ICE)";
+            break;
+
+        case MODULE_SERVICES_RUDP:
+            ret = @"SDK (RUDP)";
+            break;
+
         case MODULE_SERVICES_HTTP:
             ret = @"SDK (HTTP)";
+            break;
+
+        case MODULE_SERVICES_MLS:
+            ret = @"SDK (MLS)";
             break;
 
         case MODULE_ZSLIB:
             ret = @"SDK (zsLib)";
             break;
             
+        case MODULE_JAVASCRIPT:
+            ret = @"JavaScript";
+            break;
             default:
             break;
     }
@@ -345,12 +411,28 @@
             ret = moduleServices;
             break;
             
+        case MODULE_SERVICES_ICE:
+            ret = moduleServicesIce;
+            break;
+
+        case MODULE_SERVICES_RUDP:
+          ret = moduleServicesRudp;
+          break;
+
         case MODULE_SERVICES_HTTP:
             ret = moduleServicesHttp;
             break;
-            
+
+        case MODULE_SERVICES_MLS:
+            ret = moduleServicesMls;
+            break;
+
         case MODULE_ZSLIB:
             ret = moduleZsLib;
+            break;
+            
+        case MODULE_JAVASCRIPT:
+            ret = moduleJavaScript;
             break;
             
             default:
@@ -397,7 +479,10 @@
 {
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_APPLICATION];
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_SERVICES];
+    [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_SERVICES_ICE];
+    [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_SERVICES_RUDP];
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_SERVICES_HTTP];
+    [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_SERVICES_MLS];
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_CORE];
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_STACK_MESSAGE];
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_STACK];
@@ -405,6 +490,7 @@
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODEULE_SDK];
     [self setLoggerLevel:HOPLoggerLevelDetail forAppModule:MODULE_WEBRTC];
     [self setLoggerLevel:HOPLoggerLevelDetail forAppModule:MODULE_MEDIA];
+    [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_JAVASCRIPT];
     
     [self setColorizedOutput:YES logger:LOGGER_STD_OUT];
     [self setColorizedOutput:YES logger:LOGGER_TELNET];
