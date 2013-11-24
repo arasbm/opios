@@ -1,5 +1,5 @@
 
 opios SDK v0.4.2 changes
-- example downloading federated contacts (contacts filtered based on client application ID)
 - login is done via a webpage instead of a customized iOS window
 - stability improvements
+- application backgrounding improvements
