@@ -475,6 +475,7 @@
     NSString* sessionId = [[call getConversationThread] getThreadId];
     Session* session = [[[SessionManager sharedSessionManager] sessionsDictionary] objectForKey:sessionId];
     
+    [[HOPMediaEngine sharedInstance] stopVideoCapture];
     //Get view controller for call session
     SessionViewController_iPhone* sessionViewController = [[[[OpenPeer sharedOpenPeer] mainViewController] sessionViewControllersDictionary] objectForKey:[[session conversationThread] getThreadId]];
     
