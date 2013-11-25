@@ -1,0 +1,8 @@
+
+opios SDK v0.4.3 changes
+- 
+
+opios SDK v0.4.2 changes
+- login is done via a webpage instead of a customized iOS window
+- stability improvements
+- application backgrounding improvements
