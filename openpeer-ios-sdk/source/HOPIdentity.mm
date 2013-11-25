@@ -240,6 +240,7 @@ ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
         IdentityContact identityContact;
         identityPtr->getSelfIdentityContact(identityContact);
         
+        //HACK: Because identityContact.mStableID is not filled correctly in the core
         NSString* sId = [[HOPAccount sharedAccount] getStableID];//[NSString stringWithUTF8String:identityContact.mStableID];
         NSString* identityURI = [NSString stringWithUTF8String:identityContact.mIdentityURI];
         ret = [[HOPModelManager sharedModelManager] getIdentityContactByStableID:sId identityURI:identityURI];
@@ -250,6 +251,8 @@ ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
             {
                 ret = (HOPIdentityContact*) managedObject;
                 [ret updateWithIdentityContact:identityContact];
+                //HACK: Because identityContact.mStableID is not filled correctly in the core
+                ret.stableID = sId;
             }
         }
     }

@@ -135,6 +135,9 @@
 {
     [[Settings sharedSettings] saveDefaultsLoggerSettings];
     [Logger startAllSelectedLoggers];
+    
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"OpenPeer" message:@"Logger is started! Almost all log levels are set to trace. If you want to change that, you can do that from the settings." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alert show];
 }
 
 @end

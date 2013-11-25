@@ -42,8 +42,6 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    [[OpenPeer sharedOpenPeer] setup];
-    
     //Create root view controller. This view controller will manage displaying all other view controllers.
     MainViewController* mainViewController = [[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil];
     
@@ -52,6 +50,9 @@
     
     [self.window makeKeyAndVisible];
 
+    [[OpenPeer sharedOpenPeer] setMainViewController:mainViewController];
+    [[OpenPeer sharedOpenPeer] setup];
+    
     return YES;
 }
 

@@ -60,6 +60,7 @@
 @property (nonatomic) BOOL isLogerActivated;
 @property (nonatomic) BOOL showSplash;
 @property (strong, nonatomic) SplashViewController* splashViewController;
+@property (strong, nonatomic) NSTimer* closingTimer;
 
 - (void) removeAllSubViews;
 - (SessionTransitionStates) determineViewControllerTransitionStateForSession:(NSString*) sessionId forIncomingCall:(BOOL) incomingCall forIncomingMessage:(BOOL) incomingMessage;
@@ -92,17 +93,14 @@
 {
     [super viewDidLoad];
 
-    [[OpenPeer sharedOpenPeer] setMainViewController:self];
+    //[[OpenPeer sharedOpenPeer] setMainViewController:self];
 
     if (self.threeTapGestureRecognizer)
         [self.view addGestureRecognizer:self.threeTapGestureRecognizer];
     
     self.splashViewController = [[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil];
     self.splashViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    
-    self.splashViewController.view.frame = self.view.bounds;
-    
-    [self.view addSubview:self.splashViewController.view];
+  
 }
 
 -(void)viewDidUnload
@@ -114,12 +112,15 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.splashViewController.view.frame = self.view.bounds;
+    [self.view addSubview:self.splashViewController.view];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
-//    if (self.showSplash)
-//    {
-//        [self presentViewController:self.splashViewController animated:YES completion:nil];
-//    }
+    //self.closingTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(removeSplashScreen) userInfo:nil repeats:NO];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -183,7 +184,7 @@
 /**
  Show view with login button
 */
-- (void) showLoginView
+/*- (void) showLoginView
 {
     if (!self.loginViewController)
     {
@@ -196,7 +197,7 @@
     [self.loginViewController prepareForLogin];
     [self.view addSubview:self.loginViewController.view];
     [self.loginViewController.view setFrame:self.view.bounds];
-}
+}*/
 
 /**
  Show web view with opened login page.
@@ -207,10 +208,36 @@
     if (webLoginViewController)
     {
         NSLog(@"Displayed WebLoginViewController");
-        [self.view addSubview:webLoginViewController.view];
+        webLoginViewController.view.frame = self.view.bounds;
+        webLoginViewController.view.hidden = NO;
+        [webLoginViewController.view setAlpha:0];
+        
+        [UIView animateWithDuration:1 animations:^
+        {
+            [webLoginViewController.view setAlpha:1];
+            [self.view addSubview:webLoginViewController.view];
+        }
+        completion:nil];
     }
 }
 
+- (void) closeWebLoginView:(WebLoginViewController*) webLoginViewController
+{
+    if (webLoginViewController)
+    {
+        NSLog(@"Close WebLoginViewController");
+        
+        [UIView animateWithDuration:1 animations:^
+         {
+             [webLoginViewController.view setAlpha:0];
+             [self.view addSubview:webLoginViewController.view];
+         }
+        completion:^(BOOL finished)
+        {
+            [webLoginViewController.view removeFromSuperview];
+        }];
+    }
+}
 
 #pragma mark - Session view
 /**
@@ -433,19 +460,15 @@
 
 - (void) removeSplashScreen
 {
-    [self.splashViewController.view removeFromSuperview];
-    /*
-    if (![self.presentedViewController isBeingDismissed])
-    {
-        self.showSplash = NO;
-        [self dismissViewControllerAnimated:NO completion:^
-        {
-            self.splashViewController = nil;
-        }];
-    }
-    */
-    //Init open peer delegates. Start login procedure. Display Login view controller.
-    //[[OpenPeer sharedOpenPeer] setup];
+    [UIView animateWithDuration:1 animations:^
+     {
+         [self.splashViewController.view setAlpha:0.0];
+     }
+     completion:^(BOOL finished)
+     {
+         [self.splashViewController.view removeFromSuperview];
+     }];
+    
 }
 
 - (void) onLogout
@@ -460,15 +483,54 @@
     [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Getting contacts ..." inView:self.view];
 }
 
-- (void) onCallEnded
+
+#pragma mark LoginEventsDelegate
+- (void)onStartLoginWithidentityURI
 {
-//    if (self.callViewController)
-//    {
-//        [self dismissViewControllerAnimated:YES completion:^
-//        {
-//            //self.callViewController = nil;
-//        }];
-//        
-//    }
+    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Getting identity login url ..." inView:self.splashViewController.infoView];
+}
+
+- (void) onOpeningLoginPage
+{
+    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Opening login page ..." inView:self.splashViewController.infoView];
+}
+
+- (void) onLoginWebViewVisible:(WebLoginViewController*) webLoginViewController
+{
+    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:@"nil" inView:nil];
+    
+    [self removeSplashScreen];
+    
+    //Add identity login web view like main view subview
+    if (!webLoginViewController.view.superview)
+        [self showWebLoginView:webLoginViewController];
+}
+
+- (void)onRelogin
+{
+    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Relogin ..." inView:self.splashViewController.infoView];
+}
+
+- (void) onLoginFinished
+{
+    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:@"nil" inView:nil];
+    [self removeSplashScreen];
+    [self showTabBarController];
+}
+
+- (void) onIdentityLoginWebViewClose:(WebLoginViewController*) webLoginViewController forIdentityURI:(NSString*) identityURI
+{
+    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:[NSString stringWithFormat:@"Login identity: %@",identityURI] inView:self.view];
+    [self closeWebLoginView:webLoginViewController];
+}
+
+- (void) onIdentityLoginFinished
+{
+    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:@"nil" inView:nil];
+}
+
+- (void) onIdentityShutdown
+{
+    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:@"nil" inView:nil];
 }
 @end

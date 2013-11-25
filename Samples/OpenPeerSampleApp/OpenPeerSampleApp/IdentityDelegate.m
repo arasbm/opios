@@ -112,8 +112,7 @@
     
     dispatch_async(dispatch_get_main_queue(), ^
     {
-        WebLoginViewController* webLoginViewController = [self getLoginWebViewForIdentity:identity];
-        NSString* relogininfo = nil;
+        WebLoginViewController* webLoginViewController = nil;//[self getLoginWebViewForIdentity:identity];
         
         switch (state)
         {
@@ -126,42 +125,32 @@
                 break;
                 
             case HOPIdentityStateWaitingAttachmentOfDelegate:
+            {
                 [[LoginManager sharedLoginManager] attachDelegateForIdentity:identity forceAttach:NO];
+            }
                 break;
                 
             case HOPIdentityStateWaitingForBrowserWindowToBeLoaded:
-                //Login url is received. Remove activity indicator
-                [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
+            {
+                webLoginViewController = [self getLoginWebViewForIdentity:identity];
                 if ([[LoginManager sharedLoginManager] isLogin] || [[LoginManager sharedLoginManager] isAssociation])
-                    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Opening login page ..." inView:[[[OpenPeer sharedOpenPeer] mainViewController] view]];
-                else
-                    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Relogin ..." inView:[[[OpenPeer sharedOpenPeer] mainViewController] view]];
+                {
+                    [self.loginDelegate onOpeningLoginPage];
+                }
 
-                //if ([[LoginManager sharedLoginManager] preloadedWebLoginViewController] != webLoginViewController)
+                if ([[LoginManager sharedLoginManager] preloadedWebLoginViewController] != webLoginViewController)
                 {
                     //Open identity login web page
                     [webLoginViewController openLoginUrl:outerFrameURL];
                 }
+            }
                 break;
                 
             case HOPIdentityStateWaitingForBrowserWindowToBeMadeVisible:
             {
-                //Add identity login web view like main view subview
-                if (!webLoginViewController.view.superview)
-                {
-                    [[[OpenPeer sharedOpenPeer] mainViewController] removeSplashScreen];
-                    [webLoginViewController.view setFrame:[[OpenPeer sharedOpenPeer] mainViewController].view.bounds];
-                    [[[OpenPeer sharedOpenPeer] mainViewController] showWebLoginView:webLoginViewController];
-                }
-                
-                webLoginViewController.view.alpha = 0;
-                //Make visible identity login web view
-                webLoginViewController.view.hidden = NO;
-                
-                [UIView animateWithDuration:0.7 animations:^{
-                    webLoginViewController.view.alpha = 1;
-                }];
-                
+                webLoginViewController = [self getLoginWebViewForIdentity:identity];
+                [self.loginDelegate onLoginWebViewVisible:webLoginViewController];
+
                 //Notify core that identity login web view is visible now
                 [identity notifyBrowserWindowVisible];
             }
@@ -169,31 +158,22 @@
                 
             case HOPIdentityStateWaitingForBrowserWindowToClose:
             {
-                [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Login ..." inView:[[[OpenPeer sharedOpenPeer] mainViewController] view]];
-                //Detach identity login web view
-                [UIView animateWithDuration:0.77 animations:^{
-                    webLoginViewController.view.alpha = 0;
-                } completion: ^(BOOL finished) {
-                    [webLoginViewController.view removeFromSuperview];
-                }];
+                webLoginViewController = [self getLoginWebViewForIdentity:identity];
+                [self.loginDelegate onIdentityLoginWebViewClose:webLoginViewController forIdentityURI:[identity getIdentityURI]];
                 
                 //Notify core that identity login web view is closed
                 [identity notifyBrowserWindowClosed];
-                
-                //Remove identity login web view from the dictionary
-                [self removeLoginWebViewForIdentity:identity];
             }
                 break;
                 
             case HOPIdentityStateReady:
-                [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
+                [self.loginDelegate onIdentityLoginFinished];
                 if ([[LoginManager sharedLoginManager] isLogin] || [[LoginManager sharedLoginManager] isAssociation])
                     [[LoginManager sharedLoginManager] onIdentityAssociationFinished:identity];
                 break;
                 
             case HOPIdentityStateShutdown:
-                [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
-                //[[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
+                [self.loginDelegate onIdentityShutdown];
                 break;
                 
             default:

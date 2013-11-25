@@ -147,6 +147,7 @@
     self.callDelegate = [[CallDelegate alloc] init];
     self.accountDelegate = [[AccountDelegate alloc] init];
     self.identityDelegate = [[IdentityDelegate alloc] init];
+    self.identityDelegate.loginDelegate = self.mainViewController;
     self.identityLookupDelegate = [[IdentityLookupDelegate alloc] init];
 }
 @end

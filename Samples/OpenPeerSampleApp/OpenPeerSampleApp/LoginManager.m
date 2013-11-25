@@ -107,8 +107,6 @@
     //If peer file doesn't exists, show login view, otherwise start relogin
     if (![[HOPModelManager sharedModelManager] getLastLoggedInHomeUser])
     {
-        //[[[OpenPeer sharedOpenPeer] mainViewController] showLoginView];
-        
         [self startLoginUsingIdentityURI:identityFederateBaseURI];
         self.isLogin = YES;
     }
@@ -164,11 +162,10 @@
     if (![self.associatingIdentitiesDictionary objectForKey:identityURI])
     {
         NSLog(@"Identity login started for uri: %@",identityURI);
-        [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Getting identity login url ..." inView:[[[[OpenPeer sharedOpenPeer] mainViewController] loginViewController] view]];
+        [[[OpenPeer sharedOpenPeer] mainViewController] onStartLoginWithidentityURI];
         
         NSString* redirectAfterLoginCompleteURL = [NSString stringWithFormat:@"%@?reload=true",outerFrameURL];
 
-        //if (![[HOPAccount sharedAccount] isCoreAccountCreated])
         if (![[HOPAccount sharedAccount] isCoreAccountCreated] || [[HOPAccount sharedAccount] getState].state == HOPAccountStateShutdown)
             [self startAccount];
         
@@ -189,7 +186,7 @@
 {
     BOOL reloginStarted = NO;
     NSLog(@"Relogin started");
-    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Relogin ..." inView:[[[OpenPeer sharedOpenPeer] mainViewController] view]];
+    [[[OpenPeer sharedOpenPeer] mainViewController] onRelogin];
     
     HOPHomeUser* homeUser = [[HOPModelManager sharedModelManager] getLastLoggedInHomeUser];
     
@@ -333,6 +330,7 @@
         }
         else
         {
+            [[[OpenPeer sharedOpenPeer] mainViewController] onLoginFinished];
             //Start loading contacts.
             [[ContactsManager sharedContactsManager] loadContacts];
         }

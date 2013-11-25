@@ -214,7 +214,7 @@
 - (void) loadContacts
 {
     NSLog(@"loadContacts");
-    [[[OpenPeer sharedOpenPeer] mainViewController] showTabBarController];
+    //[[[OpenPeer sharedOpenPeer] mainViewController] showTabBarController];
     
     //For the first login and association it should be performed contacts download on just associated identity
     NSArray* associatedIdentities = [[HOPAccount sharedAccount] getAssociatedIdentities];
@@ -336,10 +336,7 @@
 {
     HOPHomeUser* homeUser = [[HOPModelManager sharedModelManager] getLastLoggedInHomeUser];
     
-    NSArray* arrayOfContactAvailableIdentities = [self getBaseURIsForStableId:targetContact.identityContact.stableID];
-
     NSString* ret = nil;
-    NSString* testXMLString = nil;
     NSDictionary* dictionaryProfile = nil;
     if (homeUser)
     {
