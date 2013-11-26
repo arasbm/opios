@@ -173,7 +173,12 @@
                 break;
                 
             case HOPIdentityStateShutdown:
-                [self.loginDelegate onIdentityShutdown];
+            {
+                HOPIdentityState* identityState = [identity getState];
+                if (identityState.lastErrorCode)
+                    [self.loginDelegate onIdentityLoginError:identityState.lastErrorReason];
+                [self.loginDelegate onIdentityLoginShutdown];
+            }
                 break;
                 
             default:

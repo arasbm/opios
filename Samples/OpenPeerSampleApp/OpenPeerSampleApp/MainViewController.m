@@ -497,7 +497,7 @@
 
 - (void) onLoginWebViewVisible:(WebLoginViewController*) webLoginViewController
 {
-    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:@"nil" inView:nil];
+    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
     
     [self removeSplashScreen];
     
@@ -513,7 +513,7 @@
 
 - (void) onLoginFinished
 {
-    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:@"nil" inView:nil];
+    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
     [self removeSplashScreen];
     [self showTabBarController];
 }
@@ -526,11 +526,32 @@
 
 - (void) onIdentityLoginFinished
 {
-    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:@"nil" inView:nil];
+    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
 }
 
-- (void) onIdentityShutdown
+- (void) onIdentityLoginError:(NSString*) error
 {
-    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:@"nil" inView:nil];
+    NSLog(@"Identity login error: %@",error);
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[NSString stringWithFormat:@"Identity login error: %@",error] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alert show];
+    
 }
+
+- (void) onIdentityLoginShutdown
+{
+    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
+}
+
+- (void) onAccountLoginError:(NSString *)error
+{
+    NSLog(@"Account login error: %@",error);
+    
+    if ([self.splashViewController.infoView superview])
+        [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:YES withText:@"Error. Please restart the application" inView:self.splashViewController.infoView];
+    
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Login Error" message:[NSString stringWithFormat:@"%@. Please check your internet connection and restart the application.",error] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alert show];
+    
+}
+
 @end

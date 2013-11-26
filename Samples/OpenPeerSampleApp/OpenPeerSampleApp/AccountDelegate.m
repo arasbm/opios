@@ -125,7 +125,17 @@
                 break;
                 
             case HOPAccountStateShutdown:
-                [[LoginManager sharedLoginManager] login];
+            {
+                HOPAccountState* accountState = [account getState];
+                if (accountState.errorCode)
+                {
+                    [[[OpenPeer sharedOpenPeer] mainViewController]  onAccountLoginError:accountState.errorReason];
+                }
+                else
+                {
+                    [[LoginManager sharedLoginManager] login];
+                }
+            }
                 break;
                 
             default:

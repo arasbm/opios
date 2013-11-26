@@ -45,6 +45,8 @@
 
 @protocol LoginEventsDelegate <NSObject>
 
+
+
 - (void) onStartLoginWithidentityURI;
 - (void) onOpeningLoginPage;
 - (void) onLoginWebViewVisible:(WebLoginViewController*) webLoginViewController;
@@ -55,5 +57,9 @@
 
 - (void) onIdentityLoginWebViewClose:(WebLoginViewController*) webLoginViewController forIdentityURI:(NSString*) identityURI;
 - (void) onIdentityLoginFinished;
-- (void) onIdentityShutdown;
+- (void) onIdentityLoginError:(NSString*) error;
+- (void) onIdentityLoginShutdown;
+
+- (void) onAccountLoginError:(NSString*) error;
+
 @end
