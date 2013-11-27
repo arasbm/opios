@@ -64,6 +64,9 @@
 @property (nonatomic) BOOL isLocalTelnetOn;
 @property (nonatomic) BOOL isRemoteTelnetOn;
 
+@property (nonatomic) BOOL appEnteredBackground;
+@property (nonatomic) BOOL appEnteredForeground;
+
 @property (nonatomic, strong) NSString* deviceId;
 + (id) sharedOpenPeer;
 

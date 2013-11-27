@@ -112,6 +112,7 @@
 
 - (void)startIconDownloadForAvatar:(HOPAvatar*) avatar atIndexPath:(NSIndexPath *)indexPath
 {
+    __block HOPAvatar* tempAvater = avatar;
     IconDownloader *iconDownloader = [self.imageDownloadsInProgress objectForKey:indexPath];
     if (iconDownloader == nil)
     {
@@ -119,17 +120,20 @@
         [iconDownloader setCompletionHandler:^(UIImage* downloadedImage)
         {
             
-            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-            
-            [avatar storeImage:downloadedImage];
-            
-            cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
-            cell.imageView.clipsToBounds = YES;
-            
-            // Display the newly loaded image
-            cell.imageView.image = downloadedImage;
-            
-            [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            if (downloadedImage)
+            {
+                UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+                
+                [tempAvater storeImage:downloadedImage];
+                
+                cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
+                cell.imageView.clipsToBounds = YES;
+                
+                // Display the newly loaded image
+                cell.imageView.image = downloadedImage;
+                
+                [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
             
             // Remove the IconDownloader from the in progress list.
             // This will result in it being deallocated.

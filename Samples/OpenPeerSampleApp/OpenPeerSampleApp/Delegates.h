@@ -61,5 +61,5 @@
 - (void) onIdentityLoginShutdown;
 
 - (void) onAccountLoginError:(NSString*) error;
-
+- (void) onAccountLoginWebViewClose:(WebLoginViewController*) webLoginViewController;
 @end

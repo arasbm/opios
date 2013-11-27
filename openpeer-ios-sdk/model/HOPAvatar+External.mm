@@ -48,13 +48,16 @@
 
 - (void) storeImage:(UIImage*) inImage
 {
-    HOPImage* hopImage = (HOPImage*)[[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPImage"];
+    if (inImage)
+    {
+        HOPImage* hopImage = (HOPImage*)[[HOPModelManager sharedModelManager] createObjectForEntity:@"HOPImage"];
     
-    
-    NSData *imageData = UIImagePNGRepresentation(inImage);
-    hopImage.image = imageData;
-    hopImage.avatar = self;
-    [[HOPModelManager sharedModelManager] saveContext];
+        NSData *imageData = UIImagePNGRepresentation(inImage);
+        hopImage.image = imageData;
+        self.avatarImage = hopImage;
+        //hopImage.avatar = self;
+        [[HOPModelManager sharedModelManager] saveContext];
+    }
 }
 
 @end

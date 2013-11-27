@@ -106,12 +106,15 @@
                 
             case HOPAccountWaitingForBrowserWindowToClose:
             {
-                //Detach login web view
+                /*//Detach login web view
                 [UIView animateWithDuration:0.77 animations:^{
                     self.webLoginViewController.view.alpha = 0;
                 } completion: ^(BOOL finished) {
                     [self.webLoginViewController.view removeFromSuperview];
-                }];
+                }];*/
+                
+                [[[OpenPeer sharedOpenPeer] mainViewController] closeWebLoginView:self.webLoginViewController];
+                
                 //Notify core that login web view is closed
                 [account notifyBrowserWindowClosed];
             }
@@ -127,7 +130,7 @@
             case HOPAccountStateShutdown:
             {
                 HOPAccountState* accountState = [account getState];
-                if (accountState.errorCode)
+                if (accountState.errorCode && ![[OpenPeer sharedOpenPeer] appEnteredForeground])
                 {
                     [[[OpenPeer sharedOpenPeer] mainViewController]  onAccountLoginError:accountState.errorReason];
                 }

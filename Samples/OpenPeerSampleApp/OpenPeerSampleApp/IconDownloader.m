@@ -64,6 +64,7 @@
 
 - (void)startDownloadForURL:(NSString*) url
 {
+    NSLog(@"Image download for: %@",url);
     self.activeDownload = [NSMutableData data];
     self.imageURL = url;
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
@@ -90,6 +91,7 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
+    NSLog(@"Image download failed: %@",[[connection currentRequest].URL path]);
 	// Clear the activeDownload property to allow later attempts
     self.activeDownload = nil;
     

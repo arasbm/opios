@@ -230,7 +230,7 @@
         [UIView animateWithDuration:1 animations:^
          {
              [webLoginViewController.view setAlpha:0];
-             [self.view addSubview:webLoginViewController.view];
+             //[self.view addSubview:webLoginViewController.view];
          }
         completion:^(BOOL finished)
         {
@@ -513,6 +513,7 @@
 
 - (void) onLoginFinished
 {
+    NSLog(@"onLoginFinished");
     [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
     [self removeSplashScreen];
     [self showTabBarController];
@@ -554,4 +555,9 @@
     
 }
 
+- (void) onAccountLoginWebViewClose:(WebLoginViewController*) webLoginViewController
+{
+    [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:nil withText:nil inView:nil];
+    [self closeWebLoginView:webLoginViewController];
+}
 @end
