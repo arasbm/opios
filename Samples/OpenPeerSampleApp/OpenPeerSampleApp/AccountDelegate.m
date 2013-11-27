@@ -106,13 +106,6 @@
                 
             case HOPAccountWaitingForBrowserWindowToClose:
             {
-                /*//Detach login web view
-                [UIView animateWithDuration:0.77 animations:^{
-                    self.webLoginViewController.view.alpha = 0;
-                } completion: ^(BOOL finished) {
-                    [self.webLoginViewController.view removeFromSuperview];
-                }];*/
-                
                 [[[OpenPeer sharedOpenPeer] mainViewController] closeWebLoginView:self.webLoginViewController];
                 
                 //Notify core that login web view is closed
