@@ -49,12 +49,13 @@
  */
 
 #import "IconDownloader.h"
-
-#define kAppIconSize 48
+#import <OpenpeerSDK/HOPAvatar+External.h>
+#import <OpenpeerSDK/HOPModelManager.h>
 
 @interface IconDownloader ()
 @property (nonatomic, strong) NSMutableData *activeDownload;
 @property (nonatomic, strong) NSURLConnection *imageConnection;
+@property (nonatomic, strong) HOPAvatar* avatar;
 @end
 
 
@@ -64,6 +65,7 @@
 
 - (void)startDownloadForURL:(NSString*) url
 {
+    NSLog(@"Image download for: %@",url);
     self.activeDownload = [NSMutableData data];
     self.imageURL = url;
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
@@ -74,6 +76,11 @@
     self.imageConnection = conn;
 }
 
+- (void)startDownloadForAvatar:(HOPAvatar*) inAvatar
+{
+    self.avatar = inAvatar;
+    [self startDownloadForURL:self.avatar.url];
+}
 - (void)cancelDownload
 {
     [self.imageConnection cancel];
@@ -90,7 +97,7 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-	// Clear the activeDownload property to allow later attempts
+    // Clear the activeDownload property to allow later attempts
     self.activeDownload = nil;
     
     // Release the connection now that it's finished
@@ -102,24 +109,20 @@
     // Set appIcon and clear temporary data/image
     UIImage *image = [[UIImage alloc] initWithData:self.activeDownload];
     
-    //if (image.size.width != kAppIconSize || image.size.height != kAppIconSize)
-	{
-        CGSize itemSize = CGSizeMake(kAppIconSize, kAppIconSize);
-		UIGraphicsBeginImageContextWithOptions(itemSize, NO, 0.0f);
-		CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
-		[image drawInRect:imageRect];
-		self.downloadedImage = UIGraphicsGetImageFromCurrentImageContext();
-		UIGraphicsEndImageContext();
-    }
     
     self.activeDownload = nil;
     
     // Release the connection now that it's finished
     self.imageConnection = nil;
-        
+    
+    if (image && self.avatar)
+    {
+        [self.avatar storeImage:image];
+        //[[HOPModelManager sharedModelManager] saveContext];
+    }
     // call our delegate and tell it that our icon is ready for display
     if (self.completionHandler)
-        self.completionHandler(image);
+        self.completionHandler(image,self.avatar.url);
 }
 
 @end

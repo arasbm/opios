@@ -581,4 +581,41 @@
     }
 }
 
-    @end
+
+- (void) recreateExistingSessions
+{
+    //for (Session* session in [self.sessionsDictionary allValues])
+    for ( NSString* key in [self.sessionsDictionary allKeys])
+    {
+        Session* session = [self.sessionsDictionary objectForKey:key];
+        if ([session.participantsArray count] > 0)
+        {
+            HOPRolodexContact* sessionParticipant = [session.participantsArray objectAtIndex:0];
+            NSString* profileBundle = [[ContactsManager sharedContactsManager] createProfileBundleForCommunicationWithContact:sessionParticipant];
+            //Create a conversation thread
+            HOPConversationThread* conversationThread = [HOPConversationThread conversationThreadWithProfileBundle:profileBundle];
+            
+            session.conversationThread = nil;
+            
+            
+            //Add list of all participants. Currently only one participant is added
+            if (conversationThread)
+            {
+                //Update the session with a new conversation thread
+                session.conversationThread = conversationThread;
+                
+                NSMutableArray* participants = [[NSMutableArray alloc] init];
+                for (HOPRolodexContact* rolodexContact in session.participantsArray)
+                {
+                    [participants addObject:[rolodexContact getCoreContact]];
+                }
+                [conversationThread addContacts:participants];
+            }
+        }
+        else
+        {
+            [self.sessionsDictionary removeObjectForKey:key];
+        }
+    }
+}
+@end

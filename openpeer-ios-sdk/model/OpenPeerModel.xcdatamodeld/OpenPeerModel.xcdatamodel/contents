@@ -35,7 +35,7 @@
     </entity>
     <entity name="HOPImage" representedClassName="HOPImage" syncable="YES">
         <attribute name="image" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
-        <relationship name="avatar" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="HOPAvatar" inverseName="avatarImage" inverseEntity="HOPAvatar" syncable="YES"/>
+        <relationship name="avatar" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="HOPAvatar" inverseName="avatarImage" inverseEntity="HOPAvatar" syncable="YES"/>
     </entity>
     <entity name="HOPPublicPeerFile" representedClassName="HOPPublicPeerFile" syncable="YES">
         <attribute name="peerFile" attributeType="String" syncable="YES"/>

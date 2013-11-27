@@ -38,6 +38,7 @@
 #import "AppConsts.h"
 //Managers
 #import "ContactsManager.h"
+#import "SessionManager.h"
 //SDK
 #import <OpenPeerSDK/HOPAccount.h>
 #import <OpenPeerSDK/HOPIdentity.h>
@@ -277,62 +278,70 @@
 - (void) onUserLoggedIn
 {
     NSLog(@"onUserLoggedIn");
+
     //Wait till identity association is not completed
     if ([[HOPAccount sharedAccount] getState].state == HOPAccountStateReady && [self.associatingIdentitiesDictionary count] == 0)
     {
         NSLog(@"onUserLoggedIn - Ready");
         
-        NSArray* associatedIdentites = [[HOPAccount sharedAccount] getAssociatedIdentities];
-        for (HOPIdentity* identity in associatedIdentites)
+        if (![[OpenPeer sharedOpenPeer] appEnteredForeground])
         {
-            if (![identity isDelegateAttached])
+            NSArray* associatedIdentites = [[HOPAccount sharedAccount] getAssociatedIdentities];
+            for (HOPIdentity* identity in associatedIdentites)
             {
-                NSString* redirectAfterLoginCompleteURL = [NSString stringWithFormat:@"%@?reload=true",outerFrameURL];
-                
-                [identity attachDelegate:(id<HOPIdentityDelegate>)[[OpenPeer sharedOpenPeer] identityDelegate]  redirectionURL:redirectAfterLoginCompleteURL];
-            }
-        }
-    
-        //Check if it is logged in a new user
-        HOPHomeUser* previousLoggedInHomeUser = [[HOPModelManager sharedModelManager] getLastLoggedInHomeUser];
-        HOPHomeUser* homeUser = [[HOPModelManager sharedModelManager] getHomeUserByStableID:[[HOPAccount sharedAccount] getStableID]];
-    
-        if (homeUser)
-        {
-            //If is previous logged in user is different update loggedIn flag
-            if (![homeUser.loggedIn boolValue])
-            {
-                if (previousLoggedInHomeUser)
-                    previousLoggedInHomeUser.loggedIn = NO;
-                
-                homeUser.loggedIn = [NSNumber numberWithBool: YES];
-                [[HOPModelManager sharedModelManager] saveContext];
-            }
-        }
-        
-        //Not yet ready for association
-        if ((self.isLogin || self.isAssociation) && ([associatedIdentites count] < 2))
-        {
-            self.isLogin = NO;
-            
-            HOPIdentity* identity = [associatedIdentites objectAtIndex:0];
-            
-            NSString* message = @"Do you want to associate federated account?";
-            
-            if ([[identity getBaseIdentityURI] isEqualToString:identityFacebookBaseURI])
-                message = @"Do you want to associate federated account?";
-            else
-                message = @"Do you want to associate facebook account?";
+                if (![identity isDelegateAttached])
+                {
+                    NSString* redirectAfterLoginCompleteURL = [NSString stringWithFormat:@"%@?reload=true",outerFrameURL];
                     
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Identity association" message:message delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
+                    [identity attachDelegate:(id<HOPIdentityDelegate>)[[OpenPeer sharedOpenPeer] identityDelegate]  redirectionURL:redirectAfterLoginCompleteURL];
+                }
+            }
+        
+            //Check if it is logged in a new user
+            HOPHomeUser* previousLoggedInHomeUser = [[HOPModelManager sharedModelManager] getLastLoggedInHomeUser];
+            HOPHomeUser* homeUser = [[HOPModelManager sharedModelManager] getHomeUserByStableID:[[HOPAccount sharedAccount] getStableID]];
+        
+            if (homeUser)
+            {
+                //If is previous logged in user is different update loggedIn flag
+                if (![homeUser.loggedIn boolValue])
+                {
+                    if (previousLoggedInHomeUser)
+                        previousLoggedInHomeUser.loggedIn = NO;
+                    
+                    homeUser.loggedIn = [NSNumber numberWithBool: YES];
+                    [[HOPModelManager sharedModelManager] saveContext];
+                }
+            }
             
-            [alert show];
+            //Not yet ready for association
+            if ((self.isLogin || self.isAssociation) && ([associatedIdentites count] < 2))
+            {
+                self.isLogin = NO;
+                
+                HOPIdentity* identity = [associatedIdentites objectAtIndex:0];
+                
+                NSString* message = @"Do you want to associate federated account?";
+                
+                if ([[identity getBaseIdentityURI] isEqualToString:identityFacebookBaseURI])
+                    message = @"Do you want to associate federated account?";
+                else
+                    message = @"Do you want to associate facebook account?";
+                        
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Identity association" message:message delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
+                
+                [alert show];
+            }
+            else
+            {
+                [[[OpenPeer sharedOpenPeer] mainViewController] onLoginFinished];
+                //Start loading contacts.
+                [[ContactsManager sharedContactsManager] loadContacts];
+            }
         }
         else
         {
-            [[[OpenPeer sharedOpenPeer] mainViewController] onLoginFinished];
-            //Start loading contacts.
-            [[ContactsManager sharedContactsManager] loadContacts];
+            [[SessionManager sharedSessionManager] recreateExistingSessions];
         }
         
         //Login finished. Remove activity indicator
@@ -391,7 +400,7 @@
     }
     else
     {
-        [[[[[OpenPeer sharedOpenPeer] mainViewController] loginViewController] view] removeFromSuperview];
+        [[[OpenPeer sharedOpenPeer] mainViewController] onLoginFinished];
         //Start loading contacts.
         [[ContactsManager sharedContactsManager] loadContacts];
     }
