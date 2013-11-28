@@ -10,6 +10,7 @@
 		0012C552177D11DB0017FF5E /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0012C551177D11DB0017FF5E /* libz.dylib */; };
 		0024393C178F55BF00B79368 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0024393B178F55BF00B79368 /* Security.framework */; };
 		00CD052A18321B6700EA3BB4 /* boost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00CD052918321B6700EA3BB4 /* boost.framework */; };
+		87091144184762F300E65465 /* ImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87091143184762F300E65465 /* ImageManager.m */; };
 		870F337F168376450090A97F /* ActivityIndicatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 870F337D168376450090A97F /* ActivityIndicatorViewController.m */; };
 		870F3380168376450090A97F /* ActivityIndicatorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 870F337E168376450090A97F /* ActivityIndicatorViewController.xib */; };
 		8712BE7517D8CC7C00665F42 /* iPhone_top_bar_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8712BE6717D8CC7C00665F42 /* iPhone_top_bar_background@2x.png */; };
@@ -289,6 +290,8 @@
 		0012C551177D11DB0017FF5E /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		0024393B178F55BF00B79368 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		00CD052918321B6700EA3BB4 /* boost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = boost.framework; path = "../../libs/op/libs/ortc-lib/libs/boost/ios/framework/boost.framework"; sourceTree = "<group>"; };
+		87091142184762F300E65465 /* ImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageManager.h; sourceTree = "<group>"; };
+		87091143184762F300E65465 /* ImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageManager.m; sourceTree = "<group>"; };
 		87098FDC17C23997007C9093 /* OpenPeerDataModel.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = OpenPeerDataModel.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		870F337C168376450090A97F /* ActivityIndicatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityIndicatorViewController.h; sourceTree = "<group>"; };
 		870F337D168376450090A97F /* ActivityIndicatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityIndicatorViewController.m; sourceTree = "<group>"; };
@@ -642,6 +645,8 @@
 				87A108691802C116001F705D /* Logger.m */,
 				87BFEDB8183A885C00A48821 /* AppConsts.m */,
 				87BFEDB9183A885C00A48821 /* AppConsts.h */,
+				87091142184762F300E65465 /* ImageManager.h */,
+				87091143184762F300E65465 /* ImageManager.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -1351,6 +1356,7 @@
 				87BFEDBA183A885C00A48821 /* AppConsts.m in Sources */,
 				874AD9DB166CEB530095FE33 /* ConversationThreadDelegate.m in Sources */,
 				874AD9DE166CEB780095FE33 /* CallDelegate.m in Sources */,
+				87091144184762F300E65465 /* ImageManager.m in Sources */,
 				871C7B8D17FEBED200BE641B /* SplashViewController.m in Sources */,
 				8757E1A21827BD2200D7BDA1 /* ContactsViewController.m in Sources */,
 				874AD9E5166D4C900095FE33 /* OpenPeer.m in Sources */,

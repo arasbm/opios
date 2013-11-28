@@ -36,17 +36,16 @@
 @interface ContactTableViewCell : UITableViewCell 
 
 
-@property (weak, nonatomic) IBOutlet UILabel *displayName;
-@property (weak, nonatomic) IBOutlet UILabel *username;
-@property (weak, nonatomic) IBOutlet UIImageView *displayImage;
+@property (nonatomic, weak) IBOutlet UILabel *displayName;
+@property (nonatomic, weak) IBOutlet UILabel *username;
+@property (nonatomic, weak) IBOutlet UIImageView *displayImage;
 
-@property (weak, nonatomic) IBOutlet UIImageView* displayChatImage;
-@property (weak, nonatomic) IBOutlet UIImageView* displayVoiceImage;
-@property (weak, nonatomic) IBOutlet UIImageView* displayVideoImage;
+@property (nonatomic, weak) IBOutlet UIImageView* displayChatImage;
+@property (nonatomic, weak) IBOutlet UIImageView* displayVoiceImage;
+@property (nonatomic, weak) IBOutlet UIImageView* displayVideoImage;
 
  @property (weak,nonatomic) HOPRolodexContact* contact;
 
-- (void) setContact:(HOPRolodexContact *)inContact;
 - (void) setContact:(HOPRolodexContact *)inContact inTable:(UITableView*) table atIndexPath:(NSIndexPath *)indexPath;
 
 

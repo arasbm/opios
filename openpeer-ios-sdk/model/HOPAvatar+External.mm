@@ -55,6 +55,7 @@
     
         NSData *imageData = UIImagePNGRepresentation(inImage);
         hopImage.image = imageData;
+        hopImage.url = self.url;
         hopImage.avatar = self;
         [[HOPModelManager sharedModelManager] saveContext];
     }

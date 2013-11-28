@@ -49,7 +49,7 @@
  */
 
 
-@class HOPAvatar;
+//@class HOPAvatar;
 
 @interface IconDownloader : NSObject
 
@@ -57,7 +57,6 @@
 @property (nonatomic, copy) void (^completionHandler)(UIImage*,NSString*);
 
 - (void)startDownloadForURL:(NSString*) url;
-- (void)startDownloadForAvatar:(HOPAvatar*) inAvatar;
 - (void)cancelDownload;
 
 @end

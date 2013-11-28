@@ -35,7 +35,8 @@
     </entity>
     <entity name="HOPImage" representedClassName="HOPImage" syncable="YES">
         <attribute name="image" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
-        <relationship name="avatar" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="HOPAvatar" inverseName="avatarImage" inverseEntity="HOPAvatar" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="avatar" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="HOPAvatar" inverseName="avatarImage" inverseEntity="HOPAvatar" syncable="YES"/>
     </entity>
     <entity name="HOPPublicPeerFile" representedClassName="HOPPublicPeerFile" syncable="YES">
         <attribute name="peerFile" attributeType="String" syncable="YES"/>
@@ -58,7 +59,7 @@
         <element name="HOPAvatar" positionX="97" positionY="36" width="128" height="133"/>
         <element name="HOPHomeUser" positionX="70" positionY="248" width="128" height="103"/>
         <element name="HOPIdentityContact" positionX="-380" positionY="-28" width="128" height="163"/>
-        <element name="HOPImage" positionX="279" positionY="45" width="128" height="73"/>
+        <element name="HOPImage" positionX="279" positionY="45" width="128" height="88"/>
         <element name="HOPPublicPeerFile" positionX="-387" positionY="225" width="128" height="88"/>
         <element name="HOPRolodexContact" positionX="-155" positionY="-13" width="128" height="178"/>
     </elements>

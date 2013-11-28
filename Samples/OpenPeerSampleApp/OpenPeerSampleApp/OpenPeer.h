@@ -68,7 +68,6 @@
 @property (nonatomic) BOOL appEnteredForeground;
 
 @property (nonatomic, strong) NSString* deviceId;
-@property (nonatomic,strong) NSMutableDictionary *dictionaryDownloadingInProgress;
 + (id) sharedOpenPeer;
 
 - (void) setup;

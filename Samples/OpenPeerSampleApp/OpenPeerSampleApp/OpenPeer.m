@@ -122,8 +122,6 @@
     [[HOPMediaEngine sharedInstance] setEcEnabled:[[Settings sharedSettings] isMediaAECOn]];
     [[HOPMediaEngine sharedInstance] setAgcEnabled:[[Settings sharedSettings] isMediaAGCOn]];
     [[HOPMediaEngine sharedInstance] setNsEnabled:[[Settings sharedSettings] isMediaNSOn]];
-    
-    self.dictionaryDownloadingInProgress = [[NSMutableDictionary alloc] init];
 }
 
 - (void) shutdown

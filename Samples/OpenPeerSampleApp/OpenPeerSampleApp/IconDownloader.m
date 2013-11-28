@@ -49,13 +49,11 @@
  */
 
 #import "IconDownloader.h"
-#import <OpenpeerSDK/HOPAvatar+External.h>
-#import <OpenpeerSDK/HOPModelManager.h>
 
 @interface IconDownloader ()
 @property (nonatomic, strong) NSMutableData *activeDownload;
 @property (nonatomic, strong) NSURLConnection *imageConnection;
-@property (nonatomic, strong) HOPAvatar* avatar;
+
 @end
 
 
@@ -65,7 +63,6 @@
 
 - (void)startDownloadForURL:(NSString*) url
 {
-    NSLog(@"Image download for: %@",url);
     self.activeDownload = [NSMutableData data];
     self.imageURL = url;
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
@@ -76,11 +73,6 @@
     self.imageConnection = conn;
 }
 
-- (void)startDownloadForAvatar:(HOPAvatar*) inAvatar
-{
-    self.avatar = inAvatar;
-    [self startDownloadForURL:self.avatar.url];
-}
 - (void)cancelDownload
 {
     [self.imageConnection cancel];
@@ -109,20 +101,14 @@
     // Set appIcon and clear temporary data/image
     UIImage *image = [[UIImage alloc] initWithData:self.activeDownload];
     
-    
     self.activeDownload = nil;
     
     // Release the connection now that it's finished
     self.imageConnection = nil;
     
-    if (image && self.avatar)
-    {
-        [self.avatar storeImage:image];
-        //[[HOPModelManager sharedModelManager] saveContext];
-    }
     // call our delegate and tell it that our icon is ready for display
     if (self.completionHandler)
-        self.completionHandler(image,self.avatar.url);
+        self.completionHandler(image,self.imageURL);
 }
 
 @end

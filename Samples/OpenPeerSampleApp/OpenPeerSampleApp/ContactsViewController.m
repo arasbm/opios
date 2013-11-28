@@ -171,17 +171,6 @@
     
     [cell setContact:contact inTable:self.contactsTableView atIndexPath:indexPath];
     
-    if (contact.identityContact)
-    {
-        cell.userInteractionEnabled = YES;
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
-    else
-    {
-        cell.userInteractionEnabled = NO;
-        cell.accessoryType = UITableViewCellAccessoryNone;
-    }
-    
     return cell;
 }
 
