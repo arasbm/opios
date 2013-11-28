@@ -31,9 +31,8 @@
 
 #import "AppConsts.h"
 
-//#error PLEASE SET APPLICATION ID VALUE (THEN REMOVE THIS LINE)
-//NSString* const applicationId = @"<-- insert application ID here (e.g. com.domain.appName) -->";
-NSString* const applicationId = @"com.hookflash.SergejSampleApp";
+#error PLEASE SET APPLICATION ID VALUE (THEN REMOVE THIS LINE)
+NSString* const applicationId = @"<-- insert application ID here (e.g. com.domain.appName) -->";
 
 NSString* const applicationName = @"OpenPeerSampleApp";
 NSString* const applicationImageURL = @"http://hookflash.com/wp-content/themes/CleanSpace/images/logo.png";
@@ -41,9 +40,8 @@ NSString* const applicationURL = @"www.openpeer.org";
 
 //!!!!!!!!!!!!!!!!!!!! WARNING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //This value should be obtained from service provider.
-//#error PLEASE SET SHARED SECRET VALUE (THEN REMOVE THIS LINE)
-//NSString* const applicationIdSharedSecret = @"<-- insert shared secret here -->";
-NSString* const applicationIdSharedSecret = @"dd30b59ffe4838f6c575be08ed420c37d693f530";
+#error PLEASE SET SHARED SECRET VALUE (THEN REMOVE THIS LINE)
+NSString* const applicationIdSharedSecret = @"<-- insert shared secret here -->";
 // ------------------- !!! WARNING !!! -------------------
 // Setting the application shared secret in the client is not recommended.
 // Instead, the recommended solution is for your client download an authorized
