@@ -40,7 +40,6 @@
 
 @property (nonatomic,strong) UITapGestureRecognizer *tapGesture;
 
-- (IBAction) actionMuteMic:(id)sender;
 - (IBAction) actionSwitchCamera:(id)sender;
 - (IBAction) actionShowChat:(id)sender;
 - (IBAction) actionShowPreview:(id)sender;
@@ -93,11 +92,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (IBAction) actionMuteMic:(id)sender
-{
-    
 }
 
 - (IBAction) actionSwitchCamera:(id)sender

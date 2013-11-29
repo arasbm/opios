@@ -68,6 +68,7 @@
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     
     [[OpenPeer sharedOpenPeer] setAppEnteredBackground:YES];
+    [[OpenPeer sharedOpenPeer] setAppEnteredForeground:NO];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application

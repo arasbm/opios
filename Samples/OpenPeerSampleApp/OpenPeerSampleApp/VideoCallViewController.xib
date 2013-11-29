@@ -46,7 +46,7 @@
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="actionMuteMic:" destination="-1" eventType="touchUpInside" id="vb2-8y-bDn"/>
+                                <action selector="muteCall:" destination="-1" eventType="touchUpInside" id="Jc5-Ca-6Sd"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QLE-Dv-gGx">
