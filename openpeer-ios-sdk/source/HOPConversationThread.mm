@@ -383,7 +383,7 @@ using namespace openpeer::core;
 
 - (NSString *)description
 {
-    return [NSString stringWithUTF8String: IConversationThread::toDebugString([self getConversationThreadPtr],NO)];
+    return [NSString stringWithUTF8String: IHelper::convertToString(IConversationThread::toDebug([self getConversationThreadPtr]))];
 }
 
 #pragma mark - Internal methods

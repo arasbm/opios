@@ -361,7 +361,7 @@ ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
     NSString* ret = nil;
     
     if (identityPtr)
-        ret = [NSString stringWithUTF8String: IIdentity::toDebugString(identityPtr,NO)];
+        ret = [NSString stringWithUTF8String: IHelper::convertToString(IIdentity::toDebug(identityPtr))];
     else
         ret = NSLocalizedString(@"Core identity object is not created.", @"Core identity object is not created.");
     
