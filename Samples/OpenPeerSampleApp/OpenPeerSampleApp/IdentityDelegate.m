@@ -90,6 +90,7 @@
             ret= [[WebLoginViewController alloc] initWithCoreObject:identity];
         }
         ret.view.hidden = YES;
+        ret.coreObject = identity;
         [self.loginWebViewsDictionary setObject:ret forKey:[identity getBaseIdentityURI]];
         //[[LoginManager sharedLoginManager] setPreloadedWebLoginViewController:nil];
         NSLog(@"getLoginWebViewForIdentity - CREATED:%@", [identity getBaseIdentityURI]);

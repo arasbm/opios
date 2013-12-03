@@ -98,6 +98,8 @@
 {
     NSString *requestString = [[request URL] absoluteString];
     NSLog(@"Web request: %@", requestString);
+    if ([self.coreObject isKindOfClass:[HOPIdentity class]])
+        NSLog(@"Web request for identity URI: %@", [((HOPIdentity*) self.coreObject) getIdentityURI]);
     
     //Check if request contains JSON message for core
     if ([requestString hasPrefix:@"https://datapass.hookflash.me/?method="] || [requestString hasPrefix:@"http://datapass.hookflash.me/?method="])

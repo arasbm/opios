@@ -183,6 +183,9 @@
         
         if (self.audioCallViewController.view && self.audioCallViewController.view.hidden == NO)
             self.audioCallViewController.view.hidden = YES;
+        
+        if (self.videoCallViewController.view && self.videoCallViewController.view.hidden == NO)
+            self.videoCallViewController.view.hidden = YES;
     }
     else
     {
@@ -199,7 +202,7 @@
         //[self.audioCallViewController.view removeFromSuperview];
         
     }
-    else if(self.videoCallViewController != nil)
+    else if(self.videoCallViewController != nil && self.videoCallViewController.view.hidden)
     {
         [self.chatViewController.messageTextbox resignFirstResponder];
         self.videoCallViewController.view.hidden = NO;
@@ -430,8 +433,9 @@
 #pragma mark - VideoCallViewControllerDelegate
 - (void)hideVideo:(BOOL)hide
 {
-    if (self.videoCallViewController)
-        self.videoCallViewController.view.hidden = hide;
+    [self.chatViewController.messageTextbox becomeFirstResponder];
+//    if (self.videoCallViewController)
+//        self.videoCallViewController.view.hidden = hide;
 }
 
 - (void) setRightBarButtonWithEndCall:(BOOL) withEndCall forWaitingView:(BOOL) forWaitingView

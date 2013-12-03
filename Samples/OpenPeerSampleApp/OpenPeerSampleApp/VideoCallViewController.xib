@@ -45,6 +45,7 @@
                             <state key="normal" image="audio-call-mic-active.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <state key="selected" image="audio-call-mic-press.png"/>
                             <connections>
                                 <action selector="muteCall:" destination="-1" eventType="touchUpInside" id="Jc5-Ca-6Sd"/>
                             </connections>
@@ -105,6 +106,7 @@
     </objects>
     <resources>
         <image name="audio-call-mic-active.png" width="37" height="45"/>
+        <image name="audio-call-mic-press.png" width="45" height="52"/>
         <image name="chat-bottom.png" width="26" height="26"/>
         <image name="iPhone_background.png" width="320" height="460"/>
         <image name="iPhone_switch_camera.png" width="68" height="38"/>
