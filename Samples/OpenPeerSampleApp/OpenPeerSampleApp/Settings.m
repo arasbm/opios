@@ -181,11 +181,11 @@
             break;
             
         case LOGGER_TELNET:
-            return [self.telnetLoggerSettings objectForKey:@"enabled"];
+            return [[self.telnetLoggerSettings objectForKey:@"enabled"] boolValue];
             break;
             
         case LOGGER_OUTGOING_TELNET:
-            return [self.outgoingTelnetLoggerSettings objectForKey:@"enabled"];
+            return [[self.outgoingTelnetLoggerSettings objectForKey:@"enabled"] boolValue];
             break;
             
         default:
@@ -257,11 +257,11 @@
     switch (type)
     {
         case LOGGER_TELNET:
-            ret = [self.telnetLoggerSettings objectForKey:@"colorized"];
+            ret = [[self.telnetLoggerSettings objectForKey:@"colorized"] boolValue];
             break;
             
         case LOGGER_OUTGOING_TELNET:
-            ret = [self.outgoingTelnetLoggerSettings objectForKey:@"colorized"];
+            ret = [[self.outgoingTelnetLoggerSettings objectForKey:@"colorized"] boolValue];
             break;
             
         default:

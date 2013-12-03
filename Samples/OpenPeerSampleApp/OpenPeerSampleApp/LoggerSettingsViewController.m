@@ -329,6 +329,7 @@ typedef enum
 - (void) switchColorChanged:(UISwitch*) sender
 {
     [[Settings sharedSettings] setColorizedOutput:[sender isOn] logger:sender.tag];
+     [Logger start:[sender isOn] logger:sender.tag];
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)thePickerView
