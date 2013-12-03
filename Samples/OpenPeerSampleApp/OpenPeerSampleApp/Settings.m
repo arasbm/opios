@@ -344,7 +344,11 @@
             break;
 
         case MODULE_SERVICES_ICE:
-            ret = @"SDK (ICE)";
+            ret = @"SDK (STUN/ICE)";
+            break;
+
+      case MODULE_SERVICES_TURN:
+            ret = @"SDK (TURN)";
             break;
 
         case MODULE_SERVICES_RUDP:
@@ -357,6 +361,14 @@
 
         case MODULE_SERVICES_MLS:
             ret = @"SDK (MLS)";
+            break;
+
+        case MODULE_SERVICES_TCP:
+            ret = @"SDK (TCP Messaging)";
+            break;
+
+        case MODULE_SERVICES_TRANSPORT:
+            ret = @"SDK (Transport Stream)";
             break;
 
         case MODULE_ZSLIB:
@@ -415,6 +427,10 @@
             ret = moduleServicesIce;
             break;
 
+        case MODULE_SERVICES_TURN:
+          ret = moduleServicesTurn;
+          break;
+
         case MODULE_SERVICES_RUDP:
           ret = moduleServicesRudp;
           break;
@@ -425,6 +441,14 @@
 
         case MODULE_SERVICES_MLS:
             ret = moduleServicesMls;
+            break;
+
+        case MODULE_SERVICES_TCP:
+            ret = moduleServicesTcp;
+            break;
+
+        case MODULE_SERVICES_TRANSPORT:
+            ret = moduleServicesTransport;
             break;
 
         case MODULE_ZSLIB:
@@ -479,10 +503,13 @@
 {
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_APPLICATION];
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_SERVICES];
-    [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_SERVICES_ICE];
-    [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_SERVICES_RUDP];
+    [self setLoggerLevel:HOPLoggerLevelDebug forAppModule:MODULE_SERVICES_ICE];
+    [self setLoggerLevel:HOPLoggerLevelDebug forAppModule:MODULE_SERVICES_TURN];
+    [self setLoggerLevel:HOPLoggerLevelDebug forAppModule:MODULE_SERVICES_RUDP];
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_SERVICES_HTTP];
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_SERVICES_MLS];
+    [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_SERVICES_TCP];
+    [self setLoggerLevel:HOPLoggerLevelDebug forAppModule:MODULE_SERVICES_TRANSPORT];
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_CORE];
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_STACK_MESSAGE];
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_STACK];

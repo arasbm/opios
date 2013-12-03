@@ -43,9 +43,12 @@
     [HOPLogger setLogLevelbyName:moduleApplication level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleApplication]];
     [HOPLogger setLogLevelbyName:moduleServices level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleServices]];
     [HOPLogger setLogLevelbyName:moduleServicesIce level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleServicesIce]];
+    [HOPLogger setLogLevelbyName:moduleServicesTurn level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleServicesTurn]];
     [HOPLogger setLogLevelbyName:moduleServicesRudp level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleServicesRudp]];
     [HOPLogger setLogLevelbyName:moduleServicesHttp level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleServicesHttp]];
     [HOPLogger setLogLevelbyName:moduleServicesMls level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleServicesMls]];
+    [HOPLogger setLogLevelbyName:moduleServicesTcp level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleServicesTcp]];
+    [HOPLogger setLogLevelbyName:moduleServicesTransport level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleServicesTransport]];
     [HOPLogger setLogLevelbyName:moduleCore level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleCore]];
     [HOPLogger setLogLevelbyName:moduleStackMessage level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleStackMessage]];
     [HOPLogger setLogLevelbyName:moduleStack level:[[Settings sharedSettings] getLoggerLevelForAppModuleKey:moduleStack]];
