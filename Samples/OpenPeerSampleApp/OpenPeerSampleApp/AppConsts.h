@@ -32,11 +32,9 @@
 #import <Foundation/Foundation.h>
 
 //Login contants
-extern NSString* const applicationId;
 extern NSString* const applicationName;
 extern NSString* const applicationImageURL;
 extern NSString* const applicationURL;
-extern NSString* const applicationIdSharedSecret;
 extern NSString* const outerFrameURL;
 extern NSString* const namespaceGrantServiceURL;
 extern NSString* const identityProviderDomain;
