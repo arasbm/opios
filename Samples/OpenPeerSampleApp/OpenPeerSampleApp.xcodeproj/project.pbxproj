@@ -10,6 +10,8 @@
 		0012C552177D11DB0017FF5E /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0012C551177D11DB0017FF5E /* libz.dylib */; };
 		0024393C178F55BF00B79368 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0024393B178F55BF00B79368 /* Security.framework */; };
 		00CD052A18321B6700EA3BB4 /* boost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00CD052918321B6700EA3BB4 /* boost.framework */; };
+		870059EE184F563800B6B826 /* UIBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 870059ED184F563800B6B826 /* UIBadgeView.m */; };
+		870059F3184FAB3800B6B826 /* AppCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 870059F2184FAB3800B6B826 /* AppCredentials.m */; };
 		87091144184762F300E65465 /* ImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87091143184762F300E65465 /* ImageManager.m */; };
 		870F337F168376450090A97F /* ActivityIndicatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 870F337D168376450090A97F /* ActivityIndicatorViewController.m */; };
 		870F3380168376450090A97F /* ActivityIndicatorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 870F337E168376450090A97F /* ActivityIndicatorViewController.xib */; };
@@ -290,6 +292,10 @@
 		0012C551177D11DB0017FF5E /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		0024393B178F55BF00B79368 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		00CD052918321B6700EA3BB4 /* boost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = boost.framework; path = "../../libs/op/libs/ortc-lib/libs/boost/ios/framework/boost.framework"; sourceTree = "<group>"; };
+		870059EC184F563800B6B826 /* UIBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBadgeView.h; sourceTree = "<group>"; };
+		870059ED184F563800B6B826 /* UIBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBadgeView.m; sourceTree = "<group>"; };
+		870059F1184FAB3800B6B826 /* AppCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppCredentials.h; sourceTree = "<group>"; };
+		870059F2184FAB3800B6B826 /* AppCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppCredentials.m; sourceTree = "<group>"; };
 		87091142184762F300E65465 /* ImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageManager.h; sourceTree = "<group>"; };
 		87091143184762F300E65465 /* ImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageManager.m; sourceTree = "<group>"; };
 		87098FDC17C23997007C9093 /* OpenPeerDataModel.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = OpenPeerDataModel.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -627,6 +633,8 @@
 		870C5E181672345A00A3AA4F /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				870059EC184F563800B6B826 /* UIBadgeView.h */,
+				870059ED184F563800B6B826 /* UIBadgeView.m */,
 				8757E1CC1827EB6100D7BDA1 /* Delegates.h */,
 				8757E1C81827E85700D7BDA1 /* TTTAttributedLabel */,
 				874FE11117FD8DA9007A791B /* AppLog.h */,
@@ -647,6 +655,8 @@
 				87BFEDB9183A885C00A48821 /* AppConsts.h */,
 				87091142184762F300E65465 /* ImageManager.h */,
 				87091143184762F300E65465 /* ImageManager.m */,
+				870059F1184FAB3800B6B826 /* AppCredentials.h */,
+				870059F2184FAB3800B6B826 /* AppCredentials.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -1351,6 +1361,7 @@
 				8730D6E31832601C008D1D37 /* VideoCallViewController.m in Sources */,
 				87272859166CC45B0089CBB6 /* LoginManager.m in Sources */,
 				874AD9D1166CE6540095FE33 /* AccountDelegate.m in Sources */,
+				870059F3184FAB3800B6B826 /* AppCredentials.m in Sources */,
 				874AD9D5166CEAFB0095FE33 /* StackDelegate.m in Sources */,
 				874AD9D8166CEB390095FE33 /* MediaEngineDelegate.m in Sources */,
 				87BFEDBA183A885C00A48821 /* AppConsts.m in Sources */,
@@ -1379,6 +1390,7 @@
 				87224734182D02F30027DA50 /* CallViewController.m in Sources */,
 				874408CB182FE873004AD8FC /* IncomingCallViewController.m in Sources */,
 				87FC3A191709BD8D002030D1 /* SBJsonStreamParserAdapter.m in Sources */,
+				870059EE184F563800B6B826 /* UIBadgeView.m in Sources */,
 				87FC3A1A1709BD8D002030D1 /* SBJsonStreamParserState.m in Sources */,
 				87FC3A1B1709BD8D002030D1 /* SBJsonStreamTokeniser.m in Sources */,
 				87FC3A1C1709BD8D002030D1 /* SBJsonStreamWriter.m in Sources */,
