@@ -206,6 +206,7 @@
     {
         [self.chatViewController.messageTextbox resignFirstResponder];
         self.videoCallViewController.view.hidden = NO;
+        [self setRightBarButtonWithEndCall:YES forWaitingView:NO];
      }
     else
     {
@@ -434,6 +435,7 @@
 - (void)hideVideo:(BOOL)hide
 {
     [self.chatViewController.messageTextbox becomeFirstResponder];
+    [self setRightBarButtonWithEndCall:NO forWaitingView:NO];
 //    if (self.videoCallViewController)
 //        self.videoCallViewController.view.hidden = hide;
 }
