@@ -47,7 +47,10 @@
     // set defaults
     _isHidden = NO;
     
-    //_badgeBackgroundColor = [[UIColor colorWithPatternImage:[Hookflash_ThemeManager imageNamed:ki_iPhone_badge]] retain];
+    _bagdeFont = [UIFont boldSystemFontOfSize:11.0];
+    _badgeTextColor = [UIColor whiteColor];
+    
+    _badgeBackgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"iPhone_badge.png"]];
     
     self.backgroundColor = [UIColor clearColor];
     self.layer.masksToBounds = YES;

@@ -38,6 +38,7 @@
 #import "OpenpeerSDK/HOPStack.h"
 #import "OpenpeerSDK/HOPLogger.h"
 #import "OpenpeerSDK/HOPMediaEngine.h"
+#import "OpenpeerSDK/HOPCache.h"
 //Managers
 #import "LoginManager.h"
 //Delegates
@@ -48,7 +49,7 @@
 #import "AccountDelegate.h"
 #import "IdentityDelegate.h"
 #import "IdentityLookupDelegate.h"
-
+#import "CacheDelegate.h"
 //View controllers
 #import "MainViewController.h"
 
@@ -123,6 +124,8 @@
     [[HOPMediaEngine sharedInstance] setEcEnabled:[[Settings sharedSettings] isMediaAECOn]];
     [[HOPMediaEngine sharedInstance] setAgcEnabled:[[Settings sharedSettings] isMediaAGCOn]];
     [[HOPMediaEngine sharedInstance] setNsEnabled:[[Settings sharedSettings] isMediaNSOn]];
+    
+    [[HOPCache sharedCache] setDelegate:self.cacheDelegate];
 }
 
 - (void) shutdown
@@ -136,6 +139,7 @@
     self.accountDelegate = nil;
     self.identityDelegate = nil;
     self.identityLookupDelegate = nil;
+    self.cacheDelegate = nil;
 }
 /**
  Method used for all delegates creation. Delegates will catch events from the Open Peer SDK and handle them properly.
@@ -150,5 +154,6 @@
     self.identityDelegate = [[IdentityDelegate alloc] init];
     self.identityDelegate.loginDelegate = self.mainViewController;
     self.identityLookupDelegate = [[IdentityLookupDelegate alloc] init];
+    self.cacheDelegate = [[CacheDelegate alloc] init];
 }
 @end

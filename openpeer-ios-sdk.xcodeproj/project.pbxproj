@@ -31,6 +31,7 @@
 		00EB8DC7177D15BD00FFD40F /* libzsLib_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EB8DB1177D14DA00FFD40F /* libzsLib_ios.a */; };
 		00EB8DCF177D1C1600FFD40F /* libhfcore_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EB8DCE177D1BE600FFD40F /* libhfcore_ios.a */; };
 		00EB8DD0177D1C1600FFD40F /* libhfstack_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00EB8DB6177D14DB00FFD40F /* libhfstack_ios.a */; };
+		870059F81850BC6400B6B826 /* HOPCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 872DA9E7175CECB1000CCA76 /* HOPCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8704E00E17E86347007A4075 /* HOPHomeUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 8704E00C17E86347007A4075 /* HOPHomeUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8704E00F17E86347007A4075 /* HOPHomeUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8704E00D17E86347007A4075 /* HOPHomeUser.m */; };
 		870911491847691100E65465 /* HOPImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 870911471847691100E65465 /* HOPImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -925,6 +926,7 @@
 				876D1F761823BD000024D30C /* HOPUtility.h in Headers */,
 				87B014001661557C00E8938B /* HOPIdentity.h in Headers */,
 				870911491847691100E65465 /* HOPImage.h in Headers */,
+				870059F81850BC6400B6B826 /* HOPCache.h in Headers */,
 				87E3CD24172A89E300084D2F /* HOPIdentityLookupInfo_Internal.h in Headers */,
 				87A5B1DE16EDE5F9007E825A /* HOPAccount_Internal.h in Headers */,
 				87A5B1E016EDE5F9007E825A /* HOPCall_Internal.h in Headers */,

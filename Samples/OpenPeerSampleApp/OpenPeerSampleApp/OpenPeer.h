@@ -41,7 +41,7 @@
 @class MainViewController;
 @class IdentityDelegate;
 @class IdentityLookupDelegate;
-
+@class CacheDelegate;
 
 
 @interface OpenPeer : NSObject
@@ -54,6 +54,7 @@
 @property (nonatomic,strong) MainViewController *mainViewController;
 @property (nonatomic,strong) IdentityDelegate *identityDelegate;
 @property (nonatomic,strong) IdentityLookupDelegate *identityLookupDelegate;
+@property (nonatomic,strong) CacheDelegate *cacheDelegate;
 
 @property (nonatomic,strong) NSString *authorizedApplicationId;
 

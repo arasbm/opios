@@ -35,6 +35,9 @@
 #import <OpenpeerSDK/HOPAvatar+External.h>
 #import "AppConsts.h"
 #import "ImageManager.h"
+#import "SessionManager.h"
+#import "Session.h"
+#import "UIBadgeView.h"
 
 #define AVATAR_WIDTH 0 //31.0
 #define AVATAR_HEIGHT 0 //31.0
@@ -100,5 +103,13 @@
      [_displayVoiceImage setAlpha:0.4];
      [_displayVideoImage setAlpha:0.4];
      }*/
+    
+    Session* session = [[SessionManager sharedSessionManager] getSessionForContact:inContact];
+    if ([session.unreadMessageArray count] > 0)
+    {
+        NSString* numberToDisplay = [NSString stringWithFormat:@"%d",[session.unreadMessageArray count]];
+        self.badgeView.hidden = NO;
+        self.badgeView.badgeText = numberToDisplay;
+    }
 }
 @end

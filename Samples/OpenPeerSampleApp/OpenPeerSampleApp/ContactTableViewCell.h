@@ -32,6 +32,7 @@
 #import <UIKit/UIKit.h>
 
 @class HOPRolodexContact;
+@class UIBadgeView;
 
 @interface ContactTableViewCell : UITableViewCell 
 
@@ -43,6 +44,7 @@
 @property (nonatomic, weak) IBOutlet UIImageView* displayChatImage;
 @property (nonatomic, weak) IBOutlet UIImageView* displayVoiceImage;
 @property (nonatomic, weak) IBOutlet UIImageView* displayVideoImage;
+@property (nonatomic, weak) IBOutlet UIBadgeView* badgeView;
 
  @property (weak,nonatomic) HOPRolodexContact* contact;
 

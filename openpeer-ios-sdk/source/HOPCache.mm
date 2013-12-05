@@ -63,6 +63,7 @@ using namespace openpeer::core;
 - (void) setDelegate:(id<HOPCacheDelegate>) cacheDelegate
 {
     openpeerCacheDelegatePtr = OpenPeerCacheDelegate::create(cacheDelegate);
+    cachePtr->setup(openpeerCacheDelegatePtr);
 }
 
 - (NSString*) fetchForCookieNamePath:(NSString*) cookieNamePath

@@ -201,6 +201,8 @@
         HOPRolodexContact* contact  = [[[HOPModelManager sharedModelManager] getRolodexContactsByPeerURI:[message.contact getPeerURI]] objectAtIndex:0];
         Message* messageObj = [[Message alloc] initWithMessageText:message.text senderContact:contact];
         [session.messageArray addObject:messageObj];
+        [session.unreadMessageArray addObject:messageObj];
+
         //If session view controller with message sender is not yet shown, show it
         [[[OpenPeer sharedOpenPeer] mainViewController] showSessionViewControllerForSession:session forIncomingCall:NO forIncomingMessage:YES];
         

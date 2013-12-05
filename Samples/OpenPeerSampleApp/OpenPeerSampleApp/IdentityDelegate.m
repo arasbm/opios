@@ -50,7 +50,7 @@
 @interface IdentityDelegate()
 
 @property (nonatomic,strong) NSMutableDictionary* loginWebViewsDictionary;
-- (WebLoginViewController*) getLoginWebViewForIdentity:(HOPIdentity*) identity;
+- (WebLoginViewController*) getLoginWebViewForIdentity:(HOPIdentity*) identity create:(BOOL) create;
 - (void) removeLoginWebViewForIdentity:(HOPIdentity*) identity;
 @end
 
@@ -71,18 +71,18 @@
  @param identity HOPIdentity Login user identity.
  @returns WebLoginViewController web login view
  */
-- (WebLoginViewController*) getLoginWebViewForIdentity:(HOPIdentity*) identity
+- (WebLoginViewController*) getLoginWebViewForIdentity:(HOPIdentity*) identity create:(BOOL)create
 {
     WebLoginViewController* ret = nil;
     
     NSLog(@"getLoginWebViewForIdentity:%@", [identity getBaseIdentityURI]);
-    //ret = [self.loginWebViewsDictionary objectForKey:[identity getBaseIdentityURI]];
-    if ([self.loginWebViewsDictionary count] > 0)
-    {
-        ret = [[self.loginWebViewsDictionary allValues]objectAtIndex:0];
-        ret.coreObject = identity;
-    }
-    if (!ret)
+    ret = [self.loginWebViewsDictionary objectForKey:[identity getBaseIdentityURI]];
+//    if ([self.loginWebViewsDictionary count] > 0)
+//    {
+//        ret = [[self.loginWebViewsDictionary allValues]objectAtIndex:0];
+//        ret.coreObject = identity;
+//    }
+    if (create && !ret)
     {
         //ret = [[LoginManager sharedLoginManager] preloadedWebLoginViewController];
         //if (!ret)
@@ -97,7 +97,12 @@
     }
     else
     {
-        NSLog(@"getLoginWebViewForIdentity - RETRIEVED EXISTING:%@", [identity getBaseIdentityURI]);
+        if ([self.loginWebViewsDictionary count] > 0)
+        {
+            NSLog(@"getLoginWebViewForIdentity - RETRIEVED EXISTING:%@", [identity getBaseIdentityURI]);
+            ret = [[self.loginWebViewsDictionary allValues]objectAtIndex:0];
+            ret.coreObject = identity;
+        }
     }
     return ret;
 }
@@ -110,6 +115,9 @@
 - (void)identity:(HOPIdentity *)identity stateChanged:(HOPIdentityStates)state
 {
     NSLog(@"Identity login state: %@ - identityURI: %@",[HOPIdentity stringForIdentityState:state], [identity getIdentityURI]);
+    
+//    if ([[identity getIdentityURI] rangeOfString:@"facebook"].location != NSNotFound)
+//        return;
     
     dispatch_async(dispatch_get_main_queue(), ^
     {
@@ -133,7 +141,7 @@
                 
             case HOPIdentityStateWaitingForBrowserWindowToBeLoaded:
             {
-                webLoginViewController = [self getLoginWebViewForIdentity:identity];
+                webLoginViewController = [self getLoginWebViewForIdentity:identity create:YES];
                 if ([[LoginManager sharedLoginManager] isLogin] || [[LoginManager sharedLoginManager] isAssociation])
                 {
                     [self.loginDelegate onOpeningLoginPage];
@@ -149,7 +157,7 @@
                 
             case HOPIdentityStateWaitingForBrowserWindowToBeMadeVisible:
             {
-                webLoginViewController = [self getLoginWebViewForIdentity:identity];
+                webLoginViewController = [self getLoginWebViewForIdentity:identity create:NO];
                 [self.loginDelegate onLoginWebViewVisible:webLoginViewController];
 
                 //Notify core that identity login web view is visible now
@@ -159,7 +167,7 @@
                 
             case HOPIdentityStateWaitingForBrowserWindowToClose:
             {
-                webLoginViewController = [self getLoginWebViewForIdentity:identity];
+                webLoginViewController = [self getLoginWebViewForIdentity:identity create:NO];
                 [self.loginDelegate onIdentityLoginWebViewClose:webLoginViewController forIdentityURI:[identity getIdentityURI]];
                 
                 //Notify core that identity login web view is closed
@@ -195,7 +203,7 @@
     dispatch_async(dispatch_get_main_queue(), ^
     {
         //Get login web view for specified identity
-        WebLoginViewController* webLoginViewController = [self getLoginWebViewForIdentity:identity];
+        WebLoginViewController* webLoginViewController = [self getLoginWebViewForIdentity:identity create:NO];
         if (webLoginViewController)
         {
             NSString* jsMethod = [NSString stringWithFormat:@"sendBundleToJS(\'%@\')", [identity getNextMessageForInnerBrowerWindowFrame]];

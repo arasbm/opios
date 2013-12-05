@@ -212,6 +212,8 @@
 {
     if(self.session.messageArray && [self.session.messageArray count] > 0)
     {
+        [self.session.unreadMessageArray removeAllObjects];
+        
         [self.chatTableView reloadData];
         
         [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[self.session.messageArray count] - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
