@@ -32,13 +32,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface UIBadgeView : UIView 
-{
-    UIFont *_bagdeFont;
-    BOOL _isHidden;
-    float _bagdeTextSize;
-    UIColor *_badgeTextColor;
-    UIColor *_badgeBackgroundColor;
-}
+
  
 @property (nonatomic, readwrite, copy) NSString *badgeText;
 @property (nonatomic, retain) NSArray *badgeBackgroundColors;       // use it for gradient

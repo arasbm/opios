@@ -31,31 +31,20 @@
 
 #import "UIBadgeView.h"
 
+@interface UIBadgeView ()
+
+@property (nonatomic, strong) UIFont *bagdeFont;
+@property (nonatomic) BOOL isHidden;
+@property (nonatomic) float bagdeTextSize;
+@property (nonatomic, strong) UIColor *badgeTextColor;
+@property (nonatomic, strong) UIColor *badgeBackgroundColor;
+
+@end
+
 @implementation UIBadgeView
 
-@synthesize badgeText = _badgeText;
-@synthesize badgeBackgroundColors = _badgeBackgroundColors;
-
--(void)setBadgeHidden:(BOOL)hidden
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
-    _isHidden = hidden;
-    [self setNeedsDisplay];
-}
-
--(void)setDefaults
-{
-    // set defaults
-    _isHidden = NO;
-    
-    _bagdeFont = [UIFont boldSystemFontOfSize:11.0];
-    _badgeTextColor = [UIColor whiteColor];
-    
-    _badgeBackgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"iPhone_badge.png"]];
-    
-    self.backgroundColor = [UIColor clearColor];
-    self.layer.masksToBounds = YES;
-}
-- (id)initWithCoder:(NSCoder *)aDecoder {
     if ((self = [super initWithCoder:aDecoder])) {
         [self setDefaults];
     }
@@ -70,6 +59,27 @@
     }
     return self;
 }
+
+-(void)setBadgeHidden:(BOOL)hidden
+{
+    self.isHidden = hidden;
+    [self setNeedsDisplay];
+}
+
+-(void)setDefaults
+{
+    // set defaults
+    self.isHidden = NO;
+    
+    self.bagdeFont = [UIFont boldSystemFontOfSize:11.0];
+    self.badgeTextColor = [UIColor whiteColor];
+    
+    self.badgeBackgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"iPhone_badge.png"]];
+    
+    self.backgroundColor = [UIColor clearColor];
+    self.layer.masksToBounds = YES;
+}
+
 
 - (void)drawRect:(CGRect)rect
 {
@@ -96,13 +106,13 @@
         
         CGContextAddPath(context, thePath);
 
-        if(_badgeBackgroundColors)
+        if(self.badgeBackgroundColors)
         {
             // add gradient
             
             CGContextSaveGState(context);
             CGContextClip(context);
-            CGGradientRef gradient = CGGradientCreateWithColors(colorspace, (CFArrayRef)_badgeBackgroundColors, NULL);
+            CGGradientRef gradient = CGGradientCreateWithColors(colorspace, (CFArrayRef)self.badgeBackgroundColors, NULL);
             CGPoint startPoint = bounds.origin;
             CGPoint endPoint = CGPointMake(bounds.origin.x, bounds.origin.y + bounds.size.height);
             CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, 0);
@@ -111,7 +121,7 @@
         }
         else
         {
-            CGContextSetFillColorWithColor(context,[_badgeBackgroundColor CGColor]);
+            CGContextSetFillColorWithColor(context,[self.badgeBackgroundColor CGColor]);
             CGContextDrawPath(context, kCGPathFill);   
             
             CGContextSaveGState(context);
@@ -126,9 +136,9 @@
         
         
         // draw badge text
-        CGContextSetFillColorWithColor(context, _badgeTextColor.CGColor);
+        CGContextSetFillColorWithColor(context, self.badgeTextColor.CGColor);
         bounds.origin.x = (bounds.size.width - badgeTextSize.width) / 2 + 0.5;
-        bounds.origin.y = (bounds.size.height - _bagdeTextSize) / 2 - 1;
+        bounds.origin.y = (bounds.size.height - self.bagdeTextSize) / 2 - 1;
         CGContextSetBlendMode(context, kCGBlendModeNormal);
         [_badgeText drawInRect:bounds withFont:_bagdeFont];
         
