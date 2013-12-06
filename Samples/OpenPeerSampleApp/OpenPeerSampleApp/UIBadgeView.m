@@ -71,10 +71,10 @@
     // set defaults
     self.isHidden = NO;
     
-    self.bagdeFont = [UIFont boldSystemFontOfSize:11.0];
+    self.bagdeFont = [UIFont boldSystemFontOfSize:13.0];
     self.badgeTextColor = [UIColor whiteColor];
     
-    self.badgeBackgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"iPhone_badge.png"]];
+    self.badgeBackgroundColor = [UIColor colorWithRed:58.0/355.0 green:101.0/255.0 blue:237.0/255.0 alpha:0.8];
     
     self.backgroundColor = [UIColor clearColor];
     self.layer.masksToBounds = YES;
@@ -91,7 +91,7 @@
         CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
         
         CGSize badgeTextSize = [_badgeText sizeWithFont:_bagdeFont];
-        CGRect bounds = CGRectMake(0 , 0, badgeTextSize.width + 14 , 18);
+        CGRect bounds = CGRectMake(0 , 0, badgeTextSize.width + 14 , 22);
         float radius = rect.size.height/2;
         
         
@@ -137,8 +137,8 @@
         
         // draw badge text
         CGContextSetFillColorWithColor(context, self.badgeTextColor.CGColor);
-        bounds.origin.x = (bounds.size.width - badgeTextSize.width) / 2 + 0.5;
-        bounds.origin.y = (bounds.size.height - self.bagdeTextSize) / 2 - 1;
+        bounds.origin.x = (bounds.size.width - badgeTextSize.width) / 2 + 1;
+        bounds.origin.y = (bounds.size.height - self.bagdeTextSize) / 2 - 8;
         CGContextSetBlendMode(context, kCGBlendModeNormal);
         [_badgeText drawInRect:bounds withFont:_bagdeFont];
         

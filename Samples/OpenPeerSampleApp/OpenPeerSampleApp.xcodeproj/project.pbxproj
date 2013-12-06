@@ -12,8 +12,6 @@
 		00CD052A18321B6700EA3BB4 /* boost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00CD052918321B6700EA3BB4 /* boost.framework */; };
 		870059EE184F563800B6B826 /* UIBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 870059ED184F563800B6B826 /* UIBadgeView.m */; };
 		870059F3184FAB3800B6B826 /* AppCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 870059F2184FAB3800B6B826 /* AppCredentials.m */; };
-		870059F61850952700B6B826 /* iPhone_badge.png in Resources */ = {isa = PBXBuildFile; fileRef = 870059F41850952700B6B826 /* iPhone_badge.png */; };
-		870059F71850952700B6B826 /* iPhone_badge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 870059F51850952700B6B826 /* iPhone_badge@2x.png */; };
 		87091144184762F300E65465 /* ImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87091143184762F300E65465 /* ImageManager.m */; };
 		870F337F168376450090A97F /* ActivityIndicatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 870F337D168376450090A97F /* ActivityIndicatorViewController.m */; };
 		870F3380168376450090A97F /* ActivityIndicatorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 870F337E168376450090A97F /* ActivityIndicatorViewController.xib */; };
@@ -298,8 +296,7 @@
 		870059ED184F563800B6B826 /* UIBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBadgeView.m; sourceTree = "<group>"; };
 		870059F1184FAB3800B6B826 /* AppCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppCredentials.h; sourceTree = "<group>"; };
 		870059F2184FAB3800B6B826 /* AppCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppCredentials.m; sourceTree = "<group>"; };
-		870059F41850952700B6B826 /* iPhone_badge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_badge.png; sourceTree = "<group>"; };
-		870059F51850952700B6B826 /* iPhone_badge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_badge@2x.png"; sourceTree = "<group>"; };
+		87005A091851C82C00B6B826 /* libsystem_pthread.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsystem_pthread.dylib; path = usr/lib/system/libsystem_pthread.dylib; sourceTree = SDKROOT; };
 		87091142184762F300E65465 /* ImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageManager.h; sourceTree = "<group>"; };
 		87091143184762F300E65465 /* ImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageManager.m; sourceTree = "<group>"; };
 		87098FDC17C23997007C9093 /* OpenPeerDataModel.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = OpenPeerDataModel.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -739,8 +736,6 @@
 		8713363517CCBD6F008C91F7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				870059F41850952700B6B826 /* iPhone_badge.png */,
-				870059F51850952700B6B826 /* iPhone_badge@2x.png */,
 				8730D7711833A63D008D1D37 /* iPhone_loader_00000.png */,
 				8730D7721833A63D008D1D37 /* iPhone_loader_00000@2x.png */,
 				8730D7731833A63D008D1D37 /* iPhone_loader_00001.png */,
@@ -908,6 +903,7 @@
 		8727282B166CBF9B0089CBB6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				87005A091851C82C00B6B826 /* libsystem_pthread.dylib */,
 				0012C551177D11DB0017FF5E /* libz.dylib */,
 				87FF9861170EDAF00017C627 /* libxml2.dylib */,
 				87EE5FE8166E917B002C5FA3 /* libresolv.dylib */,
@@ -1208,7 +1204,6 @@
 				8722475E182D165A0027DA50 /* iPhone_audio_add_caller.png in Resources */,
 				8730D7E01833A63D008D1D37 /* iPhone_loader_00026@2x.png in Resources */,
 				8730D7BF1833A63D008D1D37 /* iPhone_loader_00010.png in Resources */,
-				870059F71850952700B6B826 /* iPhone_badge@2x.png in Resources */,
 				8730D7AC1833A63D008D1D37 /* iPhone_loader_00000@2x.png in Resources */,
 				870F3380168376450090A97F /* ActivityIndicatorViewController.xib in Resources */,
 				87F09EE2171EBB1B0045F6A6 /* ChatViewController.xib in Resources */,
@@ -1312,7 +1307,6 @@
 				8730D75D183398A5008D1D37 /* iPhone_Button-end-baritem@2x.png in Resources */,
 				8712BE7C17D8CC7C00665F42 /* iPhone_tabBar_contacts_inactive.png in Resources */,
 				8730D7E11833A63D008D1D37 /* iPhone_loader_00027.png in Resources */,
-				870059F61850952700B6B826 /* iPhone_badge.png in Resources */,
 				874408D4182FFE43004AD8FC /* handset_accept_icon.png in Resources */,
 				8730D7DD1833A63D008D1D37 /* iPhone_loader_00025.png in Resources */,
 				8730D7C11833A63D008D1D37 /* iPhone_loader_00011.png in Resources */,
@@ -1508,6 +1502,10 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "OpenPeerSampleApp/OpenPeerSampleApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/system",
+				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
@@ -1544,6 +1542,10 @@
 				);
 				INFOPLIST_FILE = "OpenPeerSampleApp/OpenPeerSampleApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/system",
+				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",

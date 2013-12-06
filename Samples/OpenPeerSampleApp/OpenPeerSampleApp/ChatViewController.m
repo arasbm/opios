@@ -137,7 +137,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    return;
+    [self.session.unreadMessageArray removeAllObjects];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

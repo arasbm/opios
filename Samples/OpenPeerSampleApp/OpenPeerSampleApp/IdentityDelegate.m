@@ -39,6 +39,8 @@
 #import <OpenpeerSDK/HOPIdentityLookup.h>
 #import <OpenpeerSDK/HOPAssociatedIdentity.h>
 
+#import <pthread.h>
+
 #import "LoginManager.h"
 #import "ContactsManager.h"
 #import "AppConsts.h"
@@ -48,7 +50,9 @@
 #import "ActivityIndicatorViewController.h"
 
 @interface IdentityDelegate()
-
+{
+    pthread_mutex_t mutex;
+}
 @property (nonatomic,strong) NSMutableDictionary* loginWebViewsDictionary;
 - (WebLoginViewController*) getLoginWebViewForIdentity:(HOPIdentity*) identity create:(BOOL) create;
 - (void) removeLoginWebViewForIdentity:(HOPIdentity*) identity;
@@ -62,6 +66,7 @@
     if (self)
     {
         self.loginWebViewsDictionary = [[NSMutableDictionary alloc] init];
+        pthread_mutex_init(&mutex, NULL);
     }
     return self;
 }
@@ -77,11 +82,7 @@
     
     NSLog(@"getLoginWebViewForIdentity:%@", [identity getBaseIdentityURI]);
     ret = [self.loginWebViewsDictionary objectForKey:[identity getBaseIdentityURI]];
-//    if ([self.loginWebViewsDictionary count] > 0)
-//    {
-//        ret = [[self.loginWebViewsDictionary allValues]objectAtIndex:0];
-//        ret.coreObject = identity;
-//    }
+
     if (create && !ret)
     {
         //ret = [[LoginManager sharedLoginManager] preloadedWebLoginViewController];
@@ -97,12 +98,10 @@
     }
     else
     {
-        if ([self.loginWebViewsDictionary count] > 0)
-        {
+        if (ret)
             NSLog(@"getLoginWebViewForIdentity - RETRIEVED EXISTING:%@", [identity getBaseIdentityURI]);
-            ret = [[self.loginWebViewsDictionary allValues]objectAtIndex:0];
-            ret.coreObject = identity;
-        }
+        else
+            NSLog(@"getLoginWebViewForIdentity - NO VALID WEB VIEW:%@", [identity getBaseIdentityURI]);
     }
     return ret;
 }
@@ -116,12 +115,13 @@
 {
     NSLog(@"Identity login state: %@ - identityURI: %@",[HOPIdentity stringForIdentityState:state], [identity getIdentityURI]);
     
-//    if ([[identity getIdentityURI] rangeOfString:@"facebook"].location != NSNotFound)
-//        return;
+    //Prevent to have to web views visible at the time
+    if (state == HOPIdentityStateWaitingForBrowserWindowToBeMadeVisible)
+        pthread_mutex_lock(&mutex);
     
     dispatch_async(dispatch_get_main_queue(), ^
     {
-        WebLoginViewController* webLoginViewController = nil;//[self getLoginWebViewForIdentity:identity];
+        WebLoginViewController* webLoginViewController = nil;
         
         switch (state)
         {
@@ -167,6 +167,7 @@
                 
             case HOPIdentityStateWaitingForBrowserWindowToClose:
             {
+                pthread_mutex_unlock(&mutex);
                 webLoginViewController = [self getLoginWebViewForIdentity:identity create:NO];
                 [self.loginDelegate onIdentityLoginWebViewClose:webLoginViewController forIdentityURI:[identity getIdentityURI]];
                 

@@ -46,7 +46,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{49, 5}, {170, 21}}</string>
 								<reference key="NSSuperview" ref="703089267"/>
-								<reference key="NSNextKeyView" ref="368842527"/>
+								<reference key="NSNextKeyView" ref="167456547"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
@@ -79,7 +79,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{4, 8}, {41, 41}}</string>
 								<reference key="NSSuperview" ref="703089267"/>
-								<reference key="NSNextKeyView" ref="420997024"/>
+								<reference key="NSNextKeyView" ref="977983519"/>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -154,12 +154,12 @@
 									<string key="NSResourceName">video_indicator_blue.png</string>
 								</object>
 							</object>
-							<object class="IBUIView" id="368842527">
+							<object class="IBUIView" id="977983519">
 								<reference key="NSNextResponder" ref="703089267"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{234, 3}, {27, 20}}</string>
+								<string key="NSFrame">{{24, 1}, {31, 24}}</string>
 								<reference key="NSSuperview" ref="703089267"/>
-								<reference key="NSNextKeyView" ref="167456547"/>
+								<reference key="NSNextKeyView" ref="420997024"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">3</int>
@@ -259,7 +259,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">badgeView</string>
 						<reference key="source" ref="96725247"/>
-						<reference key="destination" ref="368842527"/>
+						<reference key="destination" ref="977983519"/>
 					</object>
 					<string key="id">cUf-gM-z5x</string>
 				</object>
@@ -293,7 +293,7 @@
 							<reference ref="337558105"/>
 							<reference ref="1032920000"/>
 							<reference ref="779057432"/>
-							<reference ref="368842527"/>
+							<reference ref="977983519"/>
 						</array>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Contact Table View Cell</string>
@@ -333,7 +333,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<string key="id">wLR-Td-CYD</string>
-						<reference key="object" ref="368842527"/>
+						<reference key="object" ref="977983519"/>
 						<reference key="parent" ref="96725247"/>
 					</object>
 				</array>

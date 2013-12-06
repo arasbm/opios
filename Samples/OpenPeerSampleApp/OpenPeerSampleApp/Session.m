@@ -57,6 +57,7 @@
         if (inContacts)
             [self.participantsArray addObjectsFromArray:inContacts];
         self.messageArray = [[NSMutableArray alloc] init];
+        self.unreadMessageArray = [[NSMutableArray alloc] init];
     }
     self.conversationThread = inConverationThread;
     return self;

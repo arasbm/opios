@@ -107,7 +107,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     self.navigationItem.title = @"Contacts";
-
+    [self.contactsTableView reloadRowsAtIndexPaths:[self.contactsTableView indexPathsForVisibleRows]
+                     withRowAnimation:UITableViewRowAnimationNone];
 }
 
 - (void)viewDidAppear:(BOOL)animated
