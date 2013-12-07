@@ -81,7 +81,13 @@
     WebLoginViewController* ret = nil;
     
     NSLog(@"getLoginWebViewForIdentity:%@", [identity getBaseIdentityURI]);
-    ret = [self.loginWebViewsDictionary objectForKey:[identity getBaseIdentityURI]];
+    if (![[LoginManager sharedLoginManager] isLogin])
+        ret = [self.loginWebViewsDictionary objectForKey:[identity getBaseIdentityURI]];
+    else
+    {
+        if ([[self.loginWebViewsDictionary allValues] count] > 0)
+            ret = [[self.loginWebViewsDictionary allValues] objectAtIndex:0];
+    }
 
     if (create && !ret)
     {
@@ -99,7 +105,11 @@
     else
     {
         if (ret)
+        {
             NSLog(@"getLoginWebViewForIdentity - RETRIEVED EXISTING:%@", [identity getBaseIdentityURI]);
+            if ([[LoginManager sharedLoginManager] isLogin])
+                ret.coreObject = identity;
+        }
         else
             NSLog(@"getLoginWebViewForIdentity - NO VALID WEB VIEW:%@", [identity getBaseIdentityURI]);
     }
