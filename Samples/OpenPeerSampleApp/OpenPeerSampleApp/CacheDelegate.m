@@ -47,6 +47,8 @@
             NSDate* expireDate = [aDecoder decodeObjectForKey:@"expireDate"];
             if ([expireDate compare:[NSDate date]] == NSOrderedDescending)
                 ret = [aDecoder decodeObjectForKey:@"value"];
+            else
+                [self clearCookieWithPath:cookieNamePath];
         }
     }
     
