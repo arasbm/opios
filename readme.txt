@@ -19,26 +19,23 @@ opios/Samples/                    - contains the Open Peer iOS Samples applicati
 
 How to build:
 
-1) Build boost, from your terminal:
+1) Prepare dvelopment environment by running prepare.sh script from your terminal:
 
-pushd opios/libs/op/libs/ortc-lib/libs/boost/
-./boost.sh
+pushd opios/
+./prepare.sh
 popd
 
 
-2) Build curl, from your terminal:
-
-pushd opios/libs/op/libs/ortc-lib/libs/curl/
-./build_ios.sh
-popd
-
-
-3) From X-code, load:
+2) From X-code, load sdk project:
 
 opios/openpeer-ios-sdk.xcodeproj (project/workspace)
 
+or sample project with included SDK project
 
-4) Select HOPSDK > iOS Device schema and then build
+opios/Samples/OpenPeerSampleApp/OpenPeerSampleApp.xcodeproj
+
+
+3) Select HOPSDK > iOS Device (builds only SDK) or OpenPeerSampleApp (builds SDK and sample app) schema and then build
 
 The OpenpeerSDK.framework and OpenpeerDataModel.bundle will be built inside:
 project_derived_data_folder/Build/Products/Debug-iphoneos/		- in debug mode
