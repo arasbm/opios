@@ -83,23 +83,23 @@
 
 - (void) openLoginUrl:(NSString*) url
 {
-    NSLog(@"Web request initiated by sample app. URL: %@",url);
+    NSLog(@"<%p> WebLoginViewController\nWeb request initiated by sample app. URL: %@",self,url);
     self.outerFrameInitialised = NO;
     [self.loginWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
 }
 
 - (void) passMessageToJS:(NSString*) message
 {
-    NSLog(@"\n\n Message to JS: \n %@ \n\n",message);
+    NSLog(@"<%p> WebLoginViewController \n\n Message to JS: \n %@ \n\n",self,message);
     [self.loginWebView stringByEvaluatingJavaScriptFromString:message];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     NSString *requestString = [[request URL] absoluteString];
-    NSLog(@"Web request: %@", requestString);
+    NSLog(@"<%p> WebLoginViewController\n Web request: %@", self,requestString);
     if ([self.coreObject isKindOfClass:[HOPIdentity class]])
-        NSLog(@"Web request for identity URI: %@", [((HOPIdentity*) self.coreObject) getIdentityURI]);
+        NSLog(@"<%p> WebLoginViewController\nWeb request for identity URI: %@", self,[((HOPIdentity*) self.coreObject) getIdentityURI]);
     
     //Check if request contains JSON message for core
     if ([requestString hasPrefix:@"https://datapass.hookflash.me/?method="] || [requestString hasPrefix:@"http://datapass.hookflash.me/?method="])
@@ -126,7 +126,7 @@
 {
     NSString *requestString = [[[webView request] URL] absoluteString];
     
-    NSLog(@"START LOADING - web request: %@", requestString);
+    NSLog(@"<%p> WebLoginViewController\nSTART LOADING - web request: %@", self, requestString);
 }
 
 
@@ -134,35 +134,35 @@
 {
     NSString *requestString = [[[webView request] URL] absoluteString];
     
-    NSLog(@"FINISH LOADING - web request: %@", requestString);
+    NSLog(@"<%p> WebLoginViewController\nFINISH LOADING - web request: %@", self, requestString);
     
     if (!self.outerFrameInitialised && [requestString isEqualToString:outerFrameURL])
     {
-        NSLog(@"FINISH LOADING - outerFrameURL: %@", outerFrameURL);
+        NSLog(@"<%p> WebLoginViewController\nFINISH LOADING - outerFrameURL: %@", self,outerFrameURL);
         self.outerFrameInitialised = YES;
         [self onOuterFrameLoaded];
     }
     else if (!self.outerFrameInitialised && [requestString isEqualToString:namespaceGrantServiceURL])
     {
-        NSLog(@"FINISH LOADING - namespaceGrantServiceURL: %@", namespaceGrantServiceURL);
+        NSLog(@"<%p> WebLoginViewController\nFINISH LOADING - namespaceGrantServiceURL: %@", self,namespaceGrantServiceURL);
         self.outerFrameInitialised = YES;
         [self onOuterFrameLoaded];
     }
     else
     {
-        NSLog(@"FINISH LOADING - NOTHING");
+        NSLog(@"<%p> WebLoginViewController\nFINISH LOADING - NOTHING",self);
     }
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-    NSLog(@"UIWebView _ERROR_ : %@",[error localizedDescription]);
+    NSLog(@"<%p> WebLoginViewController\nUIWebView _ERROR_ : %@",self,[error localizedDescription]);
 }
 
 
 - (void)notifyClient:(NSString *)message
 {
-    NSLog(@"\n\n Message from JS: \n %@ \n\n",message);
+    NSLog(@"<%p> WebLoginViewController\n\n\n Message from JS: \n %@ \n\n",self,message);
     
     if ([self.coreObject isKindOfClass:[HOPIdentity class]])
     {

@@ -115,6 +115,24 @@ ZS_DECLARE_SUBSYSTEM(openpeer_sdk)
     return ret;
 }
 
+- (NSNumber*) getObjectId
+{
+    if (objectId == nil)
+    {
+        if(identityPtr)
+        {
+            ULONG objId = identityPtr->getID();
+            objectId = [NSNumber numberWithUnsignedLong:objId];
+        }
+        else
+        {
+            ZS_LOG_ERROR(Debug, [self log:@"Invalid identity object!"]);
+            [NSException raise:NSInvalidArgumentException format:@"Invalid identity object!"];
+        }
+    }
+    return objectId;
+}
+
 - (HOPIdentityState*) getState
 {
     WORD lastErrorCode;

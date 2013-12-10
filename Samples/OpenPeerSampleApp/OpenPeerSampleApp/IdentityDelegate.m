@@ -51,9 +51,11 @@
 
 @interface IdentityDelegate()
 {
-    pthread_mutex_t mutex;
+    pthread_mutex_t mutexVisibleWebView;
 }
 @property (nonatomic,strong) NSMutableDictionary* loginWebViewsDictionary;
+@property (nonatomic, weak) HOPIdentity* identityMutexOwner;
+
 - (WebLoginViewController*) getLoginWebViewForIdentity:(HOPIdentity*) identity create:(BOOL) create;
 - (void) removeLoginWebViewForIdentity:(HOPIdentity*) identity;
 @end
@@ -66,7 +68,7 @@
     if (self)
     {
         self.loginWebViewsDictionary = [[NSMutableDictionary alloc] init];
-        pthread_mutex_init(&mutex, NULL);
+        pthread_mutex_init(&mutexVisibleWebView, NULL);
     }
     return self;
 }
@@ -80,38 +82,32 @@
 {
     WebLoginViewController* ret = nil;
     
-    NSLog(@"getLoginWebViewForIdentity:%@", [identity getBaseIdentityURI]);
-    if (![[LoginManager sharedLoginManager] isLogin])
-        ret = [self.loginWebViewsDictionary objectForKey:[identity getBaseIdentityURI]];
-    else
-    {
-        if ([[self.loginWebViewsDictionary allValues] count] > 0)
-            ret = [[self.loginWebViewsDictionary allValues] objectAtIndex:0];
-    }
-
+    NSLog(@"<%p> Identity - getLoginWebViewForIdentityObjectId:%d", identity, [[identity getObjectId] intValue]);
+    
+    ret = [self.loginWebViewsDictionary objectForKey:[identity getObjectId]];
+ 
     if (create && !ret)
     {
         //ret = [[LoginManager sharedLoginManager] preloadedWebLoginViewController];
         //if (!ret)
         {
             ret= [[WebLoginViewController alloc] initWithCoreObject:identity];
+            NSLog(@"<%p> Identity - Created web view: %p \nidentity uri: %@ \nidentity object id:%d",identity, ret,[identity getIdentityURI],[[identity getObjectId] intValue]);
         }
         ret.view.hidden = YES;
         ret.coreObject = identity;
-        [self.loginWebViewsDictionary setObject:ret forKey:[identity getBaseIdentityURI]];
+        [self.loginWebViewsDictionary setObject:ret forKey:[identity getObjectId]];
         //[[LoginManager sharedLoginManager] setPreloadedWebLoginViewController:nil];
-        NSLog(@"getLoginWebViewForIdentity - CREATED:%@", [identity getBaseIdentityURI]);
+        NSLog(@"<%p> Identity - getLoginWebViewForIdentity - CREATED:%d", identity, [[identity getObjectId] intValue]);
     }
     else
     {
         if (ret)
         {
-            NSLog(@"getLoginWebViewForIdentity - RETRIEVED EXISTING:%@", [identity getBaseIdentityURI]);
-            if ([[LoginManager sharedLoginManager] isLogin])
-                ret.coreObject = identity;
+            NSLog(@"<%p> Identity - getLoginWebViewForIdentity - RETRIEVED EXISTING:%p - %d", identity, ret, [[identity getObjectId] intValue]);
         }
         else
-            NSLog(@"getLoginWebViewForIdentity - NO VALID WEB VIEW:%@", [identity getBaseIdentityURI]);
+            NSLog(@"<%p> Identity - getLoginWebViewForIdentity - NO VALID WEB VIEW:%p - %d", identity, ret, [[identity getObjectId] intValue]);
     }
     return ret;
 }
@@ -123,11 +119,16 @@
 
 - (void)identity:(HOPIdentity *)identity stateChanged:(HOPIdentityStates)state
 {
-    NSLog(@"Identity login state: %@ - identityURI: %@",[HOPIdentity stringForIdentityState:state], [identity getIdentityURI]);
+    NSLog(@"<%p> Identity login state: %@ - identityURI: %@",identity, [HOPIdentity stringForIdentityState:state], [identity getIdentityURI]);
     
     //Prevent to have to web views visible at the time
     if (state == HOPIdentityStateWaitingForBrowserWindowToBeMadeVisible)
-        pthread_mutex_lock(&mutex);
+    {
+        NSLog(@"<%p> Identity %@ tries to obtain web view visibility mutex",identity,[identity getIdentityURI]);
+        pthread_mutex_lock(&mutexVisibleWebView);
+        self.identityMutexOwner = identity;
+        NSLog(@"<%p> Identity %@ owns web view visibility mutex",identity,[identity getIdentityURI]);
+    }
     
     dispatch_async(dispatch_get_main_queue(), ^
     {
@@ -177,12 +178,18 @@
                 
             case HOPIdentityStateWaitingForBrowserWindowToClose:
             {
-                pthread_mutex_unlock(&mutex);
                 webLoginViewController = [self getLoginWebViewForIdentity:identity create:NO];
                 [self.loginDelegate onIdentityLoginWebViewClose:webLoginViewController forIdentityURI:[identity getIdentityURI]];
                 
                 //Notify core that identity login web view is closed
                 [identity notifyBrowserWindowClosed];
+                
+                if (self.identityMutexOwner == identity)
+                {
+                    self.identityMutexOwner = nil;
+                    NSLog(@"<%p> Identity %@ releases web view visibility mutex",identity,[identity getIdentityURI]);
+                    pthread_mutex_unlock(&mutexVisibleWebView);
+                }
             }
                 break;
                 
@@ -209,7 +216,7 @@
 
 - (void)onIdentityPendingMessageForInnerBrowserWindowFrame:(HOPIdentity *)identity
 {
-    NSLog(@"onIdentityPendingMessageForInnerBrowserWindowFrame");
+    NSLog(@"<%p> Identity - onIdentityPendingMessageForInnerBrowserWindowFrame",identity);
     
     dispatch_async(dispatch_get_main_queue(), ^
     {
@@ -227,7 +234,7 @@
 
 - (void)onIdentityRolodexContactsDownloaded:(HOPIdentity *)identity
 {
-    NSLog(@"onIdentityRolodexContactsDownloaded");
+    NSLog(@"<%p> Identity - onIdentityRolodexContactsDownloaded",identity);
     //Remove activity indicator
     [[ActivityIndicatorViewController sharedActivityIndicator] showActivityIndicator:NO withText:nil inView:nil];
     if (identity)
@@ -282,6 +289,7 @@
 
 - (void) onNewIdentity:(HOPIdentity*) identity
 {
+    NSLog(@"<%p> Identity - onNewIdentity for identity uri:%@", identity,[identity getIdentityURI]);
     [[LoginManager sharedLoginManager] attachDelegateForIdentity:identity forceAttach:YES];
 }
 @end
