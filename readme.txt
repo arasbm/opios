@@ -34,8 +34,11 @@ or sample project with included SDK project
 
 opios/Samples/OpenPeerSampleApp/OpenPeerSampleApp.xcodeproj
 
+3) If you open OpenPeerSampleApp project, it is required to update file AppCredentials.m with propper values for:
+	NSString* const applicationId = @"<-- insert application ID here (e.g. com.domain.appName) -->";
+	NSString* const applicationIdSharedSecret = @"<-- insert shared secret here -->"; (Get it from the https://fly.hookflash.me/apps)
 
-3) Select HOPSDK > iOS Device (builds only SDK) or OpenPeerSampleApp (builds SDK and sample app) schema and then build
+4) Select HOPSDK > iOS Device (builds only SDK) or OpenPeerSampleApp (builds SDK and sample app) schema and then build
 
 The OpenpeerSDK.framework and OpenpeerDataModel.bundle will be built inside:
 project_derived_data_folder/Build/Products/Debug-iphoneos/		- in debug mode

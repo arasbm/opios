@@ -371,6 +371,8 @@
 		8722A67C17D35AB3002A3BB6 /* chat_indicator_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_indicator_blue.png; sourceTree = "<group>"; };
 		8722A67D17D35AB3002A3BB6 /* audio_indicator_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = audio_indicator_blue.png; sourceTree = "<group>"; };
 		8722A69617D375E4002A3BB6 /* avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = avatar.png; sourceTree = "<group>"; };
+		87234095185747D5003C6085 /* Template_Credentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Template_Credentials.h; sourceTree = "<group>"; };
+		87234096185747D5003C6085 /* Template_Credentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Template_Credentials.m; sourceTree = "<group>"; };
 		8723F8E717FC99EE003C8802 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Settings.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8723F8E817FC99EE003C8802 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Settings.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		87272828166CBF9B0089CBB6 /* OpenPeerSampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenPeerSampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -882,6 +884,16 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
+		87234094185747D5003C6085 /* templates */ = {
+			isa = PBXGroup;
+			children = (
+				87234095185747D5003C6085 /* Template_Credentials.h */,
+				87234096185747D5003C6085 /* Template_Credentials.m */,
+			);
+			name = templates;
+			path = ../../../templates;
+			sourceTree = "<group>";
+		};
 		8727281D166CBF9B0089CBB6 = {
 			isa = PBXGroup;
 			children = (
@@ -933,6 +945,7 @@
 		87272832166CBF9B0089CBB6 /* OpenPeerSampleApp */ = {
 			isa = PBXGroup;
 			children = (
+				87234094185747D5003C6085 /* templates */,
 				8712BE8517D8CC9900665F42 /* Settings */,
 				87FC39F81709BB66002030D1 /* Session */,
 				87368AE0167600A900166F35 /* Model */,
