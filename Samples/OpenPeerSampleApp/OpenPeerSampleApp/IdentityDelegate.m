@@ -124,10 +124,10 @@
     //Prevent to have to web views visible at the time
     if (state == HOPIdentityStateWaitingForBrowserWindowToBeMadeVisible)
     {
-        NSLog(@"<%p> Identity %@ tries to obtain web view visibility mutex",identity,[identity getIdentityURI]);
+        NSLog(@"<%p> Identity %@ tries to obtain web view visibility mutex. ObjectId: %d",identity,[identity getIdentityURI], [[identity getObjectId] integerValue]);
         pthread_mutex_lock(&mutexVisibleWebView);
         self.identityMutexOwner = identity;
-        NSLog(@"<%p> Identity %@ owns web view visibility mutex",identity,[identity getIdentityURI]);
+        NSLog(@"<%p> Identity %@ owns web view visibility mutex. ObjectId: %d",identity,[identity getIdentityURI],[[identity getObjectId] integerValue]);
     }
     
     dispatch_async(dispatch_get_main_queue(), ^
@@ -184,7 +184,7 @@
                 //Notify core that identity login web view is closed
                 [identity notifyBrowserWindowClosed];
                 
-                if (self.identityMutexOwner == identity)
+                if ([[self.identityMutexOwner getObjectId] intValue] == [[identity getObjectId] intValue])
                 {
                     self.identityMutexOwner = nil;
                     NSLog(@"<%p> Identity %@ releases web view visibility mutex",identity,[identity getIdentityURI]);
