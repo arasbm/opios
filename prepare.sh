@@ -5,8 +5,8 @@
 : ${PATHTOCREDENTIALSTEMPLATE:=./templates}
 : ${PATHTOCREDENTIALSDESTINATION:=./Samples/OpenPeerSampleApp/OpenPeerSampleApp}
 
-: ${CREDENTIALSTEMPLATEHEADER:=Template_Credentials.h}
-: ${CREDENTIALSTEMPLATESOURCE:=Template_Credentials.m}
+: ${CREDENTIALSTEMPLATEHEADER:=Template_AppCredentials.h}
+: ${CREDENTIALSTEMPLATESOURCE:=Template_AppCredentials.m}
 : ${CREDENTIALSHEADER:=AppCredentials.h}
 : ${CREDENTIALSSOURCE:=AppCredentials.m}
 
@@ -48,7 +48,7 @@ else
 	echo $CREDENTIALSHEADER already exists!
 fi
 
-#Checks if cource file already exists in the destination folder. If doesn't exist, copies the template cource in the destiantion folder, renames it and update name of the imported header.
+#Checks if source file already exists in the destination folder. If doesn't exist, copies the template cource in the destiantion folder, renames it and update name of the imported header.
 if [ ! -f "$PATHTOCREDENTIALSDESTINATION/$CREDENTIALSSOURCE" ]; then
 	if [ -d $PATHTOCREDENTIALSTEMPLATE ]; then
 		if [ -f "$PATHTOCREDENTIALSTEMPLATE/$CREDENTIALSTEMPLATESOURCE" ]; then
@@ -64,25 +64,4 @@ if [ ! -f "$PATHTOCREDENTIALSDESTINATION/$CREDENTIALSSOURCE" ]; then
 	fi
 else
 	echo $CREDENTIALSSOURCE already exists!
-fi
-
-#Checks if .gitignore already exists. If not creates it.
-if [ ! -f ".gitignore" ]; then
-	touch ".gitignore"
-fi
-
-#Check if header file is alredy added in the .gitignore file. If not adds it.
-if grep $CREDENTIALSHEADER ".gitignore"; then
-   echo "$CREDENTIALSHEADER already added in .gitignore"
-else
-	echo $'\n'$CREDENTIALSHEADER >> ".gitignore"
-    cat ".gitignore"
-fi
-
-#Check if header file is alredy added in the .gitignore file. If not adds it.
-if grep  $CREDENTIALSSOURCE ".gitignore"; then
-	echo "$CREDENTIALSSOURCE already added in .gitignore"
-else
-	echo $'\n'$CREDENTIALSSOURCE >> ".gitignore"
-	cat ".gitignore"	
 fi

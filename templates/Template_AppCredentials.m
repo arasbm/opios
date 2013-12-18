@@ -29,7 +29,7 @@
  
  */
 
-#import "Template_Credentials.h"
+#import "Template_AppCredentials.h"
 
 #error PLEASE SET APPLICATION ID VALUE (THEN REMOVE THIS LINE)
 NSString* const applicationId = @"<-- insert application ID here (e.g. com.domain.appName) -->";
