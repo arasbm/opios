@@ -1387,10 +1387,7 @@
 				CURRENT_PROJECT_VERSION = 0.81;
 				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/openpeer_ios_sdk.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Volumes/Hookflash/Repos/ios/opios/libs/op/libs/ortc-lib/libs/boost/ios/framework",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_ENABLE_CPP_RTTI = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "openpeer-ios-sdk/openpeer-ios-sdk-Prefix.pch";
@@ -1422,10 +1419,7 @@
 				CURRENT_PROJECT_VERSION = 0.81;
 				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/openpeer_ios_sdk.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Volumes/Hookflash/Repos/ios/opios/libs/op/libs/ortc-lib/libs/boost/ios/framework",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_ENABLE_CPP_RTTI = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "openpeer-ios-sdk/openpeer-ios-sdk-Prefix.pch";
