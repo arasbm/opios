@@ -109,14 +109,14 @@
  */
 - (void) setup
 {
+    //Created all delegates required for openpeer stack initialization.
+    [self createDelegates];
+    
     //Init cache singleton
     [[HOPCache sharedCache] setDelegate:self.cacheDelegate];
     
     //Set log levels and start logging
     [Logger startAllSelectedLoggers];
-
-    //Created all delegates required for openpeer stack initialization.
-    [self createDelegates];
 
     //Init openpeer stack and set created delegates
     [[HOPStack sharedStack] setupWithStackDelegate:self.stackDelegate mediaEngineDelegate:self.mediaEngineDelegate appID: self.authorizedApplicationId appName:applicationName appImageURL:applicationImageURL appURL:applicationURL userAgent:[Utility getUserAgentName] deviceID:self.deviceId deviceOs:[Utility getDeviceOs] system:[Utility getPlatform]];
