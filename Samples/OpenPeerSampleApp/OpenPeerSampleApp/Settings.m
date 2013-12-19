@@ -343,6 +343,10 @@
             ret = @"SDK (services)";
             break;
 
+        case MODULE_SERVICES_WIRE:
+            ret = @"SDK (services packets)";
+            break;
+
         case MODULE_SERVICES_ICE:
             ret = @"SDK (STUN/ICE)";
             break;
@@ -423,6 +427,10 @@
             ret = moduleServices;
             break;
             
+        case MODULE_SERVICES_WIRE:
+            ret = moduleServicesWire;
+            break;
+
         case MODULE_SERVICES_ICE:
             ret = moduleServicesIce;
             break;
@@ -503,8 +511,9 @@
 {
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_APPLICATION];
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_SERVICES];
-    [self setLoggerLevel:HOPLoggerLevelDebug forAppModule:MODULE_SERVICES_ICE];
-    [self setLoggerLevel:HOPLoggerLevelDebug forAppModule:MODULE_SERVICES_TURN];
+    [self setLoggerLevel:HOPLoggerLevelDebug forAppModule:MODULE_SERVICES_WIRE];
+    [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_SERVICES_ICE];
+    [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_SERVICES_TURN];
     [self setLoggerLevel:HOPLoggerLevelDebug forAppModule:MODULE_SERVICES_RUDP];
     [self setLoggerLevel:HOPLoggerLevelDebug forAppModule:MODULE_SERVICES_HTTP];
     [self setLoggerLevel:HOPLoggerLevelTrace forAppModule:MODULE_SERVICES_MLS];
