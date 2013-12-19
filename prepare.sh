@@ -16,6 +16,14 @@ if [ -f "$PATHTOCURLSCRIPT/build_ios.sh" ]; then
 		echo Building curl ...
 		chmod a+x build_ios.sh
 		sh build_ios.sh
+		status=$?
+		if [ $status != 0 ]; then
+			echo $status
+			echo "Curl build failed!"
+			exit 1
+		else
+			echo "Curl build succeeded!"
+		fi
 	popd
 else
 	echo ERROR. Curl build failed. No such a file or directory.
@@ -27,6 +35,14 @@ if [ -f "$PATHTOBOOSTSCRIPT/boost.sh" ]; then
 		echo Building boost ...
 		chmod a+x boost.sh
 		sh boost.sh
+		status=$?
+		if [ $status != 0 ]; then
+			echo $status
+			echo "Boost build failed!"
+			exit 1
+		else
+			echo "Boost build succeeded!"
+		fi
 	popd
 else
 	echo ERROR. Boost build failed. No such a file or directory.
