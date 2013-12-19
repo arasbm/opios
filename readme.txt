@@ -19,6 +19,12 @@ opios/Samples/                    - contains the Open Peer iOS Samples applicati
 
 How to build:
 
+0) Before calling "prepare.sh", please make sure to remove any file called "user-config.jam" from your HOME directory. If this file is present, the file can conflict with boost building properly on your system.
+
+For example:
+cp ~/user-config.jam user-config.jam.save
+rm ~/user-config.jam
+
 1) Prepare dvelopment environment by running prepare.sh script from your terminal:
 
 pushd opios/

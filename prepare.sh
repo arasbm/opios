@@ -37,7 +37,7 @@ if [ ! -f "$PATHTOCREDENTIALSDESTINATION/$CREDENTIALSHEADER" ]; then
 	if [ -d $PATHTOCREDENTIALSTEMPLATE ]; then
 		if [ -f "$PATHTOCREDENTIALSTEMPLATE/$CREDENTIALSTEMPLATEHEADER" ]; then
 			cp -r "$PATHTOCREDENTIALSTEMPLATE/$CREDENTIALSTEMPLATEHEADER" "$PATHTOCREDENTIALSDESTINATION/$CREDENTIALSHEADER"
-			echo Copied $CREDENTIALSHEADER
+			echo Created $CREDENTIALSHEADER
 		else
 			echo "Error. Template $CREDENTIALSTEMPLATEHEADER doesn't exist!"
 		fi
@@ -45,7 +45,7 @@ if [ ! -f "$PATHTOCREDENTIALSDESTINATION/$CREDENTIALSHEADER" ]; then
 		echo Error. Invalid template directory!
 	fi
 else
-	echo $CREDENTIALSHEADER already exists!
+	echo Using existing $CREDENTIALSHEADER...
 fi
 
 #Checks if source file already exists in the destination folder. If doesn't exist, copies the template cource in the destiantion folder, renames it and update name of the imported header.
@@ -54,7 +54,7 @@ if [ ! -f "$PATHTOCREDENTIALSDESTINATION/$CREDENTIALSSOURCE" ]; then
 		if [ -f "$PATHTOCREDENTIALSTEMPLATE/$CREDENTIALSTEMPLATESOURCE" ]; then
 			cp -r "$PATHTOCREDENTIALSTEMPLATE/$CREDENTIALSTEMPLATESOURCE" "$PATHTOCREDENTIALSDESTINATION/$CREDENTIALSSOURCE"
 			sed -i.bak -e s/"$CREDENTIALSTEMPLATEHEADER"/"$CREDENTIALSHEADER"/g "$PATHTOCREDENTIALSDESTINATION/$CREDENTIALSSOURCE"
-			echo Copied $CREDENTIALSSOURCE
+			echo Created $CREDENTIALSSOURCE
 			rm $PATHTOCREDENTIALSDESTINATION/$CREDENTIALSSOURCE.bak
 		else
 			echo "Error. Template $CREDENTIALSTEMPLATESOURCE doesnt exist!"
@@ -63,5 +63,5 @@ if [ ! -f "$PATHTOCREDENTIALSDESTINATION/$CREDENTIALSSOURCE" ]; then
 		echo Error. Invalid template directory!
 	fi
 else
-	echo $CREDENTIALSSOURCE already exists!
+	echo Using existing $CREDENTIALSSOURCE...
 fi
