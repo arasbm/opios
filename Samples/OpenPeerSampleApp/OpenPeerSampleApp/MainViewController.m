@@ -255,6 +255,7 @@
     
     NSString* title = [[[session participantsArray] objectAtIndex:0] name];
     
+    NSLog(@"Transition %d for session with id:%@ and for participant:%@",transition,[session.conversationThread getThreadId],title);
     UINavigationController* navigationController = (UINavigationController*)[[self.tabBarController viewControllers] objectAtIndex:0];
     switch (transition)
     {
@@ -294,7 +295,7 @@
             
         case EXISITNG_SESSION_SWITCH:
             sessionViewContorller = [self.sessionViewControllersDictionary objectForKey:sessionId];
-            
+            [sessionViewContorller.chatViewController refreshViewWithData];
             [navigationController popToRootViewControllerAnimated:NO];
             [navigationController pushViewController:sessionViewContorller animated:YES];
             [navigationController.navigationBar.topItem setTitle:title];
