@@ -31,12 +31,15 @@
 
 #import "CustomerSpecific.h"
 
-#error PLEASE SET APPLICATION ID VALUE (THEN REMOVE THIS LINE)
-NSString* const applicationId = @"<-- insert application ID here (e.g. com.domain.appName) -->";
+#error VALUES BELOW NEED TO BE SET TO SUPPORT CUSTOMER DEVELOPER ENVIRONMENT
 
 //!!!!!!!!!!!!!!!!!!!! WARNING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//This value should be obtained from service provider.
-#error PLEASE SET SHARED SECRET VALUE (THEN REMOVE THIS LINE)
+//-----------------------------------------------------------------------------
+// If you have not done so already, please go to http://fly.hookflash.me to
+// create your application and obtain your app ID and shared secret.
+//-----------------------------------------------------------------------------
+NSString* const applicationId = @"<-- insert application ID here (e.g. com.domain.appName) -->";
+
 NSString* const applicationIdSharedSecret = @"<-- insert shared secret here -->";
 // ------------------- !!! WARNING !!! -------------------
 // Setting the application shared secret in the client is not recommended.
@@ -45,30 +48,22 @@ NSString* const applicationIdSharedSecret = @"<-- insert shared secret here -->"
 // most appropriate.
 // ------------------- !!! WARNING !!! -------------------
 
-#error PLEASE SET APPLICATION NAME (THEN REMOVE THIS LINE)
-NSString* const applicationName = @"<-- enter application name here (e.g. OpenPeerSampleApp) -->";
-
-#error PLEASE SET APPLICATION IMAGE URL (THEN REMOVE THIS LINE)
-NSString* const applicationImageURL = @"<-- enter application image url (e.g. http://hookflash.com/wp-content/themes/CleanSpace/images/logo.png) -->";
-
-#error PLEASE SET APPLICATION URL (THEN REMOVE THIS LINE)
-NSString* const applicationURL = @"<-- enter application url (e.g. www.openpeer.org) -->";
-
-#error PLEASE SET OUTER FRAME URL (THEN REMOVE THIS LINE)
-NSString* const outerFrameURL = @"<-- enter outer frame url here (e.g. https://app-javascript.hookflash.me/outer.html?view=choose) -->";
-
-#error PLEASE SET OUTER NAMESPACE GRANT URL (THEN REMOVE THIS LINE)
-NSString* const namespaceGrantServiceURL = @"<-- enter outer namespace grant service url here (e.g. https://app-javascript.hookflash.me/outernamespacegrant.html) -->";
-
-#error PLEASE SET IDENTITY PROVIDER DOMAIN (THEN REMOVE THIS LINE)
-NSString* const identityProviderDomain = @"<-- enter identity provider domain here (e.g. idprovider-javascript.hookflash.me) -->";
-
-#error PLEASE SET FEDERATED IDENTITY BASE (THEN REMOVE THIS LINE)
-NSString* const identityFederateBaseURI = @"<-- enter federated identity base uri here (e.g. identity://idprovider-javascript.hookflash.me/) -->";
-
-#error PLEASE SET LOCKBOX SERVICE DOMAIN (THEN REMOVE THIS LINE)
-NSString* const lockBoxServiceDomain =  @"<-- enter lockbox service domain here (e.g. hcs-javascript.hookflash.me) -->";
-
-#error PLEASE SET DEFAULT OUTGOING TELENT SERVER (THEN REMOVE THIS LINE)
-NSString * const defaultOutgoingTelnetServer = @"<-- enter outgoing telnet server here (e.g. tcp.logger.hookflash.me:8055) -->";
+//Set customer spplication name
+NSString* const applicationName = @"OpenPeerSampleApp";
+//Set customer spplication image url
+NSString* const applicationImageURL = @"http://hookflash.com/wp-content/themes/CleanSpace/images/logo.png";
+//Set customer spplication url
+NSString* const applicationURL = @"www.openpeer.org";
+//Set outer frame url
+NSString* const outerFrameURL = @"https://app-javascript.hookflash.me/outer.html?view=choose";
+//Set outer namespace grant url
+NSString* const namespaceGrantServiceURL = @"https://app-javascript.hookflash.me/outernamespacegrant.html";
+//Set identity provider domain
+NSString* const identityProviderDomain = @"idprovider-javascript.hookflash.me";
+//Set federated identity base
+NSString* const identityFederateBaseURI = @"identity://idprovider-javascript.hookflash.me/";
+//Set lockbox service domain
+NSString* const lockBoxServiceDomain =  @"hcs-javascript.hookflash.me";
+//Set default outgoing telent server
+NSString * const defaultOutgoingTelnetServer = @"tcp.logger.hookflash.me:8055";
 
