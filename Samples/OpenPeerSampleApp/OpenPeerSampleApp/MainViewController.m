@@ -44,7 +44,6 @@
 //Model
 #import "Session.h"
 //View controllers
-#import "LoginViewController.h"
 #import "WebLoginViewController.h"
 #import "ContactsViewController.h"
 #import "SessionViewController_iPhone.h"
@@ -181,24 +180,6 @@
 }
 
 #pragma mark - Login views
-/**
- Show view with login button
-*/
-/*- (void) showLoginView
-{
-    if (!self.loginViewController)
-    {
-        self.loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-    }
-    
-    [self removeAllSubViews];
-    self.tabBarController = nil;
-    
-    [self.loginViewController prepareForLogin];
-    [self.view addSubview:self.loginViewController.view];
-    [self.loginViewController.view setFrame:self.view.bounds];
-}*/
-
 /**
  Show web view with opened login page.
  @param url NSString Login page url.

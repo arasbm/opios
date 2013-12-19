@@ -31,19 +31,7 @@
 
 #import <Foundation/Foundation.h>
 
-//Login contants
-extern NSString* const applicationName;
-extern NSString* const applicationImageURL;
-extern NSString* const applicationURL;
-extern NSString* const outerFrameURL;
-extern NSString* const namespaceGrantServiceURL;
-extern NSString* const identityProviderDomain;
-extern NSString* const identityFederateBaseURI;
 extern NSString* const identityFacebookBaseURI;
-extern NSString* const identityLinkedInBaseURI;
-extern NSString* const grantOuterFrameURLUponReload;
-//extern NSString* const grantServiceDomain;
-extern NSString* const lockBoxServiceDomain;
 
 extern NSString * const keyOpenPeerUser;
 
@@ -93,7 +81,6 @@ extern NSString * const notificationRemoteSessionModeChanged;
 
 //Settings
 extern NSString * const defaultTelnetPort;
-extern NSString * const defaultOutgoingTelnetServer;
 
 extern NSString * const archiveMediaAEC;
 extern NSString * const archiveMediaAGC;

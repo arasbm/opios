@@ -29,7 +29,7 @@
  
  */
 
-#import "Template_AppCredentials.h"
+#import "Template_CustomerSpecific.h"
 
 #error PLEASE SET APPLICATION ID VALUE (THEN REMOVE THIS LINE)
 NSString* const applicationId = @"<-- insert application ID here (e.g. com.domain.appName) -->";
@@ -44,3 +44,31 @@ NSString* const applicationIdSharedSecret = @"<-- insert shared secret here -->"
 // application ID from your own server using whatever method you determine is
 // most appropriate.
 // ------------------- !!! WARNING !!! -------------------
+
+#error PLEASE SET APPLICATION NAME (THEN REMOVE THIS LINE)
+NSString* const applicationName = @"<-- enter application name here (e.g. OpenPeerSampleApp) -->";
+
+#error PLEASE SET APPLICATION IMAGE URL (THEN REMOVE THIS LINE)
+NSString* const applicationImageURL = @"<-- enter application image url (e.g. http://hookflash.com/wp-content/themes/CleanSpace/images/logo.png) -->";
+
+#error PLEASE SET APPLICATION URL (THEN REMOVE THIS LINE)
+NSString* const applicationURL = @"<-- enter application url (e.g. www.openpeer.org) -->";
+
+#error PLEASE SET OUTER FRAME URL (THEN REMOVE THIS LINE)
+NSString* const outerFrameURL = @"<-- enter outer frame url here (e.g. https://app-javascript.hookflash.me/outer.html?view=choose) -->";
+
+#error PLEASE SET OUTER NAMESPACE GRANT URL (THEN REMOVE THIS LINE)
+NSString* const namespaceGrantServiceURL = @"<-- enter outer namespace grant service url here (e.g. https://app-javascript.hookflash.me/outernamespacegrant.html) -->";
+
+#error PLEASE SET IDENTITY PROVIDER DOMAIN (THEN REMOVE THIS LINE)
+NSString* const identityProviderDomain = @"<-- enter identity provider domain here (e.g. idprovider-javascript.hookflash.me) -->";
+
+#error PLEASE SET FEDERATED IDENTITY BASE (THEN REMOVE THIS LINE)
+NSString* const identityFederateBaseURI = @"<-- enter federated identity base uri here (e.g. identity://idprovider-javascript.hookflash.me/) -->";
+
+#error PLEASE SET LOCKBOX SERVICE DOMAIN (THEN REMOVE THIS LINE)
+NSString* const lockBoxServiceDomain =  @"<-- enter lockbox service domain here (e.g. hcs-javascript.hookflash.me) -->";
+
+#error PLEASE SET DEFAULT OUTGOING TELENT SERVER (THEN REMOVE THIS LINE)
+NSString * const defaultOutgoingTelnetServer = @"<-- enter outgoing telnet server here (e.g. tcp.logger.hookflash.me:8055) -->";
+

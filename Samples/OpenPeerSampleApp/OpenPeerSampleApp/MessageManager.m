@@ -192,9 +192,19 @@
     NSLog(@"Message received");
     
     if ([sessionId length] == 0)
+    {
+        NSLog(@"Message received with invalid session id");
         return;
+    }
     
     Session* session = [[SessionManager sharedSessionManager] getSessionForSessionId:sessionId];
+    
+    if (session == nil)
+    {
+        NSLog(@"Message received - unable to get session for provided session id %@.",sessionId);
+        NSLog(@"Message received - further message handling is canceled.");
+        return;
+    }
     
     if ([message.type isEqualToString:messageTypeText])
     {
@@ -205,7 +215,6 @@
 
         //If session view controller with message sender is not yet shown, show it
         [[[OpenPeer sharedOpenPeer] mainViewController] showSessionViewControllerForSession:session forIncomingCall:NO forIncomingMessage:YES];
-        
     }
     else
     {

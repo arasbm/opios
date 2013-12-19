@@ -33,6 +33,7 @@
 #import "AppConsts.h"
 #import "OpenPeer.h"
 #import "Logger.h"
+#import "CustomerSpecific.h"
 
 @interface Settings ()
 

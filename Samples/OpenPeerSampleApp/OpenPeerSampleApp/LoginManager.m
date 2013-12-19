@@ -53,9 +53,9 @@
 #import "StackDelegate.h"
 //View Controllers
 #import "MainViewController.h"
-#import "LoginViewController.h"
 #import "ActivityIndicatorViewController.h"
 #import "WebLoginViewController.h"
+#import "CustomerSpecific.h"
 
 @interface LoginManager ()
 
@@ -152,7 +152,7 @@
 
 - (void) startAccount
 {
-    [[HOPAccount sharedAccount] loginWithAccountDelegate:(id<HOPAccountDelegate>)[[OpenPeer sharedOpenPeer] accountDelegate] conversationThreadDelegate:(id<HOPConversationThreadDelegate>) [[OpenPeer sharedOpenPeer] conversationThreadDelegate]  callDelegate:(id<HOPCallDelegate>) [[OpenPeer sharedOpenPeer] callDelegate]  namespaceGrantOuterFrameURLUponReload:grantOuterFrameURLUponReload grantID:[[OpenPeer sharedOpenPeer] deviceId] lockboxServiceDomain:identityProviderDomain forceCreateNewLockboxAccount:NO];
+    [[HOPAccount sharedAccount] loginWithAccountDelegate:(id<HOPAccountDelegate>)[[OpenPeer sharedOpenPeer] accountDelegate] conversationThreadDelegate:(id<HOPConversationThreadDelegate>) [[OpenPeer sharedOpenPeer] conversationThreadDelegate]  callDelegate:(id<HOPCallDelegate>) [[OpenPeer sharedOpenPeer] callDelegate]  namespaceGrantOuterFrameURLUponReload:outerFrameURL grantID:[[OpenPeer sharedOpenPeer] deviceId] lockboxServiceDomain:identityProviderDomain forceCreateNewLockboxAccount:NO];
 }
 /**
  Starts user login for specific identity URI. Activity indicator is displayed and identity login started.

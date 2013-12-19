@@ -48,6 +48,7 @@
 #import "MainViewController.h"
 #import "ContactsViewController.h"
 #import "ActivityIndicatorViewController.h"
+#import "CustomerSpecific.h"
 
 @interface IdentityDelegate()
 {

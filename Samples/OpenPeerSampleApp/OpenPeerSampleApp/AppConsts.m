@@ -31,20 +31,7 @@
 
 #import "AppConsts.h"
 
-NSString* const applicationName = @"OpenPeerSampleApp";
-NSString* const applicationImageURL = @"http://hookflash.com/wp-content/themes/CleanSpace/images/logo.png";
-NSString* const applicationURL = @"www.openpeer.org";
-
-NSString* const outerFrameURL = @"https://app-javascript.hookflash.me/outer.html?view=choose";
-NSString* const identityProviderDomain = @"idprovider-javascript.hookflash.me";
-NSString* const identityFederateBaseURI = @"identity://idprovider-javascript.hookflash.me/";
 NSString* const identityFacebookBaseURI = @"identity://facebook.com/";
-NSString* const identityLinkedInBaseURI = @"identity://linkedin.com/";
-NSString* const grantOuterFrameURLUponReload = @"grantFinished";
-//NSString* const grantServiceDomain = @"hcs-javascript.hookflash.me";
-NSString* const lockBoxServiceDomain =  @"hcs-javascript.hookflash.me";
-
-NSString* const namespaceGrantServiceURL = @"https://app-javascript.hookflash.me/outernamespacegrant.html";
 
 NSString * const keyOpenPeerUser = @"keyOpenPeerUser";
 
@@ -92,7 +79,6 @@ NSString * const systemMessageRequest = @"?";
 NSString * const notificationRemoteSessionModeChanged = @"notificationRemoteSessionModeChanged";
 
 NSString * const defaultTelnetPort = @"59999";
-NSString * const defaultOutgoingTelnetServer = @"tcp.logger.hookflash.me:8055";
 
 NSString * const archiveMediaAEC = @"archiveMediaAEC";
 NSString * const archiveMediaAGC = @"archiveMediaAGC";

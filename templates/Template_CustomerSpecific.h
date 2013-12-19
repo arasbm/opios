@@ -33,3 +33,14 @@
 
 extern NSString* const applicationId;
 extern NSString* const applicationIdSharedSecret;
+
+extern NSString* const applicationName;
+extern NSString* const applicationImageURL;
+extern NSString* const applicationURL;
+
+extern NSString* const outerFrameURL;
+extern NSString* const namespaceGrantServiceURL;
+extern NSString* const identityProviderDomain;
+extern NSString* const identityFederateBaseURI;
+extern NSString* const lockBoxServiceDomain;
+extern NSString* const defaultOutgoingTelnetServer;

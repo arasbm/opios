@@ -5,10 +5,10 @@
 : ${PATHTOCREDENTIALSTEMPLATE:=./templates}
 : ${PATHTOCREDENTIALSDESTINATION:=./Samples/OpenPeerSampleApp/OpenPeerSampleApp}
 
-: ${CREDENTIALSTEMPLATEHEADER:=Template_AppCredentials.h}
-: ${CREDENTIALSTEMPLATESOURCE:=Template_AppCredentials.m}
-: ${CREDENTIALSHEADER:=AppCredentials.h}
-: ${CREDENTIALSSOURCE:=AppCredentials.m}
+: ${CREDENTIALSTEMPLATEHEADER:=Template_CustomerSpecific.h}
+: ${CREDENTIALSTEMPLATESOURCE:=Template_CustomerSpecific.m}
+: ${CREDENTIALSHEADER:=CustomerSpecific.h}
+: ${CREDENTIALSSOURCE:=CustomerSpecific.m}
 
 #Runs curl build script
 if [ -f "$PATHTOCURLSCRIPT/build_ios.sh" ]; then

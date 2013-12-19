@@ -11,7 +11,7 @@
 		0024393C178F55BF00B79368 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0024393B178F55BF00B79368 /* Security.framework */; };
 		00CD052A18321B6700EA3BB4 /* boost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00CD052918321B6700EA3BB4 /* boost.framework */; };
 		870059EE184F563800B6B826 /* UIBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 870059ED184F563800B6B826 /* UIBadgeView.m */; };
-		87005A5B1855EA2200B6B826 /* AppCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 87005A5A1855EA2200B6B826 /* AppCredentials.m */; };
+		8706DE02186359060032E39C /* CustomerSpecific.m in Sources */ = {isa = PBXBuildFile; fileRef = 8706DE01186359060032E39C /* CustomerSpecific.m */; };
 		87091144184762F300E65465 /* ImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87091143184762F300E65465 /* ImageManager.m */; };
 		870F337F168376450090A97F /* ActivityIndicatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 870F337D168376450090A97F /* ActivityIndicatorViewController.m */; };
 		870F3380168376450090A97F /* ActivityIndicatorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 870F337E168376450090A97F /* ActivityIndicatorViewController.xib */; };
@@ -86,8 +86,6 @@
 		8727283D166CBF9B0089CBB6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8727283C166CBF9B0089CBB6 /* AppDelegate.m */; };
 		87272850166CC1810089CBB6 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8727284E166CC1810089CBB6 /* MainViewController.m */; };
 		87272851166CC1810089CBB6 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8727284F166CC1810089CBB6 /* MainViewController.xib */; };
-		87272855166CC2640089CBB6 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87272853166CC2630089CBB6 /* LoginViewController.m */; };
-		87272856166CC2640089CBB6 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87272854166CC2640089CBB6 /* LoginViewController.xib */; };
 		87272859166CC45B0089CBB6 /* LoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87272858166CC45B0089CBB6 /* LoginManager.m */; };
 		8730D6E31832601C008D1D37 /* VideoCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8730D6E11832601C008D1D37 /* VideoCallViewController.m */; };
 		8730D6E41832601C008D1D37 /* VideoCallViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8730D6E21832601C008D1D37 /* VideoCallViewController.xib */; };
@@ -295,16 +293,16 @@
 		870059EC184F563800B6B826 /* UIBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBadgeView.h; sourceTree = "<group>"; };
 		870059ED184F563800B6B826 /* UIBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBadgeView.m; sourceTree = "<group>"; };
 		87005A091851C82C00B6B826 /* libsystem_pthread.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsystem_pthread.dylib; path = usr/lib/system/libsystem_pthread.dylib; sourceTree = SDKROOT; };
-		87005A591855EA2200B6B826 /* AppCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppCredentials.h; sourceTree = "<group>"; };
-		87005A5A1855EA2200B6B826 /* AppCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppCredentials.m; sourceTree = "<group>"; };
+		8706DE00186359060032E39C /* CustomerSpecific.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerSpecific.h; sourceTree = "<group>"; };
+		8706DE01186359060032E39C /* CustomerSpecific.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerSpecific.m; sourceTree = "<group>"; };
 		87091142184762F300E65465 /* ImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageManager.h; sourceTree = "<group>"; };
 		87091143184762F300E65465 /* ImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageManager.m; sourceTree = "<group>"; };
 		87098FDC17C23997007C9093 /* OpenPeerDataModel.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = OpenPeerDataModel.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		870F337C168376450090A97F /* ActivityIndicatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityIndicatorViewController.h; sourceTree = "<group>"; };
 		870F337D168376450090A97F /* ActivityIndicatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityIndicatorViewController.m; sourceTree = "<group>"; };
 		870F337E168376450090A97F /* ActivityIndicatorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityIndicatorViewController.xib; sourceTree = "<group>"; };
-		8711BE1E1861EF1300DBF8B5 /* Template_AppCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Template_AppCredentials.h; sourceTree = "<group>"; };
-		8711BE1F1861EF1300DBF8B5 /* Template_AppCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Template_AppCredentials.m; sourceTree = "<group>"; };
+		8711BE1E1861EF1300DBF8B5 /* Template_CustomerSpecific.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Template_CustomerSpecific.h; sourceTree = "<group>"; };
+		8711BE1F1861EF1300DBF8B5 /* Template_CustomerSpecific.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Template_CustomerSpecific.m; sourceTree = "<group>"; };
 		8712BE6717D8CC7C00665F42 /* iPhone_top_bar_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_top_bar_background@2x.png"; sourceTree = "<group>"; };
 		8712BE6817D8CC7C00665F42 /* iPhone_top_bar_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_top_bar_background.png; sourceTree = "<group>"; };
 		8712BE6917D8CC7C00665F42 /* iPhone_tabBar_settings_inactive_Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone_tabBar_settings_inactive_Icon@2x.png"; sourceTree = "<group>"; };
@@ -388,9 +386,6 @@
 		8727284D166CC1810089CBB6 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		8727284E166CC1810089CBB6 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		8727284F166CC1810089CBB6 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
-		87272852166CC2630089CBB6 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		87272853166CC2630089CBB6 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		87272854166CC2640089CBB6 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		87272857166CC45A0089CBB6 /* LoginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginManager.h; sourceTree = "<group>"; };
 		87272858166CC45B0089CBB6 /* LoginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginManager.m; sourceTree = "<group>"; };
 		872729CF166CDF530089CBB6 /* openpeer-ios-sdk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "openpeer-ios-sdk.xcodeproj"; path = "../../openpeer-ios-sdk.xcodeproj"; sourceTree = "<group>"; };
@@ -665,9 +660,6 @@
 		870C5E19167234A600A3AA4F /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				87272852166CC2630089CBB6 /* LoginViewController.h */,
-				87272853166CC2630089CBB6 /* LoginViewController.m */,
-				87272854166CC2640089CBB6 /* LoginViewController.xib */,
 				87272857166CC45A0089CBB6 /* LoginManager.h */,
 				87272858166CC45B0089CBB6 /* LoginManager.m */,
 				87EE5FF9166F5A7E002C5FA3 /* WebLoginViewController.h */,
@@ -695,8 +687,8 @@
 		870C5E1B1672355300A3AA4F /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				87005A591855EA2200B6B826 /* AppCredentials.h */,
-				87005A5A1855EA2200B6B826 /* AppCredentials.m */,
+				8706DE00186359060032E39C /* CustomerSpecific.h */,
+				8706DE01186359060032E39C /* CustomerSpecific.m */,
 				8727283B166CBF9B0089CBB6 /* AppDelegate.h */,
 				8727283C166CBF9B0089CBB6 /* AppDelegate.m */,
 				8727284D166CC1810089CBB6 /* MainViewController.h */,
@@ -723,8 +715,8 @@
 		8711BE1D1861EF1300DBF8B5 /* templates */ = {
 			isa = PBXGroup;
 			children = (
-				8711BE1E1861EF1300DBF8B5 /* Template_AppCredentials.h */,
-				8711BE1F1861EF1300DBF8B5 /* Template_AppCredentials.m */,
+				8711BE1E1861EF1300DBF8B5 /* Template_CustomerSpecific.h */,
+				8711BE1F1861EF1300DBF8B5 /* Template_CustomerSpecific.m */,
 			);
 			name = templates;
 			path = ../../../templates;
@@ -1199,7 +1191,6 @@
 				874408CA182FE873004AD8FC /* IncomingCallView_iPhone.xib in Resources */,
 				871C7B9617FEDC3600BE641B /* OpenPeerLogo.png in Resources */,
 				87272851166CC1810089CBB6 /* MainViewController.xib in Resources */,
-				87272856166CC2640089CBB6 /* LoginViewController.xib in Resources */,
 				8730D7DB1833A63D008D1D37 /* iPhone_loader_00024.png in Resources */,
 				87224758182D165A0027DA50 /* audio-call-mic-active.png in Resources */,
 				87EE6070166F667C002C5FA3 /* WebLoginViewController.xib in Resources */,
@@ -1371,12 +1362,10 @@
 				8757E1CB1827E85700D7BDA1 /* TTTAttributedLabel.m in Sources */,
 				8727283D166CBF9B0089CBB6 /* AppDelegate.m in Sources */,
 				87272850166CC1810089CBB6 /* MainViewController.m in Sources */,
-				87272855166CC2640089CBB6 /* LoginViewController.m in Sources */,
 				87A1086A1802C116001F705D /* Logger.m in Sources */,
 				8730D6E31832601C008D1D37 /* VideoCallViewController.m in Sources */,
 				87272859166CC45B0089CBB6 /* LoginManager.m in Sources */,
 				874AD9D1166CE6540095FE33 /* AccountDelegate.m in Sources */,
-				87005A5B1855EA2200B6B826 /* AppCredentials.m in Sources */,
 				874AD9D5166CEAFB0095FE33 /* StackDelegate.m in Sources */,
 				874AD9D8166CEB390095FE33 /* MediaEngineDelegate.m in Sources */,
 				87BFEDBA183A885C00A48821 /* AppConsts.m in Sources */,
@@ -1410,6 +1399,7 @@
 				87FC3A1B1709BD8D002030D1 /* SBJsonStreamTokeniser.m in Sources */,
 				87FC3A1C1709BD8D002030D1 /* SBJsonStreamWriter.m in Sources */,
 				87FC3A1D1709BD8D002030D1 /* SBJsonStreamWriterAccumulator.m in Sources */,
+				8706DE02186359060032E39C /* CustomerSpecific.m in Sources */,
 				87FC3A1E1709BD8D002030D1 /* SBJsonStreamWriterState.m in Sources */,
 				87FC3A1F1709BD8D002030D1 /* SBJsonWriter.m in Sources */,
 				87FC3A201709BD8D002030D1 /* RXMLElement.m in Sources */,
