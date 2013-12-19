@@ -31,6 +31,7 @@
 
 #import <Foundation/Foundation.h>
 
+//WARNING: If you got a linker error related to the strings below, please check if they are set correctly in the file CustomerSpecific.m
 extern NSString* const applicationId;
 extern NSString* const applicationIdSharedSecret;
 
