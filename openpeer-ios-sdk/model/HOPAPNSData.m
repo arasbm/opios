@@ -29,16 +29,13 @@
  
  */
 
-#import "HOPPublicPeerFile.h"
 #import "HOPAPNSData.h"
-#import "HOPIdentityContact.h"
+#import "HOPPublicPeerFile.h"
 
 
-@implementation HOPPublicPeerFile
+@implementation HOPAPNSData
 
-@dynamic peerFile;
-@dynamic peerURI;
-@dynamic identityContacts;
-@dynamic apnsData;
+@dynamic deviceToken;
+@dynamic publicPeer;
 
 @end

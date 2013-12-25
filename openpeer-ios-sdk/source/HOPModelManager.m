@@ -36,6 +36,7 @@
 #import "HOPPublicPeerFile.h"
 #import "HOPAvatar.h"
 #import "HOPHomeUser.h"
+#import "HOPAPNSData.h"
 #import "OpenPeerConstants.h"
 #import <CoreData/CoreData.h>
 
@@ -445,4 +446,37 @@
     
     return ret;
 }
+
+- (NSArray*) getAPNSDataForPeerURI:(NSString*) peerURI
+{
+    NSMutableArray* ret = nil;
+     NSArray* apnsData = [self getResultsForEntity:@"HOPAPNSData" withPredicateString:[NSString stringWithFormat:@"(publicPeer.peerURI MATCHES '%@')",peerURI] orderDescriptors:nil];
+    
+    if ([apnsData count] > 0)
+    {
+        ret = [[NSMutableArray alloc] init];
+        for (HOPAPNSData* data in apnsData)
+        {
+            [ret addObject:data.deviceToken];
+        }
+    }
+    return ret;
+}
+
+- (void) setAPNSData:(NSString*) deviceToken PeerURI:(NSString*) peerURI
+{
+    if ([[self getAPNSDataForPeerURI:peerURI] count] == 0)
+    {
+        HOPPublicPeerFile* publicPeerFile = [self getPublicPeerFileForPeerURI:peerURI];
+        if (publicPeerFile)
+        {
+            HOPAPNSData* apnsData = (HOPAPNSData*)[self createObjectForEntity:@"HOPAPNSData"];
+            apnsData.deviceToken = deviceToken;
+            apnsData.publicPeer = publicPeerFile;
+            [self saveContext];
+        }
+    }
+}
 @end
+
+

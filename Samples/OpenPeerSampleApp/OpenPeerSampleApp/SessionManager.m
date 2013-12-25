@@ -119,6 +119,17 @@
         {
             NSArray* participants = [NSArray arrayWithObject:[contact getCoreContact]];
             [conversationThread addContacts:participants];
+#ifdef APNS_ENABLED
+            for (HOPContact* coreContact in participants)
+            {
+                NSArray* apnsData = [[HOPModelManager sharedModelManager]getAPNSDataForPeerURI:[coreContact getPeerURI]];
+                if ([apnsData count] == 0)
+                {
+                    HOPMessage* apnsMessage = [[MessageManager sharedMessageManager] createSystemMessageWithType:SystemMessage_APNS_Request andText:[[OpenPeer sharedOpenPeer]deviceToken] andRecipient:contact];
+                    [conversationThread sendMessage:apnsMessage];
+                }
+            }
+#endif
         }
         
         if (ret)
@@ -126,6 +137,8 @@
             //Store session object in dictionary
             [self.sessionsDictionary setObject:ret forKey:[conversationThread getThreadId]];
         }
+        
+        
     }
     
     return ret;

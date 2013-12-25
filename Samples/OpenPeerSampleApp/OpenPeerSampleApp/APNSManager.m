@@ -35,6 +35,9 @@
 #import "UAPush.h"
 
 #import <OpenPeerSDK/HOPRolodexContact.h>
+#import <OpenPeerSDK/HOPContact.h>
+#import <OpenPeerSDK/HOPModelManager.h>
+#import <OpenPeerSDK/HOPAccount.h>
 
 @interface APNSManager ()
 
@@ -42,8 +45,12 @@
 @property (nonatomic, strong) NSString* masterAppSecret;
 @property (nonatomic, strong) NSString* apiPushURL;
 
+@property (nonatomic, strong) NSMutableDictionary* apnsHisotry;
+
 - (id) initSingleton;
 
+- (void) pushData:(NSDictionary*) dataToPush;
+- (BOOL) canSendPushNotificationForPeerURI:(NSString*) peerURI;
 @end
 
 @implementation APNSManager
@@ -71,6 +78,7 @@
         self.developmentAppKey = [plistData objectForKey:@"developmentAppKey"];
         self.masterAppSecret = [plistData objectForKey:@"masterAppSecret"];
         self.apiPushURL = [plistData objectForKey:@"apiPushURL"];
+        self.apnsHisotry = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -86,7 +94,7 @@
     [[UAPush shared] resetBadge];
 }
 
-- (void) sendPushNotificationForDeviceToken:(NSString*) deviceToken message:(NSString*) message
+- (void) pushData:(NSDictionary*) dataToPush
 {
     if ([self.apiPushURL length] > 0)
     {
@@ -94,12 +102,20 @@
         [request setHTTPMethod:@"POST"];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
-        NSDictionary * push = @{@"device_tokens":@[deviceToken], @"aps":@{@"alert":message, @"sound":@"calling"}};
-        NSData * pushdata = [NSJSONSerialization dataWithJSONObject:push options:0 error:NULL];
+        NSData * pushdata = [NSJSONSerialization dataWithJSONObject:dataToPush options:0 error:NULL];
         [request setHTTPBody:pushdata];
         
         [NSURLConnection connectionWithRequest:request delegate:self];
+        
+        NSLog(@"Push notification sent.");
     }
+}
+
+- (void) sendPushNotificationForDeviceToken:(NSString*) deviceToken message:(NSString*) message
+{
+    NSDictionary * dataToPush = @{@"device_tokens":@[deviceToken], @"aps":@{@"alert":message, @"sound":@"calling"}};
+    
+    [self pushData:dataToPush];
 }
 
 - (void) registerDeviceToken:(NSData*) devToken
@@ -131,5 +147,52 @@
     NSLog(@"res %i\n",res.statusCode);
 }
 
+- (void) sendPushNotificationForContact:(HOPContact*) contact message:(NSString*) message missedCall:(BOOL) missedCall
+{
+    NSString* peerURI = [contact getPeerURI];
+    if ([peerURI length] > 0)
+    {
+        if ([self canSendPushNotificationForPeerURI:peerURI])
+        {
+            NSArray* deviceTokens = [[HOPModelManager sharedModelManager] getAPNSDataForPeerURI:peerURI];
+            
+            if ([deviceTokens count] > 0)
+            {
+                NSString* myPeerURI = [[HOPContact getForSelf]getPeerURI];
+                NSString* locationId = [[HOPAccount sharedAccount] getLocationID];
+                NSMutableDictionary* messageDictionary = [[NSMutableDictionary alloc] init];
+                
+                [messageDictionary setObject:message forKey:@"alert"];
+                [messageDictionary setObject:locationId forKey:@"location"];
+                [messageDictionary setObject:myPeerURI forKey:@"peerURI"];
+                [messageDictionary setObject:@"default" forKey:@"sound"];
 
+                NSDictionary * dataToPush = @{@"device_tokens":deviceTokens, @"aps":messageDictionary};
+                
+                [self pushData:dataToPush];
+                
+                [self.apnsHisotry setObject:[NSDate date] forKey:peerURI];
+            }
+        }
+        else
+        {
+            NSLog(@"Cannot send push notification because it passes less than hour since last push");
+        }
+    }
+    else
+    {
+        NSLog(@"Cannot send push notification because of invalid peerURI");
+    }
+}
+
+- (BOOL) canSendPushNotificationForPeerURI:(NSString*) peerURI
+{
+    BOOL ret = NO;
+    
+    NSDate* lastPushDate = [self.apnsHisotry objectForKey:peerURI];
+    if (lastPushDate)
+        ret = [lastPushDate timeIntervalSinceNow] > 3600 ? YES : NO;
+    
+    return ret;
+}
 @end

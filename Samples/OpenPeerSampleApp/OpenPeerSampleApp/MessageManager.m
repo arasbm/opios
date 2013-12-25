@@ -158,7 +158,25 @@
                     [[SessionManager sharedSessionManager] redialCallForSession:inSession];
                 }
                 break;
+#ifdef APNS_ENABLED
+                case SystemMessage_APNS_Request:
+                {
+                    if ([messageText length] > 0 && [[inMessage.contact getPeerURI] length] > 0)
+                        [[HOPModelManager sharedModelManager] setAPNSData:messageText PeerURI: [inMessage.contact getPeerURI]];
                     
+                    HOPMessage* message = [self createSystemMessageWithType:SystemMessage_APNS_Response andText:[[OpenPeer sharedOpenPeer] deviceToken] andRecipient:[[inSession participantsArray] objectAtIndex:0]];
+                    if (message)
+                        [inSession.conversationThread sendMessage:message];
+                }
+                break;
+                    
+                case SystemMessage_APNS_Response:
+                {
+                    if ([messageText length] > 0 && [[inMessage.contact getPeerURI] length] > 0)
+                        [[HOPModelManager sharedModelManager] setAPNSData:messageText PeerURI: [inMessage.contact getPeerURI]];
+                }
+                break;
+#endif
                 default:
                     break;
             }

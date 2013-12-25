@@ -32,6 +32,7 @@
 #import <Foundation/Foundation.h>
 
 @class HOPRolodexContact;
+@class HOPContact;
 
 @interface APNSManager : NSObject
 
@@ -41,4 +42,6 @@
 - (void) prepareUrbanAirShip;
 - (void) sendPushNotificationForDeviceToken:(NSString*) deviceToken message:(NSString*) message;
 - (void) registerDeviceToken:(NSData*) devToken;
+
+- (void) sendPushNotificationForContact:(HOPContact*) contact message:(NSString*) message missedCall:(BOOL) missedCall;
 @end

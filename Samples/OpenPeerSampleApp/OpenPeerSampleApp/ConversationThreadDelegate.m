@@ -42,6 +42,7 @@
 
 #ifdef APNS_ENABLED
 #import "APNSManager.h"
+#import <OpenpeerSDK/HOPModelManager.h>
 #endif
 
 @implementation ConversationThreadDelegate
@@ -95,18 +96,18 @@
 #ifdef APNS_ENABLED
     if (messageDeliveryStates == HOPConversationThreadMessageDeliveryStateUserNotAvailable)
     {
-        NSString* deveiceTokenToREceive = @"34a4615a a2a9d182 011382a8 8f16be64 a065d601 0f89b74f 468021d6 02735a81";
-        if (![deveiceTokenToREceive isEqualToString:[[APNSManager sharedAPNSManager] deviceToken]])
+        NSArray* contacts = [conversationThread getContacts];
+        if ([contacts count] > 0)
         {
-            NSArray* contacts = [conversationThread getContacts];
-            if ([contacts count] > 0)
+            HOPMessage* message = [conversationThread getMessageForID:messageID];
+            HOPContact* coreContact = [contacts objectAtIndex:0];
+            if (coreContact)
             {
-                HOPMessage* message = [conversationThread getMessageForID:messageID];
-                HOPRolodexContact* contact  = [[[HOPModelManager sharedModelManager] getRolodexContactsByPeerURI:[[contacts objectAtIndex:0] getPeerURI]] objectAtIndex:0];
+                HOPRolodexContact* contact  = [[[HOPModelManager sharedModelManager] getRolodexContactsByPeerURI:[coreContact getPeerURI]] objectAtIndex:0];
                 if (contact)
                 {
                     NSString* messageText  = [NSString stringWithFormat:@"%@ \n %@",[contact name],message.text];
-                    [[APNSManager sharedAPNSManager] sendPushNotificationForDeviceToken:deveiceTokenToREceive message:messageText];
+                    [[APNSManager sharedAPNSManager] sendPushNotificationForContact:coreContact message:messageText missedCall:NO];
                 }
             }
         }

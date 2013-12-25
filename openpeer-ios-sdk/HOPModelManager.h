@@ -192,4 +192,18 @@
  @return NSArray array of rolodex contacts ready for refresh
  */
 - (NSArray*) getRolodexContactsForRefreshByHomeUserIdentityURI:(NSString*) homeUserIdentityURI lastRefreshTime:(NSDate*) lastRefreshTime;
+
+/**
+ Retrieves device tokens for specific URI.
+ @param peerURI NSString contact peer URI
+ @return NSArray array of device tokens associated to peer URI
+ */
+- (NSArray*) getAPNSDataForPeerURI:(NSString*) peerURI;
+
+/**
+ Set device token for specific peer URI
+ @param deviceToken NSString* device token used for sending push notification
+ @param peerURI NSString* contacts peer uri
+ */
+- (void) setAPNSData:(NSString*) deviceToken PeerURI:(NSString*) peerURI;
 @end

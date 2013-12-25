@@ -58,7 +58,7 @@
     [[OpenPeer sharedOpenPeer] setup];
     
 #ifdef APNS_ENABLED
-    [[APNSManager sharedAPNSManager]prepareUrbanAirShip];
+    [[APNSManager sharedAPNSManager] prepareUrbanAirShip];
 #endif
     return YES;
 }
@@ -113,6 +113,7 @@
 
     [[APNSManager sharedAPNSManager] registerDeviceToken:deviceToken];
     [[APNSManager sharedAPNSManager] setDeviceToken:hexString];
+    [[OpenPeer sharedOpenPeer] setDeviceToken:hexString];
      
     /*NSString* deveiceTokenToREceive = @"34a4615a a2a9d182 011382a8 8f16be64 a065d601 0f89b74f 468021d6 02735a81";
     if (![deveiceTokenToREceive isEqualToString:hexString])

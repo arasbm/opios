@@ -40,7 +40,9 @@ typedef enum
     SystemMessage_EstablishSessionBetweenTwoPeers,
     SystemMessage_IsContactAvailable,
     SystemMessage_IsContactAvailable_Response,
-    SystemMessage_CallAgain
+    SystemMessage_CallAgain,
+    SystemMessage_APNS_Request,
+    SystemMessage_APNS_Response
 }SystemMessageTypes;
 
 @interface MessageManager : NSObject
