@@ -41,6 +41,7 @@ typedef enum
     SystemMessage_IsContactAvailable,
     SystemMessage_IsContactAvailable_Response,
     SystemMessage_CallAgain,
+    SystemMessage_CheckAvailability,
     SystemMessage_APNS_Request,
     SystemMessage_APNS_Response
 }SystemMessageTypes;
@@ -52,6 +53,7 @@ typedef enum
 - (HOPMessage*) createSystemMessageWithType:(SystemMessageTypes) type andText:(NSString*) text andRecipient:(HOPRolodexContact*) contact;
 - (void) sendSystemMessageToInitSessionBetweenPeers:(NSArray*) peers forSession:(Session*) inSession;
 - (void) sendSystemMessageToCallAgainForSession:(Session*) inSession;
+- (void) sendSystemMessageToCheckAvailability:(Session*) inSession;
 
 - (void) parseSystemMessage:(HOPMessage*) inMessage forSession:(Session*) inSession;
 - (void) sendMessage:(NSString*) message forSession:(Session*) inSession;

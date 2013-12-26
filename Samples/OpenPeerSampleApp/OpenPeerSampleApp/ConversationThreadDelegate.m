@@ -33,6 +33,7 @@
 #import "SessionManager.h"
 #import "ContactsManager.h"
 #import "MessageManager.h"
+#import "AppConsts.h"
 
 #import <OpenpeerSDK/HOPConversationThread.h>
 #import <OpenpeerSDK/HOPContact.h>
@@ -106,7 +107,15 @@
                 HOPRolodexContact* contact  = [[[HOPModelManager sharedModelManager] getRolodexContactsByPeerURI:[coreContact getPeerURI]] objectAtIndex:0];
                 if (contact)
                 {
-                    NSString* messageText  = [NSString stringWithFormat:@"%@ \n %@",[contact name],message.text];
+                    NSString* messageText = nil;
+                    if ([message.type isEqualToString:messageTypeSystem])
+                    {
+                        messageText  = [NSString stringWithFormat:@"%@ \n %@",[contact name],@"Missed call"];
+                    }
+                    else
+                    {
+                        messageText  = [NSString stringWithFormat:@"%@ \n %@",[contact name],message.text];
+                    }
                     [[APNSManager sharedAPNSManager] sendPushNotificationForContact:coreContact message:messageText missedCall:NO];
                 }
             }

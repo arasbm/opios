@@ -303,6 +303,7 @@
     if (!inSession.currentCall)
     {
         NSLog(@"Make call for sesison - making call");
+        [[MessageManager sharedMessageManager]sendSystemMessageToCheckAvailability:inSession];
         //Currently we are not supporting group conferences, so only one participant is possible
         HOPContact* contact = [[[inSession participantsArray] objectAtIndex:0] getCoreContact];
         
@@ -574,7 +575,7 @@
     return self.sessionWithActiveCall != nil;
 }
 
-- (void) makeCallForContact:(HOPRolodexContact*) contact includeVideo:(BOOL) includeVideo
+/*- (void) makeCallForContact:(HOPRolodexContact*) contact includeVideo:(BOOL) includeVideo
 {
     Session* session = [self createSessionForContact:contact];
     
@@ -592,7 +593,7 @@
         }
         
     }
-}
+}*/
 
 
 - (void) recreateExistingSessions

@@ -123,6 +123,11 @@
     [inSession.conversationThread sendMessage:hopMessage];
 }
 
+- (void) sendSystemMessageToCheckAvailability:(Session*) inSession
+{
+    HOPMessage* hopMessage = [self createSystemMessageWithType:SystemMessage_CheckAvailability andText:systemMessageRequest andRecipient:[[inSession participantsArray] objectAtIndex:0]];
+    [inSession.conversationThread sendMessage:hopMessage];
+}
 - (void) parseSystemMessage:(HOPMessage*) inMessage forSession:(Session*) inSession
 {
     if ([inMessage.type isEqualToString:messageTypeSystem])

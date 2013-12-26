@@ -38,7 +38,7 @@
 #import <OpenPeerSDK/HOPContact.h>
 #import <OpenPeerSDK/HOPModelManager.h>
 #import <OpenPeerSDK/HOPAccount.h>
-
+#import <OpenPeerSDK/HOPPublicPeerFile.h>
 @interface APNSManager ()
 
 @property (nonatomic, strong) NSString* developmentAppKey;
@@ -187,12 +187,25 @@
 
 - (BOOL) canSendPushNotificationForPeerURI:(NSString*) peerURI
 {
-    BOOL ret = NO;
+    BOOL ret = YES;
     
     NSDate* lastPushDate = [self.apnsHisotry objectForKey:peerURI];
     if (lastPushDate)
         ret = [lastPushDate timeIntervalSinceNow] > 3600 ? YES : NO;
     
     return ret;
+}
+
+- (void) handleAPNS:(NSDictionary *)apnsInfo
+{
+    NSDictionary *apsInfo = [apnsInfo objectForKey:@"aps"];
+    NSString *alert = [apsInfo objectForKey:@"alert"];
+    NSLog(@"Received Push Alert: %@", alert);
+    NSString *peerURI = [apnsInfo objectForKey:@"peerURI"];
+    NSString *locationID = [apnsInfo objectForKey:@"location"];
+    
+    HOPPublicPeerFile* publicPerFile = [[HOPModelManager sharedModelManager] getPublicPeerFileForPeerURI:peerURI];
+    HOPContact* contact = [[HOPContact alloc] initWithPeerFile:publicPerFile.peerFile];
+    [contact hintAboutLocation:locationID];
 }
 @end

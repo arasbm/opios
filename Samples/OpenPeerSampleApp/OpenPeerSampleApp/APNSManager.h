@@ -44,4 +44,6 @@
 - (void) registerDeviceToken:(NSData*) devToken;
 
 - (void) sendPushNotificationForContact:(HOPContact*) contact message:(NSString*) message missedCall:(BOOL) missedCall;
+
+- (void) handleAPNS:(NSDictionary *)apnsInfo;
 @end

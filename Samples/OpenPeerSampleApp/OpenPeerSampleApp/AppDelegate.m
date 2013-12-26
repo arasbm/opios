@@ -59,6 +59,12 @@
     
 #ifdef APNS_ENABLED
     [[APNSManager sharedAPNSManager] prepareUrbanAirShip];
+    NSDictionary *apnsInfo = [launchOptions valueForKey:@"UIApplicationLaunchOptionsRemoteNotificationKey"];
+    
+    if ([apnsInfo count] > 0)
+    {
+        
+    }
 #endif
     return YES;
 }
