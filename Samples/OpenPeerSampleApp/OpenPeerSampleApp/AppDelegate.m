@@ -63,7 +63,7 @@
     
     if ([apnsInfo count] > 0)
     {
-        
+        [[APNSManager sharedAPNSManager] handleAPNS:apnsInfo];
     }
 #endif
     return YES;

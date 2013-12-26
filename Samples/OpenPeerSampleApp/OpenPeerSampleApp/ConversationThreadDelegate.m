@@ -100,6 +100,7 @@
         NSArray* contacts = [conversationThread getContacts];
         if ([contacts count] > 0)
         {
+            BOOL missedCall = NO;
             HOPMessage* message = [conversationThread getMessageForID:messageID];
             HOPContact* coreContact = [contacts objectAtIndex:0];
             if (coreContact)
@@ -108,15 +109,17 @@
                 if (contact)
                 {
                     NSString* messageText = nil;
-                    if ([message.type isEqualToString:messageTypeSystem])
+                    //if ([message.type isEqualToString:messageTypeSystem])
+                    if ([[MessageManager sharedMessageManager] getTypeForSystemMessage:message] == SystemMessage_CheckAvailability)
                     {
                         messageText  = [NSString stringWithFormat:@"%@ \n %@",[contact name],@"Missed call"];
+                        missedCall = YES;
                     }
                     else
                     {
                         messageText  = [NSString stringWithFormat:@"%@ \n %@",[contact name],message.text];
                     }
-                    [[APNSManager sharedAPNSManager] sendPushNotificationForContact:coreContact message:messageText missedCall:NO];
+                    [[APNSManager sharedAPNSManager] sendPushNotificationForContact:coreContact message:messageText missedCall:missedCall];
                 }
             }
         }

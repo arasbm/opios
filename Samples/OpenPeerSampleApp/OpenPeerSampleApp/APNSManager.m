@@ -39,6 +39,9 @@
 #import <OpenPeerSDK/HOPModelManager.h>
 #import <OpenPeerSDK/HOPAccount.h>
 #import <OpenPeerSDK/HOPPublicPeerFile.h>
+
+#define  timeBetweenPushNotificationsInSeconds 120
+
 @interface APNSManager ()
 
 @property (nonatomic, strong) NSString* developmentAppKey;
@@ -165,7 +168,11 @@
                 [messageDictionary setObject:message forKey:@"alert"];
                 [messageDictionary setObject:locationId forKey:@"location"];
                 [messageDictionary setObject:myPeerURI forKey:@"peerURI"];
-                [messageDictionary setObject:@"default" forKey:@"sound"];
+                
+                if (missedCall)
+                    [messageDictionary setObject:@"ringing.caf" forKey:@"sound"];
+                else
+                    [messageDictionary setObject:@"message-received.wav" forKey:@"sound"];
 
                 NSDictionary * dataToPush = @{@"device_tokens":deviceTokens, @"aps":messageDictionary};
                 
@@ -188,10 +195,10 @@
 - (BOOL) canSendPushNotificationForPeerURI:(NSString*) peerURI
 {
     BOOL ret = YES;
-    
+
     NSDate* lastPushDate = [self.apnsHisotry objectForKey:peerURI];
     if (lastPushDate)
-        ret = [lastPushDate timeIntervalSinceNow] > 3600 ? YES : NO;
+        ret = [lastPushDate timeIntervalSinceNow] > timeBetweenPushNotificationsInSeconds ? YES : NO;
     
     return ret;
 }

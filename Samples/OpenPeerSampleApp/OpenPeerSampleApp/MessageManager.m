@@ -244,4 +244,18 @@
         [self parseSystemMessage:message forSession:session];
     }
 }
+
+- (SystemMessageTypes) getTypeForSystemMessage:(HOPMessage*) message
+{
+    SystemMessageTypes ret = SystemMessage_None;
+    if ([message.type isEqualToString:messageTypeSystem])
+    {
+        RXMLElement *eventElement = [RXMLElement elementFromXMLString:message.text encoding:NSUTF8StringEncoding];
+        if ([eventElement.tag isEqualToString:TagEvent])
+        {
+            ret = (SystemMessageTypes) [[eventElement child:TagId].text intValue];
+        }
+    }
+    return ret;
+}
 @end

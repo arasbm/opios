@@ -195,6 +195,7 @@
 		875CD7E5167A14960037396B /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = 875CD7E4167A14960037396B /* Session.m */; };
 		876CBCBB16F20A88004D542B /* IdentityDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 876CBCBA16F20A88004D542B /* IdentityDelegate.m */; };
 		879D7B9717FB1224008C78E2 /* LoggerSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 879D7B9617FB1224008C78E2 /* LoggerSettingsViewController.m */; };
+		879F4393186C507000AED5AB /* OpenPeerSampleAppAPNS-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 879F4392186C507000AED5AB /* OpenPeerSampleAppAPNS-Info.plist */; };
 		87A1086A1802C116001F705D /* Logger.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A108691802C116001F705D /* Logger.m */; };
 		87A1086C1802CBDC001F705D /* logger.png in Resources */ = {isa = PBXBuildFile; fileRef = 87A1086B1802CBDC001F705D /* logger.png */; };
 		87A1086E1802CD92001F705D /* logger@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87A1086D1802CD92001F705D /* logger@2x.png */; };
@@ -447,61 +448,6 @@
 		87D4BDF818683B4C008C2D30 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 87D4BDF718683B4C008C2D30 /* libsqlite3.dylib */; };
 		87D4BDFA18683B59008C2D30 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87D4BDF918683B59008C2D30 /* CoreTelephony.framework */; };
 		87D4BDFC18683B65008C2D30 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87D4BDFB18683B65008C2D30 /* CoreLocation.framework */; };
-		87D4BE9318683BEE008C2D30 /* UABarButtonSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D4BE3B18683BED008C2D30 /* UABarButtonSegmentedControl.m */; };
-		87D4BE9418683BEE008C2D30 /* UABeveledLoadingIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D4BE3D18683BED008C2D30 /* UABeveledLoadingIndicator.m */; };
-		87D4BE9518683BEE008C2D30 /* UADateUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D4BE3F18683BED008C2D30 /* UADateUtils.m */; };
-		87D4BE9618683BEE008C2D30 /* UAInboxAlertHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D4BE4118683BED008C2D30 /* UAInboxAlertHandler.m */; };
-		87D4BE9718683BEE008C2D30 /* UAInboxMessageListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D4BE4318683BED008C2D30 /* UAInboxMessageListCell.m */; };
-		87D4BE9818683BEE008C2D30 /* UAInboxMessageListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D4BE4518683BED008C2D30 /* UAInboxMessageListController.m */; };
-		87D4BE9918683BEE008C2D30 /* UAInboxMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D4BE4718683BED008C2D30 /* UAInboxMessageViewController.m */; };
-		87D4BE9A18683BEE008C2D30 /* UAInboxNavUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D4BE4918683BED008C2D30 /* UAInboxNavUI.m */; };
-		87D4BE9B18683BEE008C2D30 /* UAInboxOverlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D4BE4B18683BED008C2D30 /* UAInboxOverlayController.m */; };
-		87D4BE9C18683BEE008C2D30 /* UAInboxUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D4BE4D18683BED008C2D30 /* UAInboxUI.m */; };
-		87D4BE9D18683BEE008C2D30 /* UIWebView+UAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D4BE4F18683BED008C2D30 /* UIWebView+UAAdditions.m */; };
-		87D4BE9E18683BEE008C2D30 /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE5218683BED008C2D30 /* check.png */; };
-		87D4BE9F18683BEE008C2D30 /* check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE5318683BED008C2D30 /* check@2x.png */; };
-		87D4BEA018683BEE008C2D30 /* down.png in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE5418683BED008C2D30 /* down.png */; };
-		87D4BEA118683BEE008C2D30 /* down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE5518683BED008C2D30 /* down@2x.png */; };
-		87D4BEA218683BEE008C2D30 /* overlayCloseBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE5718683BED008C2D30 /* overlayCloseBtn.png */; };
-		87D4BEA318683BEE008C2D30 /* overlayCloseBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE5818683BED008C2D30 /* overlayCloseBtn@2x.png */; };
-		87D4BEA418683BEE008C2D30 /* UAInboxLocalization.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE5918683BED008C2D30 /* UAInboxLocalization.bundle */; };
-		87D4BEA518683BEE008C2D30 /* UAInboxMessageListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE5A18683BED008C2D30 /* UAInboxMessageListCell.xib */; };
-		87D4BEA618683BEE008C2D30 /* UAInboxMessageListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE5B18683BED008C2D30 /* UAInboxMessageListController.xib */; };
-		87D4BEA718683BEE008C2D30 /* UAInboxMessageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE5C18683BED008C2D30 /* UAInboxMessageViewController.xib */; };
-		87D4BEA818683BEE008C2D30 /* uncheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE5D18683BED008C2D30 /* uncheck.png */; };
-		87D4BEA918683BEE008C2D30 /* uncheck@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE5E18683BED008C2D30 /* uncheck@2x.png */; };
-		87D4BEAA18683BEE008C2D30 /* up.png in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE5F18683BED008C2D30 /* up.png */; };
-		87D4BEAB18683BEE008C2D30 /* up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE6018683BED008C2D30 /* up@2x.png */; };
-		87D4BEAC18683BEE008C2D30 /* UALocationDemoAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D4BE6518683BED008C2D30 /* UALocationDemoAnnotation.m */; };
-		87D4BEAD18683BEE008C2D30 /* UALocationSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D4BE6718683BED008C2D30 /* UALocationSettingsViewController.m */; };
-		87D4BEAE18683BEE008C2D30 /* UAMapPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D4BE6918683BED008C2D30 /* UAMapPresentationController.m */; };
-		87D4BEAF18683BEE008C2D30 /* UAPushMoreSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D4BE6B18683BED008C2D30 /* UAPushMoreSettingsViewController.m */; };
-		87D4BEB018683BEE008C2D30 /* UAPushNotificationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D4BE6D18683BED008C2D30 /* UAPushNotificationHandler.m */; };
-		87D4BEB118683BEE008C2D30 /* UAPushSettingsAddTagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D4BE6F18683BED008C2D30 /* UAPushSettingsAddTagViewController.m */; };
-		87D4BEB218683BEE008C2D30 /* UAPushSettingsAliasViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D4BE7118683BED008C2D30 /* UAPushSettingsAliasViewController.m */; };
-		87D4BEB318683BEE008C2D30 /* UAPushSettingsSoundsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D4BE7318683BED008C2D30 /* UAPushSettingsSoundsViewController.m */; };
-		87D4BEB418683BEE008C2D30 /* UAPushSettingsTagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D4BE7518683BED008C2D30 /* UAPushSettingsTagsViewController.m */; };
-		87D4BEB518683BEE008C2D30 /* UAPushSettingsTokenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D4BE7718683BED008C2D30 /* UAPushSettingsTokenViewController.m */; };
-		87D4BEB618683BEE008C2D30 /* UAPushSettingsUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D4BE7918683BED008C2D30 /* UAPushSettingsUserInfoViewController.m */; };
-		87D4BEB718683BEE008C2D30 /* UAPushSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D4BE7B18683BED008C2D30 /* UAPushSettingsViewController.m */; };
-		87D4BEB818683BEE008C2D30 /* UAPushUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D4BE7D18683BED008C2D30 /* UAPushUI.m */; };
-		87D4BEB918683BEE008C2D30 /* bottom-detail.png in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE8018683BED008C2D30 /* bottom-detail.png */; };
-		87D4BEBA18683BEE008C2D30 /* bottom-detail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE8118683BED008C2D30 /* bottom-detail@2x.png */; };
-		87D4BEBB18683BEE008C2D30 /* middle-detail.png in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE8218683BED008C2D30 /* middle-detail.png */; };
-		87D4BEBC18683BEE008C2D30 /* middle-detail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE8318683BED008C2D30 /* middle-detail@2x.png */; };
-		87D4BEBD18683BEE008C2D30 /* top-detail.png in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE8418683BED008C2D30 /* top-detail.png */; };
-		87D4BEBE18683BEE008C2D30 /* top-detail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE8518683BED008C2D30 /* top-detail@2x.png */; };
-		87D4BEBF18683BEE008C2D30 /* UALocationSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE8618683BED008C2D30 /* UALocationSettingsViewController.xib */; };
-		87D4BEC018683BEE008C2D30 /* UAMapPresentationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE8718683BED008C2D30 /* UAMapPresentationViewController.xib */; };
-		87D4BEC118683BEE008C2D30 /* UAPushLocalization.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE8818683BED008C2D30 /* UAPushLocalization.bundle */; };
-		87D4BEC218683BEE008C2D30 /* UAPushMoreSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE8918683BED008C2D30 /* UAPushMoreSettingsView.xib */; };
-		87D4BEC318683BEE008C2D30 /* UAPushSettingsAddTagViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE8A18683BED008C2D30 /* UAPushSettingsAddTagViewController.xib */; };
-		87D4BEC418683BEE008C2D30 /* UAPushSettingsAliasView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE8B18683BED008C2D30 /* UAPushSettingsAliasView.xib */; };
-		87D4BEC518683BEE008C2D30 /* UAPushSettingsSoundsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE8C18683BED008C2D30 /* UAPushSettingsSoundsViewController.xib */; };
-		87D4BEC618683BEE008C2D30 /* UAPushSettingsTagsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE8D18683BED008C2D30 /* UAPushSettingsTagsViewController.xib */; };
-		87D4BEC718683BEE008C2D30 /* UAPushSettingsTokenView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE8E18683BED008C2D30 /* UAPushSettingsTokenView.xib */; };
-		87D4BEC818683BEE008C2D30 /* UAPushSettingsUserInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE8F18683BED008C2D30 /* UAPushSettingsUserInfoView.xib */; };
-		87D4BEC918683BEE008C2D30 /* UAPushSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BE9018683BED008C2D30 /* UAPushSettingsView.xib */; };
 		87D4BECA18683C0D008C2D30 /* libUAirship-3.0.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87D4BE2E18683BED008C2D30 /* libUAirship-3.0.2.a */; };
 		87D72EC217DDEEB000DEB37E /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D72EC017DDEEB000DEB37E /* IconDownloader.m */; };
 		87D91B2A17687EFD00E46B66 /* CacheDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D91B2917687EFD00E46B66 /* CacheDelegate.m */; };
@@ -840,6 +786,7 @@
 		876CBCBA16F20A88004D542B /* IdentityDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentityDelegate.m; sourceTree = "<group>"; };
 		879D7B9517FB1224008C78E2 /* LoggerSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerSettingsViewController.h; sourceTree = "<group>"; };
 		879D7B9617FB1224008C78E2 /* LoggerSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LoggerSettingsViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		879F4392186C507000AED5AB /* OpenPeerSampleAppAPNS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "OpenPeerSampleAppAPNS-Info.plist"; sourceTree = SOURCE_ROOT; };
 		87A108681802C116001F705D /* Logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
 		87A108691802C116001F705D /* Logger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Logger.m; sourceTree = "<group>"; };
 		87A1086B1802CBDC001F705D /* logger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logger.png; sourceTree = "<group>"; };
@@ -849,7 +796,6 @@
 		87BFEDB8183A885C00A48821 /* AppConsts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppConsts.m; sourceTree = "<group>"; };
 		87BFEDB9183A885C00A48821 /* AppConsts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConsts.h; sourceTree = "<group>"; };
 		87D4BDD318675368008C2D30 /* openpeersample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = openpeersample.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		87D4BDD418675368008C2D30 /* OpenPeerSampleApp copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "OpenPeerSampleApp copy2-Info.plist"; path = "/Users/Sergej/Repos/GitHUB/jebenitarget/opios/Samples/OpenPeerSampleApp/OpenPeerSampleApp copy2-Info.plist"; sourceTree = "<absolute>"; };
 		87D4BDEF18683ACB008C2D30 /* AirshipConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AirshipConfig.plist; sourceTree = SOURCE_ROOT; };
 		87D4BDF318683B16008C2D30 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		87D4BDF518683B38008C2D30 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -907,85 +853,6 @@
 		87D4BE3218683BED008C2D30 /* UADeviceRegistrationData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UADeviceRegistrationData.h; sourceTree = "<group>"; };
 		87D4BE3318683BED008C2D30 /* UADeviceRegistrationPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UADeviceRegistrationPayload.h; sourceTree = "<group>"; };
 		87D4BE3418683BED008C2D30 /* UAPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAPush.h; sourceTree = "<group>"; };
-		87D4BE3A18683BED008C2D30 /* UABarButtonSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UABarButtonSegmentedControl.h; sourceTree = "<group>"; };
-		87D4BE3B18683BED008C2D30 /* UABarButtonSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UABarButtonSegmentedControl.m; sourceTree = "<group>"; };
-		87D4BE3C18683BED008C2D30 /* UABeveledLoadingIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UABeveledLoadingIndicator.h; sourceTree = "<group>"; };
-		87D4BE3D18683BED008C2D30 /* UABeveledLoadingIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UABeveledLoadingIndicator.m; sourceTree = "<group>"; };
-		87D4BE3E18683BED008C2D30 /* UADateUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UADateUtils.h; sourceTree = "<group>"; };
-		87D4BE3F18683BED008C2D30 /* UADateUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UADateUtils.m; sourceTree = "<group>"; };
-		87D4BE4018683BED008C2D30 /* UAInboxAlertHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAInboxAlertHandler.h; sourceTree = "<group>"; };
-		87D4BE4118683BED008C2D30 /* UAInboxAlertHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UAInboxAlertHandler.m; sourceTree = "<group>"; };
-		87D4BE4218683BED008C2D30 /* UAInboxMessageListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAInboxMessageListCell.h; sourceTree = "<group>"; };
-		87D4BE4318683BED008C2D30 /* UAInboxMessageListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UAInboxMessageListCell.m; sourceTree = "<group>"; };
-		87D4BE4418683BED008C2D30 /* UAInboxMessageListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAInboxMessageListController.h; sourceTree = "<group>"; };
-		87D4BE4518683BED008C2D30 /* UAInboxMessageListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UAInboxMessageListController.m; sourceTree = "<group>"; };
-		87D4BE4618683BED008C2D30 /* UAInboxMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAInboxMessageViewController.h; sourceTree = "<group>"; };
-		87D4BE4718683BED008C2D30 /* UAInboxMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UAInboxMessageViewController.m; sourceTree = "<group>"; };
-		87D4BE4818683BED008C2D30 /* UAInboxNavUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAInboxNavUI.h; sourceTree = "<group>"; };
-		87D4BE4918683BED008C2D30 /* UAInboxNavUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UAInboxNavUI.m; sourceTree = "<group>"; };
-		87D4BE4A18683BED008C2D30 /* UAInboxOverlayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAInboxOverlayController.h; sourceTree = "<group>"; };
-		87D4BE4B18683BED008C2D30 /* UAInboxOverlayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UAInboxOverlayController.m; sourceTree = "<group>"; };
-		87D4BE4C18683BED008C2D30 /* UAInboxUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAInboxUI.h; sourceTree = "<group>"; };
-		87D4BE4D18683BED008C2D30 /* UAInboxUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UAInboxUI.m; sourceTree = "<group>"; };
-		87D4BE4E18683BED008C2D30 /* UIWebView+UAAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+UAAdditions.h"; sourceTree = "<group>"; };
-		87D4BE4F18683BED008C2D30 /* UIWebView+UAAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+UAAdditions.m"; sourceTree = "<group>"; };
-		87D4BE5218683BED008C2D30 /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
-		87D4BE5318683BED008C2D30 /* check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check@2x.png"; sourceTree = "<group>"; };
-		87D4BE5418683BED008C2D30 /* down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = down.png; sourceTree = "<group>"; };
-		87D4BE5518683BED008C2D30 /* down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "down@2x.png"; sourceTree = "<group>"; };
-		87D4BE5718683BED008C2D30 /* overlayCloseBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = overlayCloseBtn.png; sourceTree = "<group>"; };
-		87D4BE5818683BED008C2D30 /* overlayCloseBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "overlayCloseBtn@2x.png"; sourceTree = "<group>"; };
-		87D4BE5918683BED008C2D30 /* UAInboxLocalization.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UAInboxLocalization.bundle; sourceTree = "<group>"; };
-		87D4BE5A18683BED008C2D30 /* UAInboxMessageListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UAInboxMessageListCell.xib; sourceTree = "<group>"; };
-		87D4BE5B18683BED008C2D30 /* UAInboxMessageListController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UAInboxMessageListController.xib; sourceTree = "<group>"; };
-		87D4BE5C18683BED008C2D30 /* UAInboxMessageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UAInboxMessageViewController.xib; sourceTree = "<group>"; };
-		87D4BE5D18683BED008C2D30 /* uncheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uncheck.png; sourceTree = "<group>"; };
-		87D4BE5E18683BED008C2D30 /* uncheck@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uncheck@2x.png"; sourceTree = "<group>"; };
-		87D4BE5F18683BED008C2D30 /* up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = up.png; sourceTree = "<group>"; };
-		87D4BE6018683BED008C2D30 /* up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "up@2x.png"; sourceTree = "<group>"; };
-		87D4BE6418683BED008C2D30 /* UALocationDemoAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UALocationDemoAnnotation.h; sourceTree = "<group>"; };
-		87D4BE6518683BED008C2D30 /* UALocationDemoAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UALocationDemoAnnotation.m; sourceTree = "<group>"; };
-		87D4BE6618683BED008C2D30 /* UALocationSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UALocationSettingsViewController.h; sourceTree = "<group>"; };
-		87D4BE6718683BED008C2D30 /* UALocationSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UALocationSettingsViewController.m; sourceTree = "<group>"; };
-		87D4BE6818683BED008C2D30 /* UAMapPresentationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAMapPresentationController.h; sourceTree = "<group>"; };
-		87D4BE6918683BED008C2D30 /* UAMapPresentationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UAMapPresentationController.m; sourceTree = "<group>"; };
-		87D4BE6A18683BED008C2D30 /* UAPushMoreSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAPushMoreSettingsViewController.h; sourceTree = "<group>"; };
-		87D4BE6B18683BED008C2D30 /* UAPushMoreSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UAPushMoreSettingsViewController.m; sourceTree = "<group>"; };
-		87D4BE6C18683BED008C2D30 /* UAPushNotificationHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAPushNotificationHandler.h; sourceTree = "<group>"; };
-		87D4BE6D18683BED008C2D30 /* UAPushNotificationHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UAPushNotificationHandler.m; sourceTree = "<group>"; };
-		87D4BE6E18683BED008C2D30 /* UAPushSettingsAddTagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAPushSettingsAddTagViewController.h; sourceTree = "<group>"; };
-		87D4BE6F18683BED008C2D30 /* UAPushSettingsAddTagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UAPushSettingsAddTagViewController.m; sourceTree = "<group>"; };
-		87D4BE7018683BED008C2D30 /* UAPushSettingsAliasViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAPushSettingsAliasViewController.h; sourceTree = "<group>"; };
-		87D4BE7118683BED008C2D30 /* UAPushSettingsAliasViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UAPushSettingsAliasViewController.m; sourceTree = "<group>"; };
-		87D4BE7218683BED008C2D30 /* UAPushSettingsSoundsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAPushSettingsSoundsViewController.h; sourceTree = "<group>"; };
-		87D4BE7318683BED008C2D30 /* UAPushSettingsSoundsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UAPushSettingsSoundsViewController.m; sourceTree = "<group>"; };
-		87D4BE7418683BED008C2D30 /* UAPushSettingsTagsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAPushSettingsTagsViewController.h; sourceTree = "<group>"; };
-		87D4BE7518683BED008C2D30 /* UAPushSettingsTagsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UAPushSettingsTagsViewController.m; sourceTree = "<group>"; };
-		87D4BE7618683BED008C2D30 /* UAPushSettingsTokenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAPushSettingsTokenViewController.h; sourceTree = "<group>"; };
-		87D4BE7718683BED008C2D30 /* UAPushSettingsTokenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UAPushSettingsTokenViewController.m; sourceTree = "<group>"; };
-		87D4BE7818683BED008C2D30 /* UAPushSettingsUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAPushSettingsUserInfoViewController.h; sourceTree = "<group>"; };
-		87D4BE7918683BED008C2D30 /* UAPushSettingsUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UAPushSettingsUserInfoViewController.m; sourceTree = "<group>"; };
-		87D4BE7A18683BED008C2D30 /* UAPushSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAPushSettingsViewController.h; sourceTree = "<group>"; };
-		87D4BE7B18683BED008C2D30 /* UAPushSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UAPushSettingsViewController.m; sourceTree = "<group>"; };
-		87D4BE7C18683BED008C2D30 /* UAPushUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAPushUI.h; sourceTree = "<group>"; };
-		87D4BE7D18683BED008C2D30 /* UAPushUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UAPushUI.m; sourceTree = "<group>"; };
-		87D4BE8018683BED008C2D30 /* bottom-detail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bottom-detail.png"; sourceTree = "<group>"; };
-		87D4BE8118683BED008C2D30 /* bottom-detail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bottom-detail@2x.png"; sourceTree = "<group>"; };
-		87D4BE8218683BED008C2D30 /* middle-detail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "middle-detail.png"; sourceTree = "<group>"; };
-		87D4BE8318683BED008C2D30 /* middle-detail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "middle-detail@2x.png"; sourceTree = "<group>"; };
-		87D4BE8418683BED008C2D30 /* top-detail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "top-detail.png"; sourceTree = "<group>"; };
-		87D4BE8518683BED008C2D30 /* top-detail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "top-detail@2x.png"; sourceTree = "<group>"; };
-		87D4BE8618683BED008C2D30 /* UALocationSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UALocationSettingsViewController.xib; sourceTree = "<group>"; };
-		87D4BE8718683BED008C2D30 /* UAMapPresentationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UAMapPresentationViewController.xib; sourceTree = "<group>"; };
-		87D4BE8818683BED008C2D30 /* UAPushLocalization.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UAPushLocalization.bundle; sourceTree = "<group>"; };
-		87D4BE8918683BED008C2D30 /* UAPushMoreSettingsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UAPushMoreSettingsView.xib; sourceTree = "<group>"; };
-		87D4BE8A18683BED008C2D30 /* UAPushSettingsAddTagViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UAPushSettingsAddTagViewController.xib; sourceTree = "<group>"; };
-		87D4BE8B18683BED008C2D30 /* UAPushSettingsAliasView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UAPushSettingsAliasView.xib; sourceTree = "<group>"; };
-		87D4BE8C18683BED008C2D30 /* UAPushSettingsSoundsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UAPushSettingsSoundsViewController.xib; sourceTree = "<group>"; };
-		87D4BE8D18683BED008C2D30 /* UAPushSettingsTagsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UAPushSettingsTagsViewController.xib; sourceTree = "<group>"; };
-		87D4BE8E18683BED008C2D30 /* UAPushSettingsTokenView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UAPushSettingsTokenView.xib; sourceTree = "<group>"; };
-		87D4BE8F18683BED008C2D30 /* UAPushSettingsUserInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UAPushSettingsUserInfoView.xib; sourceTree = "<group>"; };
-		87D4BE9018683BED008C2D30 /* UAPushSettingsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UAPushSettingsView.xib; sourceTree = "<group>"; };
 		87D72EC017DDEEB000DEB37E /* IconDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconDownloader.m; sourceTree = "<group>"; };
 		87D72EC117DDEEB000DEB37E /* IconDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconDownloader.h; sourceTree = "<group>"; };
 		87D91B2817687EFD00E46B66 /* CacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheDelegate.h; sourceTree = "<group>"; };
@@ -1388,7 +1255,6 @@
 				87272832166CBF9B0089CBB6 /* OpenPeerSampleApp */,
 				8727282B166CBF9B0089CBB6 /* Frameworks */,
 				87272829166CBF9B0089CBB6 /* Products */,
-				87D4BDD418675368008C2D30 /* OpenPeerSampleApp copy2-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1456,17 +1322,18 @@
 		87272833166CBF9B0089CBB6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				87D4BDEF18683ACB008C2D30 /* AirshipConfig.plist */,
-				87E4DA06180D5082002CA2D4 /* Sounds */,
-				8713363517CCBD6F008C91F7 /* Images */,
-				8713363117CCB676008C91F7 /* Default-568h@2x.png */,
-				87355FE817CCA8AF006151E7 /* Default@2x.png */,
 				87098FDC17C23997007C9093 /* OpenPeerDataModel.bundle */,
-				87272834166CBF9B0089CBB6 /* OpenPeerSampleApp-Info.plist */,
-				87272835166CBF9B0089CBB6 /* InfoPlist.strings */,
 				87272838166CBF9B0089CBB6 /* main.m */,
 				8727283A166CBF9B0089CBB6 /* OpenPeerSampleApp-Prefix.pch */,
+				87D4BDEF18683ACB008C2D30 /* AirshipConfig.plist */,
+				87272834166CBF9B0089CBB6 /* OpenPeerSampleApp-Info.plist */,
+				879F4392186C507000AED5AB /* OpenPeerSampleAppAPNS-Info.plist */,
+				8713363117CCB676008C91F7 /* Default-568h@2x.png */,
 				87355FE417CCA7E3006151E7 /* Default.png */,
+				87355FE817CCA8AF006151E7 /* Default@2x.png */,
+				8713363517CCBD6F008C91F7 /* Images */,
+				87272835166CBF9B0089CBB6 /* InfoPlist.strings */,
+				87E4DA06180D5082002CA2D4 /* Sounds */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1524,7 +1391,6 @@
 				87D4BE2E18683BED008C2D30 /* libUAirship-3.0.2.a */,
 				87D4BE2F18683BED008C2D30 /* libUAirship-iOS5-3.0.2.a */,
 				87D4BE3018683BED008C2D30 /* Push */,
-				87D4BE3518683BED008C2D30 /* UI */,
 			);
 			name = Airship;
 			path = 3rdParties/Airship;
@@ -1605,188 +1471,6 @@
 				87D4BE3418683BED008C2D30 /* UAPush.h */,
 			);
 			path = Push;
-			sourceTree = "<group>";
-		};
-		87D4BE3518683BED008C2D30 /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				87D4BE3618683BED008C2D30 /* Default */,
-			);
-			path = UI;
-			sourceTree = "<group>";
-		};
-		87D4BE3618683BED008C2D30 /* Default */ = {
-			isa = PBXGroup;
-			children = (
-				87D4BE3718683BED008C2D30 /* Inbox */,
-				87D4BE6118683BED008C2D30 /* Push */,
-			);
-			path = Default;
-			sourceTree = "<group>";
-		};
-		87D4BE3718683BED008C2D30 /* Inbox */ = {
-			isa = PBXGroup;
-			children = (
-				87D4BE3818683BED008C2D30 /* Classes */,
-				87D4BE5018683BED008C2D30 /* Resources */,
-			);
-			path = Inbox;
-			sourceTree = "<group>";
-		};
-		87D4BE3818683BED008C2D30 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				87D4BE3918683BED008C2D30 /* Shared */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		87D4BE3918683BED008C2D30 /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				87D4BE3A18683BED008C2D30 /* UABarButtonSegmentedControl.h */,
-				87D4BE3B18683BED008C2D30 /* UABarButtonSegmentedControl.m */,
-				87D4BE3C18683BED008C2D30 /* UABeveledLoadingIndicator.h */,
-				87D4BE3D18683BED008C2D30 /* UABeveledLoadingIndicator.m */,
-				87D4BE3E18683BED008C2D30 /* UADateUtils.h */,
-				87D4BE3F18683BED008C2D30 /* UADateUtils.m */,
-				87D4BE4018683BED008C2D30 /* UAInboxAlertHandler.h */,
-				87D4BE4118683BED008C2D30 /* UAInboxAlertHandler.m */,
-				87D4BE4218683BED008C2D30 /* UAInboxMessageListCell.h */,
-				87D4BE4318683BED008C2D30 /* UAInboxMessageListCell.m */,
-				87D4BE4418683BED008C2D30 /* UAInboxMessageListController.h */,
-				87D4BE4518683BED008C2D30 /* UAInboxMessageListController.m */,
-				87D4BE4618683BED008C2D30 /* UAInboxMessageViewController.h */,
-				87D4BE4718683BED008C2D30 /* UAInboxMessageViewController.m */,
-				87D4BE4818683BED008C2D30 /* UAInboxNavUI.h */,
-				87D4BE4918683BED008C2D30 /* UAInboxNavUI.m */,
-				87D4BE4A18683BED008C2D30 /* UAInboxOverlayController.h */,
-				87D4BE4B18683BED008C2D30 /* UAInboxOverlayController.m */,
-				87D4BE4C18683BED008C2D30 /* UAInboxUI.h */,
-				87D4BE4D18683BED008C2D30 /* UAInboxUI.m */,
-				87D4BE4E18683BED008C2D30 /* UIWebView+UAAdditions.h */,
-				87D4BE4F18683BED008C2D30 /* UIWebView+UAAdditions.m */,
-			);
-			path = Shared;
-			sourceTree = "<group>";
-		};
-		87D4BE5018683BED008C2D30 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				87D4BE5118683BED008C2D30 /* Shared */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		87D4BE5118683BED008C2D30 /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				87D4BE5218683BED008C2D30 /* check.png */,
-				87D4BE5318683BED008C2D30 /* check@2x.png */,
-				87D4BE5418683BED008C2D30 /* down.png */,
-				87D4BE5518683BED008C2D30 /* down@2x.png */,
-				87D4BE5618683BED008C2D30 /* Overlay */,
-				87D4BE5918683BED008C2D30 /* UAInboxLocalization.bundle */,
-				87D4BE5A18683BED008C2D30 /* UAInboxMessageListCell.xib */,
-				87D4BE5B18683BED008C2D30 /* UAInboxMessageListController.xib */,
-				87D4BE5C18683BED008C2D30 /* UAInboxMessageViewController.xib */,
-				87D4BE5D18683BED008C2D30 /* uncheck.png */,
-				87D4BE5E18683BED008C2D30 /* uncheck@2x.png */,
-				87D4BE5F18683BED008C2D30 /* up.png */,
-				87D4BE6018683BED008C2D30 /* up@2x.png */,
-			);
-			path = Shared;
-			sourceTree = "<group>";
-		};
-		87D4BE5618683BED008C2D30 /* Overlay */ = {
-			isa = PBXGroup;
-			children = (
-				87D4BE5718683BED008C2D30 /* overlayCloseBtn.png */,
-				87D4BE5818683BED008C2D30 /* overlayCloseBtn@2x.png */,
-			);
-			path = Overlay;
-			sourceTree = "<group>";
-		};
-		87D4BE6118683BED008C2D30 /* Push */ = {
-			isa = PBXGroup;
-			children = (
-				87D4BE6218683BED008C2D30 /* Classes */,
-				87D4BE7E18683BED008C2D30 /* Resources */,
-			);
-			path = Push;
-			sourceTree = "<group>";
-		};
-		87D4BE6218683BED008C2D30 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				87D4BE6318683BED008C2D30 /* Shared */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		87D4BE6318683BED008C2D30 /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				87D4BE6418683BED008C2D30 /* UALocationDemoAnnotation.h */,
-				87D4BE6518683BED008C2D30 /* UALocationDemoAnnotation.m */,
-				87D4BE6618683BED008C2D30 /* UALocationSettingsViewController.h */,
-				87D4BE6718683BED008C2D30 /* UALocationSettingsViewController.m */,
-				87D4BE6818683BED008C2D30 /* UAMapPresentationController.h */,
-				87D4BE6918683BED008C2D30 /* UAMapPresentationController.m */,
-				87D4BE6A18683BED008C2D30 /* UAPushMoreSettingsViewController.h */,
-				87D4BE6B18683BED008C2D30 /* UAPushMoreSettingsViewController.m */,
-				87D4BE6C18683BED008C2D30 /* UAPushNotificationHandler.h */,
-				87D4BE6D18683BED008C2D30 /* UAPushNotificationHandler.m */,
-				87D4BE6E18683BED008C2D30 /* UAPushSettingsAddTagViewController.h */,
-				87D4BE6F18683BED008C2D30 /* UAPushSettingsAddTagViewController.m */,
-				87D4BE7018683BED008C2D30 /* UAPushSettingsAliasViewController.h */,
-				87D4BE7118683BED008C2D30 /* UAPushSettingsAliasViewController.m */,
-				87D4BE7218683BED008C2D30 /* UAPushSettingsSoundsViewController.h */,
-				87D4BE7318683BED008C2D30 /* UAPushSettingsSoundsViewController.m */,
-				87D4BE7418683BED008C2D30 /* UAPushSettingsTagsViewController.h */,
-				87D4BE7518683BED008C2D30 /* UAPushSettingsTagsViewController.m */,
-				87D4BE7618683BED008C2D30 /* UAPushSettingsTokenViewController.h */,
-				87D4BE7718683BED008C2D30 /* UAPushSettingsTokenViewController.m */,
-				87D4BE7818683BED008C2D30 /* UAPushSettingsUserInfoViewController.h */,
-				87D4BE7918683BED008C2D30 /* UAPushSettingsUserInfoViewController.m */,
-				87D4BE7A18683BED008C2D30 /* UAPushSettingsViewController.h */,
-				87D4BE7B18683BED008C2D30 /* UAPushSettingsViewController.m */,
-				87D4BE7C18683BED008C2D30 /* UAPushUI.h */,
-				87D4BE7D18683BED008C2D30 /* UAPushUI.m */,
-			);
-			path = Shared;
-			sourceTree = "<group>";
-		};
-		87D4BE7E18683BED008C2D30 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				87D4BE7F18683BED008C2D30 /* Shared */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		87D4BE7F18683BED008C2D30 /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				87D4BE8018683BED008C2D30 /* bottom-detail.png */,
-				87D4BE8118683BED008C2D30 /* bottom-detail@2x.png */,
-				87D4BE8218683BED008C2D30 /* middle-detail.png */,
-				87D4BE8318683BED008C2D30 /* middle-detail@2x.png */,
-				87D4BE8418683BED008C2D30 /* top-detail.png */,
-				87D4BE8518683BED008C2D30 /* top-detail@2x.png */,
-				87D4BE8618683BED008C2D30 /* UALocationSettingsViewController.xib */,
-				87D4BE8718683BED008C2D30 /* UAMapPresentationViewController.xib */,
-				87D4BE8818683BED008C2D30 /* UAPushLocalization.bundle */,
-				87D4BE8918683BED008C2D30 /* UAPushMoreSettingsView.xib */,
-				87D4BE8A18683BED008C2D30 /* UAPushSettingsAddTagViewController.xib */,
-				87D4BE8B18683BED008C2D30 /* UAPushSettingsAliasView.xib */,
-				87D4BE8C18683BED008C2D30 /* UAPushSettingsSoundsViewController.xib */,
-				87D4BE8D18683BED008C2D30 /* UAPushSettingsTagsViewController.xib */,
-				87D4BE8E18683BED008C2D30 /* UAPushSettingsTokenView.xib */,
-				87D4BE8F18683BED008C2D30 /* UAPushSettingsUserInfoView.xib */,
-				87D4BE9018683BED008C2D30 /* UAPushSettingsView.xib */,
-			);
-			path = Shared;
 			sourceTree = "<group>";
 		};
 		87E4DA06180D5082002CA2D4 /* Sounds */ = {
@@ -1906,9 +1590,9 @@
 			productReference = 87272828166CBF9B0089CBB6 /* OpenPeerSampleApp.app */;
 			productType = "com.apple.product-type.application";
 		};
-		87D4BCD818675368008C2D30 /* openpeersample */ = {
+		87D4BCD818675368008C2D30 /* OpenPeerSampleAPNSApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 87D4BDD018675368008C2D30 /* Build configuration list for PBXNativeTarget "openpeersample" */;
+			buildConfigurationList = 87D4BDD018675368008C2D30 /* Build configuration list for PBXNativeTarget "OpenPeerSampleAPNSApp" */;
 			buildPhases = (
 				87D4BCDB18675368008C2D30 /* Sources */,
 				87D4BD1518675368008C2D30 /* Frameworks */,
@@ -1920,7 +1604,7 @@
 			dependencies = (
 				87D4BCD918675368008C2D30 /* PBXTargetDependency */,
 			);
-			name = openpeersample;
+			name = OpenPeerSampleAPNSApp;
 			productName = OpenPeerSampleApp;
 			productReference = 87D4BDD318675368008C2D30 /* openpeersample.app */;
 			productType = "com.apple.product-type.application";
@@ -1959,7 +1643,7 @@
 			projectRoot = "";
 			targets = (
 				87272827166CBF9B0089CBB6 /* OpenPeerSampleApp */,
-				87D4BCD818675368008C2D30 /* openpeersample */,
+				87D4BCD818675368008C2D30 /* OpenPeerSampleAPNSApp */,
 			);
 		};
 /* End PBXProject section */
@@ -1987,20 +1671,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				8730D7C91833A63D008D1D37 /* iPhone_loader_00015.png in Resources */,
-				87D4BEC518683BEE008C2D30 /* UAPushSettingsSoundsViewController.xib in Resources */,
 				8730D7BA1833A63D008D1D37 /* iPhone_loader_00007@2x.png in Resources */,
-				87D4BEBA18683BEE008C2D30 /* bottom-detail@2x.png in Resources */,
 				8730D6E41832601C008D1D37 /* VideoCallViewController.xib in Resources */,
 				87272837166CBF9B0089CBB6 /* InfoPlist.strings in Resources */,
 				874408CA182FE873004AD8FC /* IncomingCallView_iPhone.xib in Resources */,
-				87D4BEA318683BEE008C2D30 /* overlayCloseBtn@2x.png in Resources */,
-				87D4BEA518683BEE008C2D30 /* UAInboxMessageListCell.xib in Resources */,
 				871C7B9617FEDC3600BE641B /* OpenPeerLogo.png in Resources */,
 				87272851166CC1810089CBB6 /* MainViewController.xib in Resources */,
-				87D4BE9F18683BEE008C2D30 /* check@2x.png in Resources */,
 				8730D7DB1833A63D008D1D37 /* iPhone_loader_00024.png in Resources */,
 				87224758182D165A0027DA50 /* audio-call-mic-active.png in Resources */,
-				87D4BEA918683BEE008C2D30 /* uncheck@2x.png in Resources */,
 				87EE6070166F667C002C5FA3 /* WebLoginViewController.xib in Resources */,
 				87E4DA11180D5082002CA2D4 /* message-received.wav in Resources */,
 				8730D7701833A62A008D1D37 /* WaitingVideoViewController.xib in Resources */,
@@ -2017,19 +1695,14 @@
 				8730D7E01833A63D008D1D37 /* iPhone_loader_00026@2x.png in Resources */,
 				8730D7BF1833A63D008D1D37 /* iPhone_loader_00010.png in Resources */,
 				8730D7AC1833A63D008D1D37 /* iPhone_loader_00000@2x.png in Resources */,
-				87D4BEA718683BEE008C2D30 /* UAInboxMessageViewController.xib in Resources */,
 				870F3380168376450090A97F /* ActivityIndicatorViewController.xib in Resources */,
 				87F09EE2171EBB1B0045F6A6 /* ChatViewController.xib in Resources */,
 				8730D7BB1833A63D008D1D37 /* iPhone_loader_00008.png in Resources */,
 				87355FE517CCA7E3006151E7 /* Default.png in Resources */,
 				8730D7CF1833A63D008D1D37 /* iPhone_loader_00018.png in Resources */,
-				87D4BEC118683BEE008C2D30 /* UAPushLocalization.bundle in Resources */,
 				8722475B182D165A0027DA50 /* audio-call-speaker-active.png in Resources */,
-				87D4BEA118683BEE008C2D30 /* down@2x.png in Resources */,
 				87355FE917CCA8AF006151E7 /* Default@2x.png in Resources */,
-				87D4BEA818683BEE008C2D30 /* uncheck.png in Resources */,
 				8730D7CD1833A63D008D1D37 /* iPhone_loader_00017.png in Resources */,
-				87D4BEBD18683BEE008C2D30 /* top-detail.png in Resources */,
 				8730D7B71833A63D008D1D37 /* iPhone_loader_00006.png in Resources */,
 				8713363217CCB676008C91F7 /* Default-568h@2x.png in Resources */,
 				8713363917CCBD6F008C91F7 /* iPhone_background-568h@2x.png in Resources */,
@@ -2046,19 +1719,15 @@
 				8719AB0217CE0523007E991B /* tableViewCell.png in Resources */,
 				874408D5182FFE43004AD8FC /* video_indicator_white_big.png in Resources */,
 				8730D76418339AFE008D1D37 /* chat-bottom.png in Resources */,
-				87D4BEA618683BEE008C2D30 /* UAInboxMessageListController.xib in Resources */,
 				8719AB0717CE0710007E991B /* tableViewCell_selected@2x.png in Resources */,
 				8719AB0817CE0710007E991B /* tableViewCell_selected.png in Resources */,
 				8730D75C183398A5008D1D37 /* iPhone_Button-end-baritem.png in Resources */,
 				87E4D99F180BE07F002CA2D4 /* OpenPeerLogo57.png in Resources */,
 				87E4DA0E180D5082002CA2D4 /* calling.wav in Resources */,
-				87D4BEB918683BEE008C2D30 /* bottom-detail.png in Resources */,
 				871C7B8E17FEBED200BE641B /* SplashViewController.xib in Resources */,
 				8730D76B18339DBF008D1D37 /* iPhone_video_bottomBar_bkgd@2x.png in Resources */,
 				8719AB0C17CE0CEE007E991B /* iPhone_background_navigation_mode@2x.png in Resources */,
 				8730D76A18339DBF008D1D37 /* iPhone_video_bottomBar_bkgd.png in Resources */,
-				87D4BEA018683BEE008C2D30 /* down.png in Resources */,
-				87D4BEC918683BEE008C2D30 /* UAPushSettingsView.xib in Resources */,
 				8719AB0D17CE0CEE007E991B /* iPhone_background_navigation_mode.png in Resources */,
 				8719AB0E17CE0CEE007E991B /* iPhone_background_navigation_mode-568h@2x.png in Resources */,
 				8730D7B91833A63D008D1D37 /* iPhone_loader_00007.png in Resources */,
@@ -2069,8 +1738,6 @@
 				87224765182D170B0027DA50 /* call_recording_white_button.png in Resources */,
 				8719AB1217CE2C60007E991B /* audio_call_incoming_accept_button.png in Resources */,
 				8730D7C51833A63D008D1D37 /* iPhone_loader_00013.png in Resources */,
-				87D4BEAB18683BEE008C2D30 /* up@2x.png in Resources */,
-				87D4BEBE18683BEE008C2D30 /* top-detail@2x.png in Resources */,
 				8730D7CC1833A63D008D1D37 /* iPhone_loader_00016@2x.png in Resources */,
 				8757E1BD1827E5A200D7BDA1 /* iPhone_chat_textfield_bkgd@2x.png in Resources */,
 				8730D7B61833A63D008D1D37 /* iPhone_loader_00005@2x.png in Resources */,
@@ -2084,13 +1751,11 @@
 				8722A67E17D35AB3002A3BB6 /* video_indicator_blue.png in Resources */,
 				8722A67F17D35AB3002A3BB6 /* chat_indicator_blue.png in Resources */,
 				87E4D9A0180BE07F002CA2D4 /* OpenPeerLogo114.png in Resources */,
-				87D4BE9E18683BEE008C2D30 /* check.png in Resources */,
 				8730D7C61833A63D008D1D37 /* iPhone_loader_00013@2x.png in Resources */,
 				8730D7CA1833A63D008D1D37 /* iPhone_loader_00015@2x.png in Resources */,
 				8722475D182D165A0027DA50 /* audio-call-speaker-press.png in Resources */,
 				8730D7C31833A63D008D1D37 /* iPhone_loader_00012.png in Resources */,
 				8722A68017D35AB3002A3BB6 /* audio_indicator_blue.png in Resources */,
-				87D4BEC418683BEE008C2D30 /* UAPushSettingsAliasView.xib in Resources */,
 				874408D1182FFD6D004AD8FC /* handset_decline_icon.png in Resources */,
 				8730D7D01833A63D008D1D37 /* iPhone_loader_00018@2x.png in Resources */,
 				8722A69717D375E4002A3BB6 /* avatar.png in Resources */,
@@ -2119,13 +1784,10 @@
 				8730D7C01833A63D008D1D37 /* iPhone_loader_00010@2x.png in Resources */,
 				8730D7C41833A63D008D1D37 /* iPhone_loader_00012@2x.png in Resources */,
 				8722475A182D165A0027DA50 /* audio-call-mic-press.png in Resources */,
-				87D4BEC718683BEE008C2D30 /* UAPushSettingsTokenView.xib in Resources */,
 				8712BE7917D8CC7C00665F42 /* iPhone_tabBar_settings_active_Icon@2x.png in Resources */,
-				87D4BEC218683BEE008C2D30 /* UAPushMoreSettingsView.xib in Resources */,
 				8730D7E31833A63D008D1D37 /* iPhone_loader_00028.png in Resources */,
 				8712BE7A17D8CC7C00665F42 /* iPhone_tabBar_settings_active_Icon.png in Resources */,
 				8712BE7B17D8CC7C00665F42 /* iPhone_tabBar_contacts_inactive@2x.png in Resources */,
-				87D4BEC618683BEE008C2D30 /* UAPushSettingsTagsViewController.xib in Resources */,
 				87E4DA14180D5082002CA2D4 /* ringing.caf in Resources */,
 				87E4D9A1180BE07F002CA2D4 /* OpenPeerLogo120.png in Resources */,
 				8757E1C71827E7AE00D7BDA1 /* chat_bubble_right.png in Resources */,
@@ -2138,7 +1800,6 @@
 				874408D4182FFE43004AD8FC /* handset_accept_icon.png in Resources */,
 				8730D7DD1833A63D008D1D37 /* iPhone_loader_00025.png in Resources */,
 				8730D7C11833A63D008D1D37 /* iPhone_loader_00011.png in Resources */,
-				87D4BEAA18683BEE008C2D30 /* up.png in Resources */,
 				8730D7D51833A63D008D1D37 /* iPhone_loader_00021.png in Resources */,
 				8757E1BE1827E5A200D7BDA1 /* iPhone_chat_textfield.png in Resources */,
 				8722474D182D15750027DA50 /* iPhone_menu_grid_background@2x.png in Resources */,
@@ -2147,15 +1808,12 @@
 				87E4DA00180D3545002CA2D4 /* facebook_tag@2x.png in Resources */,
 				8712BE7E17D8CC7C00665F42 /* iPhone_tabBar_contacts_active.png in Resources */,
 				8730D6FE18328D6A008D1D37 /* iPhone_switch_camera.png in Resources */,
-				87D4BEBF18683BEE008C2D30 /* UALocationSettingsViewController.xib in Resources */,
 				87E4D9A8180BE199002CA2D4 /* OpenPeerLogo58.png in Resources */,
 				8712BE7F17D8CC7C00665F42 /* iPhone_tabBar_bkgd@2x.png in Resources */,
-				87D4BEBB18683BEE008C2D30 /* middle-detail.png in Resources */,
 				87224729182D01AB0027DA50 /* iPhone_lightning_bolt.png in Resources */,
 				8730D6FF18328D6A008D1D37 /* iPhone_switch_camera@2x.png in Resources */,
 				8730D7B01833A63D008D1D37 /* iPhone_loader_00002@2x.png in Resources */,
 				8730D7BC1833A63D008D1D37 /* iPhone_loader_00008@2x.png in Resources */,
-				87D4BEBC18683BEE008C2D30 /* middle-detail@2x.png in Resources */,
 				8730D7AE1833A63D008D1D37 /* iPhone_loader_00001@2x.png in Resources */,
 				87224764182D170B0027DA50 /* call_recording_red_button.png in Resources */,
 				871C7B9A17FEDD8900BE641B /* gear_icon.png in Resources */,
@@ -2170,13 +1828,9 @@
 				8757E1C61827E7AE00D7BDA1 /* chat_bubble_left.png in Resources */,
 				8730D76518339AFE008D1D37 /* chat-bottom@2x.png in Resources */,
 				8730D7DF1833A63D008D1D37 /* iPhone_loader_00026.png in Resources */,
-				87D4BEA218683BEE008C2D30 /* overlayCloseBtn.png in Resources */,
-				87D4BEC018683BEE008C2D30 /* UAMapPresentationViewController.xib in Resources */,
-				87D4BEC318683BEE008C2D30 /* UAPushSettingsAddTagViewController.xib in Resources */,
 				8730D7DE1833A63D008D1D37 /* iPhone_loader_00025@2x.png in Resources */,
 				8712BE8017D8CC7C00665F42 /* iPhone_tabBar_bkgd.png in Resources */,
-				87D4BEA418683BEE008C2D30 /* UAInboxLocalization.bundle in Resources */,
-				87D4BEC818683BEE008C2D30 /* UAPushSettingsUserInfoView.xib in Resources */,
+				879F4393186C507000AED5AB /* OpenPeerSampleAppAPNS-Info.plist in Resources */,
 				8712BE8117D8CC7C00665F42 /* iPhone_back_button@2x.png in Resources */,
 				8712BE8217D8CC7C00665F42 /* iPhone_back_button.png in Resources */,
 				871C7B9817FEDCEE00BE641B /* OpenPeerLogo@2x.png in Resources */,
@@ -2361,9 +2015,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				87D4BE9A18683BEE008C2D30 /* UAInboxNavUI.m in Sources */,
-				87D4BEB018683BEE008C2D30 /* UAPushNotificationHandler.m in Sources */,
-				87D4BE9B18683BEE008C2D30 /* UAInboxOverlayController.m in Sources */,
 				87272839166CBF9B0089CBB6 /* main.m in Sources */,
 				874FE10E17FD7FF0007A791B /* AppLog.m in Sources */,
 				8757E1CB1827E85700D7BDA1 /* TTTAttributedLabel.m in Sources */,
@@ -2372,11 +2023,9 @@
 				87A1086A1802C116001F705D /* Logger.m in Sources */,
 				8730D6E31832601C008D1D37 /* VideoCallViewController.m in Sources */,
 				87272859166CC45B0089CBB6 /* LoginManager.m in Sources */,
-				87D4BE9818683BEE008C2D30 /* UAInboxMessageListController.m in Sources */,
 				874AD9D1166CE6540095FE33 /* AccountDelegate.m in Sources */,
 				874AD9D5166CEAFB0095FE33 /* StackDelegate.m in Sources */,
 				874AD9D8166CEB390095FE33 /* MediaEngineDelegate.m in Sources */,
-				87D4BEAE18683BEE008C2D30 /* UAMapPresentationController.m in Sources */,
 				87BFEDBA183A885C00A48821 /* AppConsts.m in Sources */,
 				874AD9DB166CEB530095FE33 /* ConversationThreadDelegate.m in Sources */,
 				874AD9DE166CEB780095FE33 /* CallDelegate.m in Sources */,
@@ -2384,27 +2033,19 @@
 				871C7B8D17FEBED200BE641B /* SplashViewController.m in Sources */,
 				8757E1A21827BD2200D7BDA1 /* ContactsViewController.m in Sources */,
 				874AD9E5166D4C900095FE33 /* OpenPeer.m in Sources */,
-				87D4BE9918683BEE008C2D30 /* UAInboxMessageViewController.m in Sources */,
 				87EE5FFB166F5A7F002C5FA3 /* WebLoginViewController.m in Sources */,
 				87F24B5F166FF0C900A5389F /* Utility.m in Sources */,
 				87F24B62167003F400A5389F /* ContactsManager.m in Sources */,
-				87D4BEB518683BEE008C2D30 /* UAPushSettingsTokenViewController.m in Sources */,
 				87E4DA05180D4E8D002CA2D4 /* SoundsManager.m in Sources */,
 				875CD7E2167A14810037396B /* SessionManager.m in Sources */,
 				875CD7E5167A14960037396B /* Session.m in Sources */,
 				8730D76F1833A62A008D1D37 /* WaitingVideoViewController.m in Sources */,
-				87D4BE9518683BEE008C2D30 /* UADateUtils.m in Sources */,
-				87D4BEAC18683BEE008C2D30 /* UALocationDemoAnnotation.m in Sources */,
 				8723F8E917FC99EE003C8802 /* Settings.m in Sources */,
 				870F337F168376450090A97F /* ActivityIndicatorViewController.m in Sources */,
 				876CBCBB16F20A88004D542B /* IdentityDelegate.m in Sources */,
 				87FC39F71709BB39002030D1 /* MessageManager.m in Sources */,
-				87D4BEB418683BEE008C2D30 /* UAPushSettingsTagsViewController.m in Sources */,
-				87D4BEB318683BEE008C2D30 /* UAPushSettingsSoundsViewController.m in Sources */,
 				87FC3A151709BD8D002030D1 /* XMLWriter.m in Sources */,
-				87D4BEAD18683BEE008C2D30 /* UALocationSettingsViewController.m in Sources */,
 				8757E17F1827A0BF00D7BDA1 /* SessionViewController_iPhone.m in Sources */,
-				87D4BEB118683BEE008C2D30 /* UAPushSettingsAddTagViewController.m in Sources */,
 				87FC3A161709BD8D002030D1 /* SBJsonParser.m in Sources */,
 				87FC3A171709BD8D002030D1 /* SBJsonStreamParser.m in Sources */,
 				87FC3A181709BD8D002030D1 /* SBJsonStreamParserAccumulator.m in Sources */,
@@ -2414,33 +2055,22 @@
 				870059EE184F563800B6B826 /* UIBadgeView.m in Sources */,
 				87FC3A1A1709BD8D002030D1 /* SBJsonStreamParserState.m in Sources */,
 				87FC3A1B1709BD8D002030D1 /* SBJsonStreamTokeniser.m in Sources */,
-				87D4BE9D18683BEE008C2D30 /* UIWebView+UAAdditions.m in Sources */,
 				87FC3A1C1709BD8D002030D1 /* SBJsonStreamWriter.m in Sources */,
 				87FC3A1D1709BD8D002030D1 /* SBJsonStreamWriterAccumulator.m in Sources */,
 				8706DE02186359060032E39C /* CustomerSpecific.m in Sources */,
-				87D4BEB618683BEE008C2D30 /* UAPushSettingsUserInfoViewController.m in Sources */,
-				87D4BE9618683BEE008C2D30 /* UAInboxAlertHandler.m in Sources */,
 				87FC3A1E1709BD8D002030D1 /* SBJsonStreamWriterState.m in Sources */,
-				87D4BEAF18683BEE008C2D30 /* UAPushMoreSettingsViewController.m in Sources */,
 				87FC3A1F1709BD8D002030D1 /* SBJsonWriter.m in Sources */,
-				87D4BEB818683BEE008C2D30 /* UAPushUI.m in Sources */,
 				87FC3A201709BD8D002030D1 /* RXMLElement.m in Sources */,
-				87D4BEB718683BEE008C2D30 /* UAPushSettingsViewController.m in Sources */,
 				87F09EE3171EBB1B0045F6A6 /* ChatViewController.m in Sources */,
-				87D4BE9418683BEE008C2D30 /* UABeveledLoadingIndicator.m in Sources */,
 				87F09EE4171EBB1B0045F6A6 /* ChatMessageCell.m in Sources */,
 				87F09EE7171EBB2A0045F6A6 /* Message.m in Sources */,
-				87D4BE9718683BEE008C2D30 /* UAInboxMessageListCell.m in Sources */,
 				87E3CCE7172A814F00084D2F /* IdentityLookupDelegate.m in Sources */,
-				87D4BE9318683BEE008C2D30 /* UABarButtonSegmentedControl.m in Sources */,
 				87224733182D02F30027DA50 /* AudioCallViewController.m in Sources */,
-				87D4BE9C18683BEE008C2D30 /* UAInboxUI.m in Sources */,
 				87D91B2A17687EFD00E46B66 /* CacheDelegate.m in Sources */,
 				8722A67417CF7FAE002A3BB6 /* ContactTableViewCell.m in Sources */,
 				8712BE8A17D8CCAD00665F42 /* SettingsViewController.m in Sources */,
 				879D7B9717FB1224008C78E2 /* LoggerSettingsViewController.m in Sources */,
 				8712BE8B17D8CCAD00665F42 /* InfoViewController.m in Sources */,
-				87D4BEB218683BEE008C2D30 /* UAPushSettingsAliasViewController.m in Sources */,
 				87D72EC217DDEEB000DEB37E /* IconDownloader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2686,7 +2316,7 @@
 					"APNS_ENABLED=1",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "OpenPeerSampleApp copy2-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/OpenPeerSampleAppAPNS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2729,7 +2359,7 @@
 					"\"$(SDK_DIR)\"/usr/include/libxml2",
 					"\"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts\"",
 				);
-				INFOPLIST_FILE = "OpenPeerSampleApp copy2-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/OpenPeerSampleAppAPNS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2779,7 +2409,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		87D4BDD018675368008C2D30 /* Build configuration list for PBXNativeTarget "openpeersample" */ = {
+		87D4BDD018675368008C2D30 /* Build configuration list for PBXNativeTarget "OpenPeerSampleAPNSApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				87D4BDD118675368008C2D30 /* Debug */,

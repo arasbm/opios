@@ -43,7 +43,10 @@ typedef enum
     SystemMessage_CallAgain,
     SystemMessage_CheckAvailability,
     SystemMessage_APNS_Request,
-    SystemMessage_APNS_Response
+    SystemMessage_APNS_Response,
+    
+    
+    SystemMessage_None = 111
 }SystemMessageTypes;
 
 @interface MessageManager : NSObject
@@ -58,4 +61,6 @@ typedef enum
 - (void) parseSystemMessage:(HOPMessage*) inMessage forSession:(Session*) inSession;
 - (void) sendMessage:(NSString*) message forSession:(Session*) inSession;
 - (void) onMessageReceived:(HOPMessage*) message forSessionId:(NSString*) sessionId;
+
+- (SystemMessageTypes) getTypeForSystemMessage:(HOPMessage*) message;
 @end
