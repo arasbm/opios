@@ -35,6 +35,4 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-+ (NSData *)dataFromHexString:(NSString *)string;
-+ (NSString *)hexadecimalStringForData:(NSData *)data;
 @end

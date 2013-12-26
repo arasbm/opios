@@ -33,6 +33,7 @@
 #import "OpenPeer.h"
 #import "MainViewController.h"
 #import "LoginManager.h"
+#import "Utility.h"
 
 #ifdef APNS_ENABLED
 #import "APNSManager.h"
@@ -104,71 +105,16 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+#ifdef APNS_ENABLED
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-#ifdef APNS_ENABLED
-//    NSString *tokenStr = [[deviceToken description] substringWithRange:NSMakeRange(1, 71)];
-//    
-//    NSString *result=[tokenStr stringByReplacingOccurrencesOfString:@" " withString:@""];
-    
-    NSString* hexString = [AppDelegate hexadecimalStringForData:deviceToken];
-//    NSData* data = [AppDelegate dataFromHexString:hexString];
-//    NSString *tokenStr2 = [[data description] substringWithRange:NSMakeRange(1, 71)];
+    NSString* hexString = [Utility hexadecimalStringForData:deviceToken];
     
     NSLog(@"deviceToken result:%@",hexString);
 
     [[APNSManager sharedAPNSManager] registerDeviceToken:deviceToken];
     [[APNSManager sharedAPNSManager] setDeviceToken:hexString];
     [[OpenPeer sharedOpenPeer] setDeviceToken:hexString];
-     
-    /*NSString* deveiceTokenToREceive = @"34a4615a a2a9d182 011382a8 8f16be64 a065d601 0f89b74f 468021d6 02735a81";
-    if (![deveiceTokenToREceive isEqualToString:hexString])
-    {
-        [[APNSManager sharedAPNSManager] sendPushNotificationForDeviceToken:deveiceTokenToREceive message:@"Wellcome bro."];
-    }*/
-#endif
-    
-    
-}
-
-+ (NSData *)dataFromHexString:(NSString *)string
-{
-    string = [string lowercaseString];
-    NSMutableData *data= [NSMutableData new];
-    unsigned char whole_byte;
-    char byte_chars[3] = {'\0','\0','\0'};
-    int i = 0;
-    int length = string.length;
-    while (i < length-1) {
-        char c = [string characterAtIndex:i++];
-        if (c < '0' || (c > '9' && c < 'a') || c > 'f')
-            continue;
-        byte_chars[0] = c;
-        byte_chars[1] = [string characterAtIndex:i++];
-        whole_byte = strtol(byte_chars, NULL, 16);
-        [data appendBytes:&whole_byte length:1];
-        
-    }
-    
-    return data;
-}
-
-+ (NSString *)hexadecimalStringForData:(NSData *)data
-{
-    /* Returns hexadecimal string of NSData. Empty string if data is empty.   */
-    
-    const unsigned char *dataBuffer = (const unsigned char *)[data bytes];
-    
-    if (!dataBuffer)
-        return [NSString string];
-    
-    NSUInteger          dataLength  = [data length];
-    NSMutableString     *hexString  = [NSMutableString stringWithCapacity:(dataLength * 2)];
-    
-    for (int i = 0; i < dataLength; ++i)
-        [hexString appendString:[NSString stringWithFormat:@"%02lx", (unsigned long)dataBuffer[i]]];
-    
-    return [NSString stringWithString:hexString];
 }
 
 - (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
@@ -178,9 +124,17 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     NSLog(@"Received push notification with userInfo:%@", userInfo);
+    NSDictionary *apnsInfo = [userInfo valueForKey:@"UIApplicationLaunchOptionsRemoteNotificationKey"];
+    
+    if ([apnsInfo count] > 0)
+    {
+        [[APNSManager sharedAPNSManager] handleAPNS:apnsInfo];
+    }
 }
 - (void)handleNotification:(NSDictionary *)notification applicationState:(UIApplicationState)state
 {
     NSLog(@"Received push notification with notification:%@", notification);
 }
+
+#endif
 @end

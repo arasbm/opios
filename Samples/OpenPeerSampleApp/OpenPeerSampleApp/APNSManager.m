@@ -87,6 +87,8 @@
 }
 - (void) prepareUrbanAirShip
 {
+    [UAirship setLogging:NO];
+    
     UAConfig *config = [UAConfig defaultConfig];
     [UAirship takeOff:config];
     
