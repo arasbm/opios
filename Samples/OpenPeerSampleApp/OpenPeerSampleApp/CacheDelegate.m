@@ -30,47 +30,25 @@
  */
 
 #import "CacheDelegate.h"
+#import "CoreDataManager.h"
 
 
 @implementation CacheDelegate
 
 - (NSString*) fetchCookieWithPath:(NSString*) cookieNamePath
 {
-    NSString* ret = nil;
-    
-    NSData* data = [[NSUserDefaults standardUserDefaults] objectForKey:cookieNamePath];
-    if (data)
-    {
-        NSKeyedUnarchiver *aDecoder = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-        if (aDecoder)
-        {
-            NSDate* expireDate = [aDecoder decodeObjectForKey:@"expireDate"];
-            if ([expireDate compare:[NSDate date]] == NSOrderedDescending)
-                ret = [aDecoder decodeObjectForKey:@"value"];
-            else
-                [self clearCookieWithPath:cookieNamePath];
-        }
-    }
-    
+    NSString* ret = [[CoreDataManager sharedCoreDataManager] getCookieWithPath:cookieNamePath];
     return ret;
 }
 
 - (void) storeCookie:(NSString*) cookie cookieNamePath:(NSString*) cookieNamePath expireTime:(NSDate*) expireTime
 {
-    NSMutableData *data = [NSMutableData data];
-    
-    NSKeyedArchiver *aCoder = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-    
-    [aCoder encodeObject:cookie forKey:@"value"];
-    [aCoder encodeObject:expireTime forKey:@"expireDate"];
-    [aCoder finishEncoding];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:data forKey:cookieNamePath];
+    [[CoreDataManager sharedCoreDataManager] setCookie:cookie withPath:cookieNamePath expires:expireTime];
 }
 
 - (void) clearCookieWithPath:(NSString*) cookieNamePath
 {
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:cookieNamePath];
+    [[CoreDataManager sharedCoreDataManager] removeCookieForPath:cookieNamePath];
 }
 
 @end
