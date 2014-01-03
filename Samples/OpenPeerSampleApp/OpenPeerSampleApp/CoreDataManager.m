@@ -179,11 +179,16 @@
     return ret;
 }
 
-- (Cache*) getCacheDataForPath:(NSString*) path
+- (Cache*) getCacheDataForPath:(NSString*) path includeExpired:(BOOL) includeExpired
 {
     Cache* ret = nil;
     
-    NSArray* results = [self getResultsInBackgroundForEntity:@"Cache" withPredicateString:[NSString stringWithFormat:@"(path MATCHES '%@') AND (expire >= %f)", path, [[NSDate date] timeIntervalSince1970]] orderDescriptors:nil];
+    NSArray* results = nil;
+    
+    if (includeExpired)
+        results = [self getResultsInBackgroundForEntity:@"Cache" withPredicateString:[NSString stringWithFormat:@"path MATCHES '%@'", path] orderDescriptors:nil];
+    else
+        results = [self getResultsInBackgroundForEntity:@"Cache" withPredicateString:[NSString stringWithFormat:@"(path MATCHES '%@') AND (expire >= %f)", path, [[NSDate date] timeIntervalSince1970]] orderDescriptors:nil];
     
     ret = [results count] > 0 ? ((Cache*)results[0]) : nil;
     
@@ -197,7 +202,7 @@
         OPLog(HOPLoggerSeverityInformational, HOPLoggerLevelInsane, @"Set cookie for path %@ with expire date: %@",path, expires == nil ? @"infinitely" : expires);
         [self.backgroundManagedObjectContext performBlockAndWait:
          ^{
-             Cache* cacheData = [self getCacheDataForPath:path];
+             Cache* cacheData = [self getCacheDataForPath:path includeExpired:YES];
              
              if (!cacheData)
                  cacheData = (Cache*)[self createObjectInBackgroundForEntity:@"Cache"];
@@ -225,8 +230,19 @@
         
         [self.backgroundManagedObjectContext performBlockAndWait:
          ^{
-             Cache* cacheData = [self getCacheDataForPath:path];
-             ret = cacheData.data;
+             Cache* cacheData = [self getCacheDataForPath:path includeExpired:YES];
+             if (cacheData)
+             {
+                 if ([cacheData.expire  doubleValue] < [[NSDate date] timeIntervalSince1970])
+                 {
+                     OPLog(HOPLoggerSeverityInformational, HOPLoggerLevelInsane, @"Cookie for path %@ has expired",path);
+                     [self removeCookieForPath:path];
+                 }
+                else
+                {
+                     ret = cacheData.data;
+                }
+             }
          }];
     }
     else
