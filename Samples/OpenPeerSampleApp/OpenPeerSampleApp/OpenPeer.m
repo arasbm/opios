@@ -41,6 +41,7 @@
 #import "OpenpeerSDK/HOPCache.h"
 //Managers
 #import "LoginManager.h"
+#import "CoreDataManager.h"
 //Delegates
 #import "StackDelegate.h"
 #import "MediaEngineDelegate.h"
@@ -112,6 +113,7 @@
     //Created all delegates required for openpeer stack initialization.
     [self createDelegates];
     
+    [[CoreDataManager sharedCoreDataManager] removeExpiredCookies];
     //Init cache singleton
     [[HOPCache sharedCache] setDelegate:self.cacheDelegate];
     
