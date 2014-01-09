@@ -205,6 +205,8 @@
 		87B5EAC318683E4300D25C3B /* APNSManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B5EABF18683E3B00D25C3B /* APNSManager.m */; };
 		87B5EAEE1868715400D25C3B /* AirshipConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 87D4BDEF18683ACB008C2D30 /* AirshipConfig.plist */; };
 		87BFEDBA183A885C00A48821 /* AppConsts.m in Sources */ = {isa = PBXBuildFile; fileRef = 87BFEDB8183A885C00A48821 /* AppConsts.m */; };
+		87C568EF187EDAB700108034 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A3F0B918762C6300717E83 /* CoreDataManager.m */; };
+		87C568F0187EDC6700108034 /* CacheModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 87A3F09C18762B6B00717E83 /* CacheModel.xcdatamodeld */; };
 		87D4BCDC18675368008C2D30 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 87272838166CBF9B0089CBB6 /* main.m */; };
 		87D4BCDD18675368008C2D30 /* AppLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 874FE10D17FD7FF0007A791B /* AppLog.m */; };
 		87D4BCDE18675368008C2D30 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8757E1CA1827E85700D7BDA1 /* TTTAttributedLabel.m */; };
@@ -855,8 +857,8 @@
 		87D4BE2B18683BED008C2D30 /* UAInboxPushHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAInboxPushHandler.h; sourceTree = "<group>"; };
 		87D4BE2C18683BED008C2D30 /* UAInboxUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAInboxUtils.h; sourceTree = "<group>"; };
 		87D4BE2D18683BED008C2D30 /* UAJSONValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAJSONValueTransformer.h; sourceTree = "<group>"; };
-		87D4BE2E18683BED008C2D30 /* libUAirship-3.0.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libUAirship-3.0.2.a"; sourceTree = "<group>"; };
-		87D4BE2F18683BED008C2D30 /* libUAirship-iOS5-3.0.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libUAirship-iOS5-3.0.2.a"; sourceTree = "<group>"; };
+		87D4BE2E18683BED008C2D30 /* libUAirship-3.0.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libUAirship-3.0.2.a"; path = "3rdParties/Airship/libUAirship-3.0.2.a"; sourceTree = SOURCE_ROOT; };
+		87D4BE2F18683BED008C2D30 /* libUAirship-iOS5-3.0.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libUAirship-iOS5-3.0.2.a"; path = "3rdParties/Airship/libUAirship-iOS5-3.0.2.a"; sourceTree = SOURCE_ROOT; };
 		87D4BE3118683BED008C2D30 /* UADeviceAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UADeviceAPIClient.h; sourceTree = "<group>"; };
 		87D4BE3218683BED008C2D30 /* UADeviceRegistrationData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UADeviceRegistrationData.h; sourceTree = "<group>"; };
 		87D4BE3318683BED008C2D30 /* UADeviceRegistrationPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UADeviceRegistrationPayload.h; sourceTree = "<group>"; };
@@ -2149,6 +2151,7 @@
 				87D4BD0618675368008C2D30 /* CustomerSpecific.m in Sources */,
 				87D4BD0718675368008C2D30 /* SBJsonStreamWriterState.m in Sources */,
 				87D4BD0818675368008C2D30 /* SBJsonWriter.m in Sources */,
+				87C568F0187EDC6700108034 /* CacheModel.xcdatamodeld in Sources */,
 				87D4BD0918675368008C2D30 /* RXMLElement.m in Sources */,
 				87D4BD0A18675368008C2D30 /* ChatViewController.m in Sources */,
 				87D4BD0B18675368008C2D30 /* ChatMessageCell.m in Sources */,
@@ -2157,6 +2160,7 @@
 				87D4BD0E18675368008C2D30 /* AudioCallViewController.m in Sources */,
 				87D4BD0F18675368008C2D30 /* CacheDelegate.m in Sources */,
 				87D4BD1018675368008C2D30 /* ContactTableViewCell.m in Sources */,
+				87C568EF187EDAB700108034 /* CoreDataManager.m in Sources */,
 				87D4BD1118675368008C2D30 /* SettingsViewController.m in Sources */,
 				87D4BD1218675368008C2D30 /* LoggerSettingsViewController.m in Sources */,
 				87D4BD1318675368008C2D30 /* InfoViewController.m in Sources */,
@@ -2260,7 +2264,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/system",
-					/Users/Sergej/Repos/GitHUB/jebenitarget/opios/Samples/OpenPeerSampleApp/3rdParties/Airship,
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = (
@@ -2301,7 +2304,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/system",
-					/Users/Sergej/Repos/GitHUB/jebenitarget/opios/Samples/OpenPeerSampleApp/3rdParties/Airship,
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = (
@@ -2345,7 +2347,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/system",
-					/Users/Sergej/Repos/GitHUB/jebenitarget/opios/Samples/OpenPeerSampleApp/3rdParties/Airship,
+					./3rdParties/Airship/,
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
@@ -2360,7 +2362,7 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = openpeersample;
-				PROVISIONING_PROFILE = "35CFC482-0977-4C08-BC63-206ECF89DAD9";
+				PROVISIONING_PROFILE = "F0ABAE63-F921-4AFD-BC72-D6F5C41B9194";
 				SUPPORTED_PLATFORMS = iphoneos;
 				WARNING_CFLAGS = (
 					"-Wno-c++11-extensions",
@@ -2388,7 +2390,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/system",
-					/Users/Sergej/Repos/GitHUB/jebenitarget/opios/Samples/OpenPeerSampleApp/3rdParties/Airship,
+					./3rdParties/Airship/,
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = (
@@ -2402,7 +2404,7 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = openpeersample;
-				PROVISIONING_PROFILE = "35CFC482-0977-4C08-BC63-206ECF89DAD9";
+				PROVISIONING_PROFILE = "F0ABAE63-F921-4AFD-BC72-D6F5C41B9194";
 				SUPPORTED_PLATFORMS = iphoneos;
 				WARNING_CFLAGS = (
 					"-Wno-c++11-extensions",
