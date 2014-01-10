@@ -276,6 +276,7 @@
             
         case EXISITNG_SESSION_SWITCH:
             sessionViewContorller = [self.sessionViewControllersDictionary objectForKey:sessionId];
+            sessionViewContorller.hidesBottomBarWhenPushed = YES;
             [sessionViewContorller.chatViewController refreshViewWithData];
             [navigationController popToRootViewControllerAnimated:NO];
             [navigationController pushViewController:sessionViewContorller animated:YES];
