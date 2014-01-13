@@ -93,9 +93,11 @@
 - (void) onConversationThreadMessageDeliveryStateChanged:(HOPConversationThread*) conversationThread messageID:(NSString*) messageID messageDeliveryStates:(HOPConversationThreadMessageDeliveryStates) messageDeliveryStates
 {
     NSLog(@"onConversationThreadMessageDeliveryStateChanged: %d",messageDeliveryStates);
-    
+}
+- (void) onConversationThreadPushMessage:(HOPConversationThread*) conversationThread messageID:(NSString*) messageID contact:(HOPContact*) contact
+{
 #ifdef APNS_ENABLED
-    if (messageDeliveryStates == HOPConversationThreadMessageDeliveryStateUserNotAvailable)
+    //if (messageDeliveryStates == HOPConversationThreadMessageDeliveryStateUserNotAvailable)
     {
         NSArray* contacts = [conversationThread getContacts];
         if ([contacts count] > 0)
@@ -126,11 +128,6 @@
     }
 #endif
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-    });
-}
-- (void) onConversationThreadPushMessage:(HOPConversationThread*) conversationThread messageID:(NSString*) messageID contact:(HOPContact*) contact
-{
     dispatch_async(dispatch_get_main_queue(), ^{
     });
 }
